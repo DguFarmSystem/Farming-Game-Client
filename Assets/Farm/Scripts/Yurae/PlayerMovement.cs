@@ -20,7 +20,7 @@ public class PlayerMovement : NetworkBehaviour
             // 서버만 위치 계산을 함
             if (Object.HasStateAuthority)
             {
-                Vector3 moveDir = new Vector3(input.horizontal, 0, input.vertical).normalized;
+                Vector2 moveDir = new Vector2(input.horizontal, input.vertical).normalized;
                 Velocity = moveDir * moveSpeed;
                 transform.position += Velocity * Runner.DeltaTime;
             }
