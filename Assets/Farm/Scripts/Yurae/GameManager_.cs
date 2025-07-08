@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager_ : MonoBehaviour
 {
     // 하드코딩된 토큰
     private string userToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUwOTM2NzQ3LCJleHAiOjE3NTA5NDAzNDd9.h--VaTF3kVugq48hB4VIggtJaDR5Ml4wS_wn1vcYmTs";
