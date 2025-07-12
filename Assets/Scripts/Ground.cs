@@ -3,6 +3,7 @@ using UnityEngine;
 public class Ground : MonoBehaviour
 {
     [Header("밭 상태")]
+    public int id; // 0번 부터 1번 밭
     public bool isLock = true;          // 잠겨있는지
     public bool isPlant = false;        // 씨앗 심어져 있는지
     public bool isBloomReady = false;   // 수확 가능한지
@@ -14,8 +15,25 @@ public class Ground : MonoBehaviour
     [Header("꽃 정보")]
     private string flowerName;
 
+    [Header("땅 스프라이트")]
+    SpriteRenderer spriter; // 현재 땅의 스프라이트 렌더러
+    public Sprite[] empty_Ground; // 빈 땅 이미지
+    public Sprite[] seed_Ground; // 씨앗 땅
+    public Sprite[] grow1_Ground; // 1 번째 성장 땅
+    public Sprite[] grow2_Ground; // 2 번째 성장 땅
+    public Sprite[] grow3_Ground; // 3 번째 성장 땅
+    public Sprite[] full_Ground; //다 자란 땅
+    public Sprite[] lock_Ground; //잠긴 땅
+
+    void Start()
+    {
+        spriter = GetComponent<SpriteRenderer>(); //스프라이트 렌더러 넣어주기
+
+    }
+
     private void Update()
     {
+        Sprite_Update();
         if (isPlant && !isBloomReady)
         {
             curTime += Time.deltaTime;
@@ -121,5 +139,38 @@ public class Ground : MonoBehaviour
     public void reduceTime(float time)
     {
         curTime += time;
+    }
+
+    private void Sprite_Update()
+    {
+        if (isLock) spriter.sprite = lock_Ground[id - 1]; //1번땅은 잠긴게 없어서 id-1 해야 잠긴땅 스프라이트 적용
+        else
+        {
+            if (isPlant)
+            {
+                if (isBloomReady) spriter.sprite = full_Ground[id]; //다 자란 땅
+                else // 안자란 땅
+                {
+
+                    if (curTime / bloomTime < 0.3) //30% 이하 일 경우
+                    {
+                        spriter.sprite = grow1_Ground[id]; //1 번째 자란 땅
+                    }
+                    else if (curTime / bloomTime < 0.6) // 60% 이하 일 경우
+                    {
+                        spriter.sprite = grow2_Ground[id]; // 2번째 자란 땅
+                    }
+                    else //그 외 60 % 이상
+                    {
+                        spriter.sprite = grow3_Ground[id]; //3 번째 자란땅
+                    }
+                }
+            }
+            else
+            {
+                spriter.sprite = empty_Ground[id]; //씨앗이 없으면 빈땅
+            }
+
+        }
     }
 }
