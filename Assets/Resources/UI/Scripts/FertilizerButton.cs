@@ -13,6 +13,7 @@ public class FertilizerButton : MonoBehaviour
     {
         if (InventoryManager.Instance.Use(item_Id))
         {
+            if(targetGround.isBloomReady) return; //이미 수확 가능하면 아이템 안쓰기
             switch (item_Id)
             {
                 case 0:
