@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
     public PlantUI plantUI;
     public HarvestUI harvestUI;
     public ItemUseUI itemUseUI;
+    public GameObject shopUI; //상점 UI
+
 
     private void Awake() => Instance = this;
 
@@ -39,5 +41,11 @@ public class UIManager : MonoBehaviour
         plantUI?.Hide();
         harvestUI?.Hide();
         itemUseUI?.Hide();
+    }
+
+    public void ShowShopUI()
+    {
+        //유아이 켜주기
+        shopUI.SetActive(!shopUI.activeSelf);
     }
 }

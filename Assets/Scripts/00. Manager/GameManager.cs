@@ -8,6 +8,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     #region Singleton
+
+    public int money = 0; //돈
+
+
+
     private static GameManager instance;
     public static GameManager Instance
     {
