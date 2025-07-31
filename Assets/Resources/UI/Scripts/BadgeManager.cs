@@ -9,7 +9,9 @@ public class BadgeManager : MonoBehaviour
     [SerializeField] private RectTransform badgeLid;
     [SerializeField] private Image[] badgeSlots;         // Badge_0 ~ Badge_10
     [SerializeField] private Sprite[] badgeSprites;      // 획득한 뱃지 Sprite
+    [SerializeField] private BadgeData[] badgeDatas;
     [SerializeField] private GameObject closeButton;
+    [SerializeField] private GameObject badgeSlotsParent;
 
     [Header("Animation Settings")]
     [SerializeField] private Vector2 caseHiddenPos = new Vector2(0, -1200f);
@@ -22,6 +24,7 @@ public class BadgeManager : MonoBehaviour
         InitBadges();
         UnlockBadge(0);
         UnlockBadge(8);
+        UnlockBadge(6);
     }
 
     private void InitBadges()
@@ -30,6 +33,12 @@ public class BadgeManager : MonoBehaviour
         {
             badgeSlots[i].sprite = null;
             badgeSlots[i].color = new Color(1, 1, 1, 0f); // 아예 안 보이게
+
+            var trigger = badgeSlots[i].GetComponent<BadgeTrigger>();
+            if (trigger != null)
+            {
+                trigger.data = badgeDatas[i];  // 연결
+            }
         }
     }
 
@@ -46,28 +55,36 @@ public class BadgeManager : MonoBehaviour
         RefreshBadges();
         closeButton.SetActive(true);
 
-        // 초기 위치와 상태 설정
-        caseRoot.anchoredPosition = caseHiddenPos;
-        badgeLid.anchoredPosition = caseHiddenPos;
+        Vector2 startPos = caseHiddenPos;
+        Vector2 targetPos = caseVisiblePos;
+
+        caseRoot.anchoredPosition = startPos;
+        badgeLid.anchoredPosition = startPos;
         badgeLid.localScale = Vector3.one;
         badgeLid.gameObject.SetActive(true);
+        badgeSlotsParent.SetActive(false); // 초기에는 숨김
 
         Sequence openSeq = DOTween.Sequence();
 
-        // 1. 케이스와 뚜껑 함께 올라오기 (0.5초)
-        openSeq.Append(caseRoot.DOAnchorPos(caseVisiblePos, 0.5f).SetEase(Ease.OutBack));
-        openSeq.Join(badgeLid.DOAnchorPos(caseVisiblePos, 0.5f).SetEase(Ease.OutBack));
+        // 1. 케이스+뚜껑 슬라이드 업 (0.6초)
+        openSeq.Append(caseRoot.DOAnchorPos(targetPos, 0.6f).SetEase(Ease.OutQuad));
+        openSeq.Join(badgeLid.DOAnchorPos(targetPos, 0.6f).SetEase(Ease.OutQuad));
 
-        // 2. 뚜껑 커지기 (0.3초)
-        openSeq.Append(badgeLid.DOScale(1.2f, 0.3f).SetEase(Ease.OutQuad));
+        // 2. 잠깐 대기 (0.3초)
+        openSeq.AppendInterval(0.3f);
 
-        // 3. 뚜껑 위로 사라지기 (1초)
-        openSeq.Append(badgeLid.DOAnchorPosY(600f, 1f).SetEase(Ease.InOutQuad));
+        // 3. 뚜껑 커짐 (0.3초) → 뱃지 보드 사이즈 맞춤
+        openSeq.Append(badgeLid.DOScale(1.15f, 0.5f).SetEase(Ease.OutSine));
 
-        // 4. 뚜껑 비활성화
+        // 4. 커진 직후 뱃지 보드 등장
+        openSeq.AppendCallback(() => badgeSlotsParent.SetActive(true));
+
+        // 5. 뚜껑 위로 슬라이드 (0.8초)
+        openSeq.Append(badgeLid.DOAnchorPosY(targetPos.y + 1000f, 1.5f).SetEase(Ease.InOutSine));
+
+        // 6. 뚜껑 비활성화
         openSeq.AppendCallback(() => badgeLid.gameObject.SetActive(false));
     }
-
 
     public void Close()
     {
