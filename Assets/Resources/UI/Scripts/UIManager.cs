@@ -6,7 +6,6 @@ public class UIManager : MonoBehaviour
 
     public PlantUI plantUI;
     public HarvestUI harvestUI;
-    public ItemUseUI itemUseUI;
     public GameObject shopUI; //상점 UI
 
 
@@ -24,23 +23,10 @@ public class UIManager : MonoBehaviour
         harvestUI.Init(ground);
     }
 
-    public void ShowItemUseUI(Ground ground)
-    {
-        Debug.Log("ShowItemUseUI 호출됨");
-        HideAll();
-        itemUseUI.Init(ground);
-    }
-
-    public bool IsItemUseUIActiveFor(Ground ground)
-    {
-        return itemUseUI.IsVisibleFor(ground);
-    }
-
     public void HideAll()
     {
         plantUI?.Hide();
         harvestUI?.Hide();
-        itemUseUI?.Hide();
     }
 
     public void ShowShopUI()

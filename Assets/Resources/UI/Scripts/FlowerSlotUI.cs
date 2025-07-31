@@ -6,22 +6,20 @@ public class FlowerSlotUI : MonoBehaviour
 {
     [SerializeField] private Image imageBackground;
     [SerializeField] private Image imageIcon;
-    [SerializeField] private TMP_Text textNo;
-    [SerializeField] private TMP_Text textNum;
+    [SerializeField] private TextMeshProUGUI textNo;
+    [SerializeField] private TextMeshProUGUI textName;
 
     public void Init(int index)
     {
-        textNo.text = "No.";
-        textNum.text = (index + 1).ToString("D3");
-
-        // 초기엔 아이콘은 안 보이게 설정
-        imageIcon.sprite = null;
-        imageIcon.color = new Color(1, 1, 1, 0); // 투명
+        textNo.text = (index + 1).ToString();
+        textName.text = "???"; // 초기에는 미수집 상태
+        imageIcon.gameObject.SetActive(false); // 아이콘 비활성화
     }
 
-    public void SetCollected(Sprite flowerSprite)
+    public void SetCollected(Sprite icon, string flowerName)
     {
+        imageIcon.sprite = icon;
         imageIcon.gameObject.SetActive(true);
-        imageIcon.sprite = flowerSprite;
+        textName.text = flowerName;
     }
 }

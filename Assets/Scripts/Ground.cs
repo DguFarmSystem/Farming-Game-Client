@@ -66,17 +66,6 @@ public class Ground : MonoBehaviour
             Debug.Log("꽃 다 자람: 수확 UI 호출");
             UIManager.Instance.ShowHarvestUI(this);
         }
-        else
-        {
-            if (UIManager.Instance.IsItemUseUIActiveFor(this))
-            {
-                UIManager.Instance.HideAll();
-            }
-            else
-            {
-                UIManager.Instance.ShowItemUseUI(this);
-            }
-        }
     }
 
     public void Unlock()
