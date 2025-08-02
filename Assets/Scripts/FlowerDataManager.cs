@@ -23,6 +23,7 @@ public class FlowerDataManager : MonoBehaviour
             {
                 flower.isRegistered = true;
                 return;
+                
             }
         }
 

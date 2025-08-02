@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1a1954985146a4e56b9d1a5e69146169
+guid: bb8367621de9f384f93a535fef89a8ef
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4155951011102732622
-    second: UI_Topbar_Collection_Icon_0
+      213: -3361480627967314918
+    second: Carrot_Background_Field_Empty_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -110,19 +110,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -139,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_Topbar_Collection_Icon_0
+      name: Carrot_Background_Field_Empty_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 156
-        height: 150
+        width: 1536
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e4134b8ec67eca930800000000000000
-      internalID: 4155951011102732622
+      spriteID: a14b6a2cd2f9951d0800000000000000
+      internalID: -3361480627967314918
       vertices: []
       indices: 
       edges: []
@@ -174,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UI_Topbar_Collection_Icon_0: 4155951011102732622
+      Carrot_Background_Field_Empty_0: -3361480627967314918
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
