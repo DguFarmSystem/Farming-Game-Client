@@ -11,6 +11,9 @@ public class FarmManager : MonoBehaviour
 
     private Dictionary<string, FarmGround> tiles = new Dictionary<string, FarmGround>();
 
+    //주기적으로 확인
+    private float checkInterval = 5f;
+    private float checkTimer = 0f;
 
     [Header("상태별 밭 스프라이트")]
     public Sprite emptySprite;
@@ -23,6 +26,18 @@ public class FarmManager : MonoBehaviour
     {
         StartCoroutine(InitFarm());
     }
+
+    private void Update()
+    {
+        checkTimer += Time.deltaTime;
+        if (checkTimer >= checkInterval)
+        {
+            Debug.Log("성장 체크");
+            CheckAllGrowth();
+            checkTimer = 0f;
+        }
+    }
+
 
     IEnumerator InitFarm()
     {

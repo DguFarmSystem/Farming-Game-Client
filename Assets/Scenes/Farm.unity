@@ -5219,6 +5219,51 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1712633726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1712633728}
+  - component: {fileID: 1712633727}
+  m_Layer: 0
+  m_Name: FlowerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1712633727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712633726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49c498848f999c34389363b55a711893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flowerData: {fileID: 11400000, guid: 95b60305e7d09804f806e6715506498c, type: 2}
+--- !u!4 &1712633728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712633726}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2557032, y: -1.262408, z: 0.034592237}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1730544180
 GameObject:
   m_ObjectHideFlags: 0
@@ -5538,7 +5583,7 @@ MonoBehaviour:
   growingSprite: {fileID: 8611649983264467480, guid: 7c3e7237f8de8f44a8ba15f1d38c78da, type: 3}
   growingSprite_1: {fileID: -3519646556253256247, guid: 775a8092395b98343a26b86b430b76ba, type: 3}
   growingSprite_2: {fileID: -9116844328216613615, guid: da1dec01fc079b041ae42e95bc707fa8, type: 3}
-  grownSprite: {fileID: 8611649983264467480, guid: 7c3e7237f8de8f44a8ba15f1d38c78da, type: 3}
+  grownSprite: {fileID: 811154751681645380, guid: 677fc3e216812de42a47f2c20917655e, type: 3}
 --- !u!1 &1745476411
 GameObject:
   m_ObjectHideFlags: 0
@@ -6547,3 +6592,4 @@ SceneRoots:
   - {fileID: 1730544184}
   - {fileID: 42994445}
   - {fileID: 36702461}
+  - {fileID: 1712633728}

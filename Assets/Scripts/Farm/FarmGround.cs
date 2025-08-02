@@ -77,8 +77,13 @@ public class FarmGround : MonoBehaviour
         if (DateTime.TryParse(data.planted_at, out plantedTime))
         {
             //아이템 사용시 줄어들게 해야함
-            if ((DateTime.Now - plantedTime).TotalHours >= 24 - (2 * data.useSunCount))
+            double growTime = 10 - (2 * data.useSunCount);
+            growTime = Mathf.Max(1, (float)growTime); // 최소 1초 보장
+
+            
+            if ((DateTime.Now - plantedTime).TotalSeconds >= growTime)
             {
+                Debug.Log("다자람");
                 data.status = "grown";
                 UpdateVisual();
                 FarmGroundAPI.UpdatePlot(data);
