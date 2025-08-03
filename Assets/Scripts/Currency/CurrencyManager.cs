@@ -10,6 +10,7 @@ public class CurrencyData
     public int gold; //골드
     public int seedTicket; //씨앗 뽑기권
     public int sunlight; // 햇살
+    public int seedCount; //씨앗 개수
 }
 
 public class CurrencyManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class CurrencyManager : MonoBehaviour
     public int seedTicket = 0; //씨앗 뽑기권
     public int gold = 0; //골드
     public int sunlight = 0; //햇살 재화
+    public int seedCount = 0; //씨앗 개수
 
     public event Action OnCurrencyChanged;
 
@@ -51,6 +53,7 @@ public class CurrencyManager : MonoBehaviour
             gold = data.gold;
             seedTicket = data.seedTicket;
             sunlight = data.sunlight;
+            seedCount = data.seedCount;
 
             OnCurrencyChanged?.Invoke();
         }
@@ -67,7 +70,8 @@ public class CurrencyManager : MonoBehaviour
             uid = this.uid,
             gold = gold,
             seedTicket = seedTicket,
-            sunlight = sunlight
+            sunlight = sunlight,
+            seedCount = seedCount
         };
 
         string json = JsonUtility.ToJson(data);
@@ -85,21 +89,27 @@ public class CurrencyManager : MonoBehaviour
     {
         gold += amount;
         OnCurrencyChanged?.Invoke();
-        StartCoroutine(SaveCurrencyToServer());
+        //StartCoroutine(SaveCurrencyToServer());
     }
 
     public void AddSeedTicket(int amount)
     {
         seedTicket += amount;
         OnCurrencyChanged?.Invoke();
-        StartCoroutine(SaveCurrencyToServer());
+       // StartCoroutine(SaveCurrencyToServer());
     }
 
     public void AddSunlight(int amount)
     {
         sunlight += amount;
         OnCurrencyChanged?.Invoke();
-        StartCoroutine(SaveCurrencyToServer());
+      //  StartCoroutine(SaveCurrencyToServer());
+    }
+    public void AddSeedCount(int amount)
+    {
+        seedCount += amount;
+        OnCurrencyChanged?.Invoke();
+      //  StartCoroutine(SaveCurrencyToServer());
     }
 
     //재화 소비 함수들 (성공 여부 반환)
@@ -109,7 +119,7 @@ public class CurrencyManager : MonoBehaviour
         {
             gold -= amount;
             OnCurrencyChanged?.Invoke();
-            StartCoroutine(SaveCurrencyToServer());
+          //  StartCoroutine(SaveCurrencyToServer());
             return true;
         }
         return false;
@@ -121,7 +131,7 @@ public class CurrencyManager : MonoBehaviour
         {
             seedTicket -= amount;
             OnCurrencyChanged?.Invoke();
-            StartCoroutine(SaveCurrencyToServer());
+         //   StartCoroutine(SaveCurrencyToServer());
             return true;
         }
         return false;
@@ -133,7 +143,18 @@ public class CurrencyManager : MonoBehaviour
         {
             sunlight -= amount;
             OnCurrencyChanged?.Invoke();
-            StartCoroutine(SaveCurrencyToServer());
+          //  StartCoroutine(SaveCurrencyToServer());
+            return true;
+        }
+        return false;
+    }
+    public bool SpendSeedCount(int amount)
+    {
+        if (seedCount >= amount)
+        {
+            seedCount -= amount;
+            OnCurrencyChanged?.Invoke();
+         //   StartCoroutine(SaveCurrencyToServer());
             return true;
         }
         return false;

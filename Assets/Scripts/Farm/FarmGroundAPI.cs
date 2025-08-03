@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 
 public class FarmGroundAPI
 {
+    //서버 url 설정해야함
     private static string baseUrl = "https://yourserver.com/api/farmplot";
 
     public static IEnumerator LoadFarm(string uid, System.Action<List<FarmPlotData>> onLoaded)

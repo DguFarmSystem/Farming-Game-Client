@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class FarmManager : MonoBehaviour
 {
-    public GameObject tilePrefab;
-    public Transform tileParent;
-    public string uid;
+    public GameObject tilePrefab; //밭 프리팹
+    public Transform tileParent; //밭 프리팹 넣을 곳
+    public string uid; //user id
 
     private Dictionary<string, FarmGround> tiles = new Dictionary<string, FarmGround>();
 
@@ -70,7 +70,7 @@ public class FarmManager : MonoBehaviour
                     x = x,
                     y = y,
                     uid = uid,
-                    plot_id = $"{uid}_{y * 9 + x}",
+                    plot_id = $"{uid}_{y * 3 + x}",
                     plant_name = "",
                     planted_at = "",
                     status = "empty",

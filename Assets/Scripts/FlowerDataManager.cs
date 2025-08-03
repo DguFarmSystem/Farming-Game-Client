@@ -23,7 +23,7 @@ public class FlowerDataManager : MonoBehaviour
             {
                 flower.isRegistered = true;
                 return;
-                
+
             }
         }
 
@@ -40,5 +40,18 @@ public class FlowerDataManager : MonoBehaviour
             return flower.isRegistered ? flower.originalSprite : flower.silhouetteSprite;
         }
         return null;
+    }
+    
+    //랜덤 꽃 이름 가져오기
+    public string GetRandomFlowerName()
+    {
+        if (flowerData == null || flowerData.flowerList.Count == 0)
+        {
+            Debug.LogWarning("꽃 리스트가 비어 있습니다!");
+            return null;
+        }
+
+        int idx = UnityEngine.Random.Range(0, flowerData.flowerList.Count);
+        return flowerData.flowerList[idx].flowerName;
     }
 }
