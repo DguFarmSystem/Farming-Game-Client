@@ -10,6 +10,7 @@ public class seedGGang : MonoBehaviour
     public TMP_Text ticketText; //티켓 수
     public Button drawButton; // 뽑기 버튼
     public Button yesButton; // 확인 버튼
+    public Button exitButton; //나가기 버튼
     public Animator chestAnimator; //
     public TMP_Text resultText; //결과 텍스트
 
@@ -31,6 +32,9 @@ public class seedGGang : MonoBehaviour
 
         yesButton.onClick.RemoveAllListeners();
         yesButton.onClick.AddListener(CloseResultUI);
+
+        exitButton.onClick.RemoveAllListeners();
+        exitButton.onClick.AddListener(closeAll);
     }
 
     public void OnClickDraw()
@@ -43,7 +47,7 @@ public class seedGGang : MonoBehaviour
 
         StartCoroutine(PlayDrawAnimation(amount));
 
-        
+
     }
 
     private IEnumerator PlayDrawAnimation(int amount)
@@ -66,6 +70,11 @@ public class seedGGang : MonoBehaviour
 
     public void CloseResultUI()
     {
-        resultUI.SetActive(false);
+        UIManager.Instance.HideAll(); //전부 꺼주기
+    }
+
+    public void closeAll()
+    {
+        UIManager.Instance.HideAll(); //전부 꺼주기
     }
 }

@@ -17,6 +17,7 @@ public class FarmManager : MonoBehaviour
 
     [Header("상태별 밭 스프라이트")]
     public Sprite emptySprite;
+    public Sprite seedSprite;
     public Sprite growingSprite;
     public Sprite growingSprite_1;
     public Sprite growingSprite_2;
@@ -33,7 +34,8 @@ public class FarmManager : MonoBehaviour
         if (checkTimer >= checkInterval)
         {
             Debug.Log("성장 체크");
-            CheckAllGrowth();
+            CheckAllGrowth(); //성장 체크후
+            UpdateAllVisual(); //비주얼 업데이트
             checkTimer = 0f;
         }
     }
@@ -102,6 +104,7 @@ public class FarmManager : MonoBehaviour
         //땅 스프라이트 전달
         tile.emptySprite = emptySprite;
         tile.growingSprite = growingSprite;
+        tile.seedSprite = seedSprite;
         tile.growingSprite_1 = growingSprite_1;
         tile.growingSprite_2 = growingSprite_2;
         tile.grownSprite = grownSprite;
@@ -117,4 +120,13 @@ public class FarmManager : MonoBehaviour
             tile.CheckGrowth();
         }
     }
+
+    public void UpdateAllVisual()
+    {
+        foreach (var tile in tiles.Values)
+        {
+            tile.UpdateVisual();
+        }
+    }
+    
 }
