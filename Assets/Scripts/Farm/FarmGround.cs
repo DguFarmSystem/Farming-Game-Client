@@ -12,7 +12,6 @@ public class FarmGround : MonoBehaviour
 
     [Header("상태별 밭 스프라이트")]
     public Sprite emptySprite;
-    public Sprite seedSprite;
     public Sprite growingSprite;
     public Sprite growingSprite_1;
     public Sprite growingSprite_2;
@@ -33,27 +32,7 @@ public class FarmGround : MonoBehaviour
                 spriter.sprite = emptySprite;
                 break;
             case "growing":
-                if (DateTime.TryParse(data.planted_at, out DateTime plantedTime))
-                {
-                    double growTime = 24 - (2 * data.useSunCount);
-                    growTime = Mathf.Max(1, (float)growTime); // 최소 1초
-
-                    double elapsedSeconds = (DateTime.Now - plantedTime).TotalSeconds;
-                    double progress = elapsedSeconds / (growTime); // 진행률 0~1  시간으로 수정해야함 테스트라 초
-
-                    if (progress < 0.25)
-                        spriter.sprite = seedSprite; // 초기 씨앗
-                    else if (progress < 0.5)
-                        spriter.sprite = growingSprite;
-                    else if (progress < 0.75)
-                        spriter.sprite = growingSprite_1;
-                    else
-                        spriter.sprite = growingSprite_2;
-                }
-                else
-                {
-                    spriter.sprite = seedSprite; // 실패 시 기본
-                }
+                spriter.sprite = growingSprite;
                 break;
             case "grown":
                 spriter.sprite = grownSprite;
