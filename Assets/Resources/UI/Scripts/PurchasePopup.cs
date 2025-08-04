@@ -52,7 +52,7 @@ public class PurchasePopup : MonoBehaviour
         this.unitPrice = pricePerItem;
         currentCount = 1;
 
-        itemNameText.text = $"{itemName}?(?) ?????????";
+        itemNameText.text = $"{itemName}을(를) 구매하시겠습니까?";
         inputField.text = currentCount.ToString();
         UpdateTotalPrice();
     }
@@ -81,12 +81,12 @@ public class PurchasePopup : MonoBehaviour
     private void UpdateTotalPrice()
     {
         int total = unitPrice * currentCount;
-        totalPriceText.text = $"? ??: {total}G";
+        totalPriceText.text = $"총 금액 : {total}G";
     }
 
     private void OnConfirm()
     {
-        Debug.Log($"?? ??: {itemName} x{currentCount}");
+        Debug.Log($"구매 확인: {itemName} x{currentCount}");
         Close();
     }
 

@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: "\uAC00\uB85C\uD615 \uB098\uBB34 \uC6B8\uD0C0\uB9AC"
   resourceKey: Fence_Horizon_Wood
   price: 500
-  category: 0
+  category: 1
   icon: {fileID: -4809196357897503864, guid: 526bd54795e984847a5d0da1f715a68a, type: 3}
