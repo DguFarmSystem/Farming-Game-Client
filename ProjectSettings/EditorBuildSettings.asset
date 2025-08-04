@@ -29,12 +29,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MiniGames/SunshineGame.unity
     guid: ec8b05c51e3353d4b9cef79ce3c43a9f
-  - enabled: 1
-    path: Assets/Scenes/Farm.unity
-    guid: cc2078b8ede164f228f36cd9a3f0a688
-  - enabled: 1
-    path: Assets/Scenes/PowerStation.unity
-    guid: 23015b4753dea5941ad820fd853a5688
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

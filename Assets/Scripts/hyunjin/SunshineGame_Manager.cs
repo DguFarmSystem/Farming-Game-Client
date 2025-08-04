@@ -2,46 +2,52 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 
 public class SunshineGame_Manager : MonoBehaviour
 {
     public Transform layout;
     public Image timerMask;
     public RectTransform dragBox;
-    public TMP_Text scoreText;
-    public Button tempExitButton;
+    public GameObject sunPrefab;
 
-    private int score;
+    private BoxCollider2D dragCollider;
     private float timerSize;
     private Vector2 startPos;
     private Vector2 endPos;
-    private List<SunshineGame_Sunshine> dragedList = new List<SunshineGame_Sunshine>();
-    
+    private List<Collider2D> dragedList = new List<Collider2D>();
+
     void Start()
     {
-        score = 0;
         timerSize = timerMask.rectTransform.rect.height;
         SetValue(0.4f);
         dragBox.gameObject.SetActive(false);
-        tempExitButton.onClick.AddListener(EndGame);
+        dragCollider = dragBox.gameObject.GetComponent<BoxCollider2D>();
+
+        Vector2 origin = layout.position;
+        for (int y = 0; y < 10; y++) {
+            for (int x = 0; x < 17; x++) {
+                Vector2 spawnPos = origin + new Vector2(x * 0.748f, -y*0.9365f);
+                Instantiate(sunPrefab, spawnPos, Quaternion.identity, layout);
+            }
+        }
     }
+
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
             dragBox.gameObject.SetActive(true);
             startPos = Input.mousePosition;
+            // RectTransformUtility.ScreenPointToLocalPointInRectangle(transform as RectTransform, Input.mousePosition, null, out startPos);
         }
         if (Input.GetMouseButton(0)) {
             endPos = Input.mousePosition;
+            // RectTransformUtility.ScreenPointToLocalPointInRectangle(transform as RectTransform, Input.mousePosition, null, out endPos);
             DrawDragBox();
-            SelectObjects();
         }
         if (Input.GetMouseButtonUp(0)) {
             Calculate();
             dragBox.gameObject.SetActive(false);
-            dragedList.Clear();
         }
     }
 
@@ -62,53 +68,34 @@ public class SunshineGame_Manager : MonoBehaviour
 
     void SelectObjects()
     {
-        Rect dragRect = GetWorldRect(dragBox);
         dragedList.Clear();
+        dragedList = new List<Collider2D>();
+        ContactFilter2D filter = new ContactFilter2D(){ useTriggers = true, useLayerMask = false, useDepth = false };
+        
+        Vector3[] corners = new Vector3[4];
+        dragBox.GetWorldCorners(corners);
+        // 0 = bottom-left, 2 = top-right
+        Vector3 worldCenter = (corners[0] + corners[2]) / 2f;
+        Vector2 worldSize = corners[2] - corners[0];
 
-        foreach (Transform child in layout)
-        {
-            if (!child.gameObject.activeSelf) continue;
-
-            SunshineGame_Sunshine sun = child.GetComponent<SunshineGame_Sunshine>();
-            if (sun == null) continue;
-
-            RectTransform sunRect = child.GetComponent<RectTransform>();
-            Vector3[] corners = new Vector3[4];
-            sunRect.GetWorldCorners(corners);
-            Vector2 center = (corners[0] + corners[2]) / 2f;
-
-            if (dragRect.Contains(center))
-            {
-                dragedList.Add(sun);
-            }
-        }
+        dragCollider.transform.position = worldCenter;
+        dragCollider.size = worldSize;
+        dragCollider.Overlap(filter, dragedList);
     }
 
     void Calculate()
     {
+        Debug.Log($"calculate() : {dragedList.Count}");
+        Debug.Log(dragCollider.transform.position);
+        Debug.Log(dragCollider.size);
+
         int sum = 0;
-        foreach (var sun in dragedList) {
-            Debug.Log($"draged sun : {sun.GetNum()}");
-            sum += sun.GetNum();
-
-        }
-        Debug.Log($"sum : {sum}");
-        if (sum != 10) return;
-        foreach (var sun in dragedList) sun.Pop();
-        score += dragedList.Count;
-        scoreText.text = $"{score}";
-    }
-
-    Rect GetWorldRect(RectTransform rt)
-    {
-        Vector3[] corners = new Vector3[4];
-        rt.GetWorldCorners(corners);
-        float width = corners[2].x - corners[0].x;
-        float height = corners[2].y - corners[0].y;
-        return new Rect(corners[0].x, corners[0].y, width, height);
-    }
-
-    void EndGame() {
-        SceneLoader.Instance.ExitMiniGame();
+        foreach(var c in dragedList)
+            sum += c.gameObject.GetComponent<SunshineGame_Sunshine>().GetNum();
+        Debug.Log($"sum: {sum}");
+        if (sum != 10)
+            return;
+        foreach(var c in dragedList)
+            c.gameObject.GetComponent<SunshineGame_Sunshine>().Pop();
     }
 }

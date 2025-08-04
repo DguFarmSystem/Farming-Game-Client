@@ -16,9 +16,9 @@ public class MiniGameButtonHandler : MonoBehaviour
         popupPanel.SetActive(false);
 
         gameInfo = new Dictionary<string, (string, string)> {
-            {"RPS", ("가위바위보", "모두가 아는 그 게임 맞아요.")},
-            {"CarrotFarm", ("당근농장 아르바이트", "Carrot Farm part time job description")},
-            {"SunshineGame", ("햇빛게임", "sunshine game description")},
+            {"RPS", ("rock paper scissors", "rock paper scissors description")},
+            {"CarrotFarm", ("Carrot Farm part time job", "Carrot Farm part time job description")},
+            {"Sunlight", ("sunlight game", "sunlight game description")},
         };
     }
 

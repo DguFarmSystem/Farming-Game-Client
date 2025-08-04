@@ -9,7 +9,7 @@ public class SceneLoader : MonoBehaviour
     public static SceneLoader Instance {
         get {
             if (instance == null) {
-                GameObject prefab = Resources.Load<GameObject>("MiniGame/SceneLoader");
+                GameObject prefab = Resources.Load<GameObject>("SceneLoader");
                 if (prefab != null) {
                     GameObject go = Instantiate(prefab);
                     DontDestroyOnLoad(go);
@@ -33,7 +33,7 @@ public class SceneLoader : MonoBehaviour
     public float fadeDuration = 1.0f;
     public Animator transitionAnimator;
 
-    private string[] mainScenes = {"PowerStation", "TestScene1", "Farm", "MiniGameEntrance"};
+    private string[] mainScenes = {"TestScene0", "TestScene1", "TestScene2", "MiniGameEntrance"};
     private bool isTransitioning = false;
     private int currentIdx = 0;
     private Coroutine fadeOutLabelCoroutine;
