@@ -1,0 +1,4550 @@
+fileFormatVersion: 2
+guid: 3ea140d2c44509e4986ebdfc6924b87c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7200143368417268652
+    second: Sun_Icon_17_10_0
+  - first:
+      213: -8671799701271160919
+    second: Sun_Icon_17_10_1
+  - first:
+      213: -2269571655652369017
+    second: Sun_Icon_17_10_2
+  - first:
+      213: -7880454443491815790
+    second: Sun_Icon_17_10_3
+  - first:
+      213: 1339867944682116137
+    second: Sun_Icon_17_10_4
+  - first:
+      213: -549208222268713929
+    second: Sun_Icon_17_10_5
+  - first:
+      213: 840784587971296024
+    second: Sun_Icon_17_10_6
+  - first:
+      213: -207819606289060184
+    second: Sun_Icon_17_10_7
+  - first:
+      213: 3788068608183478585
+    second: Sun_Icon_17_10_8
+  - first:
+      213: 6072058842369369326
+    second: Sun_Icon_17_10_9
+  - first:
+      213: 6235548478101561938
+    second: Sun_Icon_17_10_10
+  - first:
+      213: 4755709858887109613
+    second: Sun_Icon_17_10_11
+  - first:
+      213: -1816430066480652861
+    second: Sun_Icon_17_10_12
+  - first:
+      213: 5755070901718649012
+    second: Sun_Icon_17_10_13
+  - first:
+      213: 4146924727614788384
+    second: Sun_Icon_17_10_14
+  - first:
+      213: 8915546443699812644
+    second: Sun_Icon_17_10_15
+  - first:
+      213: -7716158612879221907
+    second: Sun_Icon_17_10_16
+  - first:
+      213: -1764271651821670638
+    second: Sun_Icon_17_10_17
+  - first:
+      213: -3966306333054794815
+    second: Sun_Icon_17_10_18
+  - first:
+      213: 5421987369864730272
+    second: Sun_Icon_17_10_19
+  - first:
+      213: -6692131558699509573
+    second: Sun_Icon_17_10_20
+  - first:
+      213: 1499360038298234976
+    second: Sun_Icon_17_10_21
+  - first:
+      213: 7537916116669777220
+    second: Sun_Icon_17_10_22
+  - first:
+      213: -8831768190222909468
+    second: Sun_Icon_17_10_23
+  - first:
+      213: -7780308872317675063
+    second: Sun_Icon_17_10_24
+  - first:
+      213: -1368383171219920064
+    second: Sun_Icon_17_10_25
+  - first:
+      213: -4039339161402081688
+    second: Sun_Icon_17_10_26
+  - first:
+      213: 7552283415268561609
+    second: Sun_Icon_17_10_27
+  - first:
+      213: 2934595780707664642
+    second: Sun_Icon_17_10_28
+  - first:
+      213: -9126521475456752355
+    second: Sun_Icon_17_10_29
+  - first:
+      213: -6214760558200676296
+    second: Sun_Icon_17_10_30
+  - first:
+      213: 8593048843871320342
+    second: Sun_Icon_17_10_31
+  - first:
+      213: -7074045836775604199
+    second: Sun_Icon_17_10_32
+  - first:
+      213: 2712980353779259819
+    second: Sun_Icon_17_10_33
+  - first:
+      213: -455239186963800046
+    second: Sun_Icon_17_10_34
+  - first:
+      213: 3453678675342599896
+    second: Sun_Icon_17_10_35
+  - first:
+      213: -2487986872654175481
+    second: Sun_Icon_17_10_36
+  - first:
+      213: 468090499458713630
+    second: Sun_Icon_17_10_37
+  - first:
+      213: -8655554726166662497
+    second: Sun_Icon_17_10_38
+  - first:
+      213: -6018512724387275718
+    second: Sun_Icon_17_10_39
+  - first:
+      213: 6994729531763924525
+    second: Sun_Icon_17_10_40
+  - first:
+      213: -6507100745166338149
+    second: Sun_Icon_17_10_41
+  - first:
+      213: -9201044534640603464
+    second: Sun_Icon_17_10_42
+  - first:
+      213: -8400744461432587326
+    second: Sun_Icon_17_10_43
+  - first:
+      213: 8552693120017806996
+    second: Sun_Icon_17_10_44
+  - first:
+      213: 2667757428354348136
+    second: Sun_Icon_17_10_45
+  - first:
+      213: -3705852655698688866
+    second: Sun_Icon_17_10_46
+  - first:
+      213: -1060612473670783280
+    second: Sun_Icon_17_10_47
+  - first:
+      213: 2506391704142435625
+    second: Sun_Icon_17_10_48
+  - first:
+      213: -7929638086224602049
+    second: Sun_Icon_17_10_49
+  - first:
+      213: 4534465510938010203
+    second: Sun_Icon_17_10_50
+  - first:
+      213: 1386767648703497631
+    second: Sun_Icon_17_10_51
+  - first:
+      213: -4918181988269519386
+    second: Sun_Icon_17_10_52
+  - first:
+      213: -913668504702143087
+    second: Sun_Icon_17_10_53
+  - first:
+      213: -3580033566918074174
+    second: Sun_Icon_17_10_54
+  - first:
+      213: -2231427217747648030
+    second: Sun_Icon_17_10_55
+  - first:
+      213: 2514545441918914744
+    second: Sun_Icon_17_10_56
+  - first:
+      213: -8340861767845050590
+    second: Sun_Icon_17_10_57
+  - first:
+      213: -7201767632103906713
+    second: Sun_Icon_17_10_58
+  - first:
+      213: -7804479468714693683
+    second: Sun_Icon_17_10_59
+  - first:
+      213: 6962686496702609067
+    second: Sun_Icon_17_10_60
+  - first:
+      213: -6589172377925216671
+    second: Sun_Icon_17_10_61
+  - first:
+      213: -5177360610392321683
+    second: Sun_Icon_17_10_62
+  - first:
+      213: 594341634062370258
+    second: Sun_Icon_17_10_63
+  - first:
+      213: -4429180159321285723
+    second: Sun_Icon_17_10_64
+  - first:
+      213: -6392431687314395711
+    second: Sun_Icon_17_10_65
+  - first:
+      213: -8173645444335785339
+    second: Sun_Icon_17_10_66
+  - first:
+      213: -305644989639197537
+    second: Sun_Icon_17_10_67
+  - first:
+      213: -6098547313771211876
+    second: Sun_Icon_17_10_68
+  - first:
+      213: 1815609386848510128
+    second: Sun_Icon_17_10_69
+  - first:
+      213: 7937056892933767276
+    second: Sun_Icon_17_10_70
+  - first:
+      213: 4073757966193701671
+    second: Sun_Icon_17_10_71
+  - first:
+      213: 3832506291012415850
+    second: Sun_Icon_17_10_72
+  - first:
+      213: 1264610471490009564
+    second: Sun_Icon_17_10_73
+  - first:
+      213: 52073308064998999
+    second: Sun_Icon_17_10_74
+  - first:
+      213: 2127765043946165216
+    second: Sun_Icon_17_10_75
+  - first:
+      213: -885699413031633739
+    second: Sun_Icon_17_10_76
+  - first:
+      213: 2054691985019271047
+    second: Sun_Icon_17_10_77
+  - first:
+      213: 5725817736137948676
+    second: Sun_Icon_17_10_78
+  - first:
+      213: -5956124839873681766
+    second: Sun_Icon_17_10_79
+  - first:
+      213: -3833799346211559787
+    second: Sun_Icon_17_10_80
+  - first:
+      213: 167649554446006814
+    second: Sun_Icon_17_10_81
+  - first:
+      213: -6559941099189235381
+    second: Sun_Icon_17_10_82
+  - first:
+      213: 5609106579283828955
+    second: Sun_Icon_17_10_83
+  - first:
+      213: -3025477979731795697
+    second: Sun_Icon_17_10_84
+  - first:
+      213: 930599358978416118
+    second: Sun_Icon_17_10_85
+  - first:
+      213: -7817844851369138954
+    second: Sun_Icon_17_10_86
+  - first:
+      213: -1882058321161000670
+    second: Sun_Icon_17_10_87
+  - first:
+      213: 4563775827683069790
+    second: Sun_Icon_17_10_88
+  - first:
+      213: 7552160293268792806
+    second: Sun_Icon_17_10_89
+  - first:
+      213: 6654989079776899958
+    second: Sun_Icon_17_10_90
+  - first:
+      213: -6489455442522312634
+    second: Sun_Icon_17_10_91
+  - first:
+      213: -6473059363781431295
+    second: Sun_Icon_17_10_92
+  - first:
+      213: -8421555862751371551
+    second: Sun_Icon_17_10_93
+  - first:
+      213: -4998446380390698324
+    second: Sun_Icon_17_10_94
+  - first:
+      213: -3133288962315990932
+    second: Sun_Icon_17_10_95
+  - first:
+      213: -3190277123721458896
+    second: Sun_Icon_17_10_96
+  - first:
+      213: 6837314761466353218
+    second: Sun_Icon_17_10_97
+  - first:
+      213: -1988714109268976689
+    second: Sun_Icon_17_10_98
+  - first:
+      213: 6164377996630857942
+    second: Sun_Icon_17_10_99
+  - first:
+      213: -5518755977178678948
+    second: Sun_Icon_17_10_100
+  - first:
+      213: -6726750271250275475
+    second: Sun_Icon_17_10_101
+  - first:
+      213: 2533182844801534163
+    second: Sun_Icon_17_10_102
+  - first:
+      213: -430316001194622306
+    second: Sun_Icon_17_10_103
+  - first:
+      213: -5159914052801166292
+    second: Sun_Icon_17_10_104
+  - first:
+      213: -8563268233383823040
+    second: Sun_Icon_17_10_105
+  - first:
+      213: -2752021876467692580
+    second: Sun_Icon_17_10_106
+  - first:
+      213: -2564461891034020845
+    second: Sun_Icon_17_10_107
+  - first:
+      213: 7096377356057721877
+    second: Sun_Icon_17_10_108
+  - first:
+      213: -899708161526560166
+    second: Sun_Icon_17_10_109
+  - first:
+      213: -5887849131598420730
+    second: Sun_Icon_17_10_110
+  - first:
+      213: -5473977042931399694
+    second: Sun_Icon_17_10_111
+  - first:
+      213: -1833460908577537849
+    second: Sun_Icon_17_10_112
+  - first:
+      213: -6622751456928019172
+    second: Sun_Icon_17_10_113
+  - first:
+      213: -1889765004392767773
+    second: Sun_Icon_17_10_114
+  - first:
+      213: -6918877818977335348
+    second: Sun_Icon_17_10_115
+  - first:
+      213: 8745279466191087726
+    second: Sun_Icon_17_10_116
+  - first:
+      213: -3504013726912442908
+    second: Sun_Icon_17_10_117
+  - first:
+      213: -5021766963100914400
+    second: Sun_Icon_17_10_118
+  - first:
+      213: -2347592415907401833
+    second: Sun_Icon_17_10_119
+  - first:
+      213: 8902413354062979465
+    second: Sun_Icon_17_10_120
+  - first:
+      213: 377393216649750330
+    second: Sun_Icon_17_10_121
+  - first:
+      213: 1204634547841962815
+    second: Sun_Icon_17_10_122
+  - first:
+      213: -2876733578766698991
+    second: Sun_Icon_17_10_123
+  - first:
+      213: 7293473973374630945
+    second: Sun_Icon_17_10_124
+  - first:
+      213: -8402749585853025672
+    second: Sun_Icon_17_10_125
+  - first:
+      213: 3801271677218102387
+    second: Sun_Icon_17_10_126
+  - first:
+      213: 3712058704866203276
+    second: Sun_Icon_17_10_127
+  - first:
+      213: 4971097441823444692
+    second: Sun_Icon_17_10_128
+  - first:
+      213: -7936139505755149841
+    second: Sun_Icon_17_10_129
+  - first:
+      213: 1183812379657042430
+    second: Sun_Icon_17_10_130
+  - first:
+      213: 2144261024364096812
+    second: Sun_Icon_17_10_131
+  - first:
+      213: -7618020848012871937
+    second: Sun_Icon_17_10_132
+  - first:
+      213: -5685545164764589306
+    second: Sun_Icon_17_10_133
+  - first:
+      213: 1527086022979519877
+    second: Sun_Icon_17_10_134
+  - first:
+      213: -5555832990685068588
+    second: Sun_Icon_17_10_135
+  - first:
+      213: 3333756876411681139
+    second: Sun_Icon_17_10_136
+  - first:
+      213: 61576187922158426
+    second: Sun_Icon_17_10_137
+  - first:
+      213: 6414178161743006198
+    second: Sun_Icon_17_10_138
+  - first:
+      213: -2487509887592739511
+    second: Sun_Icon_17_10_139
+  - first:
+      213: -1226953453137854854
+    second: Sun_Icon_17_10_140
+  - first:
+      213: 2802465598718512354
+    second: Sun_Icon_17_10_141
+  - first:
+      213: -1626803400395531456
+    second: Sun_Icon_17_10_142
+  - first:
+      213: -8861827217016971743
+    second: Sun_Icon_17_10_143
+  - first:
+      213: -5033735786922968057
+    second: Sun_Icon_17_10_144
+  - first:
+      213: -2141030944302757734
+    second: Sun_Icon_17_10_145
+  - first:
+      213: -4894624460699896035
+    second: Sun_Icon_17_10_146
+  - first:
+      213: 6768978080772119343
+    second: Sun_Icon_17_10_147
+  - first:
+      213: 8589132355645076932
+    second: Sun_Icon_17_10_148
+  - first:
+      213: -6409161785484000567
+    second: Sun_Icon_17_10_149
+  - first:
+      213: 909346015649793512
+    second: Sun_Icon_17_10_150
+  - first:
+      213: -6403904409104428796
+    second: Sun_Icon_17_10_151
+  - first:
+      213: 6352615025132919252
+    second: Sun_Icon_17_10_152
+  - first:
+      213: 588049879977840083
+    second: Sun_Icon_17_10_153
+  - first:
+      213: 4671840667927972217
+    second: Sun_Icon_17_10_154
+  - first:
+      213: -1640283937459978446
+    second: Sun_Icon_17_10_155
+  - first:
+      213: -7157747149095446241
+    second: Sun_Icon_17_10_156
+  - first:
+      213: 5090490245051228924
+    second: Sun_Icon_17_10_157
+  - first:
+      213: -7787715338347156842
+    second: Sun_Icon_17_10_158
+  - first:
+      213: 8902403452688115585
+    second: Sun_Icon_17_10_159
+  - first:
+      213: 3117506960993965790
+    second: Sun_Icon_17_10_160
+  - first:
+      213: 6586147405030509927
+    second: Sun_Icon_17_10_161
+  - first:
+      213: -3075355856077543138
+    second: Sun_Icon_17_10_162
+  - first:
+      213: -2503564971620428531
+    second: Sun_Icon_17_10_163
+  - first:
+      213: 3653333907759795950
+    second: Sun_Icon_17_10_164
+  - first:
+      213: 372463626682075238
+    second: Sun_Icon_17_10_165
+  - first:
+      213: -327626028047687717
+    second: Sun_Icon_17_10_166
+  - first:
+      213: 1582692508722042528
+    second: Sun_Icon_17_10_167
+  - first:
+      213: 4929951906304449137
+    second: Sun_Icon_17_10_168
+  - first:
+      213: 770491816649691271
+    second: Sun_Icon_17_10_169
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 862
+        width: 71
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45caa9121c3f31c90800000000000000
+      internalID: -7200143368417268652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_1
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 862
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a7d46aed1497a780800000000000000
+      internalID: -8671799701271160919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_2
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 862
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78d9b889a9cd080e0800000000000000
+      internalID: -2269571655652369017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_3
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 862
+        width: 71
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29e8503af6003a290800000000000000
+      internalID: -7880454443491815790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_4
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 862
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 924d5b8fbca289210800000000000000
+      internalID: 1339867944682116137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_5
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 862
+        width: 71
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73413fb1802d068f0800000000000000
+      internalID: -549208222268713929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_6
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 862
+        width: 73
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81bf6aac0211bab00800000000000000
+      internalID: 840784587971296024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_7
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 862
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ae67cd4b2dad1df0800000000000000
+      internalID: -207819606289060184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_8
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 862
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 939a59f345ce19430800000000000000
+      internalID: 3788068608183478585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_9
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 862
+        width: 73
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee422b29859444450800000000000000
+      internalID: 6072058842369369326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_10
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 862
+        width: 71
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 252a8f0bd4e198650800000000000000
+      internalID: 6235548478101561938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_11
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 862
+        width: 73
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deb0ac97becaff140800000000000000
+      internalID: 4755709858887109613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_12
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 862
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cdd4187a7ebac6e0800000000000000
+      internalID: -1816430066480652861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_13
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 862
+        width: 71
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b880225e7e1edf40800000000000000
+      internalID: 5755070901718649012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_14
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 862
+        width: 73
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02353c38116dc8930800000000000000
+      internalID: 4146924727614788384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_15
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 862
+        width: 78
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 429793301426abb70800000000000000
+      internalID: 8915546443699812644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_16
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 862
+        width: 68
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6b53c0af92bae490800000000000000
+      internalID: -7716158612879221907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 767
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21fa0e9b74c0487e0800000000000000
+      internalID: -1764271651821670638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_18
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 766
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c303eb8769d4f8c0800000000000000
+      internalID: -3966306333054794815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_19
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 767
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a6117539c4ce3b40800000000000000
+      internalID: 5421987369864730272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_20
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 767
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb8d885cdc5c023a0800000000000000
+      internalID: -6692131558699509573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_21
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 767
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 060be29c20ccec410800000000000000
+      internalID: 1499360038298234976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_22
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 767
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4454bc045ce0c9860800000000000000
+      internalID: 7537916116669777220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_23
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 766
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ef3b2baf914f6580800000000000000
+      internalID: -8831768190222909468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_24
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 766
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c95fae6d4ac60490800000000000000
+      internalID: -7780308872317675063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_25
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 767
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04b60da71c6820de0800000000000000
+      internalID: -1368383171219920064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_26
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 766
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86efd4d1f6261f7c0800000000000000
+      internalID: -4039339161402081688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_27
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 767
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c21822a0c91fc860800000000000000
+      internalID: 7552283415268561609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_28
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 766
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 203c07c7057c9b820800000000000000
+      internalID: 2934595780707664642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_29
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 766
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d152d6c8215185180800000000000000
+      internalID: -9126521475456752355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_30
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 767
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8302754133cb0c9a0800000000000000
+      internalID: -6214760558200676296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_31
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 767
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 619f7844564a04770800000000000000
+      internalID: 8593048843871320342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_32
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 766
+        width: 78
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 910c8269ac0f3dd90800000000000000
+      internalID: -7074045836775604199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_33
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 766
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba950adf14176a520800000000000000
+      internalID: 2712980353779259819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_34
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 670
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2106f251f5aaea9f0800000000000000
+      internalID: -455239186963800046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_35
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 670
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d62324f47eedef20800000000000000
+      internalID: 3453678675342599896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_36
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 671
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 703ec990f15e87dd0800000000000000
+      internalID: -2487986872654175481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_37
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 670
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e18c8f644ddfe7600800000000000000
+      internalID: 468090499458713630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_38
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 670
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f92f1ece5da41e780800000000000000
+      internalID: -8655554726166662497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_39
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 670
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3c5aba8092f97ca0800000000000000
+      internalID: -6018512724387275718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_40
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 670
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2e19b01375421160800000000000000
+      internalID: 6994729531763924525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_41
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 670
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b974eae295222b5a0800000000000000
+      internalID: -6507100745166338149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_42
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 670
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8be8236beb25f4080800000000000000
+      internalID: -9201044534640603464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_43
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 670
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cbfa7fdb6f8a6b80800000000000000
+      internalID: -8400744461432587326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_44
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 671
+        width: 71
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 496b69b141541b670800000000000000
+      internalID: 8552693120017806996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_45
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 670
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86478f72f37c50520800000000000000
+      internalID: 2667757428354348136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_46
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 670
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e944423e4aa229cc0800000000000000
+      internalID: -3705852655698688866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_47
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 670
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0de21861392f741f0800000000000000
+      internalID: -1060612473670783280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_48
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 670
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9255569b9fd78c220800000000000000
+      internalID: 2506391704142435625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_49
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 670
+        width: 78
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3c9c217c2444f190800000000000000
+      internalID: -7929638086224602049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_50
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 670
+        width: 68
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5268b98b58adee30800000000000000
+      internalID: 4534465510938010203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_51
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 574
+        width: 71
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f95c9fe34d9ce3310800000000000000
+      internalID: 1386767648703497631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_52
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 574
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ed88701a8b1fbbb0800000000000000
+      internalID: -4918181988269519386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_53
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 574
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19534c6f55ff153f0800000000000000
+      internalID: -913668504702143087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_54
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 574
+        width: 71
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c0afdf407a215ec0800000000000000
+      internalID: -3580033566918074174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_55
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 574
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e16300a4c06801e0800000000000000
+      internalID: -2231427217747648030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_56
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 574
+        width: 71
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b0972db1c575e220800000000000000
+      internalID: 2514545441918914744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_57
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 574
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22785f6f96e4f3c80800000000000000
+      internalID: -8340861767845050590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_58
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 574
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7626a85ce7e2e0c90800000000000000
+      internalID: -7201767632103906713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_59
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 574
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcb6e6ae54be0b390800000000000000
+      internalID: -7804479468714693683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_60
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 574
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba63e569a7e60a060800000000000000
+      internalID: 6962686496702609067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_61
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 574
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16693f912ae8e84a0800000000000000
+      internalID: -6589172377925216671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_62
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 574
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d615777a4f15628b0800000000000000
+      internalID: -5177360610392321683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_63
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 574
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d5438531968f3800800000000000000
+      internalID: 594341634062370258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_64
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 574
+        width: 71
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ab5275ac146882c0800000000000000
+      internalID: -4429180159321285723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_65
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 574
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cdacaabf358947a0800000000000000
+      internalID: -6392431687314395711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_66
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 574
+        width: 78
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58a206236c0619e80800000000000000
+      internalID: -8173645444335785339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_67
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 574
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9c7d25508122cbf0800000000000000
+      internalID: -305644989639197537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_68
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 478
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9311c4978b9d5ba0800000000000000
+      internalID: -6098547313771211876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_69
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 478
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b068f92e17523910800000000000000
+      internalID: 1815609386848510128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_70
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 478
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6002691137162e60800000000000000
+      internalID: 7937056892933767276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_71
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 478
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 723b4eb5945e88830800000000000000
+      internalID: 4073757966193701671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_72
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 478
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a61be3b8a2ccf2530800000000000000
+      internalID: 3832506291012415850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_73
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 478
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd9b66c068ccc8110800000000000000
+      internalID: 1264610471490009564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_74
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 478
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7566e75d56009b000800000000000000
+      internalID: 52073308064998999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_75
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 478
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e397e9b807578d10800000000000000
+      internalID: 2127765043946165216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_76
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 478
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bc3a74931d55b3f0800000000000000
+      internalID: -885699413031633739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_77
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 478
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7877ae1697bb38c10800000000000000
+      internalID: 2054691985019271047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_78
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 478
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40e3223f4e0367f40800000000000000
+      internalID: 5725817736137948676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_79
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 478
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a96e279d308975da0800000000000000
+      internalID: -5956124839873681766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_80
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 478
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5966fe49ecb9bcac0800000000000000
+      internalID: -3833799346211559787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_81
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 478
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1ab18ba16c935200800000000000000
+      internalID: 167649554446006814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_82
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 478
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b41175b835866f4a0800000000000000
+      internalID: -6559941099189235381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_83
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 478
+        width: 78
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd0e48d27bc87dd40800000000000000
+      internalID: 5609106579283828955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_84
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 478
+        width: 68
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f01e15e9ec75306d0800000000000000
+      internalID: -3025477979731795697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_85
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 382
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fd5d1cbf272aec00800000000000000
+      internalID: 930599358978416118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_86
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 382
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f4a605478f618390800000000000000
+      internalID: -7817844851369138954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_87
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 382
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22961a0bde591e5e0800000000000000
+      internalID: -1882058321161000670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_88
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 382
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5f40937fe9c55f30800000000000000
+      internalID: 4563775827683069790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_89
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 382
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e5a81f06c9aec860800000000000000
+      internalID: 7552160293268792806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_90
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 382
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 673b434fe454b5c50800000000000000
+      internalID: 6654989079776899958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_91
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 382
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6407bba58a2d0f5a0800000000000000
+      internalID: -6489455442522312634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_92
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 382
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 100bacbedc21b26a0800000000000000
+      internalID: -6473059363781431295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_93
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 382
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ee9898ef8f902b80800000000000000
+      internalID: -8421555862751371551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_94
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 382
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca2b9fbff73f1aab0800000000000000
+      internalID: -4998446380390698324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_95
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 382
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c68c0862a425484d0800000000000000
+      internalID: -3133288962315990932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_96
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 382
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03b0789dbdbd9b3d0800000000000000
+      internalID: -3190277123721458896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_97
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 382
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2469cb6cc8503ee50800000000000000
+      internalID: 6837314761466353218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_98
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 382
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcb1735ed0ba664e0800000000000000
+      internalID: -1988714109268976689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_99
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 382
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d89a6ea0254c8550800000000000000
+      internalID: 6164377996630857942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_100
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 382
+        width: 78
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c59733aada07963b0800000000000000
+      internalID: -5518755977178678948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_101
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 382
+        width: 68
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d636d55a448c5a2a0800000000000000
+      internalID: -6726750271250275475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_102
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 285
+        width: 71
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d8428f306ca72320800000000000000
+      internalID: 2533182844801534163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_103
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 285
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e92c0a770e5370af0800000000000000
+      internalID: -430316001194622306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_104
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 286
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c248d33e18d4468b0800000000000000
+      internalID: -5159914052801166292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_105
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 285
+        width: 71
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04935c079e8292980800000000000000
+      internalID: -8563268233383823040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_106
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 285
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdb0a072faadec9d0800000000000000
+      internalID: -2752021876467692580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_107
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 285
+        width: 71
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31404e84f73396cd0800000000000000
+      internalID: -2564461891034020845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_108
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 285
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51c32fb6b956b7260800000000000000
+      internalID: 7096377356057721877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_109
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 285
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5a80b6a1389383f0800000000000000
+      internalID: -899708161526560166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_110
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 285
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 605ebf3f8682a4ea0800000000000000
+      internalID: -5887849131598420730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_111
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 285
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f34e6fb1e68804b0800000000000000
+      internalID: -5473977042931399694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_112
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 285
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c0cbaa840d3e86e0800000000000000
+      internalID: -1833460908577537849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_113
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 285
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1dca1683a24714a0800000000000000
+      internalID: -6622751456928019172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_114
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 285
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ee543cadb436c5e0800000000000000
+      internalID: -1889765004392767773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_115
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 285
+        width: 71
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc7c68b08453bff90800000000000000
+      internalID: -6918877818977335348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_116
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 285
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6866db07597d5970800000000000000
+      internalID: 8745279466191087726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_117
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 285
+        width: 78
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ed8a47941e3f5fc0800000000000000
+      internalID: -3504013726912442908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_118
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 285
+        width: 68
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02de393bd891f4ab0800000000000000
+      internalID: -5021766963100914400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_119
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 190
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79f2074c22dab6fd0800000000000000
+      internalID: -2347592415907401833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_120
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 190
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9812e9c47c9bb8b70800000000000000
+      internalID: 8902413354062979465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_121
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 191
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a37ec0b8125cc3500800000000000000
+      internalID: 377393216649750330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_122
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 190
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3398442db8b7b010800000000000000
+      internalID: 1204634547841962815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_123
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 190
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1163c2c3d0ac318d0800000000000000
+      internalID: -2876733578766698991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_124
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 190
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12c3d81bfef973560800000000000000
+      internalID: 7293473973374630945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_125
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 190
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8727ba675cf636b80800000000000000
+      internalID: -8402749585853025672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_126
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 190
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37c965f4374d0c430800000000000000
+      internalID: 3801271677218102387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_127
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 190
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8652f889b1e38330800000000000000
+      internalID: 3712058704866203276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_128
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 190
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4de4dbb09c2ecf440800000000000000
+      internalID: 4971097441823444692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_129
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 190
+        width: 71
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe9258fba2b2dd190800000000000000
+      internalID: -7936139505755149841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_130
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 190
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef9fa22561fbd6010800000000000000
+      internalID: 1183812379657042430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_131
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 190
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2defe67a02f1cd10800000000000000
+      internalID: 2144261024364096812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_132
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 190
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff63ca6966a574690800000000000000
+      internalID: -7618020848012871937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_133
+      rect:
+        serializedVersion: 2
+        x: 1059
+        y: 190
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60354c3cbc2e811b0800000000000000
+      internalID: -5685545164764589306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_134
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 190
+        width: 78
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5858825a5ac413510800000000000000
+      internalID: 1527086022979519877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_135
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 190
+        width: 68
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d202deb457b5e2b0800000000000000
+      internalID: -5555832990685068588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_136
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 93
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 379b8025732e34e20800000000000000
+      internalID: 3333756876411681139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_137
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 93
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5319b77733cad000800000000000000
+      internalID: 61576187922158426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_138
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 93
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f982c8ed0db30950800000000000000
+      internalID: 6414178161743006198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_139
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 93
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94d43c6cfe69a7dd0800000000000000
+      internalID: -2487509887592739511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_140
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 93
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7e77c5c55cf8fee0800000000000000
+      internalID: -1226953453137854854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_141
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 93
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ec8eda2d9b54e620800000000000000
+      internalID: 2802465598718512354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_142
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 93
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04bd6003dee6c69e0800000000000000
+      internalID: -1626803400395531456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_143
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 93
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12e90dc1917740580800000000000000
+      internalID: -8861827217016971743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_144
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 93
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70cf84fb8f3942ab0800000000000000
+      internalID: -5033735786922968057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_145
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 93
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9807b723b78942e0800000000000000
+      internalID: -2141030944302757734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_146
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 93
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d177b0f5cfcc21cb0800000000000000
+      internalID: -4894624460699896035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_147
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 93
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2bd3dc63bd30fd50800000000000000
+      internalID: 6768978080772119343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_148
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 93
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c5f90bce5ab23770800000000000000
+      internalID: 8589132355645076932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_149
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 93
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c2c73430551e07a0800000000000000
+      internalID: -6409161785484000567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_150
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 93
+        width: 73
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e509b02265ae9c00800000000000000
+      internalID: 909346015649793512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_151
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 93
+        width: 78
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 401d5c78ed2c027a0800000000000000
+      internalID: -6403904409104428796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_152
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 93
+        width: 68
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d95bdf25b5092850800000000000000
+      internalID: 6352615025132919252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_153
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 71
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dd4a4e004c292800800000000000000
+      internalID: 588049879977840083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_154
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 0
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9790213c556b5d040800000000000000
+      internalID: 4671840667927972217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_155
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 0
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23f3be0137a8c39e0800000000000000
+      internalID: -1640283937459978446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_156
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 0
+        width: 71
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f19d91a24e29aac90800000000000000
+      internalID: -7157747149095446241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_157
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 0
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf2aed448ed05a640800000000000000
+      internalID: 5090490245051228924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_158
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 0
+        width: 71
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69ae4fd292a7ce390800000000000000
+      internalID: -7787715338347156842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_159
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 0
+        width: 73
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 187afa4f5c0bb8b70800000000000000
+      internalID: 8902403452688115585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_160
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 0
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed65ad2501c934b20800000000000000
+      internalID: 3117506960993965790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_161
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 0
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76d44338b22b66b50800000000000000
+      internalID: 6586147405030509927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_162
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 0
+        width: 73
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e19a49094242255d0800000000000000
+      internalID: -3075355856077543138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_163
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 0
+        width: 71
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d05147a3cec814dd0800000000000000
+      internalID: -2503564971620428531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_164
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 0
+        width: 73
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eee89e935df33b230800000000000000
+      internalID: 3653333907759795950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_165
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 0
+        width: 72
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6688320f1b14b2500800000000000000
+      internalID: 372463626682075238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_166
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 0
+        width: 71
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdf9b030dd9047bf0800000000000000
+      internalID: -327626028047687717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_167
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 0
+        width: 73
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a69c03837ad6f510800000000000000
+      internalID: 1582692508722042528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_168
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 0
+        width: 78
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17a59078325ba6440800000000000000
+      internalID: 4929951906304449137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sun_Icon_17_10_169
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 0
+        width: 68
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78010c9993651ba00800000000000000
+      internalID: 770491816649691271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sun_Icon_17_10_0: -7200143368417268652
+      Sun_Icon_17_10_1: -8671799701271160919
+      Sun_Icon_17_10_10: 6235548478101561938
+      Sun_Icon_17_10_100: -5518755977178678948
+      Sun_Icon_17_10_101: -6726750271250275475
+      Sun_Icon_17_10_102: 2533182844801534163
+      Sun_Icon_17_10_103: -430316001194622306
+      Sun_Icon_17_10_104: -5159914052801166292
+      Sun_Icon_17_10_105: -8563268233383823040
+      Sun_Icon_17_10_106: -2752021876467692580
+      Sun_Icon_17_10_107: -2564461891034020845
+      Sun_Icon_17_10_108: 7096377356057721877
+      Sun_Icon_17_10_109: -899708161526560166
+      Sun_Icon_17_10_11: 4755709858887109613
+      Sun_Icon_17_10_110: -5887849131598420730
+      Sun_Icon_17_10_111: -5473977042931399694
+      Sun_Icon_17_10_112: -1833460908577537849
+      Sun_Icon_17_10_113: -6622751456928019172
+      Sun_Icon_17_10_114: -1889765004392767773
+      Sun_Icon_17_10_115: -6918877818977335348
+      Sun_Icon_17_10_116: 8745279466191087726
+      Sun_Icon_17_10_117: -3504013726912442908
+      Sun_Icon_17_10_118: -5021766963100914400
+      Sun_Icon_17_10_119: -2347592415907401833
+      Sun_Icon_17_10_12: -1816430066480652861
+      Sun_Icon_17_10_120: 8902413354062979465
+      Sun_Icon_17_10_121: 377393216649750330
+      Sun_Icon_17_10_122: 1204634547841962815
+      Sun_Icon_17_10_123: -2876733578766698991
+      Sun_Icon_17_10_124: 7293473973374630945
+      Sun_Icon_17_10_125: -8402749585853025672
+      Sun_Icon_17_10_126: 3801271677218102387
+      Sun_Icon_17_10_127: 3712058704866203276
+      Sun_Icon_17_10_128: 4971097441823444692
+      Sun_Icon_17_10_129: -7936139505755149841
+      Sun_Icon_17_10_13: 5755070901718649012
+      Sun_Icon_17_10_130: 1183812379657042430
+      Sun_Icon_17_10_131: 2144261024364096812
+      Sun_Icon_17_10_132: -7618020848012871937
+      Sun_Icon_17_10_133: -5685545164764589306
+      Sun_Icon_17_10_134: 1527086022979519877
+      Sun_Icon_17_10_135: -5555832990685068588
+      Sun_Icon_17_10_136: 3333756876411681139
+      Sun_Icon_17_10_137: 61576187922158426
+      Sun_Icon_17_10_138: 6414178161743006198
+      Sun_Icon_17_10_139: -2487509887592739511
+      Sun_Icon_17_10_14: 4146924727614788384
+      Sun_Icon_17_10_140: -1226953453137854854
+      Sun_Icon_17_10_141: 2802465598718512354
+      Sun_Icon_17_10_142: -1626803400395531456
+      Sun_Icon_17_10_143: -8861827217016971743
+      Sun_Icon_17_10_144: -5033735786922968057
+      Sun_Icon_17_10_145: -2141030944302757734
+      Sun_Icon_17_10_146: -4894624460699896035
+      Sun_Icon_17_10_147: 6768978080772119343
+      Sun_Icon_17_10_148: 8589132355645076932
+      Sun_Icon_17_10_149: -6409161785484000567
+      Sun_Icon_17_10_15: 8915546443699812644
+      Sun_Icon_17_10_150: 909346015649793512
+      Sun_Icon_17_10_151: -6403904409104428796
+      Sun_Icon_17_10_152: 6352615025132919252
+      Sun_Icon_17_10_153: 588049879977840083
+      Sun_Icon_17_10_154: 4671840667927972217
+      Sun_Icon_17_10_155: -1640283937459978446
+      Sun_Icon_17_10_156: -7157747149095446241
+      Sun_Icon_17_10_157: 5090490245051228924
+      Sun_Icon_17_10_158: -7787715338347156842
+      Sun_Icon_17_10_159: 8902403452688115585
+      Sun_Icon_17_10_16: -7716158612879221907
+      Sun_Icon_17_10_160: 3117506960993965790
+      Sun_Icon_17_10_161: 6586147405030509927
+      Sun_Icon_17_10_162: -3075355856077543138
+      Sun_Icon_17_10_163: -2503564971620428531
+      Sun_Icon_17_10_164: 3653333907759795950
+      Sun_Icon_17_10_165: 372463626682075238
+      Sun_Icon_17_10_166: -327626028047687717
+      Sun_Icon_17_10_167: 1582692508722042528
+      Sun_Icon_17_10_168: 4929951906304449137
+      Sun_Icon_17_10_169: 770491816649691271
+      Sun_Icon_17_10_17: -1764271651821670638
+      Sun_Icon_17_10_18: -3966306333054794815
+      Sun_Icon_17_10_19: 5421987369864730272
+      Sun_Icon_17_10_2: -2269571655652369017
+      Sun_Icon_17_10_20: -6692131558699509573
+      Sun_Icon_17_10_21: 1499360038298234976
+      Sun_Icon_17_10_22: 7537916116669777220
+      Sun_Icon_17_10_23: -8831768190222909468
+      Sun_Icon_17_10_24: -7780308872317675063
+      Sun_Icon_17_10_25: -1368383171219920064
+      Sun_Icon_17_10_26: -4039339161402081688
+      Sun_Icon_17_10_27: 7552283415268561609
+      Sun_Icon_17_10_28: 2934595780707664642
+      Sun_Icon_17_10_29: -9126521475456752355
+      Sun_Icon_17_10_3: -7880454443491815790
+      Sun_Icon_17_10_30: -6214760558200676296
+      Sun_Icon_17_10_31: 8593048843871320342
+      Sun_Icon_17_10_32: -7074045836775604199
+      Sun_Icon_17_10_33: 2712980353779259819
+      Sun_Icon_17_10_34: -455239186963800046
+      Sun_Icon_17_10_35: 3453678675342599896
+      Sun_Icon_17_10_36: -2487986872654175481
+      Sun_Icon_17_10_37: 468090499458713630
+      Sun_Icon_17_10_38: -8655554726166662497
+      Sun_Icon_17_10_39: -6018512724387275718
+      Sun_Icon_17_10_4: 1339867944682116137
+      Sun_Icon_17_10_40: 6994729531763924525
+      Sun_Icon_17_10_41: -6507100745166338149
+      Sun_Icon_17_10_42: -9201044534640603464
+      Sun_Icon_17_10_43: -8400744461432587326
+      Sun_Icon_17_10_44: 8552693120017806996
+      Sun_Icon_17_10_45: 2667757428354348136
+      Sun_Icon_17_10_46: -3705852655698688866
+      Sun_Icon_17_10_47: -1060612473670783280
+      Sun_Icon_17_10_48: 2506391704142435625
+      Sun_Icon_17_10_49: -7929638086224602049
+      Sun_Icon_17_10_5: -549208222268713929
+      Sun_Icon_17_10_50: 4534465510938010203
+      Sun_Icon_17_10_51: 1386767648703497631
+      Sun_Icon_17_10_52: -4918181988269519386
+      Sun_Icon_17_10_53: -913668504702143087
+      Sun_Icon_17_10_54: -3580033566918074174
+      Sun_Icon_17_10_55: -2231427217747648030
+      Sun_Icon_17_10_56: 2514545441918914744
+      Sun_Icon_17_10_57: -8340861767845050590
+      Sun_Icon_17_10_58: -7201767632103906713
+      Sun_Icon_17_10_59: -7804479468714693683
+      Sun_Icon_17_10_6: 840784587971296024
+      Sun_Icon_17_10_60: 6962686496702609067
+      Sun_Icon_17_10_61: -6589172377925216671
+      Sun_Icon_17_10_62: -5177360610392321683
+      Sun_Icon_17_10_63: 594341634062370258
+      Sun_Icon_17_10_64: -4429180159321285723
+      Sun_Icon_17_10_65: -6392431687314395711
+      Sun_Icon_17_10_66: -8173645444335785339
+      Sun_Icon_17_10_67: -305644989639197537
+      Sun_Icon_17_10_68: -6098547313771211876
+      Sun_Icon_17_10_69: 1815609386848510128
+      Sun_Icon_17_10_7: -207819606289060184
+      Sun_Icon_17_10_70: 7937056892933767276
+      Sun_Icon_17_10_71: 4073757966193701671
+      Sun_Icon_17_10_72: 3832506291012415850
+      Sun_Icon_17_10_73: 1264610471490009564
+      Sun_Icon_17_10_74: 52073308064998999
+      Sun_Icon_17_10_75: 2127765043946165216
+      Sun_Icon_17_10_76: -885699413031633739
+      Sun_Icon_17_10_77: 2054691985019271047
+      Sun_Icon_17_10_78: 5725817736137948676
+      Sun_Icon_17_10_79: -5956124839873681766
+      Sun_Icon_17_10_8: 3788068608183478585
+      Sun_Icon_17_10_80: -3833799346211559787
+      Sun_Icon_17_10_81: 167649554446006814
+      Sun_Icon_17_10_82: -6559941099189235381
+      Sun_Icon_17_10_83: 5609106579283828955
+      Sun_Icon_17_10_84: -3025477979731795697
+      Sun_Icon_17_10_85: 930599358978416118
+      Sun_Icon_17_10_86: -7817844851369138954
+      Sun_Icon_17_10_87: -1882058321161000670
+      Sun_Icon_17_10_88: 4563775827683069790
+      Sun_Icon_17_10_89: 7552160293268792806
+      Sun_Icon_17_10_9: 6072058842369369326
+      Sun_Icon_17_10_90: 6654989079776899958
+      Sun_Icon_17_10_91: -6489455442522312634
+      Sun_Icon_17_10_92: -6473059363781431295
+      Sun_Icon_17_10_93: -8421555862751371551
+      Sun_Icon_17_10_94: -4998446380390698324
+      Sun_Icon_17_10_95: -3133288962315990932
+      Sun_Icon_17_10_96: -3190277123721458896
+      Sun_Icon_17_10_97: 6837314761466353218
+      Sun_Icon_17_10_98: -1988714109268976689
+      Sun_Icon_17_10_99: 6164377996630857942
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
