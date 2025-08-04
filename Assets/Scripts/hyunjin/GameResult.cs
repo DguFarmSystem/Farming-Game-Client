@@ -12,7 +12,6 @@ public class GameResult : MonoBehaviour
     private string game;
     private int score;
     private int gold;
-    private int sunlight;
 
     void Start()
     {
@@ -26,8 +25,7 @@ public class GameResult : MonoBehaviour
         Debug.Log($"{_game} : {_score}");
         gameObject.SetActive(true);
         gold = 0;
-        sunlight = 0;
-        rewardText.text = "fighting";
+        rewardText.text = "골드를 획득하지 못했습니다.\n조금만 더 힘내보세요!";
         game = _game;
         score = _score;
         CalculateReward();
@@ -36,21 +34,14 @@ public class GameResult : MonoBehaviour
     void CalculateReward()
     {
         if (game == "RPS") {
-            if (score == 2) {
-                gold = 20;
-                sunlight = 20;
-                rewardText.text = $"gold: {gold}\nsunlight: {sunlight}";
-            }
-            else if (score == 3) {
-                gold = 30;
-                sunlight = 30;
-                rewardText.text = $"gold: {gold}\nsunlight: {sunlight}";
-            }
+            if (score < 2) return;
+            gold = score * 10;
         }
-        else if (game == "CarrotFarm") {
+        else if (game == "CarrotFarm" || game == "SunshineGame") {
+            if (score < 10) return;
             gold = (score / 10) * 10;
-            rewardText.text = $"gold: {gold}\nsunlight: {sunlight}";
         }
+        rewardText.text = $"골드를 획득했습니다!\n획득 골드 : {gold}G";
     }
 
     void OnRetry()
