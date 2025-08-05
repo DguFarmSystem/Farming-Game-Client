@@ -350,6 +350,7 @@ MonoBehaviour:
   shopUI: {fileID: 0}
   plantPopupPrefab: {fileID: 7091339977260817000, guid: f85d84f5c0191d54fa33618ff418d7e4, type: 3}
   seedDrawPrefab: {fileID: 5032363625306022309, guid: b6d8965a4828d3e43a49b285d766efa6, type: 3}
+  HarvestUIPrefab: {fileID: 3625710973642490992, guid: 769962ba9bc2b2e48afc0997d3065d15, type: 3}
   popupParent: {fileID: 887311101}
 --- !u!4 &42994445
 Transform:
