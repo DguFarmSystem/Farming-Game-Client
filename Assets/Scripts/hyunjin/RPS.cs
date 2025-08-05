@@ -5,6 +5,8 @@ using System.Collections;
 
 public class RPS : MonoBehaviour
 {
+    public MinigamePopup minigamePopup;
+
     public Image currentImage;
     public Sprite rockSprite, paperSprite, scissorsSprite;
     public Image winBox, drawBox, loseBox;
@@ -12,8 +14,6 @@ public class RPS : MonoBehaviour
     public Button desciptionButton, startButton;
     public Image winCountImg;
     public Sprite win0, win1, win2, win3;
-
-    public GameResult gameResult;
 
     private Sprite[] choiceSprites;
     private Sprite[] winCountSprites;
@@ -36,6 +36,8 @@ public class RPS : MonoBehaviour
         loseBox.gameObject.SetActive(false);
         drawBox.gameObject.SetActive(false);
         winCountImg.sprite = winCountSprites[0];
+
+        minigamePopup.onExit = () => { StopAllCoroutines(); };
     }
 
     void StartGame()
@@ -95,7 +97,7 @@ public class RPS : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         if (round == 3)
-            gameResult.SaveResult("RPS", winCount);
+            minigamePopup.RewardPopup("RPS", winCount);
         else
             StartCoroutine(ShuffleImages());
     }

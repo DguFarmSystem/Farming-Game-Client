@@ -31,7 +31,7 @@ public class MiniGameButtonHandler : MonoBehaviour
         Debug.Log($"{selected} is selected");
     }
 
-    public void Start()
+    public void StartGame()
     {
         if (SceneLoader.Instance == null) {
             Debug.Log("SceneLoader.Instance is null");
@@ -44,7 +44,7 @@ public class MiniGameButtonHandler : MonoBehaviour
         SceneLoader.Instance.GoToMiniGame(selected);
     }
 
-    public void Cancel()
+    public void CancelGame()
     {
         selected = null;
         popupPanel.SetActive(false);
