@@ -33,7 +33,7 @@ public class SceneLoader : MonoBehaviour
     public float fadeDuration = 1.0f;
     public Animator transitionAnimator;
 
-    private string[] mainScenes = {"PowerStation", "TestScene1", "Farm", "MiniGameEntrance"};
+    private string[] mainScenes = {"PowerStation", "Garden_Yurae", "Farm", "MiniGameEntrance"};
     private bool isTransitioning = false;
     private int currentIdx = 0;
     private Coroutine fadeOutLabelCoroutine;
