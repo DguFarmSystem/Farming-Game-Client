@@ -22,6 +22,7 @@ public class PowerStationManager : MonoBehaviour
     public Image tankImage;            // 리소스 이미지 (Lv0~Lv9)
     public TMP_Text percentText;       // "충전량 0%" 등 텍스트
     public Button collectButton;       // 수령 버튼
+
     [Header("Sprites (Lv0 ~ Lv9)")]
     public Sprite[] levelSprites;      // 총 10개 (index 0 = Lv0, 9 = Lv9)
 
@@ -31,13 +32,6 @@ public class PowerStationManager : MonoBehaviour
     private float chargeCheckInterval = 5f;
     private float chargeCheckTimer = 0f;
     float maxTime = 100f; //최대 충전 시간
-
-    [Header("Sunlight Effect")]
-    public GameObject sunEffectPrefab;      // 햇살 프리팹
-    public Transform sunEffectParent;       // 캔버스 내 부모
-    public Transform sunTargetUI;           // 목표 위치 (햇살 도착 위치)
-    public int effectCount = 5;             // 몇 개의 햇살 생성
-    public float spreadRadius = 100f;       // 뿅 하고 퍼지는 거리
 
     private void Awake()
     {
@@ -131,8 +125,6 @@ public class PowerStationManager : MonoBehaviour
         float percent = Mathf.Clamp01((float)(totalSeconds / maxTime)) * 100f;
         int availableSunlight = Mathf.FloorToInt(percent) / 2;
 
-        StartCoroutine(PlaySunlightEffect());
-
         int newSun = availableSunlight;
         if (newSun > 0)
         {
@@ -162,49 +154,5 @@ public class PowerStationManager : MonoBehaviour
         else if (percent >= 10) return 2;
         else if (percent >= 5) return 1;
         else return 0;
-    }
-
-    private IEnumerator PlaySunlightEffect()
-    {
-        Vector3 startWorldPos = collectButton.transform.position;
-
-        for (int i = 0; i < effectCount; i++)
-        {
-            // 인스턴스 생성
-            GameObject sun = Instantiate(sunEffectPrefab, sunEffectParent);
-            RectTransform rt = sun.GetComponent<RectTransform>();
-
-            // 랜덤한 방향으로 퍼트림
-            Vector2 randomOffset = UnityEngine.Random.insideUnitCircle * spreadRadius;
-            Vector3 midPos = startWorldPos + (Vector3)randomOffset;
-
-            // 시작 위치
-            rt.position = startWorldPos;
-
-            // 중간 위치까지 0.3초
-            float t = 0f;
-            float midDuration = 0.3f;
-            while (t < midDuration)
-            {
-                t += Time.deltaTime;
-                float lerp = t / midDuration;
-                rt.position = Vector3.Lerp(startWorldPos, midPos, lerp);
-                yield return null;
-            }
-
-            // 도착 위치까지 0.5초
-            t = 0f;
-            float endDuration = 0.5f;
-            Vector3 endPos = sunTargetUI.position;
-            while (t < endDuration)
-            {
-                t += Time.deltaTime;
-                float lerp = t / endDuration;
-                rt.position = Vector3.Lerp(midPos, endPos, lerp);
-                yield return null;
-            }
-
-            Destroy(sun);
-        }
     }
 }
