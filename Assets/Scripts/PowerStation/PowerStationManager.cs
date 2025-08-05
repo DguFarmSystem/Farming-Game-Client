@@ -36,7 +36,7 @@ public class PowerStationManager : MonoBehaviour
     public GameObject sunEffectPrefab;      // 햇살 프리팹
     public Transform sunEffectParent;       // 캔버스 내 부모
     public Transform sunTargetUI;           // 목표 위치 (햇살 도착 위치)
-    public int effectCount = 5;             // 몇 개의 햇살 생성
+    public int effectCount = 3;             // 몇 개의 햇살 생성
     public float spreadRadius = 100f;       // 뿅 하고 퍼지는 거리
 
     private void Awake()

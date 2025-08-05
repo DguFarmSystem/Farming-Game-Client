@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 4377840816470680875}
   - component: {fileID: 5420375019508709527}
   - component: {fileID: 1620129254173420704}
-  - component: {fileID: 1031654928646201068}
+  - component: {fileID: 2476618833242417472}
   m_Layer: 5
   m_Name: HarvestUI
   m_TagString: Untagged
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1031654928646201068
+--- !u!114 &2476618833242417472
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3625710973642490992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bf13ea25f1c5c544bb6e07c6a32862b, type: 3}
+  m_Script: {fileID: 11500000, guid: d8283eee2fa517c408cae7a1be290131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   seed: {fileID: 8053168390936610211}
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 6224665076600967405}
   - component: {fileID: 6448469838403532441}
   - component: {fileID: 5468559177884617712}
-  - component: {fileID: 739313398306821745}
+  - component: {fileID: 8831235692103979107}
   m_Layer: 5
   m_Name: light
   m_TagString: Untagged
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &739313398306821745
+--- !u!114 &8831235692103979107
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -495,7 +495,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4789986343208272395}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 705138644f9b4d241a9bc72a6f89fa00, type: 3}
+  m_Script: {fileID: 11500000, guid: fb4b4e57be00fc745b729e0840d7a2d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 30

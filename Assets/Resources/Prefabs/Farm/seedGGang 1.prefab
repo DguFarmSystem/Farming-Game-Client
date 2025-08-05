@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 2189778932066060070}
   - component: {fileID: 148561856942019868}
   - component: {fileID: 5012986408114347191}
-  - component: {fileID: 1224715544697749433}
+  - component: {fileID: 2532680569546708337}
   m_Layer: 5
   m_Name: light
   m_TagString: Untagged
@@ -426,7 +426,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1224715544697749433
+--- !u!114 &2532680569546708337
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3338082991329411524}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 705138644f9b4d241a9bc72a6f89fa00, type: 3}
+  m_Script: {fileID: 11500000, guid: fb4b4e57be00fc745b729e0840d7a2d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 45
@@ -1059,9 +1059,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4334890872070398053}
-  - component: {fileID: 1734360531250384472}
+  - component: {fileID: 6687922866112417986}
   m_Layer: 5
-  m_Name: seedGGang
+  m_Name: seedGGang 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1088,7 +1088,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1734360531250384472
+--- !u!114 &6687922866112417986
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1097,7 +1097,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5032363625306022309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09bbab6f67609bc4e93691b36dc87994, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ee2952eba58ad849905577eca3c5f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   popupUI: {fileID: 2914012248634277392}
