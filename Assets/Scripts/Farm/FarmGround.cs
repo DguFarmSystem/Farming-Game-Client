@@ -18,6 +18,7 @@ public class FarmGround : MonoBehaviour
     public Sprite growingSprite_2;
     public Sprite grownSprite;
 
+
     public void InitGround(FarmPlotData newData)
     {
         data = newData;
@@ -77,8 +78,6 @@ public class FarmGround : MonoBehaviour
     public void TryHarvest()
     {
         if (data.status != "grown") return;
-
-        UIManager.Instance.OpenHarvestPopup(data.plant_name);
 
         FlowerDataManager.Instance.RegisterFlower(data.plant_name);
         data.plant_name = "";

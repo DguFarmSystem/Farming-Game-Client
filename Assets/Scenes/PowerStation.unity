@@ -318,7 +318,6 @@ MonoBehaviour:
   shopUI: {fileID: 0}
   plantPopupPrefab: {fileID: 7091339977260817000, guid: f85d84f5c0191d54fa33618ff418d7e4, type: 3}
   seedDrawPrefab: {fileID: 5032363625306022309, guid: b6d8965a4828d3e43a49b285d766efa6, type: 3}
-  HarvestUIPrefab: {fileID: 0}
   popupParent: {fileID: 0}
 --- !u!4 &42994445
 Transform:
@@ -1091,8 +1090,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 298, y: 0}
-  m_SizeDelta: {x: 300, y: 600}
+  m_AnchoredPosition: {x: 298, y: -65}
+  m_SizeDelta: {x: 300, y: 500}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &381086778
 MonoBehaviour:
@@ -2921,41 +2920,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910626735}
   m_CullTransparentMesh: 1
---- !u!1 &938784893
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 938784894}
-  m_Layer: 5
-  m_Name: target
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &938784894
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938784893}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1379381957}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -240, y: -80}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 1, y: 1}
 --- !u!1 &940329319
 GameObject:
   m_ObjectHideFlags: 0
@@ -3976,7 +3940,6 @@ RectTransform:
   m_Children:
   - {fileID: 2004301893}
   - {fileID: 940329320}
-  - {fileID: 938784894}
   - {fileID: 381086777}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4078,11 +4041,6 @@ MonoBehaviour:
   - {fileID: 7757714055038207751, guid: 48dae0f7d09046442b9deab7012312e0, type: 3}
   - {fileID: -5246359516322179509, guid: 9c1c94c54485d6640acbb0d0eb7c3785, type: 3}
   uid: 
-  sunEffectPrefab: {fileID: 1144057176671370194, guid: b6be8333db2ecc44c82650ae1a62b536, type: 3}
-  sunEffectParent: {fileID: 381086777}
-  sunTargetUI: {fileID: 938784894}
-  effectCount: 5
-  spreadRadius: 100
 --- !u!1 &1425972710
 GameObject:
   m_ObjectHideFlags: 0
