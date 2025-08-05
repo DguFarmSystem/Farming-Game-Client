@@ -12,8 +12,8 @@ public class FlowerSlotUI : MonoBehaviour
     public void Init(int index)
     {
         textNo.text = (index + 1).ToString();
-        textName.text = "???"; // 초기에는 미수집 상태
-        imageIcon.gameObject.SetActive(false); // 아이콘 비활성화
+        textName.text = "No."; 
+        imageIcon.gameObject.SetActive(false); 
     }
 
     public void SetCollected(Sprite icon, string flowerName)

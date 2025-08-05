@@ -52,7 +52,7 @@ public class PurchasePopup : MonoBehaviour
         this.unitPrice = pricePerItem;
         currentCount = 1;
 
-        itemNameText.text = $"{itemName}을(를) 구매하시겠습니까?";
+        itemNameText.text = $"{itemName}을(를)\n구매하시겠습니까?";
         inputField.text = currentCount.ToString();
         UpdateTotalPrice();
     }
