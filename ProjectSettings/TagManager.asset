@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
+  - Base Grid
+  - Tile
+  - Object
+  - Plant
   layers:
   - Default
   - TransparentFX
@@ -47,6 +51,15 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1021398643
+    locked: 0
+  - name: Tile
+    uniqueID: 626155505
+    locked: 0
+  - name: Plant
+    uniqueID: 4090105219
+    locked: 0
+  - name: Object
+    uniqueID: 1705495195
     locked: 0
   m_RenderingLayers:
   - Default

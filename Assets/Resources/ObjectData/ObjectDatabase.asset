@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8884deb55e5085a40ab7af9459d82105, type: 3}
+  m_Name: ObjectDatabase
+  m_EditorClassIdentifier: 
+  prefabs: []
+  data:
+  - id: Tilemap_Grass
+    name: "\uC794\uB514"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: -1
+    type: 0
+  - id: Tilemap_Field
+    name: "\uBC2D"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 10
+    type: 0
+  - id: Tilemap_Water
+    name: "\uBB3C"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 10
+    type: 0
+  - id: Tilemap_Stone
+    name: "\uB3CC"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 10
+    type: 0
+  - id: Object_TestFence
+    name: "\uC6B8\uD0C0\uB9AC"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 10
+    type: 1
+  - id: Plant_TestWater
+    name: "\uBB3C\uC2DD\uBB3C"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 10
+    type: 2
+  - id: Plant_TestLand
+    name: "\uC9C0\uC0C1\uC2DD\uBB3C"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 10
+    type: 2
