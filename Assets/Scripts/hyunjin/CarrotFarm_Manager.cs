@@ -13,7 +13,7 @@ public enum ItemState{
 public class CarrotFarm_Manager : MonoBehaviour
 {
     public static CarrotFarm_Manager Instance;
-    public GameResult gameResult;
+    public MinigamePopup minigamePopup;
 
     [Header("UI")]
     public TMP_Text timerText, scoreText;
@@ -43,7 +43,7 @@ public class CarrotFarm_Manager : MonoBehaviour
         isGameOver = true;
         enabled = false;
         cursorImage.enabled = false;
-        gameDuration = 20f;
+        gameDuration = 120f;
         score = 0;
     }
 
@@ -137,6 +137,6 @@ public class CarrotFarm_Manager : MonoBehaviour
         seedButton.interactable = false;
         waterButton.interactable = false;
         hammerButton.interactable = false;
-        gameResult.SaveResult("CarrotFarm", score);
+        minigamePopup.RewardPopup("CarrotFarm", score);
     }
 }

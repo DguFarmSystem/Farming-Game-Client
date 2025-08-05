@@ -103,6 +103,7 @@ public class SceneLoader : MonoBehaviour
     public void ExitMiniGame() {
         if (isTransitioning) return;
 
+        Debug.Log("exit minigame");
         StartCoroutine(TransitionScene("MiniGameEntrance", "Fade"));
     }
 
