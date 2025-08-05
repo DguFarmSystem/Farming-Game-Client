@@ -1,3 +1,5 @@
+using Microsoft.Unity.VisualStudio.Editor;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -10,6 +12,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject plantPopupPrefab; //씨앗 심기 팝업 프리팹
     public GameObject seedDrawPrefab; //씨앗깡 프리팹
+    public GameObject HarvestUIPrefab; // 수확 UI 프리팹
     public Transform popupParent; //팝업 프리팹 넣을 부모
 
 
@@ -60,5 +63,23 @@ public class UIManager : MonoBehaviour
             Destroy(currentPopup);
 
         currentPopup = Instantiate(seedDrawPrefab, popupParent);
+    }
+
+    public void OpenHarvestPopup(string flower_name)
+    {
+        if (currentPopup != null)
+            Destroy(currentPopup);
+
+        currentPopup = Instantiate(HarvestUIPrefab, popupParent);
+
+        HarvestUI H_UI = currentPopup.GetComponent<HarvestUI>();
+        Sprite flower_image = FlowerDataManager.Instance.GetFlowerSprite(flower_name);
+
+        H_UI.flower_Text.text = flower_name; //꽃 이름 넘겨주기
+        Debug.Log(flower_name);
+        if (flower_image != null)
+        {
+            H_UI.flower_image.sprite = flower_image;
+        }
     }
 }
