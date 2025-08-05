@@ -4,7 +4,7 @@ using TMPro;
 public class SunshineGame_Sunshine : MonoBehaviour
 {
     private TMP_Text numText;
-    private int num;
+    public int num;
 
     void Start()
     {
@@ -20,6 +20,6 @@ public class SunshineGame_Sunshine : MonoBehaviour
 
     public void Pop()
     {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

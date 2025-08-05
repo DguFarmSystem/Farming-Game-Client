@@ -6,39 +6,58 @@ using TMPro;
 
 public class SunshineGame_Manager : MonoBehaviour
 {
+    public MinigamePopup minigamePopup;
+
     public Transform layout;
-    public Image timerMask;
+    public RectTransform timerMask;
+    public float totalTime;
     public RectTransform dragBox;
     public TMP_Text scoreText;
-    public Button tempExitButton;
 
+    private bool isGameOver, isPaused;
     private int score;
+    private float currentTime;
     private float timerSize;
-    private Vector2 startPos;
-    private Vector2 endPos;
+    private Vector2 startPos, endPos;
     private List<SunshineGame_Sunshine> dragedList = new List<SunshineGame_Sunshine>();
     
     void Start()
     {
+        isPaused = false;
+        isGameOver = false;
         score = 0;
-        timerSize = timerMask.rectTransform.rect.height;
-        SetValue(0.4f);
+        totalTime = 120f;
+        currentTime = totalTime;
+        timerSize = timerMask.rect.height;
         dragBox.gameObject.SetActive(false);
-        tempExitButton.onClick.AddListener(EndGame);
+        minigamePopup.onPause = () => { isPaused = true; };
+        minigamePopup.onResume = () => { isPaused = false; };
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) {
+        if (isPaused || isGameOver) return;
+
+        // timer
+        if (currentTime <= 0f) {
+            isGameOver = true;
+            EndGame();
+            return;
+        }
+        currentTime -= Time.deltaTime;
+        timerMask.sizeDelta = new Vector2(timerMask.sizeDelta.x, timerSize * (currentTime / totalTime));
+
+        // input
+        if (Input.GetMouseButtonDown(0)) { // 1. 마우스 누를 때
             dragBox.gameObject.SetActive(true);
             startPos = Input.mousePosition;
         }
-        if (Input.GetMouseButton(0)) {
+        if (Input.GetMouseButton(0)) { // 2. 마우스 누르는 동안
             endPos = Input.mousePosition;
             DrawDragBox();
             SelectObjects();
         }
-        if (Input.GetMouseButtonUp(0)) {
+        if (Input.GetMouseButtonUp(0)) { // 3. 마우스 뗄 때
             Calculate();
             dragBox.gameObject.SetActive(false);
             dragedList.Clear();
@@ -50,14 +69,7 @@ public class SunshineGame_Manager : MonoBehaviour
         Vector2 size = new Vector2(Mathf.Abs(endPos.x-startPos.x), Mathf.Abs(startPos.y-endPos.y));
         Vector2 pos = new Vector2(Mathf.Min(startPos.x, endPos.x), Mathf.Min(startPos.y, endPos.y)) + size/2;
         dragBox.position = pos;
-        dragBox.sizeDelta = size;   
-        SelectObjects();
-    }
-
-    public void SetValue(float value)
-    {
-        // timerMask.sizeDelta = new Vector2(timerMask.sizeDelta.x, timerSize*value);
-        timerMask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, timerSize * value);
+        dragBox.sizeDelta = size;
     }
 
     void SelectObjects()
@@ -65,20 +77,13 @@ public class SunshineGame_Manager : MonoBehaviour
         Rect dragRect = GetWorldRect(dragBox);
         dragedList.Clear();
 
-        foreach (Transform child in layout)
-        {
-            if (!child.gameObject.activeSelf) continue;
-
+        foreach (Transform child in layout) {
             SunshineGame_Sunshine sun = child.GetComponent<SunshineGame_Sunshine>();
             if (sun == null) continue;
 
             RectTransform sunRect = child.GetComponent<RectTransform>();
-            Vector3[] corners = new Vector3[4];
-            sunRect.GetWorldCorners(corners);
-            Vector2 center = (corners[0] + corners[2]) / 2f;
-
-            if (dragRect.Contains(center))
-            {
+            Rect sunWorldRect = GetWorldRect(sunRect);
+            if (dragRect.Overlaps(sunWorldRect, true)) {
                 dragedList.Add(sun);
             }
         }
@@ -87,12 +92,7 @@ public class SunshineGame_Manager : MonoBehaviour
     void Calculate()
     {
         int sum = 0;
-        foreach (var sun in dragedList) {
-            Debug.Log($"draged sun : {sun.GetNum()}");
-            sum += sun.GetNum();
-
-        }
-        Debug.Log($"sum : {sum}");
+        foreach (var sun in dragedList) sum += sun.GetNum();
         if (sum != 10) return;
         foreach (var sun in dragedList) sun.Pop();
         score += dragedList.Count;
@@ -109,6 +109,6 @@ public class SunshineGame_Manager : MonoBehaviour
     }
 
     void EndGame() {
-        SceneLoader.Instance.ExitMiniGame();
+        minigamePopup.RewardPopup("SunshineGame", score);
     }
 }
