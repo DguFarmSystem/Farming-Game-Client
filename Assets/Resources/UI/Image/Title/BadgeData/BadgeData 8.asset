@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78c8f6e5f40f4351a16933c3d69ee93, type: 3}
   m_Name: BadgeData 8
   m_EditorClassIdentifier: 
-  title: 9
-  description: 9
+  title: "\uC5D0\uD53D \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
+  description: "\uC5D0\uD53D \uB3C4\uAC10 10\uC885 \uC804\uCCB4 \uB4F1\uB85D"
