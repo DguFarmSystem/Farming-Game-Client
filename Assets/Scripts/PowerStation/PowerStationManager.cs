@@ -168,43 +168,60 @@ public class PowerStationManager : MonoBehaviour
     {
         Vector3 startWorldPos = collectButton.transform.position;
 
+        GameObject[] sunObjects = new GameObject[effectCount];
+        RectTransform[] sunRects = new RectTransform[effectCount];
+        Vector3[] midPositions = new Vector3[effectCount];
+
+        float midDuration = 0.3f;
+        float endDuration = 0.5f;
+
+        //모든 이펙트를 동시에 생성하고 퍼트릴 위치 미리 계산
         for (int i = 0; i < effectCount; i++)
         {
-            // 인스턴스 생성
             GameObject sun = Instantiate(sunEffectPrefab, sunEffectParent);
             RectTransform rt = sun.GetComponent<RectTransform>();
 
-            // 랜덤한 방향으로 퍼트림
             Vector2 randomOffset = UnityEngine.Random.insideUnitCircle * spreadRadius;
             Vector3 midPos = startWorldPos + (Vector3)randomOffset;
 
-            // 시작 위치
             rt.position = startWorldPos;
 
-            // 중간 위치까지 0.3초
-            float t = 0f;
-            float midDuration = 0.3f;
-            while (t < midDuration)
-            {
-                t += Time.deltaTime;
-                float lerp = t / midDuration;
-                rt.position = Vector3.Lerp(startWorldPos, midPos, lerp);
-                yield return null;
-            }
+            sunObjects[i] = sun;
+            sunRects[i] = rt;
+            midPositions[i] = midPos;
+        }
 
-            // 도착 위치까지 0.5초
-            t = 0f;
-            float endDuration = 0.5f;
-            Vector3 endPos = sunTargetUI.position;
-            while (t < endDuration)
+        //동시에 mid 위치로 이동
+        float t = 0f;
+        while (t < midDuration)
+        {
+            t += Time.deltaTime;
+            float lerp = t / midDuration;
+            for (int i = 0; i < effectCount; i++)
             {
-                t += Time.deltaTime;
-                float lerp = t / endDuration;
-                rt.position = Vector3.Lerp(midPos, endPos, lerp);
-                yield return null;
+                sunRects[i].position = Vector3.Lerp(startWorldPos, midPositions[i], lerp);
             }
+            yield return null;
+        }
 
-            Destroy(sun);
+        //동시에 target 위치로 이동
+        t = 0f;
+        Vector3 endPos = sunTargetUI.position;
+        while (t < endDuration)
+        {
+            t += Time.deltaTime;
+            float lerp = t / endDuration;
+            for (int i = 0; i < effectCount; i++)
+            {
+                sunRects[i].position = Vector3.Lerp(midPositions[i], endPos, lerp);
+            }
+            yield return null;
+        }
+
+        // 삭제
+        for (int i = 0; i < effectCount; i++)
+        {
+            Destroy(sunObjects[i]);
         }
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using TMPro;
 
 public class FarmGround : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class FarmGround : MonoBehaviour
     public Sprite growingSprite_2;
     public Sprite grownSprite;
 
+    public GameObject timer_UI; //자라고 있는 상황 유아이
+    public TMP_Text timer_text; //타이머 시간 텍스트
+
     public void InitGround(FarmPlotData newData)
     {
         data = newData;
@@ -34,7 +38,7 @@ public class FarmGround : MonoBehaviour
             case "growing":
                 if (DateTime.TryParse(data.planted_at, out DateTime plantedTime))
                 {
-                    double growTime = 24 - (2 * data.useSunCount);
+                    double growTime = 24 * 3600 - (2 * 3600 *  data.useSunCount);
                     growTime = Mathf.Max(1, (float)growTime); // 최소 1초
 
                     double elapsedSeconds = (DateTime.Now - plantedTime).TotalSeconds;
@@ -70,6 +74,11 @@ public class FarmGround : MonoBehaviour
         // DB에 업데이트 요청
 
         UpdateVisual();
+
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 0.5f);
+        timer_UI.transform.position = screenPos;
+        timer_UI.SetActive(true); //타이머 켜주기
+
         FarmGroundAPI.UpdatePlot(data);
 
     }
@@ -99,10 +108,25 @@ public class FarmGround : MonoBehaviour
         if (DateTime.TryParse(data.planted_at, out plantedTime))
         {
             //아이템 사용시 줄어들게 해야함
-            double growTime = 24 - (2 * data.useSunCount);
+            double growTime = 24 * 3600 - (2 * 3600 * data.useSunCount);
             growTime = Mathf.Max(1, (float)growTime); // 최소 1초 보장
             Debug.Log("수확 시간 : " + growTime);
             
+            double elapsed = (DateTime.Now - plantedTime).TotalSeconds;
+            double remainingSeconds = growTime - elapsed;
+
+            // 남은 시간 표시 (0보다 작을 경우 0으로 고정)
+            if (remainingSeconds > 0)
+            {
+                TimeSpan ts = TimeSpan.FromSeconds(remainingSeconds);
+                string display = string.Format("{0:D2}:{1:D2}", ts.Hours, ts.Minutes);
+                timer_text.text = display;
+            }
+            else
+            {
+                timer_UI.SetActive(false); //유아이 꺼주기 다자라면
+            }
+
             if ((DateTime.Now - plantedTime).TotalSeconds >= growTime)
             {
                 Debug.Log("다자람");
