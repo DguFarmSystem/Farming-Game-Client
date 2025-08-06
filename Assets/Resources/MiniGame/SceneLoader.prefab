@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6133136515028698191}
   - component: {fileID: 806536440795175521}
   m_Layer: 5
-  m_Name: LeftBtn
+  m_Name: LeftButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 1656146965392705319}
   - component: {fileID: 5383434137674951803}
   m_Layer: 5
-  m_Name: RightBtn
+  m_Name: RightButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 1180861227337757321}
   - component: {fileID: 8886987087340200477}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: FadePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 1686788967700468378}
   - component: {fileID: 1893046499187930882}
   m_Layer: 5
-  m_Name: Label
+  m_Name: LabelPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -581,14 +581,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10fb6e09638575246b436ab111f5e293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftButton: {fileID: 806536440795175521}
-  rightButton: {fileID: 5383434137674951803}
-  labelPanel: {fileID: 5305589017880812733}
-  labelSprites:
-  - {fileID: 21300000, guid: a6e52d1daa9095c4a841409be84c4bc0, type: 3}
-  - {fileID: 21300000, guid: c093a4624b46b1b44a28b68d1b85aeab, type: 3}
-  - {fileID: 21300000, guid: 326ce68daab75d641bbeb6b11315429f, type: 3}
-  - {fileID: 21300000, guid: 862a9d40086bba343947829b5f4f298f, type: 3}
-  fadeCanvasGroup: {fileID: 8886987087340200477}
+  mainSceneList:
+  - sceneName: PowerStation
+    labelSprite: {fileID: 21300000, guid: a6e52d1daa9095c4a841409be84c4bc0, type: 3}
+  - sceneName: Garden_Yurae
+    labelSprite: {fileID: 21300000, guid: c093a4624b46b1b44a28b68d1b85aeab, type: 3}
+  - sceneName: Farm
+    labelSprite: {fileID: 21300000, guid: 326ce68daab75d641bbeb6b11315429f, type: 3}
+  - sceneName: MiniGameEntrance
+    labelSprite: {fileID: 21300000, guid: 862a9d40086bba343947829b5f4f298f, type: 3}
   fadeDuration: 1
   transitionAnimator: {fileID: 1180861227337757321}

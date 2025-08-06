@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PowerStation.unity
     guid: 23015b4753dea5941ad820fd853a5688
+  - enabled: 1
+    path: Assets/Scenes/Garden_Yurae.unity
+    guid: 416a48f36fc24c44c936de669755a876
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
