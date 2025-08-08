@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class ShopUIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject shopItemSlotPrefab; // 프리팹 연결
+    [SerializeField] private GameObject shopItemSlotPrefab;
     [SerializeField] private Transform tileContentParent;
     [SerializeField] private Transform objectContentParent;
 
@@ -23,12 +23,12 @@ public class ShopUIManager : MonoBehaviour
     private void Awake()
     {
         shownPos = shopPanel.anchoredPosition;
-        hiddenPos = shownPos + new Vector2(0, -Screen.height); // 화면 아래
+        hiddenPos = shownPos + new Vector2(0, -Screen.height);
 
         shopPanel.anchoredPosition = hiddenPos;
         shopPanel.gameObject.SetActive(false);
 
-        LoadShopItems(); // 한 번만 불러옴
+        LoadShopItems();
     }
 
     public void OpenShopPanel()
@@ -37,7 +37,7 @@ public class ShopUIManager : MonoBehaviour
         shopPanel.anchoredPosition = hiddenPos;
         shopPanel.DOAnchorPos(shownPos, slideDuration).SetEase(Ease.OutCubic);
 
-        OpenTileTab(); // 기본 탭 열기
+        OpenTileTab(); // 기본 탭 타일 탭으로 
     }
 
     public void CloseShopPanel()
@@ -92,7 +92,7 @@ public class ShopUIManager : MonoBehaviour
 
             if (comp == null)
             {
-                Debug.LogError("ShopItemSlot 컴포넌트를 찾을 수 없습니다.");
+                Debug.LogError("ShopItemSlot을 찾을 수 없음");
                 continue;
             }
 

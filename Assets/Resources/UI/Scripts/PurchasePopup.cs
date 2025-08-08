@@ -24,6 +24,7 @@ public class PurchasePopup : MonoBehaviour
     private Vector2 hiddenPos;
     private Vector2 shownPos;
 
+    [Header("구매 완료 패널")]
     [SerializeField] private GameObject purchaseCompletePanel;
     [SerializeField] private TMP_Text completeText;
     [SerializeField] private RectTransform completePanelRect;
@@ -32,6 +33,16 @@ public class PurchasePopup : MonoBehaviour
     public float completeSlideDuration = 0.4f;
     private Vector2 completePanelStartPos;
     private Vector2 completePanelShownPos;
+
+    [Header("구매 실패 패널")]
+    [SerializeField] private GameObject purchaseFailPanel;
+    [SerializeField] private TMP_Text failText;
+    [SerializeField] private RectTransform failPanelRect;
+    [SerializeField] private Button failConfirmButton;
+
+    public float failSlideDuration = 0.4f;
+    private Vector2 failPanelStartPos;
+    private Vector2 failPanelShownPos;
 
     private void Awake()
     {
@@ -42,18 +53,30 @@ public class PurchasePopup : MonoBehaviour
         hiddenPos = shownPos + new Vector2(0, -Screen.height);
         popupPanel.anchoredPosition = hiddenPos;
 
-        // 새로 추가된 완료 패널
+        // 구매 완료 패널
         completePanelShownPos = completePanelRect.anchoredPosition;
         completePanelStartPos = completePanelShownPos + new Vector2(0, -Screen.height);
         completePanelRect.anchoredPosition = completePanelStartPos;
         purchaseCompletePanel.SetActive(false);
 
+        // 구매 실패 패널
+        if (failPanelRect != null)
+        {
+            failPanelShownPos = failPanelRect.anchoredPosition;
+            failPanelStartPos = failPanelShownPos + new Vector2(0, -Screen.height);
+            failPanelRect.anchoredPosition = failPanelStartPos;
+        }
+
+        if (purchaseFailPanel != null) purchaseFailPanel.SetActive(false);
         plusButton.onClick.AddListener(() => ChangeCount(1));
         minusButton.onClick.AddListener(() => ChangeCount(-1));
         confirmButton.onClick.AddListener(OnConfirm);
         rejectButton.onClick.AddListener(Close);
         inputField.onEndEdit.AddListener(OnInputChanged);
         completeConfirmButton.onClick.AddListener(HideCompletePanel);
+
+        if (failConfirmButton != null)
+            failConfirmButton.onClick.AddListener(HideFailPanel);
     }
 
     public void Open(string itemName, int pricePerItem)
@@ -107,11 +130,30 @@ public class PurchasePopup : MonoBehaviour
     {
         Debug.Log($"구매 확인: {itemName} x{currentCount}");
 
-        // 구매 팝업은 애니메이션 없이 바로 꺼지게
+        int totalCost = Mathf.Max(0, unitPrice) * currentCount;
+
         popupPanel.gameObject.SetActive(false);
 
-        // 구매 완료 패널 표시
-        ShowPurchaseCompleteMessage(itemName, currentCount);
+        // 통화 매니저 확인
+        var cm = CurrencyManager.Instance;
+        if (cm == null)
+        {
+            ShowPurchaseFailMessage("구매 실패: 재화 시스템을 찾을 수 없습니다.");
+            return;
+        }
+
+        // 재화 확인 및 차감
+        bool paid = cm.SpendGold(totalCost);
+        if (paid)
+        {
+            // 여기서 인벤토리에 추가도 해야 함 
+            ShowPurchaseCompleteMessage(itemName, currentCount);
+        }
+        else
+        {
+            int shortage = totalCost - cm.gold;
+            ShowPurchaseFailMessage($"구매 실패! 골드가 부족합니다.");
+        }
     }
 
     public void Close()
@@ -140,4 +182,33 @@ public class PurchasePopup : MonoBehaviour
         .OnComplete(() => purchaseCompletePanel.SetActive(false));
     }
 
+    private void ShowPurchaseFailMessage(string msg)
+    {
+        if (failText != null) failText.text = msg;
+
+        if (failPanelRect != null)
+        {
+            // 위치 세팅 후 즉시 표시
+            failPanelRect.anchoredPosition = failPanelShownPos;
+        }
+
+        if (purchaseFailPanel != null)
+            purchaseFailPanel.SetActive(true);
+        else
+            Debug.LogWarning("구매 실패 패널이 설정되지 않았습니다.");
+    }
+
+    private void HideFailPanel()
+    {
+        if (failPanelRect == null || purchaseFailPanel == null)
+        {
+            // 세팅이 안됐으면 그냥 끈다
+            if (purchaseFailPanel != null) purchaseFailPanel.SetActive(false);
+            return;
+        }
+
+        failPanelRect.DOAnchorPos(failPanelStartPos, failSlideDuration)
+            .SetEase(Ease.InCubic)
+            .OnComplete(() => purchaseFailPanel.SetActive(false));
+    }
 }
