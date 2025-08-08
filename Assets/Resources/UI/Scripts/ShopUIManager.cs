@@ -65,7 +65,7 @@ public class ShopUIManager : MonoBehaviour
         tileItems.Clear();
         objectItems.Clear();
 
-        ShopItemData[] allItems = Resources.LoadAll<ShopItemData>("UI/Image/Farm/Shop");
+        ShopItemData[] allItems = Resources.LoadAll<ShopItemData>("UI/Image/Shop");
 
         foreach (var item in allItems)
         {
