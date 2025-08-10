@@ -96,4 +96,10 @@ public class ObjectDatabase : ScriptableObject
     {
         return data[index].type;
     }
+
+    public int GetItemCount()
+    {
+        return data.Length;
+    }
+
 }
