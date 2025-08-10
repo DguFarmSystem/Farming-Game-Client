@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+// System
+using System.Collections.Generic;
+
 [DisallowMultipleComponent]
 public class BuildManager : MonoBehaviour
 {
@@ -11,6 +14,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private ObjectDatabase database;
     [SerializeField] private GameObject objectSelectButton;
     [SerializeField] private Transform[] parents;
+    [SerializeField] private List<ObjectSelectButton> objectSelectButtons;
 
     private readonly int tileParentId = 0;
     private readonly int objectParentId = 1;
@@ -33,13 +37,14 @@ public class BuildManager : MonoBehaviour
             button.onClick.AddListener(() => OnClickPlace(index));
 
             ObjectSelectButton objSelectButton = obj.GetComponent<ObjectSelectButton>();
+            objectSelectButtons.Add(objSelectButton);
             button.onClick.AddListener(() => SetCurrentButton(objSelectButton));
 
             string name = database.GetName(index);
             Sprite sprite = database.GetSprite(index);
             int count = database.GetCountFromIndex(index);
 
-            objSelectButton.Init(name, sprite, count);
+            objSelectButton.Init(placeablePrefabs[i].GetComponent<PlaceableObject>().GetID(), name, sprite, count);
 
             PlaceType type = database.GetType(index);
 
@@ -67,11 +72,19 @@ public class BuildManager : MonoBehaviour
 
     public void OnClickPlace(int index)
     {
-        placementManager.SetPrefabToPlace(placeablePrefabs[index]);
+        placementManager.SetPrefabToPlace(placeablePrefabs[index].gameObject);
     }
 
     public void SetCurrentButton(ObjectSelectButton _button)
     {
         placementManager.SetCurrentButton(_button);
+    }
+
+    public void UpdateCountTMP()
+    {
+        foreach (ObjectSelectButton button in objectSelectButtons)
+        {
+            button.UpdateCountTMPFromDatabse();
+        }
     }
 }

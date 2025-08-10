@@ -284,9 +284,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d4ec60ea43e994e86c49fb7dde9219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: null
   nameTMP: {fileID: 7157495798539282931}
   image: {fileID: 1353088481636248303}
   countTMP: {fileID: 7472765518216446183}
+  database: {fileID: 11400000, guid: cc70b75ca37c75e43aa216e563324c06, type: 2}
 --- !u!1 &5456388410885916476
 GameObject:
   m_ObjectHideFlags: 0

@@ -70,8 +70,22 @@ public class ObjectDatabase : ScriptableObject
         {
             if (datum.id == id)
             {
-                if (datum.count == 0) return;
+                if (datum.count <= 0) return;
                 datum.count--;
+            }
+        }
+    }
+
+    public void AddData(string id)
+    {
+        foreach (Database datum in data)
+        {
+            if (datum.id == id)
+            {
+                if (datum.count == -1) return;
+                datum.count++;
+
+                Debug.Log("데이터 추가");
             }
         }
     }

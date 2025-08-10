@@ -24,35 +24,35 @@ MonoBehaviour:
     name: "\uBC2D"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
-    count: 10
+    count: 19
     type: 0
   - id: Tilemap_Water
     name: "\uBB3C"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
-    count: 10
+    count: 30
     type: 0
   - id: Tilemap_Stone
     name: "\uB3CC"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
-    count: 10
+    count: 47
     type: 0
   - id: Object_TestFence
     name: "\uC6B8\uD0C0\uB9AC"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
-    count: 10
+    count: 1
     type: 1
   - id: Plant_TestWater
     name: "\uBB3C\uC2DD\uBB3C"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
-    count: 10
+    count: 9
     type: 2
   - id: Plant_TestLand
     name: "\uC9C0\uC0C1\uC2DD\uBB3C"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
-    count: 10
+    count: 0
     type: 2

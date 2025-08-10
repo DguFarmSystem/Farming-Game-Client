@@ -28,6 +28,10 @@ public class GardeenObjectPanel : MonoBehaviour
 
     [SerializeField] private Transform[] buttonParents; // 0: Tile Parent, 1: Object Parent, 2: Plant Parent
 
+    [SerializeField] private bool placeMode = false;
+    [SerializeField] private PlacementManager placementManager;
+    [SerializeField] private TileSelectionUI tileSelectionUI;
+
 
     private Vector2[] shownPos;
     private Vector2[] hiddenPos;
@@ -116,6 +120,8 @@ public class GardeenObjectPanel : MonoBehaviour
 
     public void OpenPanel(int index)
     {
+        placeMode = true;
+
         currentPanelIndex = index;
 
         if (topHUD != null)
@@ -146,6 +152,10 @@ public class GardeenObjectPanel : MonoBehaviour
 
     public void OnClickClose()
     {
+        placeMode = false;
+        placementManager.CancelPlace();
+        tileSelectionUI.DeslectObject();
+
         if (topHUD != null)
             topHUD.DOAnchorPos(hudShownPos, hudDur).SetEase(hudEase);
 
@@ -185,6 +195,11 @@ public class GardeenObjectPanel : MonoBehaviour
             closeButton.gameObject.SetActive(true);
             closeButton.anchoredPosition = closeShownPos;
         }
+    }
+
+    public bool IsPlaceMode()
+    {
+        return placeMode;
     }
 
 }

@@ -8,9 +8,13 @@ public class PlacementManager : MonoBehaviour
     [SerializeField] private GameObject currentPrefab;
     [SerializeField] private Transform objectParent;
     [SerializeField] private ObjectSelectButton curButton;
+    [SerializeField] private ObjectSelectButton lastButton;
+    [SerializeField] TileSelectionUI tileSelectionUI;
 
     private bool canPlace;
     private GameObject ghostObject;
+
+    [SerializeField] private bool isCarrying = false;
 
     void Update()
     {
@@ -20,6 +24,12 @@ public class PlacementManager : MonoBehaviour
     private void MoveObject()
     {
         if (currentPrefab == null) return;
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            CancelPlace();
+            return;
+        }
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -75,6 +85,7 @@ public class PlacementManager : MonoBehaviour
                     break;
             }
 
+            // 위치 보정
             Vector2Int corGrid = grid.GetGridPos();
             ghostObject.transform.position = GridManager.Instance.GetWorldPosition(corGrid.x, corGrid.y);
 
@@ -96,7 +107,17 @@ public class PlacementManager : MonoBehaviour
             switch (place.tag)
             {
                 case "Tile":
-                    DestroyImmediate(_hitObject.GetComponent<BaseGrid>().GetTile().gameObject);
+                    // 제거된 타일 갯수 추가
+                    TileData tileData = _hitObject.GetComponent<BaseGrid>().GetTile();
+                    PlaceableObject lastTile = tileData.GetComponent<PlaceableObject>();
+                    if (database.GetCountFromID(lastTile.GetID()) >= 0)
+                    {
+                        database.AddData(lastTile.GetID());
+                        lastButton.UpdateCountTMP(database.GetCountFromID(lastTile.GetID()));
+                    }
+
+                    // 제거 후 타일 배치
+                    DestroyImmediate(tileData.gameObject);
                     _hitObject.GetComponent<BaseGrid>().PlaceTile(place.GetComponent<TileData>());
                     break;
 
@@ -109,7 +130,7 @@ public class PlacementManager : MonoBehaviour
                     break;
             }
 
-            if (database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()) > 0)
+            if (database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()) >= 0)
             {
                 database.PlaceData(place.GetComponent<PlaceableObject>().GetID());
                 curButton.UpdateCountTMP(database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()));
@@ -122,10 +143,11 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-    private void CancelPlace()
+    public void CancelPlace()
     {
+        isCarrying = false;
         currentPrefab = null;
-        DestroyImmediate(ghostObject.gameObject);
+        if(ghostObject != null) DestroyImmediate(ghostObject.gameObject);
     }
 
     private void CantPlace()
@@ -149,7 +171,10 @@ public class PlacementManager : MonoBehaviour
             return;
         }
 
+        isCarrying = true;
         currentPrefab = prefab;
+
+        tileSelectionUI.DeslectObject();
 
         if (ghostObject != null) Destroy(ghostObject);
         ghostObject = Instantiate(prefab);
@@ -185,6 +210,12 @@ public class PlacementManager : MonoBehaviour
 
     public void SetCurrentButton(ObjectSelectButton _button)
     {
+        lastButton = curButton;
         curButton = _button;
+    }
+
+    public bool IsCarrying()
+    {
+        return isCarrying;
     }
 }
