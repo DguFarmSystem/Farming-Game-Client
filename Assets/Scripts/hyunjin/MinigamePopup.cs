@@ -6,7 +6,9 @@ using System;
 
 public class MinigamePopup : MonoBehaviour
 {
-    public GameObject back;
+    [Header("Description")]
+    public GameObject desciptionPopup;
+    public Button startButton;
 
     [Header("ESC")]
     public GameObject escPopup;
@@ -20,6 +22,7 @@ public class MinigamePopup : MonoBehaviour
     public Button exitButton_reward;
 
     // 콜백
+    public Action onStart;
     public Action onResume;
     public Action onPause;
     public Action onExit;
@@ -28,12 +31,14 @@ public class MinigamePopup : MonoBehaviour
 
     void Start()
     {
+        desciptionPopup.SetActive(true);
         escPopup.SetActive(false);
         rewardPopup.SetActive(false);
 
+        startButton.onClick.AddListener(StartGame);
         resumeButton.onClick.AddListener(ResumeGame);
         exitButton_esc.onClick.AddListener(ExitGame);
-        retryButton.onClick.AddListener(RetryGame);
+        retryButton.onClick.AddListener(StartGame);
         exitButton_reward.onClick.AddListener(ExitGame);
     }
 
@@ -43,13 +48,19 @@ public class MinigamePopup : MonoBehaviour
             PauseGame();
     }
 
+    void StartGame()
+    {
+        desciptionPopup.SetActive(false);
+        rewardPopup.SetActive(false);
+        onStart?.Invoke();
+    }
+
     void PauseGame()
     {
         if (isPaused) return;
 
         Time.timeScale = 0f;
         isPaused = true;
-        back.SetActive(true);
         escPopup.SetActive(true);
         onPause?.Invoke();
     }
@@ -60,14 +71,8 @@ public class MinigamePopup : MonoBehaviour
 
         Time.timeScale = 1f;
         isPaused = false;
-        back.SetActive(false);
         escPopup.gameObject.SetActive(false);
         onResume?.Invoke();
-    }
-
-    void RetryGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void ExitGame()

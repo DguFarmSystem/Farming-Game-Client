@@ -3,8 +3,8 @@ using TMPro;
 
 public class SunshineGame_Sunshine : MonoBehaviour
 {
+    private int num;
     private TMP_Text numText;
-    public int num;
 
     void Start()
     {

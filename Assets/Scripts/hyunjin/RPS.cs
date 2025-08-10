@@ -11,7 +11,6 @@ public class RPS : MonoBehaviour
     public Sprite rockSprite, paperSprite, scissorsSprite;
     public Image winBox, drawBox, loseBox;
     public Button rockButton, paperButton, scissorsButton;
-    public Button desciptionButton, startButton;
     public Image winCountImg;
     public Sprite win0, win1, win2, win3;
 
@@ -28,7 +27,6 @@ public class RPS : MonoBehaviour
     {
         choiceSprites = new Sprite[] { rockSprite, paperSprite, scissorsSprite };
         winCountSprites = new Sprite[] { win0, win1, win2, win3 };
-        startButton.onClick.AddListener(StartGame);
         rockButton.onClick.AddListener(() => PlayerSelect(0));
         paperButton.onClick.AddListener(() => PlayerSelect(1));
         scissorsButton.onClick.AddListener(() => PlayerSelect(2));
@@ -37,12 +35,12 @@ public class RPS : MonoBehaviour
         drawBox.gameObject.SetActive(false);
         winCountImg.sprite = winCountSprites[0];
 
+        minigamePopup.onStart = () => { StartGame(); };
         minigamePopup.onExit = () => { StopAllCoroutines(); };
     }
 
     void StartGame()
     {
-        startButton.enabled = false;
         round = 0;
         winCount = 0;
         winCountImg.sprite = winCountSprites[winCount];
