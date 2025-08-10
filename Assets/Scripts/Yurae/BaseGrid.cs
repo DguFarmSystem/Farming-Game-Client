@@ -33,6 +33,11 @@ public class BaseGrid : MonoBehaviour
         placedObject = _objectData;
     }
 
+    public void InitObject()
+    {
+        placedObject = null;
+    }
+
     public ObjectData GetObject()
     {
         return placedObject;
@@ -41,6 +46,11 @@ public class BaseGrid : MonoBehaviour
     public void PlacePlant(PlantData _plantData)
     {
         placedPlant = _plantData;
+    }
+
+    public void InitPlant()
+    {
+        placedPlant = null;
     }
 
     public PlantData GetPlant()
