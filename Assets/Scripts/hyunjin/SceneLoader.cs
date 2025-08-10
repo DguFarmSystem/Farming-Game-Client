@@ -40,7 +40,7 @@ public class SceneLoader : MonoBehaviour
     private GameObject labelPanel;
     private CanvasGroup fadePanel;
 
-    private float fadeDuration = 1.0f; // public으로 빼기!!!!!!!!!!!!!!!!
+    private float fadeDuration = 0.5f; // public으로 빼기!!!!!!!!!!!!!!!!
     private bool isTransitioning = false;
     private int currentIdx = 0;
     private Coroutine fadeOutLabelCoroutine;
@@ -123,6 +123,7 @@ public class SceneLoader : MonoBehaviour
 
         isTransitioning = true;
         transitionAnimator.SetTrigger($"{direction}_Out"); // 1. 페이드아웃
+        Debug.Log("set trigger out");
         yield return new WaitForSeconds(fadeDuration);
 
         int labelIdx = mainSceneList.FindIndex(data => data.sceneName == sceneName); // 2. 라벨, 화살표 띄우기
@@ -132,6 +133,7 @@ public class SceneLoader : MonoBehaviour
             HideSceneLoaderUI();
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName); // 3. 씬 비동기 로딩
+        Debug.Log("load scene async");
         asyncLoad.allowSceneActivation = false;
         while (asyncLoad.progress < 0.9f)
             yield return null;
@@ -139,6 +141,7 @@ public class SceneLoader : MonoBehaviour
         yield return null;
 
         transitionAnimator.SetTrigger($"{direction}_In"); // 4. 페이드인
+        Debug.Log("set trigger in");
         yield return new WaitForSeconds(fadeDuration);
         isTransitioning = false;
         fadePanel.blocksRaycasts = false;

@@ -6,6 +6,8 @@ using System;
 
 public class MinigamePopup : MonoBehaviour
 {
+    public GameObject back;
+
     [Header("ESC")]
     public GameObject escPopup;
     public Button resumeButton;
@@ -47,6 +49,7 @@ public class MinigamePopup : MonoBehaviour
 
         Time.timeScale = 0f;
         isPaused = true;
+        back.SetActive(true);
         escPopup.SetActive(true);
         onPause?.Invoke();
     }
@@ -57,6 +60,7 @@ public class MinigamePopup : MonoBehaviour
 
         Time.timeScale = 1f;
         isPaused = false;
+        back.SetActive(false);
         escPopup.gameObject.SetActive(false);
         onResume?.Invoke();
     }
