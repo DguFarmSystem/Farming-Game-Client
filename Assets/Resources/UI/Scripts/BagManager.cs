@@ -95,6 +95,7 @@ public class BagManager : MonoBehaviour
 
         for (int i = 0; i < totalItems; i++)
         {
+            string id = objectDatabase.GetID(i);
             string name = objectDatabase.GetName(i);
             Sprite sprite = objectDatabase.GetSprite(i);
             int count = objectDatabase.GetCountFromIndex(i);
@@ -103,7 +104,7 @@ public class BagManager : MonoBehaviour
 
             var slotObj = Instantiate(objectSelectButtonPrefab);
             var objSelectButton = slotObj.GetComponent<ObjectSelectButton>();
-            //objSelectButton.Init(name, sprite, count);
+            objSelectButton.Init(id, name, sprite, count);
 
             PlaceType type = objectDatabase.GetType(i);
             switch (type)

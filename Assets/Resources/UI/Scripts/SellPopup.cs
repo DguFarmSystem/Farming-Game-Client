@@ -25,22 +25,21 @@ public class SellPopup : MonoBehaviour
 
     public void Open(ObjectDatabase database, int itemIndex, int defaultUnitPrice)
     {
-        db = database; index = itemIndex; unitPrice = defaultUnitPrice;
+        db = database;
+        index = itemIndex;
+        unitPrice = defaultUnitPrice;
 
-        itemName.text = db.GetName(index);
+        var name = db.GetName(index);
+        itemName.text = $"{name}을(를) 판매하시겠습니까?";
+
         max = Mathf.Max(0, db.GetCountFromIndex(index));
-        sel = (max > 0) ? 1 : 0;                 // 기본 1로 리셋
-
-        // ★ 위치/상태 초기화
-        confirm.gameObject.SetActive(true);
-        done.gameObject.SetActive(false);
-        confirm.anchoredPosition = Vector2.zero;
-        done.anchoredPosition = Vector2.zero;
-        confirm.SetAsLastSibling();              // 위에 보이도록
-        done.SetAsLastSibling();
+        sel = (max > 0) ? Mathf.Clamp(sel, 1, max) : 0;
 
         Wire();
         Refresh();
+
+        done.gameObject.SetActive(false);
+        confirm.gameObject.SetActive(true);
         SlideFromBelow(confirm, openDur);
         gameObject.SetActive(true);
     }
@@ -78,10 +77,9 @@ public class SellPopup : MonoBehaviour
         db.SetCount(index, Mathf.Max(0, max - sell));
         CurrencyManager.Instance?.AddGold(sell * unitPrice);
 
-        // ★ 확인 → 완료 전환: 위치/가시성 보장
         confirm.gameObject.SetActive(false);
         done.gameObject.SetActive(true);
-        done.anchoredPosition = Vector2.zero;    // 혹시 내려가 있었으면 복귀
+        done.anchoredPosition = Vector2.zero;   
         done.SetAsLastSibling();
         selling = false;
     }
@@ -91,7 +89,6 @@ public class SellPopup : MonoBehaviour
         if (done == null) return;
         done.DOKill();
 
-        // ★ 화면 밖까지 확실히 내리기
         var parentRT = done.parent as RectTransform;
         float distance = ((parentRT != null) ? parentRT.rect.height : Screen.height) + done.rect.height;
         Vector2 target = done.anchoredPosition + Vector2.down * distance;

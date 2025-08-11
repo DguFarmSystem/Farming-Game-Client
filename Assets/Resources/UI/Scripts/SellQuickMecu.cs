@@ -3,32 +3,30 @@ using UnityEngine.UI;
 
 public class SellQuickMenu : MonoBehaviour
 {
-    [SerializeField] RectTransform panel;   // 작은 메뉴 패널
-    [SerializeField] Button sellButton;     // "판매하기"
-    [SerializeField] GameObject blocker;    // 화면 전체 투명 버튼(바깥 클릭시 닫기)
+    [SerializeField] RectTransform panel;   
+    [SerializeField] Button sellButton;     
+    [SerializeField] GameObject blocker;   
 
-    // 내부 상태
     ObjectDatabase db;
     int index, unitPrice;
-    SellPopup popupPrefab;                  // ★ 요게 없어서 에러였음
+    SellPopup popupPrefab;                 
 
     void Awake()
     {
         if (blocker)
         {
             var btn = blocker.GetComponent<Button>();
-            if (btn) btn.onClick.AddListener(HideImmediate); // 바깥 클릭 → 닫기
+            if (btn) btn.onClick.AddListener(HideImmediate); 
         }
         if (sellButton) sellButton.onClick.AddListener(OnClickSell);
 
-        HideImmediate(); // 시작은 숨김(루트는 켜두고)
+        HideImmediate(); 
         gameObject.SetActive(true);
     }
 
-    // 마우스 위치에 메뉴 표시
     public void Show(ObjectDatabase d, int i, SellPopup p, int u, Vector2 screenPos)
     {
-        db = d; index = i; popupPrefab = p; unitPrice = u;   // ★ 이름 통일
+        db = d; index = i; popupPrefab = p; unitPrice = u; 
 
         var canvas = GetComponentInParent<Canvas>();
         RectTransform canvasRT = canvas.transform as RectTransform;
