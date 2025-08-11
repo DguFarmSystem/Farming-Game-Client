@@ -41,6 +41,16 @@ public class FlowerDataManager : MonoBehaviour
         }
         return null;
     }
+
+    public Sprite GetFlowerOriginalSprite(string flowerName)
+    {
+        var flower = flowerData.flowerList.Find(f => f.flowerName == flowerName);
+        if (flower != null)
+        {
+            return flower.originalSprite;
+        }
+        return null;
+    }
     
     //랜덤 꽃 이름 가져오기
     public string GetRandomFlowerName()

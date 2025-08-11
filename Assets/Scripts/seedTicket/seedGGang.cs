@@ -47,15 +47,14 @@ public class seedGGang : MonoBehaviour
         if (!CurrencyManager.Instance.SpendSeedTicket(1)) return;
 
         Debug.Log("씨앗 뽑기!");
-        int amount = UnityEngine.Random.Range(1, 6);
-        CurrencyManager.Instance.AddSeedCount(amount);
+    
 
-        StartCoroutine(PlayDrawAnimation(amount));
+        StartCoroutine(PlayDrawAnimation());
 
 
     }
 
-    private IEnumerator PlayDrawAnimation(int amount)
+    private IEnumerator PlayDrawAnimation()
     {
         // 기존 팝업 닫고 결과창 열기
         childGroup.SetActive(false);
@@ -71,6 +70,8 @@ public class seedGGang : MonoBehaviour
         yield return StartCoroutine(FlashWhiteScreen());
 
         // 5. 결과 출력
+        int amount = UnityEngine.Random.Range(1, 6);
+        CurrencyManager.Instance.AddSeedCount(amount);
         resultUI.SetActive(true);
         resultText.text = "X" + amount.ToString();
     }
@@ -123,7 +124,7 @@ public class seedGGang : MonoBehaviour
     }
 
     //상자 흔들림 연출
-    private IEnumerator ShakeChest(Transform chestTransform, float duration = 3f, float angle = 15f, int vibrato = 6)
+    private IEnumerator ShakeChest(Transform chestTransform, float duration = 2f, float angle = 5f, int vibrato = 2)
     {
         Quaternion originalRotation = chestTransform.localRotation;
         float elapsed = 0f;

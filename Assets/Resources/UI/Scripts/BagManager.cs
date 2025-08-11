@@ -103,7 +103,7 @@ public class BagManager : MonoBehaviour
 
             var slotObj = Instantiate(objectSelectButtonPrefab);
             var objSelectButton = slotObj.GetComponent<ObjectSelectButton>();
-            objSelectButton.Init(name, sprite, count);
+            //objSelectButton.Init(name, sprite, count);
 
             PlaceType type = objectDatabase.GetType(i);
             switch (type)

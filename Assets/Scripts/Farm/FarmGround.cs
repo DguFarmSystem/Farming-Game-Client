@@ -108,7 +108,8 @@ public class FarmGround : MonoBehaviour
         if (DateTime.TryParse(data.planted_at, out plantedTime))
         {
             //아이템 사용시 줄어들게 해야함
-            double growTime = 24 * 3600 - (2 * 3600 * data.useSunCount);
+            //double growTime = 24 * 3600 - (2 * 3600 * data.useSunCount);
+            double growTime = 3;
             growTime = Mathf.Max(1, (float)growTime); // 최소 1초 보장
             Debug.Log("수확 시간 : " + growTime);
             

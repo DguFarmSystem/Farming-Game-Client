@@ -4,7 +4,7 @@ using System.Linq;
 
 public class CurrencyUI : MonoBehaviour
 {
-    [Header("Assign these in Inspector (or auto-bind by name)")]
+    [Header("텍스트들")]
     public TextMeshProUGUI goldText;
     public TextMeshProUGUI seedCountText;   // ← seedTicket 말고 seedCount 표시
     public TextMeshProUGUI sunlightText;
