@@ -691,7 +691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1122073866
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1120,14 +1120,11 @@ MonoBehaviour:
   rockButton: {fileID: 246271438}
   paperButton: {fileID: 1839044560}
   scissorsButton: {fileID: 9009522}
-  winCountImg: {fileID: 1122073867}
-  win0: {fileID: 21300000, guid: e6dba1efd7b66cd46bbdea7ed7a3682c, type: 3}
-  win1: {fileID: 21300000, guid: 41ee0e1b828316642809a26348f66968, type: 3}
-  win2: {fileID: 21300000, guid: 2ea4b7d6608ae8949af35b46eca7f478, type: 3}
-  win3: {fileID: 21300000, guid: d6aa90b5ac9a3154084742b86099cd0e, type: 3}
   round: 0
   winCount: 0
   current: 0
+  result: 0
+  currentGold: 0
   isShuffling: 0
 --- !u!1 &1395521791
 GameObject:

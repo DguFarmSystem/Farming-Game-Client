@@ -11,14 +11,13 @@ public class RPS : MonoBehaviour
     public Sprite rockSprite, paperSprite, scissorsSprite;
     public Image winBox, drawBox, loseBox;
     public Button rockButton, paperButton, scissorsButton;
-    public Image winCountImg;
-    public Sprite win0, win1, win2, win3;
 
     private Sprite[] choiceSprites;
-    private Sprite[] winCountSprites;
     public int round = 0;
     public int winCount = 0;
     public int current = 0;
+    public int result = 0; // -1패, 0무, 1승
+    public int currentGold = 0;
     public bool isShuffling = false;
 
     private Coroutine autoExitCoroutine;
@@ -26,26 +25,31 @@ public class RPS : MonoBehaviour
     void Start()
     {
         choiceSprites = new Sprite[] { rockSprite, paperSprite, scissorsSprite };
-        winCountSprites = new Sprite[] { win0, win1, win2, win3 };
         rockButton.onClick.AddListener(() => PlayerSelect(0));
         paperButton.onClick.AddListener(() => PlayerSelect(1));
         scissorsButton.onClick.AddListener(() => PlayerSelect(2));
         winBox.gameObject.SetActive(false);
         loseBox.gameObject.SetActive(false);
         drawBox.gameObject.SetActive(false);
-        winCountImg.sprite = winCountSprites[0];
 
         minigamePopup.onStart = () => { StartGame(); };
+        minigamePopup.onNextRound = () => { NextRound(); };
         minigamePopup.onExit = () => { StopAllCoroutines(); };
     }
 
     void StartGame()
     {
-        round = 0;
+        round = 1;
         winCount = 0;
-        winCountImg.sprite = winCountSprites[winCount];
-        
-        // 게임 전체 횟수 ++
+        current = 0;
+        result = 0;
+        currentGold = 0;
+        StartCoroutine(ShuffleImages());
+    }
+
+    void NextRound()
+    {
+        round++;
         StartCoroutine(ShuffleImages());
     }
 
@@ -73,31 +77,41 @@ public class RPS : MonoBehaviour
         }
 
         isShuffling = false;
-        round++;
         int com = (current + 2) % 3;
 
         if (player == com) {
+            result = 0;
             drawBox.gameObject.SetActive(true);
         }
         else if ((player == 0 && com == 2) || (player == 1 && com == 0) || (player == 2 && com == 1)) {
-            winBox.gameObject.SetActive(true);
+            result = 1;
             winCount++;
-            winCountImg.sprite = winCountSprites[winCount];
+            winBox.gameObject.SetActive(true);
         }
         else {
+            result = -1;
             loseBox.gameObject.SetActive(true);
         }
-        StartCoroutine(Hold());
+        StartCoroutine(Result());
     }
 
-    IEnumerator Hold()
+    IEnumerator Result()
     {
+        if (round == 1 && result < 1) currentGold = 0;
+        else if (round == 1 && result == 1) currentGold = 10;
+        else if (round == 2 && result < 1) currentGold = 5;
+        else if (round == 2 && result == 1) currentGold = 20;
+        else if (round == 3 && result < 1) currentGold = 10;
+        else if (round == 3 && result == 1) currentGold = 40;
         yield return new WaitForSeconds(3f);
 
-        if (round == 3)
-            minigamePopup.RewardPopup("RPS", winCount);
-        else
-            StartCoroutine(ShuffleImages());
+        Debug.Log($"round: {round} / result : {result} / winCount : {winCount}");
+        if (result == 1 && winCount < 3) {
+            minigamePopup.BettingPopup("RPS", round, round==1 ? -5 : -10, round==1 ? 20 : 40, currentGold);
+        }
+        else { // 지거나 완승
+            minigamePopup.RewardPopup("RPS", currentGold);
+        }
     }
 
     IEnumerator AutoExitCoroutine()
@@ -108,3 +122,8 @@ public class RPS : MonoBehaviour
     }
 
 }
+/*
+1도전 시 : 0       vs 10
+2도전 시 : 5(-5)   vs 20(+10)
+3도전 시 : 10(-10) vs 40(+20)
+*/

@@ -133,6 +133,6 @@ public class SunshineGame_Manager : MonoBehaviour
     void EndGame()
     {
         enabled = false;
-        minigamePopup.RewardPopup("SunshineGame", score);
+        minigamePopup.RewardPopup("SunshineGame", gold: score/10*10);
     }
 }

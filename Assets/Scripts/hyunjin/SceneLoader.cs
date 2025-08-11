@@ -122,25 +122,27 @@ public class SceneLoader : MonoBehaviour
         fadePanel.interactable = true;
 
         isTransitioning = true;
-        transitionAnimator.SetTrigger($"{direction}_Out"); // 1. 페이드아웃
+        
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName); // 1. 씬 비동기 로딩
+        Debug.Log("load scene async");
+        asyncLoad.allowSceneActivation = false;
+        
+        transitionAnimator.SetTrigger($"{direction}_Out"); // 2. 페이드아웃
         Debug.Log("set trigger out");
         yield return new WaitForSeconds(fadeDuration);
 
-        int labelIdx = mainSceneList.FindIndex(data => data.sceneName == sceneName); // 2. 라벨, 화살표 띄우기
+        int labelIdx = mainSceneList.FindIndex(data => data.sceneName == sceneName); // 3. 라벨, 화살표 띄우기
         if (labelIdx != -1)
             ShowSceneLoaderUI(labelIdx);
         else
             HideSceneLoaderUI();
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName); // 3. 씬 비동기 로딩
-        Debug.Log("load scene async");
-        asyncLoad.allowSceneActivation = false;
-        while (asyncLoad.progress < 0.9f)
+        while (asyncLoad.progress < 0.9f) // 4. 씬 교체
             yield return null;
         asyncLoad.allowSceneActivation = true;
         yield return null;
 
-        transitionAnimator.SetTrigger($"{direction}_In"); // 4. 페이드인
+        transitionAnimator.SetTrigger($"{direction}_In"); // 5. 페이드인
         Debug.Log("set trigger in");
         yield return new WaitForSeconds(fadeDuration);
         isTransitioning = false;

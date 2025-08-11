@@ -568,8 +568,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uAC8C\uC784 \uC124\uBA85"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b0833f12f66c04e7f9fe2cb1a90baa80, type: 2}
-  m_sharedMaterial: {fileID: 8009178392746496709, guid: b0833f12f66c04e7f9fe2cb1a90baa80, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 098db753e63b6404d8cad1311e74f3e5, type: 2}
+  m_sharedMaterial: {fileID: -5618569328151432640, guid: 098db753e63b6404d8cad1311e74f3e5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -704,8 +704,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uD50C\uB808\uC774 \uAC00\uB2A5 \uD69F\uC218 : 3/3"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b0833f12f66c04e7f9fe2cb1a90baa80, type: 2}
-  m_sharedMaterial: {fileID: 8009178392746496709, guid: b0833f12f66c04e7f9fe2cb1a90baa80, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 098db753e63b6404d8cad1311e74f3e5, type: 2}
+  m_sharedMaterial: {fileID: -5618569328151432640, guid: 098db753e63b6404d8cad1311e74f3e5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1453,8 +1453,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uAC8C\uC784 \uD0C0\uC774\uD2C0"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b0833f12f66c04e7f9fe2cb1a90baa80, type: 2}
-  m_sharedMaterial: {fileID: 8009178392746496709, guid: b0833f12f66c04e7f9fe2cb1a90baa80, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 098db753e63b6404d8cad1311e74f3e5, type: 2}
+  m_sharedMaterial: {fileID: -5618569328151432640, guid: 098db753e63b6404d8cad1311e74f3e5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1538,10 +1538,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1180861227337757321, guid: 310850668f9e22b47902efa78fc1831c, type: 3}
-      propertyPath: m_UpdateMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7587171797793422357, guid: 310850668f9e22b47902efa78fc1831c, type: 3}
       propertyPath: m_Name
       value: SceneLoader

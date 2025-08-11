@@ -131,6 +131,6 @@ public class CarrotFarm_Manager : MonoBehaviour
     {
         cursorImage.enabled = false;
         enabled = false;
-        minigamePopup.RewardPopup("CarrotFarm", score);
+        minigamePopup.RewardPopup("CarrotFarm", gold: score/10*10);
     }
 }
