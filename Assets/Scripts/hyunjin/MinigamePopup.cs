@@ -6,10 +6,21 @@ using System;
 
 public class MinigamePopup : MonoBehaviour
 {
+    [Header("Description")]
+    public GameObject desciptionPopup;
+    public Button startButton;
+
     [Header("ESC")]
     public GameObject escPopup;
     public Button resumeButton;
     public Button exitButton_esc;
+
+    [Header("Betting")]
+    public GameObject bettingPopup;
+    public TMP_Text betRewardText;
+    public TMP_Text bettingText;
+    public Button betButton;
+    public Button endButton;
 
     [Header("Reward")]
     public GameObject rewardPopup;
@@ -18,20 +29,24 @@ public class MinigamePopup : MonoBehaviour
     public Button exitButton_reward;
 
     // 콜백
-    public Action onResume;
-    public Action onPause;
-    public Action onExit;
+    public Action onStart, onResume, onPause, onNextRound, onExit;
 
     private bool isPaused = false;
+    private string pendingGame;
+    private int pendingWins;
 
     void Start()
     {
+        desciptionPopup.SetActive(true);
         escPopup.SetActive(false);
+        bettingPopup.SetActive(false);
         rewardPopup.SetActive(false);
 
+        startButton.onClick.AddListener(StartGame);
         resumeButton.onClick.AddListener(ResumeGame);
         exitButton_esc.onClick.AddListener(ExitGame);
-        retryButton.onClick.AddListener(RetryGame);
+        betButton.onClick.AddListener(NextRound);
+        retryButton.onClick.AddListener(StartGame);
         exitButton_reward.onClick.AddListener(ExitGame);
     }
 
@@ -39,6 +54,14 @@ public class MinigamePopup : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             PauseGame();
+    }
+
+    void StartGame()
+    {
+        desciptionPopup.SetActive(false);
+        bettingPopup.SetActive(false);
+        rewardPopup.SetActive(false);
+        onStart?.Invoke();
     }
 
     void PauseGame()
@@ -61,9 +84,12 @@ public class MinigamePopup : MonoBehaviour
         onResume?.Invoke();
     }
 
-    void RetryGame()
+    void NextRound()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        desciptionPopup.SetActive(false);
+        bettingPopup.SetActive(false);
+        rewardPopup.SetActive(false);
+        onNextRound?.Invoke();
     }
 
     void ExitGame()
@@ -75,22 +101,24 @@ public class MinigamePopup : MonoBehaviour
         else
             Debug.Log("SceneLoader.Instance is null");
     }
+
+    // 외부 호출
+
+    public void BettingPopup(string game, int round, int ifWin, int ifLose, int currentGold)
+    {
+        betRewardText.text = $"골드를 획득했습니다!\n획득 골드 : {currentGold}G";
+        bettingText.text = $"{round+1} round\n도전 실패 시 : {ifWin}G\n도전 성공 시 : +{ifLose}G";
+        endButton.onClick.AddListener(() => { bettingPopup.SetActive(false); ExitGame(); }); // db 저장
+        bettingPopup.gameObject.SetActive(true);
+    }
     
-    public void RewardPopup(string game, int score) // 외부호출
+    public void RewardPopup(string game, int gold)
     {
         rewardPopup.gameObject.SetActive(true);
-        rewardText.text = "골드를 획득하지 못했습니다.\n조금만 더 힘내보세요!";
-        
-        int gold = 0;
-        if (game == "RPS") {
-            if (score < 2) return;
-            gold = score * 10;
-        }
-        else if (game == "CarrotFarm" || game == "SunshineGame") {
-            if (score < 10) return;
-            gold = (score / 10) * 10;
-        }
-        rewardText.text = $"골드를 획득했습니다!\n획득 골드 : {gold}G";
+        if (gold == 0)
+            rewardText.text = "골드를 획득하지 못했습니다.\n조금만 더 힘내보세요!";
+        else
+            rewardText.text = $"골드를 획득했습니다!\n획득 골드 : {gold}G";  // db 저장
     }
 
 }

@@ -8,13 +8,13 @@ public class SunshineGame_Manager : MonoBehaviour
 {
     public MinigamePopup minigamePopup;
 
-    public Transform layout;
+    public RectTransform layout;
+    public GameObject sunPrefab;
     public RectTransform timerMask;
     public float totalTime;
     public RectTransform dragBox;
     public TMP_Text scoreText;
 
-    private bool isGameOver, isPaused;
     private int score;
     private float currentTime;
     private float timerSize;
@@ -23,24 +23,34 @@ public class SunshineGame_Manager : MonoBehaviour
     
     void Start()
     {
-        isPaused = false;
-        isGameOver = false;
-        score = 0;
+        enabled = false;
         totalTime = 120f;
-        currentTime = totalTime;
         timerSize = timerMask.rect.height;
         dragBox.gameObject.SetActive(false);
-        minigamePopup.onPause = () => { isPaused = true; };
-        minigamePopup.onResume = () => { isPaused = false; };
+
+        for (int i = 0; i < 170; i++) {
+            var slot = new GameObject($"Slot_{i}", typeof(RectTransform));
+            slot.transform.SetParent(layout, false);
+        }
+
+        minigamePopup.onStart = () => { StartGame(); };
+        minigamePopup.onPause = () => { enabled = false; };
+        minigamePopup.onResume = () => { enabled = true; };
+    }
+
+    void StartGame()
+    {
+        currentTime = totalTime;
+        score = 0;
+        scoreText.text = $"{score}";
+        enabled = true;
+        SpawnSuns();
     }
 
     void Update()
     {
-        if (isPaused || isGameOver) return;
-
         // timer
         if (currentTime <= 0f) {
-            isGameOver = true;
             EndGame();
             return;
         }
@@ -64,6 +74,16 @@ public class SunshineGame_Manager : MonoBehaviour
         }
     }
 
+    void SpawnSuns()
+    {
+        for (int i = 0; i < 170; i++) {
+            var slot = layout.GetChild(i);
+            if (slot.childCount > 0)
+                Destroy(slot.GetChild(0).gameObject);
+            Instantiate(sunPrefab, slot);
+        }
+    }
+
     void DrawDragBox()
     {
         Vector2 size = new Vector2(Mathf.Abs(endPos.x-startPos.x), Mathf.Abs(startPos.y-endPos.y));
@@ -77,13 +97,15 @@ public class SunshineGame_Manager : MonoBehaviour
         Rect dragRect = GetWorldRect(dragBox);
         dragedList.Clear();
 
-        foreach (Transform child in layout) {
-            SunshineGame_Sunshine sun = child.GetComponent<SunshineGame_Sunshine>();
+        foreach (Transform slot in layout) {
+            if (slot.childCount == 0) continue;
+            
+            Transform sunObj = slot.GetChild(0);
+            SunshineGame_Sunshine sun = sunObj.GetComponent<SunshineGame_Sunshine>();
             if (sun == null) continue;
 
-            RectTransform sunRect = child.GetComponent<RectTransform>();
-            Rect sunWorldRect = GetWorldRect(sunRect);
-            if (dragRect.Overlaps(sunWorldRect, true)) {
+            if (dragRect.Overlaps(GetWorldRect(sunObj.GetComponent<RectTransform>()), true)) {
+                Debug.Log(sun.GetNum());
                 dragedList.Add(sun);
             }
         }
@@ -108,7 +130,9 @@ public class SunshineGame_Manager : MonoBehaviour
         return new Rect(corners[0].x, corners[0].y, width, height);
     }
 
-    void EndGame() {
-        minigamePopup.RewardPopup("SunshineGame", score);
+    void EndGame()
+    {
+        enabled = false;
+        minigamePopup.RewardPopup("SunshineGame", gold: score/10*10);
     }
 }

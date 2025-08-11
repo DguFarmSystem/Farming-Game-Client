@@ -57,7 +57,6 @@ public class CarrotFarm_Field : MonoBehaviour
 
     void TryInteract(bool isClick)
     {
-        if (CarrotFarm_Manager.Instance.IsGameOver()) return;
         if (isClick && current == FieldState.CARROT) {
             Harvest();
             return;
