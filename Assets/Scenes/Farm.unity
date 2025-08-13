@@ -863,6 +863,8 @@ MonoBehaviour:
   ticketCountText: {fileID: 0}
   claimButton: {fileID: 678545280}
   closeButton: {fileID: 0}
+  darkBackground: {fileID: 0}
+  whiteFlash: {fileID: 0}
   condition1: 0
   condition3: 0
   condition5: 0
@@ -1095,6 +1097,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flowerData: {fileID: 11400000, guid: 95b60305e7d09804f806e6715506498c, type: 2}
+  weightNormal: 20
+  weightRare: 10
+  weightEpic: 4
+  weightLegend: 1
 --- !u!4 &1712633728
 Transform:
   m_ObjectHideFlags: 0
@@ -1280,6 +1286,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1138886756403605906, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1316159904359284403, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
       propertyPath: m_SizeDelta.x
       value: -1806.7454
@@ -1314,15 +1324,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2630837812185171163, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2630837812185171163, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2630837812185171163, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 2762197364067625136, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1494,11 +1504,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6342028709774135707, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6342028709774135707, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6342028709774135707, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
       propertyPath: m_AnchorMin.y
@@ -1581,6 +1591,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 36702461}
     m_Modifications:
+    - target: {fileID: 876447409027921142, guid: 790b4c5e0a74eac44a7c0137359175a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4997387571487459745, guid: 790b4c5e0a74eac44a7c0137359175a9, type: 3}
       propertyPath: m_Name
       value: FarmManager

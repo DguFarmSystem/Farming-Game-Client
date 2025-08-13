@@ -2,12 +2,19 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum FlowerRarity { Normal, Rare, Epic, Legend }
+
 [System.Serializable]
 public class FlowerData
 {
     public string flowerName;
     public Sprite silhouetteSprite;
     public Sprite originalSprite;
+
+    public FlowerRarity rarity = FlowerRarity.Normal;
+    [Min(0)] public float weightOverride = -1f; 
+    // -1: 사용 안 함(등급 기본 가중치 사용), 0 이상: 이 꽃만의 가중치로 덮어쓰기
 
     [NonSerialized] public bool isRegistered = false;  // 런타임에서만 바뀜!
 }

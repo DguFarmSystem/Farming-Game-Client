@@ -588,6 +588,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ticketCountText: {fileID: 5073638708173138460}
   closeButton: {fileID: 4532782930258495046}
+  white: {fileID: 4586207176612219065}
+  Black: {fileID: 6430846224313360870}
 --- !u!1 &6018556500337567539
 GameObject:
   m_ObjectHideFlags: 0

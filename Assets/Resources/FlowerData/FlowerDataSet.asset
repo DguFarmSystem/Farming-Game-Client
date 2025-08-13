@@ -16,183 +16,303 @@ MonoBehaviour:
   - flowerName: "\uC0AC\uACFC"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 8122601465374308667, guid: 9aacd6c2b2c8d7e4284587b3a9a4e049, type: 3}
+    rarity: 2
+    weightOverride: -1
   - flowerName: "\uC0AC\uACFC_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -5673644189233881825, guid: 89472c19e67eb734ab687d0ed2dc7062, type: 3}
+    rarity: 2
+    weightOverride: -1
   - flowerName: "\uBE14\uB8E8\uBCA0\uB9AC"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 3277138191797304220, guid: 492cefc2fa1719040b281fb39121444a, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uBE14\uB8E8\uBCA0\uB9AC_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -1757674449199333178, guid: 9dd588628bebb13438dd6940d6dc65f5, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uCCB4\uB9AC"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -8181697035377538245, guid: 2ec1d9ec6102f9f42ac960ddd9955cb0, type: 3}
+    rarity: 3
+    weightOverride: -1
   - flowerName: "\uCCB4\uB9AC_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -7601963482404845032, guid: 8e7ef36a92ef01c4fbc80b1f9d53c6df, type: 3}
+    rarity: 3
+    weightOverride: -1
   - flowerName: "\uBC9A\uB098\uBB34"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -5438619296914240160, guid: 885f1b930b1cff04c96047e77ac2f964, type: 3}
+    rarity: 3
+    weightOverride: -1
   - flowerName: "\uBC9A\uB098\uBB34_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -6049335826159540280, guid: 7c6bfe8dc3d1ffa4c88e6dc79a4d2ff7, type: 3}
+    rarity: 3
+    weightOverride: -1
   - flowerName: "\uAD6D\uD654"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -7734828031037183397, guid: 1f0881ac87ef78749b7df2f3ded75c06, type: 3}
+    rarity: 2
+    weightOverride: -1
   - flowerName: "\uAD6D\uD654_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -1430934512417982630, guid: d63e8d26a77d28d4eb1fe922fb863112, type: 3}
+    rarity: 2
+    weightOverride: -1
   - flowerName: "\uBBFC\uB4E4\uB808"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -3691728527194753528, guid: c199db4ba23a5d94a943c26b5d525563, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uBBFC\uB4E4\uB808_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -4435994468308670971, guid: 49257e3c17529a74b9127f3099815f4e, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uB378\uD53C\uB284"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 2892828283129884126, guid: 988cdc5e98c9601429dbb516101e931f, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uB378\uD53C\uB284_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 5652748457131754506, guid: 966cc3f55142a014fada07e8dea7537f, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uBB3C\uB9DD\uCD08"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 203979103890465606, guid: e2aaad43c8b67ab479ffd1ea0ed36edd, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uBB3C\uB9DD\uCD08_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -2164697673835466036, guid: 489933915062b7c4aa905718fce7d48c, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uAC1C\uB098\uB9AC"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 3427777059794644944, guid: ac98daf0635781f4a8216f356e237a59, type: 3}
-  - flowerName: "\uAC1C\uB098\uB9AC_\uC774\uB85C"
+    rarity: 1
+    weightOverride: -1
+  - flowerName: "\uAC1C\uB098\uB9AC_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 8061066905981314500, guid: 702f7c80a28574e4c884ad3ae625e875, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uC740\uD589\uB098\uBB34"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -7507981518521095558, guid: 6a33dadbc1ee3c34ab4e299020e0a7a2, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uC740\uD589\uB098\uBB34_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -675989386961205036, guid: bc6108536f88344468f3d7fdbbb9199c, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uC218\uAD6D"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 499005534317408889, guid: d7bd28b70b24e4048b1483b12b3bcb1c, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uC218\uAD6D_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -5428579764696223971, guid: 5057632b29099644f872e9fbf17b2ad6, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uB808\uBAAC"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -6990634724159318400, guid: 43c85d677d78ba042b249a7ee2b10d98, type: 3}
+    rarity: 3
+    weightOverride: -1
   - flowerName: "\uB808\uBAAC_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -3450185828768342259, guid: ee8ae385e46bb074bb1e177e1894a83a, type: 3}
+    rarity: 3
+    weightOverride: -1
   - flowerName: "\uC0C1\uC0AC\uD654"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -7448041300667511267, guid: 99bef4f0a5a4a5646b996d02ddf1f6a6, type: 3}
+    rarity: 2
+    weightOverride: -1
   - flowerName: "\uC0C1\uC0AC\uD654_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -6951762611187297639, guid: 88ffccc2e1542fa45a116440e0d6aad5, type: 3}
+    rarity: 2
+    weightOverride: -1
   - flowerName: "\uBC31\uD569"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -5860144000932351678, guid: 6436d5fd7e715f74d8b58364e2639000, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uBC31\uD569_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -2746954714954177293, guid: fd8f96e7f33f2834a979d001d3104d27, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uC5F0\uAF43"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 6375834642280741412, guid: 7691e8d51f49c5d43a7ee32651fd3a3a, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uC5F0\uAF43_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 2923614061972044156, guid: 3234a9c3ff8880d439caba5816a9673d, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uB2E8\uD48D\uB098\uBB34"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -2548574827440193053, guid: 17316a929d1cf9745aef9f095b31d9a3, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uB2E8\uD48D\uB098\uBB34_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -3205493333828413320, guid: 8c8e54955906d6e47831f243e1803cab, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uB9C8\uAC00\uB81B"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 7649100284629856738, guid: 800829aa7cc41ba47a3f56aac846beb0, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uB9C8\uAC00\uB81B_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -4919104096169815090, guid: 87bb46f6fc356c84fb2c90363cca4eab, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uC740\uBC29\uC6B8\uAF43"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 1874547793103907530, guid: ce0af92c60e3eb047980484a999c1e81, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uC740\uBC29\uC6B8\uAF43_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 2722163180763381568, guid: efe5edbba943eab46b8699b0930c9fe3, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uC624\uB80C\uC9C0"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -3767810903073858490, guid: 57976f086e0241541bf7c9e23dd7184c, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uC624\uB80C\uC9C0_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 2049105342722096593, guid: da56e1232a8708d4fa7988a8c7660abe, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uD32C\uC9C0"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 2384337964775579203, guid: 227fa6a47a2709744b18e2194d497110, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uD32C\uC9C0_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -5114272422384335512, guid: 0df3eda9e8e83a2419e307381461828e, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uBC30"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -7007755770131716619, guid: bd08fb833125f9846b2d19ebd47ec33d, type: 3}
+    rarity: 2
+    weightOverride: -1
   - flowerName: "\uBC30_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -850143704477479302, guid: 38350875167974e419248138ba6a8e88, type: 3}
+    rarity: 2
+    weightOverride: -1
   - flowerName: "\uB85C\uC988\uC548\uC824\uB77C"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -3105099302817122663, guid: 171e718471a5b914aba2854a407095df, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uB85C\uC988\uC548\uC824\uB77C_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -3890953936079675353, guid: 0a9b38942f656bf49bdade42cabe9001, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uBB34\uAD81\uD654"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 6780380598530224288, guid: bd7979553f150af44b65a315d1776d46, type: 3}
+    rarity: 3
+    weightOverride: -1
   - flowerName: "\uBB34\uAD81\uD654_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -2561786120865080313, guid: c97b4397e0fe7274282596d39f76e2ca, type: 3}
+    rarity: 3
+    weightOverride: -1
   - flowerName: "\uD574\uBC14\uB77C\uAE30"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 3468376287752566537, guid: 3a03382ddd465cc47a4279ac50215197, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uD574\uBC14\uB77C\uAE30_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -478675052982973072, guid: 60a0d5d626f366e40a0f727ee1a9738f, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uB2A5\uC18C\uD654"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 3329026668930691101, guid: 04008a232c812194091beb3c555a885f, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uB2A5\uC18C\uD654_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 7801767028104152381, guid: 0e790a4b1f8070f4f9a08996c40527cd, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uD2A4\uB9BD"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -7050296324312846635, guid: 2ae0a407bf865a14eab3936302a92e71, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uD2A4\uB9BD_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -8079188558169602207, guid: ba88e4e4c83210a499265e937c01d2be, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uC218\uBC15"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -471722126224463934, guid: 0981471902c2f2f478651ef86c14bcd3, type: 3}
+    rarity: 3
+    weightOverride: -1
   - flowerName: "\uC218\uBC15_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 5824096677878350798, guid: f22d64e866b3eca4789854c87af10e75, type: 3}
+    rarity: 3
+    weightOverride: -1
   - flowerName: "\uC7A1\uCD08"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -6392077455834165397, guid: 73e18e01f3619f34aa7eca7ca3872d9e, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uC7A1\uCD08_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 1208050738235099023, guid: c9b12e61b4f976640978f97233e1cebe, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uBC00\uBC2D"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -8435039916587591715, guid: 981bfd65599693648b008051ad35b7e9, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uBC00\uBC2D_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 1705705038913474125, guid: b545e5a0b99612a409965c6f522a068c, type: 3}
+    rarity: 1
+    weightOverride: -1
   - flowerName: "\uC640\uC77C\uB4DC\uB85C\uC988"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: 1438161094230795477, guid: 386599804d5817f4fa11c4aa9eee5a59, type: 3}
+    rarity: 0
+    weightOverride: -1
   - flowerName: "\uC640\uC77C\uB4DC\uB85C\uC988_\uC774\uB85C\uCE58"
     silhouetteSprite: {fileID: 0}
     originalSprite: {fileID: -3945709644685920304, guid: 827bd914de0150a4ebd59d87fab8e590, type: 3}
+    rarity: 0
+    weightOverride: -1
   originalSprites:
   - {fileID: 8122601465374308667, guid: 9aacd6c2b2c8d7e4284587b3a9a4e049, type: 3}
   - {fileID: -5673644189233881825, guid: 89472c19e67eb734ab687d0ed2dc7062, type: 3}

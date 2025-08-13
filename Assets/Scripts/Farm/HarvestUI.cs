@@ -15,6 +15,14 @@ public class HarvestUI : MonoBehaviour
     public Image whiteFlash;     // 흰 화면 플래시
     public Image flower_image; //꽃 이미지
 
+
+    //테두리 유아이
+    public Image Collect_UI; //테두리 이미지
+    public Sprite normal;
+    public Sprite Rare;
+    public Sprite Epic;
+    public Sprite Legend;
+
     private void OnEnable()
     {
         resultUI.SetActive(false);

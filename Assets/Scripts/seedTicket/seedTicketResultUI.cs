@@ -7,6 +7,8 @@ public class seedTicketResultUI : MonoBehaviour
 {
     public TMP_Text ticketCountText; // 프리팹에서 드래그 연결
     public Button closeButton;       // 프리팹에서 드래그 연결
+    public Image white;
+    public Image Black;
 
     public void Init(int total, Action onClose = null)
     {
@@ -17,7 +19,6 @@ public class seedTicketResultUI : MonoBehaviour
             closeButton.onClick.AddListener(() =>
             {
                 onClose?.Invoke();
-                Destroy(gameObject);
             });
         }
     }

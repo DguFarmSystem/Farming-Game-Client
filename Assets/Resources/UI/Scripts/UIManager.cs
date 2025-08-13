@@ -77,6 +77,24 @@ public class UIManager : MonoBehaviour
         HarvestUI H_UI = currentPopup.GetComponent<HarvestUI>();
         Sprite flower_image = FlowerDataManager.Instance.GetFlowerOriginalSprite(flower_name);
 
+
+        switch (FlowerDataManager.Instance.Get_Rarity(flower_name))
+        {
+            case "Normal":
+                H_UI.Collect_UI.sprite = H_UI.normal;
+                break;
+            case "Rare":
+                H_UI.Collect_UI.sprite = H_UI.Rare;
+                break;
+            case "Epic":
+                H_UI.Collect_UI.sprite = H_UI.Epic;
+                break;
+            case "Legend":
+                H_UI.Collect_UI.sprite = H_UI.Legend;
+                break;
+        }
+
+
         H_UI.flower_Text.text = flower_name; //꽃 이름 넘겨주기
         Debug.Log(flower_name);
         if (flower_image != null)

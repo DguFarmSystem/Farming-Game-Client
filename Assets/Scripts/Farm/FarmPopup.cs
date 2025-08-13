@@ -32,7 +32,7 @@ public class FarmPopup : MonoBehaviour
         targetTile = tile;
 
         //꽃 미리 지정
-        selectedPlantName = FlowerDataManager.Instance.GetRandomFlowerName();
+        selectedPlantName = FlowerDataManager.Instance.GetRandomFlowerNameByRarityWeighted();
 
         // 초기 상태
         useSun = 0;
