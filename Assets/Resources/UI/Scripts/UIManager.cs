@@ -8,8 +8,6 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     public PlantUI plantUI;
-    public GameObject shopUI; //상점 UI
-
 
     public GameObject plantPopupPrefab; //씨앗 심기 팝업 프리팹
     public GameObject seedDrawPrefab; //씨앗깡 프리팹
@@ -17,7 +15,8 @@ public class UIManager : MonoBehaviour
     public GameObject seedTicketPrefab; //씨앗 티켓 획득 프리팹
     public Transform popupParent; //팝업 프리팹 넣을 부모
 
-
+    [SerializeField] private GameObject modalBlocker;
+    int modalDepth = 0;
 
     private GameObject currentPopup; //현재 팝업
 
@@ -46,12 +45,6 @@ public class UIManager : MonoBehaviour
 
         currentPopup = Instantiate(plantPopupPrefab, popupParent);
         currentPopup.GetComponent<FarmPopup>().SetTargetTile(ground);
-    }
-
-    public void ShowShopUI()
-    {
-        //유아이 켜주기
-        shopUI.SetActive(!shopUI.activeSelf);
     }
 
     public bool IsPopupOpen()
@@ -112,4 +105,25 @@ public class UIManager : MonoBehaviour
 
         return currentPopup;
     }
+
+    public void ModalPush(Transform topPanel = null)
+    {
+        if (!modalBlocker) return;
+
+        modalDepth++;
+        if (!modalBlocker.activeSelf) modalBlocker.SetActive(true);
+
+        modalBlocker.transform.SetAsLastSibling();
+
+        if (topPanel) topPanel.SetAsLastSibling();
+    }
+
+    public void ModalPop()
+    {
+        if (!modalBlocker) return;
+
+        modalDepth = Mathf.Max(0, modalDepth - 1);
+        if (modalDepth == 0) modalBlocker.SetActive(false);
+    }
+
 }

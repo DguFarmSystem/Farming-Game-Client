@@ -35,6 +35,7 @@ public class CollectionManager : MonoBehaviour
 
     public void Open()
     {
+        UIManager.Instance.ModalPush();
         CollectionPanel.transform.SetAsLastSibling();
         gameObject.SetActive(true);
 
@@ -56,6 +57,7 @@ public class CollectionManager : MonoBehaviour
                 CollectionPanel.DOFade(0, 0.3f).OnComplete(() =>
                 {
                     gameObject.SetActive(false);
+                    UIManager.Instance.ModalPop();
                 });
             });
     }

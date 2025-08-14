@@ -30,7 +30,7 @@ public class SellPopup : MonoBehaviour
         unitPrice = defaultUnitPrice;
 
         var name = db.GetName(index);
-        itemName.text = $"{name}을(를) 판매하시겠습니까?";
+        itemName.text = $"{name} 판매하시겠습니까?\n(판매한 물품은 되돌릴 수 없습니다.)";
 
         max = Mathf.Max(0, db.GetCountFromIndex(index));
         sel = (max > 0) ? Mathf.Clamp(sel, 1, max) : 0;
