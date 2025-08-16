@@ -2,20 +2,25 @@ name: Unity WebGL → Deploy
 
 on:
   push:
+<<<<<<< Updated upstream
     branches: [ "main" ]          # main 푸시 시 자동 실행
   workflow_dispatch:               # 수동 실행 지원
+=======
+    branches: [ "Build" ]            # Build 브랜치 푸시 시 자동 실행
+  workflow_dispatch:                 # 수동 실행 지원
+>>>>>>> Stashed changes
     inputs:
       deploy_target:
-        description: "netlify | vercel | s3"
+        description: "netlify | vercel | s3 | none"
         required: false
-        default: "netlify"
+        default: "none"              # 기본값 none → 토큰 없어도 빌드만 수행
 
-# 워크플로 전역 기본값 (필요한 것만 둠)
+# 전역 기본값
 env:
-  UNITY_VERSION: 6000.0.51f1       # ← 프로젝트 버전에 맞게 수정
-  PROJECT_PATH: .                  # ← Unity 프로젝트 루트
+  UNITY_VERSION: 6000.0.51f1         # ← 프로젝트 Unity 버전에 맞게 수정
+  PROJECT_PATH: .                    # ← Unity 프로젝트 루트
   BUILD_NAME: WebGL
-  BUILD_PATH: Build/WebGL          # GameCI가 생성할 WebGL 출력 폴더
+  BUILDS_PATH: build                 # ← v4는 buildsPath 사용 (기본: build)
 
 jobs:
   build-webgl:
@@ -40,29 +45,40 @@ jobs:
       - name: Build WebGL
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # ← ULF 전체 문자열
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # Personal이면 ULF 전체 문자열
+          # 필요 시 사용 (시크릿 추가 후 주석 해제)
+          # UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          # UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           projectPath: ${{ env.PROJECT_PATH }}
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: WebGL
           allowDirtyBuild: true
-          buildName: ${{ env.BUILD_NAME }}
-          buildPath: ${{ env.BUILD_PATH }}
+          buildName: ${{ env.BUILD_NAME }}     # 폴더명 (예: build/WebGL)
+          buildsPath: ${{ env.BUILDS_PATH }}   # 출력 루트 (예: build)
 
-      - name: Upload artifact
+      - name: Upload artifact (WebGL folder contents)
         uses: actions/upload-artifact@v4
         with:
           name: webgl-build
-          path: ${{ env.BUILD_PATH }}
+          # 폴더 '내용물'만 업로드 → dist 바로 밑에 index.html 오도록
+          path: ${{ env.BUILDS_PATH }}/${{ env.BUILD_NAME }}/
+          if-no-files-found: error
 
   deploy:
-    # ⚠️ 여기서는 env 컨텍스트를 참조하지 말고 리터럴 폴백 사용
-    name: Deploy (${{ github.event.inputs.deploy_target || 'netlify' }})
+    name: Deploy (${{ github.event.inputs.deploy_target || 'none' }})
     needs: build-webgl
     runs-on: ubuntu-latest
+    # deploy_target이 none이면 배포 잡 자체를 스킵
+    if: ${{ (github.event.inputs.deploy_target || 'none') != 'none' }}
+
+    # AWS OIDC 사용 시 필요한 권한 (Netlify/Vercel엔 영향 없음)
+    permissions:
+      contents: read
+      id-token: write
+
     env:
-      # 수동 실행 값이 없으면 기본값 'netlify' 사용
-      DEPLOY_TARGET: ${{ github.event.inputs.deploy_target || 'netlify' }}
+      DEPLOY_TARGET: ${{ github.event.inputs.deploy_target || 'none' }}
 
     steps:
       - name: Download artifact
