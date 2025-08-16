@@ -1,0 +1,109 @@
+name: Unity WebGL → Deploy
+
+on:
+  push:
+    branches: [ "main" ]        # main 브랜치에 push 시 자동 실행
+  workflow_dispatch:             # 수동 실행도 가능
+    inputs:
+      deploy_target:
+        description: "netlify | vercel | s3"
+        required: false
+        default: "netlify"
+
+env:
+  # 기본값(수동 실행 시 input이 우선 적용)
+  DEPLOY_TARGET: netlify
+  UNITY_VERSION: 6000.0.51f1      # ⬅️ 프로젝트 버전에 맞게 수정!
+  PROJECT_PATH: .                 # ⬅️ Unity 프로젝트 루트 경로(보통 .)
+  BUILD_NAME: WebGL
+  BUILD_PATH: Build/WebGL         # GameCI가 생성할 출력 폴더
+
+jobs:
+  build-webgl:
+    name: Build (WebGL)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with LFS)
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: recursive
+
+      - name: Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.PROJECT_PATH }}/Library
+          key: Library-${{ env.BUILD_NAME }}-WebGL-${{ hashFiles('**/Packages/manifest.json') }}
+          restore-keys: |
+            Library-${{ env.BUILD_NAME }}-WebGL-
+            Library-
+
+      - name: Build WebGL
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # ⬅️ GitHub Secrets
+        with:
+          projectPath: ${{ env.PROJECT_PATH }}
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: WebGL
+          allowDirtyBuild: true
+          buildName: ${{ env.BUILD_NAME }}
+          buildPath: ${{ env.BUILD_PATH }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: webgl-build
+          path: ${{ env.BUILD_PATH }}
+
+  deploy:
+    name: Deploy (${{ github.event.inputs.deploy_target || env.DEPLOY_TARGET }})
+    needs: build-webgl
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_TARGET: ${{ github.event.inputs.deploy_target || env.DEPLOY_TARGET }}
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: webgl-build
+          path: dist
+
+      # ───── Netlify ─────
+      - name: Install Netlify CLI
+        if: env.DEPLOY_TARGET == 'netlify'
+        run: npm i -g netlify-cli
+
+      - name: Deploy to Netlify
+        if: env.DEPLOY_TARGET == 'netlify'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: netlify deploy --dir=dist --prod --site "$NETLIFY_SITE_ID"
+
+      # ───── Vercel ─────
+      - name: Install Vercel CLI
+        if: env.DEPLOY_TARGET == 'vercel'
+        run: npm i -g vercel
+
+      - name: Deploy to Vercel
+        if: env.DEPLOY_TARGET == 'vercel'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          vercel deploy dist --prod --token "$VERCEL_TOKEN" \
+            --scope "$VERCEL_ORG_ID" --project "$VERCEL_PROJECT_ID"
+
+      # ───── S3 ─────
+      - name: Configure AWS Credentials (OIDC)
+        if: env.DEPLOY_TARGET == 's3'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Sync to S3
+        if: env.DEPLOY_TARGET == 's3'
+        run: aws s3 sync dist "s3://${{ secrets.S3_BUCKET }}/" --delete
