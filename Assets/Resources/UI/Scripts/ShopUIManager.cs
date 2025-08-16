@@ -36,7 +36,6 @@ public class ShopUIManager : MonoBehaviour
         shopPanel.gameObject.SetActive(true);
         shopPanel.anchoredPosition = hiddenPos;
 
-        UIManager.Instance.ModalPush(shopPanel.transform);
         shopPanel.DOAnchorPos(shownPos, slideDuration).SetEase(Ease.OutCubic);
 
         OpenTileTab(); // 기본 탭 타일 탭으로 
@@ -48,7 +47,6 @@ public class ShopUIManager : MonoBehaviour
         .OnComplete(() =>
         {
             shopPanel.gameObject.SetActive(false);
-            UIManager.Instance.ModalPop(); 
         });
     }
 

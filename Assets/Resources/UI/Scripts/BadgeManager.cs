@@ -17,14 +17,23 @@ public class BadgeManager : MonoBehaviour
     [SerializeField] private Vector2 caseHiddenPos = new Vector2(0, -1200f);
     [SerializeField] private Vector2 caseVisiblePos = Vector2.zero;
 
+    private Sequence openSeq, closeSeq;
+    private bool isOpening;
+
     private bool[] badgeUnlocked = new bool[11];
 
-    private void Start()
+    private void Awake()
     {
         InitBadges();
-        UnlockBadge(0);
-        UnlockBadge(8);
-        UnlockBadge(6);
+        UnlockBadge(0); UnlockBadge(8); UnlockBadge(6);
+
+        caseRoot.anchoredPosition = caseHiddenPos;
+        badgeLid.anchoredPosition = caseHiddenPos;
+        badgeLid.localScale = Vector3.one;
+        badgeLid.gameObject.SetActive(false);
+        badgeSlotsParent.SetActive(false);
+
+        gameObject.SetActive(false);
     }
 
     private void InitBadges()
@@ -51,52 +60,83 @@ public class BadgeManager : MonoBehaviour
 
     public void Open()
     {
+        if (isOpening) return;
+        isOpening = true;
+
+        openSeq?.Kill(); closeSeq?.Kill();
+        caseRoot.DOKill(); badgeLid.DOKill();
+
+        badgeLid.transform.SetAsLastSibling();
+        int lidIdx = badgeLid.transform.GetSiblingIndex();
+        badgeSlotsParent.transform.SetSiblingIndex(Mathf.Max(0, lidIdx - 1));
+
         gameObject.SetActive(true);
         RefreshBadges();
         closeButton.SetActive(true);
 
-        Vector2 startPos = caseHiddenPos;
-        Vector2 targetPos = caseVisiblePos;
-
-        caseRoot.anchoredPosition = startPos;
-        badgeLid.anchoredPosition = startPos;
+        caseRoot.anchoredPosition = caseHiddenPos;
+        badgeLid.anchoredPosition = caseHiddenPos;
         badgeLid.localScale = Vector3.one;
         badgeLid.gameObject.SetActive(true);
-        badgeSlotsParent.SetActive(false); // 초기에는 숨김
+        badgeSlotsParent.SetActive(false);
 
-        Sequence openSeq = DOTween.Sequence();
+        openSeq = DOTween.Sequence()
+                     .SetLink(gameObject, LinkBehaviour.KillOnDestroy);
 
-        // 1. 케이스+뚜껑 슬라이드 업 (0.6초)
-        openSeq.Append(caseRoot.DOAnchorPos(targetPos, 0.6f).SetEase(Ease.OutQuad));
-        openSeq.Join(badgeLid.DOAnchorPos(targetPos, 0.6f).SetEase(Ease.OutQuad));
+        openSeq.Append(
+            caseRoot.DOAnchorPos(caseVisiblePos, 0.6f)
+                    .SetEase(Ease.OutQuad)
+                    .SetLink(caseRoot.gameObject, LinkBehaviour.KillOnDestroy)
+        );
+        openSeq.Join(
+            badgeLid.DOAnchorPos(caseVisiblePos, 0.6f)
+                    .SetEase(Ease.OutQuad)
+                    .SetLink(badgeLid.gameObject, LinkBehaviour.KillOnDestroy)
+        );
 
-        // 2. 잠깐 대기 (0.3초)
         openSeq.AppendInterval(0.3f);
+        openSeq.Append(
+            badgeLid.DOScale(1.15f, 0.5f)
+                    .SetEase(Ease.OutSine)
+                    .SetLink(badgeLid.gameObject, LinkBehaviour.KillOnDestroy)
+        );
 
-        // 3. 뚜껑 커짐 (0.3초) → 뱃지 보드 사이즈 맞춤
-        openSeq.Append(badgeLid.DOScale(1.15f, 0.5f).SetEase(Ease.OutSine));
+        openSeq.AppendCallback(() =>
+        {
+            if (!this || !badgeLid || !badgeSlotsParent) return;
+            badgeSlotsParent.SetActive(true);
 
-        // 4. 커진 직후 뱃지 보드 등장
-        openSeq.AppendCallback(() => badgeSlotsParent.SetActive(true));
+            badgeLid.transform.SetAsLastSibling();
+            int lidIdx = badgeLid.transform.GetSiblingIndex();
+            badgeSlotsParent.transform.SetSiblingIndex(Mathf.Max(0, lidIdx - 1));
+        });
 
-        // 5. 뚜껑 위로 슬라이드 (0.8초)
-        openSeq.Append(badgeLid.DOAnchorPosY(targetPos.y + 1000f, 1.5f).SetEase(Ease.InOutSine));
-
-        // 6. 뚜껑 비활성화
+        openSeq.Append(
+            badgeLid.DOAnchorPosY(caseVisiblePos.y + 1000f, 1.5f)
+                    .SetEase(Ease.InOutSine)
+                    .SetLink(badgeLid.gameObject, LinkBehaviour.KillOnDestroy)
+        );
         openSeq.AppendCallback(() => badgeLid.gameObject.SetActive(false));
+
+        openSeq.OnComplete(() => { isOpening = false; });
     }
 
     public void Close()
     {
+        openSeq?.Kill(); closeSeq?.Kill();
+        caseRoot.DOKill(); badgeLid.DOKill();
+
         closeButton.SetActive(false);
 
-        // 내부 전체 UI를 슬라이드 다운
-        Sequence closeSeq = DOTween.Sequence();
-        closeSeq.Append(caseRoot.DOAnchorPos(caseHiddenPos, 0.5f).SetEase(Ease.InBack));
-        closeSeq.OnComplete(() =>
-        {
-            gameObject.SetActive(false);
-        });
+        closeSeq = DOTween.Sequence()
+                      .SetLink(gameObject, LinkBehaviour.KillOnDestroy);
+
+        closeSeq.Append(
+            caseRoot.DOAnchorPos(caseHiddenPos, 0.5f)
+                    .SetEase(Ease.InBack)
+                    .SetLink(caseRoot.gameObject, LinkBehaviour.KillOnDestroy)
+        );
+        closeSeq.OnComplete(() => gameObject.SetActive(false));
     }
 
     private void RefreshBadges()
@@ -111,8 +151,25 @@ public class BadgeManager : MonoBehaviour
             else
             {
                 badgeSlots[i].sprite = null;
-                badgeSlots[i].color = new Color(1, 1, 1, 0f); // 안 보이게
+                badgeSlots[i].color = new Color(1, 1, 1, 0f);
             }
         }
     }
+
+    private void OnDisable()
+    {
+        openSeq?.Kill();
+        closeSeq?.Kill();
+        caseRoot?.DOKill();
+        badgeLid?.DOKill();
+    }
+
+    private void OnDestroy()
+    {
+        openSeq?.Kill();
+        closeSeq?.Kill();
+        caseRoot?.DOKill();
+        badgeLid?.DOKill();
+    }
+
 }
