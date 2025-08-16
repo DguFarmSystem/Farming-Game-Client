@@ -2,13 +2,8 @@ name: Unity WebGL → Deploy
 
 on:
   push:
-<<<<<<< Updated upstream
-    branches: [ "main" ]          # main 푸시 시 자동 실행
-  workflow_dispatch:               # 수동 실행 지원
-=======
     branches: [ "Build" ]            # Build 브랜치 푸시 시 자동 실행
   workflow_dispatch:                 # 수동 실행 지원
->>>>>>> Stashed changes
     inputs:
       deploy_target:
         description: "netlify | vercel | s3 | none"
