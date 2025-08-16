@@ -19,7 +19,6 @@ public class BagManager : MonoBehaviour
 
     [Header("Sell UI")]
     [SerializeField] private SellPopup sellPopupPrefab;
-
     [SerializeField] private SellQuickMenu quickMenuPrefab;
     SellQuickMenu quickMenu;
 
@@ -32,8 +31,13 @@ public class BagManager : MonoBehaviour
         Debug.Log($"QuickMenu made? {quickMenu != null}");
 
         Instance = this;
+
+        if (!panelGroup) panelGroup = GetComponent<CanvasGroup>();
+        if (!windowRect) windowRect = GetComponent<RectTransform>();
+
         panelGroup.alpha = 0f;
         panelGroup.blocksRaycasts = false;
+
         hiddenPos = new Vector2(0, -Screen.height);
         windowRect.anchoredPosition = hiddenPos;
         gameObject.SetActive(false);
@@ -82,48 +86,45 @@ public class BagManager : MonoBehaviour
 
     private void BuildBagSlots()
     {
-        // 기존 슬롯 제거
-        foreach (Transform parent in parents)
-        {
-            foreach (Transform child in parent)
-            {
-                Destroy(child.gameObject);
-            }
-        }
+        foreach (var parent in parents)
+            for (int i = parent.childCount - 1; i >= 0; --i)
+                Destroy(parent.GetChild(i).gameObject);
 
-        int totalItems = objectDatabase.GetItemCount();
+        int total = objectDatabase.GetItemCount();
 
-        for (int i = 0; i < totalItems; i++)
+        for (int i = 0; i < total; i++)
         {
+            int count = objectDatabase.GetCountFromIndex(i);
+            if (count <= 0) continue; 
+
             string id = objectDatabase.GetID(i);
             string name = objectDatabase.GetName(i);
             Sprite sprite = objectDatabase.GetSprite(i);
-            int count = objectDatabase.GetCountFromIndex(i);
+            var type = objectDatabase.GetType(i);
 
-            if (count <= 0) continue;
+            Transform parent = parents[(int)type];
 
-            var slotObj = Instantiate(objectSelectButtonPrefab);
-            var objSelectButton = slotObj.GetComponent<ObjectSelectButton>();
-            objSelectButton.Init(id, name, sprite, count);
+            var slotObj = Instantiate(objectSelectButtonPrefab, parent, false);
+            slotObj.name = $"BagSlot_{id}";
 
-            PlaceType type = objectDatabase.GetType(i);
-            switch (type)
+            var bagView = slotObj.GetComponent<BagItemSlotView>();
+            if (bagView)
             {
-                case PlaceType.Tile:
-                    slotObj.transform.SetParent(parents[0], false);
-                    break;
-                case PlaceType.Object:
-                    slotObj.transform.SetParent(parents[1], false);
-                    break;
-                case PlaceType.Plant:
-                    slotObj.transform.SetParent(parents[2], false);
-                    break;
+                bagView.Bind(objectDatabase, i); 
+            }
+            else
+            {
+                var objSelect = slotObj.GetComponent<ObjectSelectButton>();
+                if (objSelect)
+                {
+                    objSelect.Init(id, name, sprite, count);
+                }
             }
 
-            // 판매 기능 
-            var rcSell = slotObj.AddComponent<RightClickSell>();
+            // 3) 우클릭 판매 연결 (퀵메뉴/바로 팝업 둘 다 지원)
+            var rcSell = slotObj.GetComponent<RightClickSell>();
+            if (!rcSell) rcSell = slotObj.AddComponent<RightClickSell>();
             rcSell.Init(i, objectDatabase, sellPopupPrefab, defaultSellPrice, quickMenu);
-
         }
     }
 }

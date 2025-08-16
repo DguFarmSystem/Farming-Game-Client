@@ -1562,7 +1562,7 @@ MonoBehaviour:
   slideDuration: 0.5
   closeButton: {fileID: 1433898578800732650}
   objectDatabase: {fileID: 11400000, guid: cc70b75ca37c75e43aa216e563324c06, type: 2}
-  objectSelectButtonPrefab: {fileID: 4039203475289616210, guid: 19af86a1316c6e6408da3b05733848bb, type: 3}
+  objectSelectButtonPrefab: {fileID: 8449200136397208167, guid: 5254e1c42e1d945e4ae308b0716c5b2e, type: 3}
   parents:
   - {fileID: 2285006288655196107}
   - {fileID: 2357877414657728488}
