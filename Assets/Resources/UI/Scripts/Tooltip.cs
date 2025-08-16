@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 
+[DefaultExecutionOrder(10000)]
 public class Tooltip : MonoBehaviour
 {
     public static Tooltip Instance;
@@ -11,57 +12,129 @@ public class Tooltip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI descText;
     [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private RectTransform backgroundRect; // = Image 오브젝트
+    [SerializeField] private RectTransform backgroundRect;
+    [SerializeField] private Canvas tooltipCanvas;
 
-    private void Awake()
+    Coroutine resizeCo;
+    Canvas rootCanvas;
+    Camera uiCam;
+
+    void Awake()
     {
+        if (!tooltipRect) tooltipRect = GetComponent<RectTransform>();
+        if (!canvasGroup) canvasGroup = GetComponentInChildren<CanvasGroup>(true);
+        if (!tooltipCanvas) tooltipCanvas = GetComponentInChildren<Canvas>(true);
+
+        rootCanvas = GetComponentInParent<Canvas>();
+        uiCam = rootCanvas ? rootCanvas.worldCamera : null;
+
         Instance = this;
-        Hide();
+        HideImmediate();
     }
 
-    private void Update()
+    void OnEnable()
     {
+        StartCoroutine(DeferredTopmost());
+        Instance = this;
+    }
+
+    IEnumerator DeferredTopmost()
+    {
+        yield return null;
+        EnsureTopmost();
+    }
+
+    private void EnsureTopmost()
+    {
+        rootCanvas = GetComponentInParent<Canvas>();
+        if (!rootCanvas) return;
+
+        if (!tooltipCanvas) tooltipCanvas = GetComponentInChildren<Canvas>(true);
+
+        int top = 0;
+        foreach (var c in FindObjectsOfType<Canvas>(true))
+            top = Mathf.Max(top, c.sortingOrder + (c.renderMode == RenderMode.ScreenSpaceOverlay ? 10000 : 0));
+
+        tooltipCanvas.renderMode = rootCanvas.renderMode;
+        tooltipCanvas.worldCamera = rootCanvas.worldCamera;
+        tooltipCanvas.overrideSorting = true;
+        tooltipCanvas.sortingOrder = top + 10;
+
+        transform.SetAsLastSibling();
+
+        uiCam = rootCanvas.worldCamera;
+    }
+
+    void OnDisable()
+    {
+        if (resizeCo != null) { StopCoroutine(resizeCo); resizeCo = null; }
+    }
+
+    void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+        resizeCo = null; canvasGroup = null;
+    }
+
+    void Update()
+    {
+        if (!isActiveAndEnabled || !tooltipRect || !transform.parent) return;
+
+        var parentRect = transform.parent as RectTransform;
+        if (!parentRect) return;
+
         Vector2 pos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            transform.parent as RectTransform,
+            parentRect,
             Input.mousePosition,
-            null,
+            uiCam,
             out pos
         );
 
-        tooltipRect.pivot = new Vector2(0, 1); // 좌상단 기준
-        tooltipRect.anchoredPosition = pos + new Vector2(20f, -20f); // 약간 띄움
+        tooltipRect.pivot = new Vector2(0, 1);
+        tooltipRect.anchoredPosition = pos + new Vector2(20f, -20f);
     }
 
     public void Show(string title, string desc)
     {
+        EnsureTopmost();
+
         gameObject.SetActive(true);
-        titleText.text = title;
-        descText.text = desc;
+        if (titleText) titleText.text = title ?? "";
+        if (descText) descText.text = desc ?? "";
 
-        StartCoroutine(ResizeToText());
+        if (resizeCo != null) StopCoroutine(resizeCo);
+        resizeCo = StartCoroutine(ResizeToText());
 
-        canvasGroup.alpha = 1;
+        canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = false;
     }
 
-    private IEnumerator ResizeToText()
+    IEnumerator ResizeToText()
     {
-        yield return null; // 한 프레임 뒤에 Layout 정보 갱신됨
+        yield return null;
+        if (!this || !backgroundRect || !titleText || !descText) yield break;
 
-        float paddingX = 40f;
-        float paddingY = 30f;
+        const float padX = 40f, padY = 30f;
+        float maxW = Mathf.Max(titleText.preferredWidth, descText.preferredWidth);
+        float h = titleText.preferredHeight + descText.preferredHeight;
 
-        // 텍스트들의 최대 가로 길이 계산
-        float maxWidth = Mathf.Max(titleText.preferredWidth, descText.preferredWidth);
-        float totalHeight = titleText.preferredHeight + descText.preferredHeight;
-
-        backgroundRect.sizeDelta = new Vector2(maxWidth + paddingX, totalHeight + paddingY);
+        backgroundRect.sizeDelta = new Vector2(maxW + padX, h + padY);
+        resizeCo = null;
     }
 
     public void Hide()
     {
-        canvasGroup.alpha = 0;
+        if (resizeCo != null) { StopCoroutine(resizeCo); resizeCo = null; }
+        canvasGroup.alpha = 0f;
+        canvasGroup.blocksRaycasts = false;
+        gameObject.SetActive(false);
+    }
+
+    public void HideImmediate()
+    {
+        if (resizeCo != null) { StopCoroutine(resizeCo); resizeCo = null; }
+        canvasGroup.alpha = 0f;
         canvasGroup.blocksRaycasts = false;
         gameObject.SetActive(false);
     }

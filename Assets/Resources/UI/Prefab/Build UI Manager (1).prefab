@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &51655783362289964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4290247731649690523}
+  - component: {fileID: 8595679067906579798}
+  m_Layer: 5
+  m_Name: Build UI Manager (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4290247731649690523
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51655783362289964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8595679067906579798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51655783362289964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 109bc8929dbd3d6459920b40dfc626a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placementManager: {fileID: 0}
+  placeablePrefabs:
+  - {fileID: 8511615565523577852, guid: c9557f7e67970cb4590fefc38e99a172, type: 3}
+  - {fileID: 8511615565523577852, guid: b2dc13fa9fa403c4ba836b84aef28f40, type: 3}
+  - {fileID: 8511615565523577852, guid: 26a3e428f6b236c4ebc56913eabaf29e, type: 3}
+  - {fileID: 8511615565523577852, guid: 195b427657bab79449ddfe21f34a50db, type: 3}
+  - {fileID: 2385325362487762811, guid: c0a5fe94d63499342a9cad2dd72855b9, type: 3}
+  - {fileID: 2385325362487762811, guid: 3b8a43e3e1c4f8640b476277fbf1e9d5, type: 3}
+  - {fileID: 2385325362487762811, guid: 99da0566d4dc62c4f952e42ad62302fd, type: 3}
+  database: {fileID: 11400000, guid: cc70b75ca37c75e43aa216e563324c06, type: 2}
+  objectSelectButton: {fileID: 4039203475289616210, guid: 19af86a1316c6e6408da3b05733848bb, type: 3}
+  parents:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  objectSelectButtons: []

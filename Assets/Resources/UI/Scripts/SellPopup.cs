@@ -71,16 +71,23 @@ public class SellPopup : MonoBehaviour
     void SellAndShowDone()
     {
         if (selling || max <= 0 || sel <= 0) return;
-        selling = true; okBtn.interactable = false;
+        selling = true;
+        okBtn.interactable = false;
 
         int sell = Mathf.Min(sel, max);
+
         db.SetCount(index, Mathf.Max(0, max - sell));
         CurrencyManager.Instance?.AddGold(sell * unitPrice);
 
+        var build = FindFirstObjectByType<BuildManager>(FindObjectsInactive.Exclude);
+        if (build != null && build.gameObject.activeInHierarchy)
+            build.UpdateCountTMP();
+
         confirm.gameObject.SetActive(false);
         done.gameObject.SetActive(true);
-        done.anchoredPosition = Vector2.zero;   
+        done.anchoredPosition = Vector2.zero;
         done.SetAsLastSibling();
+
         selling = false;
     }
 

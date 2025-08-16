@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class PurchasePopup : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PurchasePopup : MonoBehaviour
     public int currentCount = 1;
     public int unitPrice;
     public string itemName;
+    private string resourceKey;
 
     public float slideDuration = 0.5f;
     private Vector2 hiddenPos;
@@ -43,6 +45,12 @@ public class PurchasePopup : MonoBehaviour
     public float failSlideDuration = 0.4f;
     private Vector2 failPanelStartPos;
     private Vector2 failPanelShownPos;
+
+    [System.Serializable]
+    public class PurchaseEvent : UnityEvent<string, string, int> { }
+
+    [Header("구매 성공 시 알림 (resourceKey, displayName, count)")]
+    public PurchaseEvent onPurchased;
 
     private void Awake()
     {
@@ -81,7 +89,17 @@ public class PurchasePopup : MonoBehaviour
 
     public void Open(string itemName, int pricePerItem)
     {
+        Open(itemName, pricePerItem, null);
+    }
+
+    public void Open(string itemName, int pricePerItem, string resourceKey)
+    {
         Debug.Log($"Open called: {itemName} / {pricePerItem}");
+
+        this.itemName = itemName;
+        this.unitPrice = pricePerItem;
+        this.resourceKey = resourceKey;
+        currentCount = 1;
 
         // 초기화 안전하게
         gameObject.SetActive(true);
@@ -128,31 +146,22 @@ public class PurchasePopup : MonoBehaviour
 
     private void OnConfirm()
     {
-        Debug.Log($"구매 확인: {itemName} x{currentCount}");
-
         int totalCost = Mathf.Max(0, unitPrice) * currentCount;
-
         popupPanel.gameObject.SetActive(false);
 
-        // 통화 매니저 확인
         var cm = CurrencyManager.Instance;
-        if (cm == null)
-        {
-            ShowPurchaseFailMessage("구매 실패: 재화 시스템을 찾을 수 없습니다.");
-            return;
-        }
+        if (cm == null) { ShowPurchaseFailMessage("구매 실패: 재화 시스템을 찾을 수 없습니다."); return; }
 
-        // 재화 확인 및 차감
-        bool paid = cm.SpendGold(totalCost);
-        if (paid)
+        if (cm.SpendGold(totalCost))
         {
-            // 여기서 인벤토리에 추가도 해야 함 
+            try { onPurchased?.Invoke(resourceKey, itemName, currentCount); }
+            catch (System.Exception e) { Debug.LogError($"onPurchased invoke error: {e}"); }
+
             ShowPurchaseCompleteMessage(itemName, currentCount);
         }
         else
         {
-            int shortage = totalCost - cm.gold;
-            ShowPurchaseFailMessage($"구매 실패! 골드가 부족합니다.");
+            ShowPurchaseFailMessage("구매 실패! 골드가 부족합니다.");
         }
     }
 

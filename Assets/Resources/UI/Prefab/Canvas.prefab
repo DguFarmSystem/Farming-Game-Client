@@ -1769,6 +1769,10 @@ PrefabInstance:
       propertyPath: m_overflowMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4831983033697859440, guid: 0851a70d0ab114416ad4ecc42a7c5b14, type: 3}
+      propertyPath: tooltipCanvas
+      value: 
+      objectReference: {fileID: 2082011135466996983}
     - target: {fileID: 6976599946676670877, guid: 0851a70d0ab114416ad4ecc42a7c5b14, type: 3}
       propertyPath: m_overflowMode
       value: 0
@@ -1860,8 +1864,55 @@ PrefabInstance:
     - {fileID: -2728921244453740647, guid: 0851a70d0ab114416ad4ecc42a7c5b14, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1359701640955059832, guid: 0851a70d0ab114416ad4ecc42a7c5b14, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7072470396647992375}
+    - targetCorrespondingSourceObject: {fileID: 1359701640955059832, guid: 0851a70d0ab114416ad4ecc42a7c5b14, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4162198873345218723}
   m_SourcePrefab: {fileID: 100100000, guid: 0851a70d0ab114416ad4ecc42a7c5b14, type: 3}
+--- !u!1 &3684635754398549210 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1359701640955059832, guid: 0851a70d0ab114416ad4ecc42a7c5b14, type: 3}
+  m_PrefabInstance: {fileID: 2449067328428923554}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7072470396647992375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3684635754398549210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30eded85712b46f1afa69f08796be4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipCanvas: {fileID: 4162198873345218723}
+--- !u!223 &4162198873345218723
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3684635754398549210}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!224 &6255504940995255443 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8587468781024724529, guid: 0851a70d0ab114416ad4ecc42a7c5b14, type: 3}

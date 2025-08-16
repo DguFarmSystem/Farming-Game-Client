@@ -9,6 +9,7 @@ TagManager:
   - Tile
   - Object
   - Plant
+  - BuildManager
   layers:
   - Default
   - TransparentFX

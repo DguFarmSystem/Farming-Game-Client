@@ -82,9 +82,16 @@ public class BuildManager : MonoBehaviour
 
     public void UpdateCountTMP()
     {
+        Debug.Log($"[Build] DB instance = {database?.GetInstanceID()}");
+
         foreach (ObjectSelectButton button in objectSelectButtons)
         {
             button.UpdateCountTMPFromDatabse();
         }
+    }
+
+    void OnEnable()
+    {
+        UpdateCountTMP();
     }
 }

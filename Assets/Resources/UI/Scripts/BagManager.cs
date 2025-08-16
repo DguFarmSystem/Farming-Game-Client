@@ -52,6 +52,20 @@ public class BagManager : MonoBehaviour
         }
     }
 
+    public bool HasValidContent()
+    {
+        if (objectDatabase == null) return false;
+        if (objectSelectButtonPrefab == null) return false;
+        if (parents == null || parents.Length == 0) return false;
+
+        foreach (var p in parents)
+        {
+            if (p == null) return false;
+            if (p.gameObject == null) return false;
+        }
+        return true;
+    }
+
     public void Open()
     {
         Debug.Log("BagManager.Open 호출됨");
@@ -81,14 +95,36 @@ public class BagManager : MonoBehaviour
 
     public void Rebuild()
     {
+        if (!isActiveAndEnabled)
+        {
+            Debug.LogWarning("[Bag] Rebuild skipped: BagManager disabled");
+            return;
+        }
+        if (!HasValidContent())
+        {
+            Debug.LogWarning("[Bag] Rebuild skipped: parents or content missing/destroyed");
+            return;
+        }
+
         BuildBagSlots();
     }
 
     private void BuildBagSlots()
     {
         foreach (var parent in parents)
+        {
+            if (parent == null)
+            {
+                Debug.LogWarning("[Bag] Skip a destroyed parent container.");
+                continue;
+            }
+
             for (int i = parent.childCount - 1; i >= 0; --i)
-                Destroy(parent.GetChild(i).gameObject);
+            {
+                var child = parent.GetChild(i);
+                if (child != null) Destroy(child.gameObject);
+            }
+        }
 
         int total = objectDatabase.GetItemCount();
 
@@ -101,6 +137,13 @@ public class BagManager : MonoBehaviour
             string name = objectDatabase.GetName(i);
             Sprite sprite = objectDatabase.GetSprite(i);
             var type = objectDatabase.GetType(i);
+
+            int idx = (int)type;
+            if (idx < 0 || idx >= parents.Length || parents[idx] == null)
+            {
+                Debug.LogWarning($"[Bag] Invalid parent for type={type} (idx={idx}). Skip {id}");
+                continue;
+            }
 
             Transform parent = parents[(int)type];
 
@@ -121,7 +164,7 @@ public class BagManager : MonoBehaviour
                 }
             }
 
-            // 3) 우클릭 판매 연결 (퀵메뉴/바로 팝업 둘 다 지원)
+            // 3) 우클릭 판매 연결
             var rcSell = slotObj.GetComponent<RightClickSell>();
             if (!rcSell) rcSell = slotObj.AddComponent<RightClickSell>();
             rcSell.Init(i, objectDatabase, sellPopupPrefab, defaultSellPrice, quickMenu);

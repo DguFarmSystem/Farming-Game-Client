@@ -1,6 +1,7 @@
 // Unity
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 [System.Serializable]
 public class Database
@@ -85,7 +86,7 @@ public class ObjectDatabase : ScriptableObject
                 if (datum.count == -1) return;
                 datum.count++;
 
-                Debug.Log("데이터 추가");
+                Debug.Log("?????? ????");
             }
         }
     }

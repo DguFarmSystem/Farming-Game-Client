@@ -85,14 +85,17 @@ public class ShopUIManager : MonoBehaviour
 
     private void PopulateShopItems(List<ShopItemData> items, Transform parent)
     {
-        // 기존 슬롯 제거
-        foreach (Transform child in parent)
-            Destroy(child.gameObject);
+        foreach (Transform child in parent) Destroy(child.gameObject);
 
         foreach (var item in items)
         {
             GameObject slot = Instantiate(shopItemSlotPrefab, parent);
-            ShopItemSlot comp = slot.GetComponentInChildren<ShopItemSlot>();
+
+            var button = slot.GetComponentInChildren<Button>(true);
+            ShopItemSlot comp = null;
+            if (button != null) comp = button.GetComponent<ShopItemSlot>();
+            if (comp == null) comp = slot.GetComponent<ShopItemSlot>();
+            if (comp == null) comp = slot.GetComponentInChildren<ShopItemSlot>(true);
 
             if (comp == null)
             {
@@ -100,9 +103,11 @@ public class ShopUIManager : MonoBehaviour
                 continue;
             }
 
-            comp.Init(item.itemName, item.price, item.icon);
+            comp.Init(item);
+            Debug.Log($"[Populate] init target={comp.gameObject.name} id={comp.GetInstanceID()} key={item.resourceKey}");
         }
 
         Debug.Log("상점 슬롯 생성 완료");
     }
+
 }

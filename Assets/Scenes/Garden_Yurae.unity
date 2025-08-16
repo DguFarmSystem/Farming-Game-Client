@@ -3615,7 +3615,7 @@ GameObject:
   - component: {fileID: 1906227915}
   m_Layer: 5
   m_Name: Build UI Manager
-  m_TagString: Untagged
+  m_TagString: BuildManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4472,6 +4472,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: -17
       objectReference: {fileID: 0}
+    - target: {fileID: 4162198873345218723, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 5469576370906114212, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4564,7 +4568,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7072470396647992375, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
+    - {fileID: 4162198873345218723, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3605726539746327308, guid: 93b291dbec2254f9fba08bfcd792ef4e, type: 3}

@@ -24,19 +24,19 @@ MonoBehaviour:
     name: "\uBC2D"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
-    count: 19
+    count: 50
     type: 0
   - id: Tilemap_Water
     name: "\uBB3C"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
-    count: 30
+    count: 50
     type: 0
   - id: Tilemap_Stone
     name: "\uB3CC"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
-    count: 47
+    count: 50
     type: 0
   - id: Object_TestFence
     name: "\uC6B8\uD0C0\uB9AC"
