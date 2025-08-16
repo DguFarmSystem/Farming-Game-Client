@@ -3,13 +3,9 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using System.Collections;
-using UnityEditor.UI;
 
 public class seedTicket : MonoBehaviour
 {
-
-
-
     [Header("유아이 관련")]
     public TMP_Text ticketCountText; //티켓 수 텍스트
     public Button claimButton; //수령 버튼
