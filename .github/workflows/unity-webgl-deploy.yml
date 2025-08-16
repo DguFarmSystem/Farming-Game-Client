@@ -8,14 +8,13 @@ on:
       deploy_target:
         description: "netlify | vercel | s3 | none"
         required: false
-        default: "none"              # 기본값 none → 토큰 없어도 빌드만 수행
+        default: "none"              # 기본 none → 토큰 없어도 빌드만 수행
 
-# 전역 기본값
 env:
   UNITY_VERSION: 6000.0.51f1         # ← 프로젝트 Unity 버전에 맞게 수정
   PROJECT_PATH: .                    # ← Unity 프로젝트 루트
   BUILD_NAME: WebGL
-  BUILDS_PATH: build                 # ← v4는 buildsPath 사용 (기본: build)
+  BUILDS_PATH: build                 # ← v4 입력명: buildsPath (기본: build)
 
 jobs:
   build-webgl:
@@ -40,17 +39,19 @@ jobs:
       - name: Build WebGL
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # Personal이면 ULF 전체 문자열
-          # 필요 시 사용 (시크릿 추가 후 주석 해제)
-          # UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          # UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          # 🔑 Personal: 이메일/비번 + ULF 모두 필요 (Pro는 SERIAL)
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          # Pro/Plus일 경우:
+          # UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         with:
           projectPath: ${{ env.PROJECT_PATH }}
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: WebGL
           allowDirtyBuild: true
-          buildName: ${{ env.BUILD_NAME }}     # 폴더명 (예: build/WebGL)
-          buildsPath: ${{ env.BUILDS_PATH }}   # 출력 루트 (예: build)
+          buildName: ${{ env.BUILD_NAME }}     # 최종 폴더명: build/WebGL
+          buildsPath: ${{ env.BUILDS_PATH }}   # 출력 루트: build
 
       - name: Upload artifact (WebGL folder contents)
         uses: actions/upload-artifact@v4
@@ -64,10 +65,10 @@ jobs:
     name: Deploy (${{ github.event.inputs.deploy_target || 'none' }})
     needs: build-webgl
     runs-on: ubuntu-latest
-    # deploy_target이 none이면 배포 잡 자체를 스킵
+    # none이면 배포 잡 자체 스킵 → 빌드만 성공
     if: ${{ (github.event.inputs.deploy_target || 'none') != 'none' }}
 
-    # AWS OIDC 사용 시 필요한 권한 (Netlify/Vercel엔 영향 없음)
+    # S3 OIDC 사용 시 필요한 권한 (Netlify/Vercel엔 영향 없음)
     permissions:
       contents: read
       id-token: write
