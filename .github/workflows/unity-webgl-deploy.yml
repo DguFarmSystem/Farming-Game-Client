@@ -2,21 +2,20 @@ name: Unity WebGL → Deploy
 
 on:
   push:
-    branches: [ "main" ]        # main 브랜치에 push 시 자동 실행
-  workflow_dispatch:             # 수동 실행도 가능
+    branches: [ "main" ]          # main 푸시 시 자동 실행
+  workflow_dispatch:               # 수동 실행 지원
     inputs:
       deploy_target:
         description: "netlify | vercel | s3"
         required: false
         default: "netlify"
 
+# 워크플로 전역 기본값 (필요한 것만 둠)
 env:
-  # 기본값(수동 실행 시 input이 우선 적용)
-  DEPLOY_TARGET: netlify
-  UNITY_VERSION: 6000.0.51f1      # ⬅️ 프로젝트 버전에 맞게 수정!
-  PROJECT_PATH: .                 # ⬅️ Unity 프로젝트 루트 경로(보통 .)
+  UNITY_VERSION: 6000.0.51f1       # ← 프로젝트 버전에 맞게 수정
+  PROJECT_PATH: .                  # ← Unity 프로젝트 루트
   BUILD_NAME: WebGL
-  BUILD_PATH: Build/WebGL         # GameCI가 생성할 출력 폴더
+  BUILD_PATH: Build/WebGL          # GameCI가 생성할 WebGL 출력 폴더
 
 jobs:
   build-webgl:
@@ -41,7 +40,7 @@ jobs:
       - name: Build WebGL
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # ⬅️ GitHub Secrets
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # ← ULF 전체 문자열
         with:
           projectPath: ${{ env.PROJECT_PATH }}
           unityVersion: ${{ env.UNITY_VERSION }}
@@ -57,11 +56,14 @@ jobs:
           path: ${{ env.BUILD_PATH }}
 
   deploy:
-    name: Deploy (${{ github.event.inputs.deploy_target || env.DEPLOY_TARGET }})
+    # ⚠️ 여기서는 env 컨텍스트를 참조하지 말고 리터럴 폴백 사용
+    name: Deploy (${{ github.event.inputs.deploy_target || 'netlify' }})
     needs: build-webgl
     runs-on: ubuntu-latest
     env:
-      DEPLOY_TARGET: ${{ github.event.inputs.deploy_target || env.DEPLOY_TARGET }}
+      # 수동 실행 값이 없으면 기본값 'netlify' 사용
+      DEPLOY_TARGET: ${{ github.event.inputs.deploy_target || 'netlify' }}
+
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
@@ -69,7 +71,7 @@ jobs:
           name: webgl-build
           path: dist
 
-      # ───── Netlify ─────
+      # ───────── Netlify ─────────
       - name: Install Netlify CLI
         if: env.DEPLOY_TARGET == 'netlify'
         run: npm i -g netlify-cli
@@ -81,7 +83,7 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: netlify deploy --dir=dist --prod --site "$NETLIFY_SITE_ID"
 
-      # ───── Vercel ─────
+      # ───────── Vercel ─────────
       - name: Install Vercel CLI
         if: env.DEPLOY_TARGET == 'vercel'
         run: npm i -g vercel
@@ -96,7 +98,7 @@ jobs:
           vercel deploy dist --prod --token "$VERCEL_TOKEN" \
             --scope "$VERCEL_ORG_ID" --project "$VERCEL_PROJECT_ID"
 
-      # ───── S3 ─────
+      # ───────── S3 ─────────
       - name: Configure AWS Credentials (OIDC)
         if: env.DEPLOY_TARGET == 's3'
         uses: aws-actions/configure-aws-credentials@v4
