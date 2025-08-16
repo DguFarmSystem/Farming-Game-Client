@@ -2,7 +2,7 @@ name: Unity WebGL → Deploy
 
 on:
   push:
-    branches: [ "main" ]          # main 푸시 시 자동 실행
+    branches: [ "Build" ]          # main 푸시 시 자동 실행
   workflow_dispatch:               # 수동 실행 지원
     inputs:
       deploy_target:
