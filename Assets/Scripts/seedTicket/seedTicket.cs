@@ -8,10 +8,8 @@ public class seedTicket : MonoBehaviour
 {
     [Header("유아이 관련")]
     public TMP_Text ticketCountText; //티켓 수 텍스트
-    public Button claimButton; //수령 버튼
+
     public Button closeButton; // 닫기 버튼
-    public Image darkBackground; // 검은 배경
-    public Image whiteFlash;     // 흰 화면 플래시
 
     [Header("조건")]
     public bool condition1;
@@ -29,13 +27,8 @@ public class seedTicket : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (claimButton != null)
-        {
-            claimButton.onClick.RemoveAllListeners();
-            claimButton.onClick.AddListener(OnClickClaim);
-        }
+        OnClickClaim(); //입장했을때 조건 보고 보상 수령
 
-        
 
         EnsureDailyReset();
     }
@@ -84,15 +77,12 @@ public class seedTicket : MonoBehaviour
         GameObject ui = UIManager.Instance.OpenSeedTicketPopup();
         var view = ui.GetComponent<seedTicketResultUI>();
 
-        darkBackground = view.Black;
-        whiteFlash = view.white;
-
-        StartCoroutine(play_fadeIn());
+        StartCoroutine(ShowAll(ui, 0.5f, 1f, 0.5f)); // 전체 페이드인
 
         view.ticketCountText.text = "X " + total.ToString();
         view.Init(total, onClose: () =>
         {
-            StartCoroutine(CloseUI());
+            StartCoroutine(CloseUI(ui));
             // 닫힐 때 추가로 하고 싶은 처리
             // 예: UIManager.Instance.HideAll();
         });
@@ -107,13 +97,6 @@ public class seedTicket : MonoBehaviour
 
     }
 
-    public IEnumerator play_fadeIn()
-    {
-        // 1. 검은 배경 페이드 인
-        yield return StartCoroutine(FadeImage(darkBackground, 0f, 0.95f, 1f));
-    }
-
-
     // 외부 시스템에서 조건 갱신해줄 때 호출 (예: 출석 완료, 미션 완료 등)
     public void SetConditions(bool c1, bool c3, bool c5)
     {
@@ -122,32 +105,48 @@ public class seedTicket : MonoBehaviour
         condition5 = c5;
     }
 
-    public IEnumerator CloseUI()
+    public IEnumerator CloseUI(GameObject ui)
     {
-        // 배경이 비활성화 상태면 켜기
-        if (!darkBackground.gameObject.activeSelf)
-            darkBackground.gameObject.SetActive(true);
-
         // 1. 검은 배경 페이드 아웃
-        yield return StartCoroutine(FadeImage(darkBackground, 0.95f, 0f, 1f));
+        yield return StartCoroutine(ShowAll(ui, 1f, 0f, 0.5f)); // 전체 페이드인
 
         UIManager.Instance.HideAll(); //전부 꺼주기
     }
-    
-    //이미지 페이드 연출
-    private IEnumerator FadeImage(Image img, float fromAlpha, float toAlpha, float duration)
-    {
-        Color c = img.color;
-        float timer = 0f;
 
-        while (timer < duration)
+
+    private CanvasGroup EnsureCanvasGroup(GameObject root)
+    {
+        var cg = root.GetComponent<CanvasGroup>();
+        if (!cg) cg = root.AddComponent<CanvasGroup>();
+        return cg;
+    }
+
+    private IEnumerator FadeCanvasGroup(CanvasGroup cg, float from, float to, float duration)
+    {
+        if (!cg) yield break;
+        cg.alpha = from;
+        cg.interactable = false;
+        cg.blocksRaycasts = (to > 0f);
+
+        float t = 0f;
+        while (t < duration)
         {
-            float alpha = Mathf.Lerp(fromAlpha, toAlpha, timer / duration);
-            img.color = new Color(c.r, c.g, c.b, alpha);
-            timer += Time.deltaTime;
+            t += Time.deltaTime;
+            float k = t / duration;
+            cg.alpha = Mathf.Lerp(from, to, k);
             yield return null;
         }
+        cg.alpha = to;
+        cg.interactable = (to >= 1f);
+        cg.blocksRaycasts = (to > 0f);
+    }
 
-        img.color = new Color(c.r, c.g, c.b, toAlpha);
+    // 통째로 페이드인
+    private IEnumerator ShowAll(GameObject root, float from, float to, float duration = 0.3f)
+    {
+        if (!root) yield break;
+        root.SetActive(true); // 꺼져있으면 알파 못 바꿈
+        var cg = EnsureCanvasGroup(root);
+        yield return StartCoroutine(FadeCanvasGroup(cg, from, to, duration));
     }
 }
