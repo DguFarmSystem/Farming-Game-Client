@@ -13,6 +13,8 @@ public class CollectionManager : MonoBehaviour
     public Image bookImage;                  // 배경 이미지
     public Sprite[] gradeBooks;              // 0~3 등급별 배경
 
+    [SerializeField] private CollectionSlotManager slotManager;
+
     private Vector2 hiddenPos;
 
     private void Awake()
@@ -35,8 +37,7 @@ public class CollectionManager : MonoBehaviour
         bookRect.DOAnchorPosY(0, slideDuration).SetEase(Ease.OutBack);
 
         SetGrade(0);
-
-        CollectionSlotManager.Instance.ShowSlots();
+        slotManager?.ShowSlots(0);
     }
 
     public void Close()
@@ -56,5 +57,7 @@ public class CollectionManager : MonoBehaviour
     {
         if (index >= 0 && index < gradeBooks.Length)
             bookImage.sprite = gradeBooks[index];
+
+        slotManager?.ShowSlots(index);
     }
 }
