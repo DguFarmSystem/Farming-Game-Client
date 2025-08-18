@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ce9496b16be857745ad0ca9e131055a5
+guid: 72cccda525884394bb3446cc3705fabd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4480243412981201951
-    second: Carrot_Sun_0
+      213: 6786256708593744927
+    second: UI_Button_GO_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Carrot_Sun_0
+      name: UI_Button_GO_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 2
-        width: 376
-        height: 381
+        x: 0
+        y: 0
+        width: 284
+        height: 93
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1e3c8fd6a5af2d1c0800000000000000
-      internalID: -4480243412981201951
+      spriteID: f1c77567580ad2e50800000000000000
+      internalID: 6786256708593744927
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Carrot_Sun_0: -4480243412981201951
+      UI_Button_GO_0: 6786256708593744927
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
