@@ -1384,6 +1384,7 @@ MonoBehaviour:
   dex: {fileID: 11400000, guid: 95b60305e7d09804f806e6715506498c, type: 2}
   slotPrefab: {fileID: 1207902481918496432, guid: f93eed5c9b48c4eb8b9c75e488274690, type: 3}
   contentParent: {fileID: 1205806505876779768}
+  flowerTooltip: {fileID: 8715486158917013842, guid: 0456d609030a542e0bc7c46505e378c8, type: 3}
 --- !u!1 &7379807034794586270
 GameObject:
   m_ObjectHideFlags: 0
