@@ -84,14 +84,14 @@ public class TileSelectionUI : MonoBehaviour
         {
             PlaceableObject placeableObj = _grid.GetObject().GetComponent<PlaceableObject>();
             database.AddData(placeableObj.GetID());
-            buildManager.UpdateCountTMP();
+            buildManager.Init();
             _grid.InitObject();
         }
         else if (_grid.GetPlant() != null)
         {
             PlaceableObject placeableObj = _grid.GetPlant().GetComponent<PlaceableObject>();
             database.AddData(placeableObj.GetID());
-            buildManager.UpdateCountTMP();
+            buildManager.Init();
             _grid.InitPlant();
         }
 
