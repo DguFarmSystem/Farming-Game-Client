@@ -25,7 +25,6 @@ public class MinigamePopup : MonoBehaviour
     [Header("Reward")]
     public GameObject rewardPopup;
     public TMP_Text rewardText;
-    public Button retryButton;
     public Button exitButton_reward;
 
     // 콜백
@@ -46,7 +45,6 @@ public class MinigamePopup : MonoBehaviour
         resumeButton.onClick.AddListener(ResumeGame);
         exitButton_esc.onClick.AddListener(ExitGame);
         betButton.onClick.AddListener(NextRound);
-        retryButton.onClick.AddListener(StartGame);
         exitButton_reward.onClick.AddListener(ExitGame);
     }
 
