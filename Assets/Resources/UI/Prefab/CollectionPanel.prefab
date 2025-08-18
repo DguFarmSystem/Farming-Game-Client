@@ -1277,6 +1277,7 @@ MonoBehaviour:
   - {fileID: -3221642758493435081, guid: 667149c9d86124ec4bc445ef0fd724bc, type: 3}
   - {fileID: -8202120247899757025, guid: 6ef524ead55824a36af112bc0119252a, type: 3}
   - {fileID: 938523422756582871, guid: 225d3c10025a54e5d95e7a386468ce1d, type: 3}
+  slotManager: {fileID: 2850252906554652860}
 --- !u!225 &8791100567317444443
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1296,7 +1297,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6965961765699839600}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e001b70c66ac147da818d9001707dd37, type: 3}
   m_Name: 
@@ -1380,9 +1381,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b46a2217c0d4bd9b67d27f6d555601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dex: {fileID: 11400000, guid: 95b60305e7d09804f806e6715506498c, type: 2}
   slotPrefab: {fileID: 1207902481918496432, guid: f93eed5c9b48c4eb8b9c75e488274690, type: 3}
   contentParent: {fileID: 1205806505876779768}
-  testSlotCount: 20
 --- !u!1 &7379807034794586270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,7 +1441,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 140, y: 140}
+  m_CellSize: {x: 140, y: 180}
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2

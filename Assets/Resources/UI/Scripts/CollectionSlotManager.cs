@@ -1,55 +1,46 @@
+using System.Linq;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class CollectionSlotManager : MonoBehaviour
 {
-    public static CollectionSlotManager Instance;
+    [Header("Data")]
+    [SerializeField] private FlowerDataSO dex; 
 
+    [Header("UI")]
     [SerializeField] private GameObject slotPrefab;
     [SerializeField] private Transform contentParent;
-    [SerializeField] private int testSlotCount = 30;
 
-    private List<FlowerSlotUI> flowerSlots = new();
-
-    private void Awake()
+    public void ShowSlots(int gradeIndex)
     {
-        Instance = this;
-        Debug.Log("CollectionSlotManager 초기화됨");
-    }
+        // 1) 도감 데이터 가져오기
+        var db = FlowerDataManager.Instance;
+        var list = db.flowerData.flowerList
+            .Where(f => f != null && RarityToIndex(f.rarity) == gradeIndex)
+            .OrderBy(f => f.flowerName, System.StringComparer.Ordinal);
 
-    public void ShowSlots()
-    {
-        if (flowerSlots.Count == 0)
-            GenerateSlots(testSlotCount);
-    }
+        // 2) 기존 슬롯 싹 정리
+        for (int i = contentParent.childCount - 1; i >= 0; i--)
+            Destroy(contentParent.GetChild(i).gameObject);
 
-    private void GenerateSlots(int count)
-    {
-        for (int i = 0; i < count; i++)
+        // 3) 새 슬롯 생성 & 채우기
+        int index = 0;
+        foreach (var f in list)
         {
-            GameObject go = Instantiate(slotPrefab, contentParent);
-            go.name = $"FlowerSlot_{i}";
+            var go = Instantiate(slotPrefab, contentParent);
+            var slot = go.GetComponent<FlowerSlotUI>();
+            slot.Init(index);
 
-            FlowerSlotUI slot = go.GetComponent<FlowerSlotUI>();
-            if (slot != null)
-            {
-                slot.Init(i);
-                flowerSlots.Add(slot);
-            }
-            else
-            {
-                Debug.LogError("FlowerSlotUI 컴포넌트 없음!");
-            }
+            bool collected = f.isRegistered;
+            Sprite sprite = db.GetFlowerSprite(f.flowerName);
+
+            slot.SetSprite(sprite, collected, f.flowerName);
+
+            index++;
         }
     }
 
-    // 추후 수집 처리도 여기서 처리
-    public void RegisterCollectedFlower(int index, Sprite flowerSprite, string flowerName)
-    {
-        if (index >= 0 && index < flowerSlots.Count)
-        {
-            flowerSlots[index].SetCollected(flowerSprite, flowerName);
-        }
-    }
-
+    int RarityToIndex(FlowerRarity r)
+        => r == FlowerRarity.Normal ? 0 :
+           r == FlowerRarity.Rare ? 1 :
+           r == FlowerRarity.Epic ? 2 : 3;
 }
