@@ -8,8 +8,8 @@ public class SunshineGame_Manager : MonoBehaviour
 {
     public MinigamePopup minigamePopup;
 
-    public RectTransform layout;
     public GameObject sunPrefab;
+    public Transform startPoint;
     public RectTransform timerMask;
     public float totalTime;
     public RectTransform dragBox;
@@ -27,11 +27,6 @@ public class SunshineGame_Manager : MonoBehaviour
         totalTime = 120f;
         timerSize = timerMask.rect.height;
         dragBox.gameObject.SetActive(false);
-
-        for (int i = 0; i < 170; i++) {
-            var slot = new GameObject($"Slot_{i}", typeof(RectTransform));
-            slot.transform.SetParent(layout, false);
-        }
 
         minigamePopup.onStart = () => { StartGame(); };
         minigamePopup.onPause = () => { enabled = false; };
@@ -76,11 +71,16 @@ public class SunshineGame_Manager : MonoBehaviour
 
     void SpawnSuns()
     {
-        for (int i = 0; i < 170; i++) {
-            var slot = layout.GetChild(i);
-            if (slot.childCount > 0)
-                Destroy(slot.GetChild(0).gameObject);
-            Instantiate(sunPrefab, slot);
+        float spacingX = 0.75f;
+        float spacingY = 0.92f;
+        while(startPoint.childCount > 0)
+            Destroy(startPoint.GetChild(0).gameObject);
+        for (int y = 0; y < 10; y++) {
+            for (int x = 0; x < 17; x++) {
+                Vector2 spawnPos = new Vector2(startPoint.position.x + (x*spacingX), startPoint.position.y - (y*spacingY));
+                GameObject sunObj = Instantiate(sunPrefab, spawnPos, Quaternion.identity);
+                sunObj.transform.SetParent(startPoint);
+            }
         }
     }
 
@@ -94,20 +94,20 @@ public class SunshineGame_Manager : MonoBehaviour
 
     void SelectObjects()
     {
-        Rect dragRect = GetWorldRect(dragBox);
+        Camera cam = Camera.main;
+        float depth = 0f;
+
+        Vector3 w0 = cam.ScreenToWorldPoint(new Vector3(startPos.x, startPos.y, depth));
+        Vector3 w1 = cam.ScreenToWorldPoint(new Vector3(endPos.x, endPos.y, depth));
+        Vector2 min = new Vector2(Mathf.Min(w0.x, w1.x), Mathf.Min(w0.y, w1.y));
+        Vector2 max = new Vector2(Mathf.Max(w0.x, w1.x), Mathf.Max(w0.y, w1.y));
+
+        Collider2D[] hits = Physics2D.OverlapAreaAll(min, max);
         dragedList.Clear();
-
-        foreach (Transform slot in layout) {
-            if (slot.childCount == 0) continue;
-            
-            Transform sunObj = slot.GetChild(0);
-            SunshineGame_Sunshine sun = sunObj.GetComponent<SunshineGame_Sunshine>();
-            if (sun == null) continue;
-
-            if (dragRect.Overlaps(GetWorldRect(sunObj.GetComponent<RectTransform>()), true)) {
-                Debug.Log(sun.GetNum());
+        for (int i = 0; i < hits.Length; i++) {
+            SunshineGame_Sunshine sun = hits[i].GetComponent<SunshineGame_Sunshine>();
+            if (sun != null)
                 dragedList.Add(sun);
-            }
         }
     }
 
