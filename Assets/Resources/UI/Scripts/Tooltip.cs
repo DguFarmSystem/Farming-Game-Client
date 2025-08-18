@@ -48,19 +48,19 @@ public class Tooltip : MonoBehaviour
     {
         rootCanvas = GetComponentInParent<Canvas>();
         if (!rootCanvas) return;
-
         if (!tooltipCanvas) tooltipCanvas = GetComponentInChildren<Canvas>(true);
-
-        int top = 0;
-        foreach (var c in FindObjectsOfType<Canvas>(true))
-            top = Mathf.Max(top, c.sortingOrder + (c.renderMode == RenderMode.ScreenSpaceOverlay ? 10000 : 0));
 
         tooltipCanvas.renderMode = rootCanvas.renderMode;
         tooltipCanvas.worldCamera = rootCanvas.worldCamera;
+        tooltipCanvas.sortingLayerID = rootCanvas.sortingLayerID;
+        tooltipCanvas.targetDisplay = rootCanvas.targetDisplay;
         tooltipCanvas.overrideSorting = true;
-        tooltipCanvas.sortingOrder = top + 10;
 
-        transform.SetAsLastSibling();
+        int maxOrder = 0;
+        foreach (var c in FindObjectsOfType<Canvas>(true))
+            maxOrder = Mathf.Max(maxOrder, c.sortingOrder);
+
+        tooltipCanvas.sortingOrder = maxOrder + 10;
 
         uiCam = rootCanvas.worldCamera;
     }
@@ -78,20 +78,19 @@ public class Tooltip : MonoBehaviour
 
     void Update()
     {
-        if (!isActiveAndEnabled || !tooltipRect || !transform.parent) return;
+        if (!isActiveAndEnabled || !tooltipRect || !tooltipCanvas) return;
 
-        var parentRect = transform.parent as RectTransform;
-        if (!parentRect) return;
+        var canvasRect = (RectTransform)tooltipCanvas.transform;
 
         Vector2 pos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            parentRect,
+            canvasRect,
             Input.mousePosition,
-            uiCam,
+            tooltipCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : tooltipCanvas.worldCamera,
             out pos
         );
 
-        tooltipRect.pivot = new Vector2(0, 1);
+        tooltipRect.pivot = new Vector2(0f, 1f);
         tooltipRect.anchoredPosition = pos + new Vector2(20f, -20f);
     }
 
