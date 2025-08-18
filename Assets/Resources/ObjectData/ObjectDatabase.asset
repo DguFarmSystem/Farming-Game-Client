@@ -20,39 +20,200 @@ MonoBehaviour:
     sprite: {fileID: 0}
     count: -1
     type: 0
+    price: 0
   - id: Tilemap_Field
     name: "\uBC2D"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
     count: 50
     type: 0
+    price: 1000
   - id: Tilemap_Water
     name: "\uBB3C"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
     count: 50
     type: 0
+    price: 1000
   - id: Tilemap_Stone
     name: "\uB3CC"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
     count: 50
     type: 0
-  - id: Object_TestFence
-    name: "\uC6B8\uD0C0\uB9AC"
+    price: 1000
+  - id: Deco_Pot_Palm
+    name: "\uC57C\uC790\uC218 \uD654\uBD84"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 1000
+  - id: Deco_Pot_Bamboo
+    name: "\uB300\uB098\uBB34 \uD654\uBD84"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 1000
+  - id: Deco_Pot_Cactus
+    name: "\uC120\uC778\uC7A5 \uD654\uBD84"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 1000
+  - id: Deco_Table_Wood
+    name: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uD14C\uC774\uBE14"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 1000
+  - id: Deco_Chair_Wood
+    name: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uC758\uC790"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 500
+  - id: Deco_Table_Metal
+    name: "\uC57C\uC678\uC6A9 \uCCA0\uC81C \uD14C\uC774\uBE14"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 2000
+  - id: Deco_Chair_Metal
+    name: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uC758\uC790"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 1000
+  - id: Deco_Table_Bamboo
+    name: "\uC57C\uC678\uC6A9 \uB300\uB098\uBB34 \uD14C\uC774\uBE14"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 2000
+  - id: Deco_Chair_Bamboo
+    name: "\uC57C\uC678\uC6A9 \uB300\uB098\uBB34 \uC758\uC790"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 1000
+  - id: Deco_Lamp_Post
+    name: "\uAC00\uB85C\uB4F1"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 1500
+  - id: Deco_Lamp_Mini
+    name: "\uBBF8\uB2C8\uB4F1"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 1000
+  - id: Deco_Scarecrow
+    name: "\uD5C8\uC218\uC544\uBE44"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 2000
+  - id: Deco_Sotdae
+    name: "\uC19F\uB300"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 1500
+  - id: Deco_Dolhareubang
+    name: "\uB3CC\uD558\uB974\uBC29"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: 2500
+  - id: Deco_Statue_DexBeginner
+    name: "\uB3C4\uAC10 \uC218\uC9D1 \uAFC8\uB098\uBB34"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 50
+    type: 1
+    price: -1
+  - id: Deco_Statue_DexExpert
+    name: "\uB3C4\uAC10 \uC218\uC9D1 \uB2EC\uC778"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
     count: 1
     type: 1
-  - id: Plant_TestWater
-    name: "\uBB3C\uC2DD\uBB3C"
+    price: -1
+  - id: Deco_Statue_DexMaster
+    name: "\uB3C4\uAC10 \uC218\uC9D1 \uB300\uBD80"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
-    count: 9
-    type: 2
-  - id: Plant_TestLand
-    name: "\uC9C0\uC0C1\uC2DD\uBB3C"
+    count: 1
+    type: 1
+    price: -1
+  - id: Deco_Statue_ShinyExpert
+    name: "\uC774\uB85C\uCE58 \uC218\uC9D1 \uB2EC\uC778"
     prefab: {fileID: 0}
     sprite: {fileID: 0}
-    count: 0
-    type: 2
+    count: 1
+    type: 1
+    price: -1
+  - id: Deco_Statue_ShinyMaster
+    name: "\uC774\uB85C\uCE58 \uC218\uC9D1 \uB300\uBD80\uD638"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 1
+    type: 1
+    price: -1
+  - id: Deco_Statue_DecoLover
+    name: "\uC778\uD14C\uB9AC\uC5B4\uC5D0 \uC9C4\uC2EC"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 1
+    type: 1
+    price: -1
+  - id: Deco_Statue_NormalMaster
+    name: "\uB178\uB9D0 \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 1
+    type: 1
+    price: -1
+  - id: Deco_Statue_RareMaster
+    name: "\uB808\uC5B4 \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 1
+    type: 1
+    price: -1
+  - id: Deco_Statue_EpicMaster
+    name: "\uC5D0\uD53D \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 1
+    type: 1
+    price: -1
+  - id: Deco_Statue_LegendMaster
+    name: "\uB808\uC804\uB4DC \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 1
+    type: 1
+    price: -1
+  - id: Deco_Statue_FruitMaster
+    name: "\uACFC\uC77C\uB098\uBB34 \uB9C8\uC2A4\uD130"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 1
+    type: 1
+    price: -1

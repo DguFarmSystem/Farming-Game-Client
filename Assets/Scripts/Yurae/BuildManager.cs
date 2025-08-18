@@ -29,11 +29,14 @@ public class BuildManager : MonoBehaviour
     {
         for (int i = 0; i < placeablePrefabs.Length; i++)
         {
+            int index = i;
+
+            if (database.GetCountFromIndex(index) == 0) continue;
+
             GameObject obj = Instantiate(objectSelectButton);
 
             Button button = obj.GetComponent<Button>();
 
-            int index = i;
             button.onClick.AddListener(() => OnClickPlace(index));
 
             ObjectSelectButton objSelectButton = obj.GetComponent<ObjectSelectButton>();

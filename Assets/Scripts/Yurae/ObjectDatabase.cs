@@ -13,6 +13,7 @@ public class Database
 
     public int count;
     public PlaceType type;
+    public int price;
 }
 
 [CreateAssetMenu(fileName = "ObjectDatabase", menuName = "Data/ObjectDatabase")]
@@ -85,8 +86,6 @@ public class ObjectDatabase : ScriptableObject
             {
                 if (datum.count == -1) return;
                 datum.count++;
-
-                Debug.Log("?????? ????");
             }
         }
     }
