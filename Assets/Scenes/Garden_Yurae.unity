@@ -3859,6 +3859,8 @@ MonoBehaviour:
   - {fileID: 2385325362487762811, guid: a314e975e564e254ab25b5948cf4a891, type: 3}
   - {fileID: 2385325362487762811, guid: ebd7e7685b0ed304b98c8a4c02dd2c70, type: 3}
   - {fileID: 2385325362487762811, guid: 926c9cf63616b2d49b1e2ac949ca61dd, type: 3}
+  - {fileID: 2385325362487762811, guid: 99da0566d4dc62c4f952e42ad62302fd, type: 3}
+  - {fileID: 2385325362487762811, guid: 3b8a43e3e1c4f8640b476277fbf1e9d5, type: 3}
   database: {fileID: 11400000, guid: cc70b75ca37c75e43aa216e563324c06, type: 2}
   objectSelectButton: {fileID: 4039203475289616210, guid: 19af86a1316c6e6408da3b05733848bb, type: 3}
   parents:

@@ -10,6 +10,7 @@ public class PlacementManager : MonoBehaviour
     [SerializeField] private ObjectSelectButton curButton;
     [SerializeField] private ObjectSelectButton lastButton;
     [SerializeField] TileSelectionUI tileSelectionUI;
+    [SerializeField] private BuildManager buildManager;
 
     private bool canPlace;
     private GameObject ghostObject;
@@ -64,7 +65,11 @@ public class PlacementManager : MonoBehaviour
                     break;
 
                 case "Object":
-                    if (placedObject == null && placedPlant == null) CanPlace();
+                    if (placedObject == null && placedPlant == null)
+                    {
+                        if (tileType == TileType.Grass) CanPlace();
+                        else CantPlace();
+                    }
                     else CantPlace();
 
                     break;
@@ -108,17 +113,54 @@ public class PlacementManager : MonoBehaviour
             {
                 case "Tile":
                     // 제거된 타일 갯수 추가
-                    TileData tileData = _hitObject.GetComponent<BaseGrid>().GetTile();
-                    PlaceableObject lastTile = tileData.GetComponent<PlaceableObject>();
+                    BaseGrid grid = _hitObject.GetComponent<BaseGrid>();
+
+                    TileData placedtileData = grid.GetTile();
+                    PlaceableObject lastTile = placedtileData.GetComponent<PlaceableObject>();
+
                     if (database.GetCountFromID(lastTile.GetID()) >= 0)
                     {
                         database.AddData(lastTile.GetID());
-                        lastButton.UpdateCountTMP(database.GetCountFromID(lastTile.GetID()));
+                        //lastButton.UpdateCountTMP(database.GetCountFromID(lastTile.GetID()));
                     }
 
                     // 제거 후 타일 배치
-                    DestroyImmediate(tileData.gameObject);
-                    _hitObject.GetComponent<BaseGrid>().PlaceTile(place.GetComponent<TileData>());
+                    DestroyImmediate(placedtileData.gameObject);
+                    grid.PlaceTile(place.GetComponent<TileData>());
+
+                    TileType tileType = grid.GetTile().Type();
+
+                    // 변경 후 타일이 혹시나 같은 속성일 경우는 Return / 아닐 경우 식물 회수
+
+                    if (grid.GetPlant() != null)
+                    {
+                        if ((grid.GetPlant().Type() == PlantType.Land && tileType != TileType.Field)||(grid.GetPlant().Type() == PlantType.Water && tileType != TileType.Water))
+                        {
+                            PlaceableObject currentPlant = grid.GetPlant().GetComponent<PlaceableObject>();
+                            if (database.GetCountFromID(currentPlant.GetID()) >= 0)
+                            {
+                                database.AddData(currentPlant.GetID());
+                            }
+
+                            grid.InitPlant();
+                            DestroyImmediate(currentPlant.gameObject);
+                        }
+                    }
+
+                    if (grid.GetObject() != null)
+                    {
+                        if (tileType != TileType.Grass)
+                        {
+                            PlaceableObject currentObject = grid.GetObject().GetComponent<PlaceableObject>();
+                            if (database.GetCountFromID(currentObject.GetID()) >= 0)
+                            {
+                                database.AddData(currentObject.GetID());
+                            }
+
+                            grid.InitObject();
+                            DestroyImmediate(currentObject.gameObject);
+                        }
+                    }
                     break;
 
                 case "Object":
@@ -130,12 +172,15 @@ public class PlacementManager : MonoBehaviour
                     break;
             }
 
-            if (database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()) >= 0)
+            // Count 감소
+            if (database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()) > 0)
             {
                 database.PlaceData(place.GetComponent<PlaceableObject>().GetID());
-                curButton.UpdateCountTMP(database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()));
+                //curButton.UpdateCountTMP(database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()));
+                buildManager.Init();
             }
-               
+            
+            // 취소 여부 판별
             if (database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()) == 0) CancelPlace();
 
             place.GetComponent<PlaceableObject>().SetPosition(_gridPos);

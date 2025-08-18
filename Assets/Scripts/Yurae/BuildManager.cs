@@ -27,6 +27,13 @@ public class BuildManager : MonoBehaviour
 
     public void Init()
     {
+        foreach(ObjectSelectButton button in objectSelectButtons)
+        {
+            DestroyImmediate(button.gameObject);
+        }
+
+        objectSelectButtons.Clear();
+
         for (int i = 0; i < placeablePrefabs.Length; i++)
         {
             int index = i;

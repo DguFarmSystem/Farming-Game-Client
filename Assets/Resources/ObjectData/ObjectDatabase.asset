@@ -217,3 +217,17 @@ MonoBehaviour:
     count: 1
     type: 1
     price: -1
+  - id: Test_Land
+    name: "\uC9C0\uC0C1 \uD14C\uC2A4\uD2B8 "
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 3
+    type: 2
+    price: -1
+  - id: Test_Water
+    name: "\uC218\uC0C1 \uD14C\uC2A4\uD2B8"
+    prefab: {fileID: 0}
+    sprite: {fileID: 0}
+    count: 3
+    type: 2
+    price: -1
