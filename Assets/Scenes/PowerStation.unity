@@ -150,9 +150,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uid: 
   seedTicket: 1
-  gold: 2000
-  sunlight: 20
-  seedCount: 5
+  gold: 20000
+  sunlight: 20000
+  seedCount: 100
 --- !u!4 &159021075
 Transform:
   m_ObjectHideFlags: 0

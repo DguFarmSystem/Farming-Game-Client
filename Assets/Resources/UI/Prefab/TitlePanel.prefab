@@ -88,7 +88,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d417e238d4da24dd68e938081a96c93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 90198cf2d33614fb7ba0e70e96cfd91d, type: 2}
+  data:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
 --- !u!1 &906556771863598373
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +184,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d417e238d4da24dd68e938081a96c93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: ab8f0d815f93d4fbea95c6893c7efb9e, type: 2}
+  data:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
 --- !u!1 &1134780986572707246
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +280,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d417e238d4da24dd68e938081a96c93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 40b547603248346a8b384dde309a32c7, type: 2}
+  data:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
 --- !u!1 &1531168128473402598
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +376,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d417e238d4da24dd68e938081a96c93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: bb76e44de72ad4b4dbc1c38152d9aca1, type: 2}
+  data:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
 --- !u!1 &2126652983342518904
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +472,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d417e238d4da24dd68e938081a96c93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 4dba446d9741b48cd8b37649dd22e475, type: 2}
+  data:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
 --- !u!1 &2562571796082112968
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,7 +700,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d417e238d4da24dd68e938081a96c93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 27b67074ef11f43fba383c6330765543, type: 2}
+  data:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
 --- !u!1 &2998216132898360196
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,7 +796,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d417e238d4da24dd68e938081a96c93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 4c9c060cb00fc4d7eb5c122b5c8a6fb2, type: 2}
+  data:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
 --- !u!1 &4414219769918534203
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,7 +1015,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d417e238d4da24dd68e938081a96c93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 4b3d7d77a40934e07a7cd0c980bea2a2, type: 2}
+  data:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
 --- !u!1 &5370300342837673005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,7 +1111,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d417e238d4da24dd68e938081a96c93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: a4efeb67e5e6444f486c76642d155c27, type: 2}
+  data:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
 --- !u!1 &5969666116455934513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,7 +1207,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d417e238d4da24dd68e938081a96c93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: b0a3dac3446914e7f98636a59196c321, type: 2}
+  data:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
 --- !u!1 &6721473849540354176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,7 +1303,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d417e238d4da24dd68e938081a96c93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: e2cb5b231862f481b9da64e1a79b53d0, type: 2}
+  data:
+    title: 
+    description: 
+    icon: {fileID: 0}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
 --- !u!1 &6828084506475736139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,34 +1567,11 @@ MonoBehaviour:
   - {fileID: 283621889574579626}
   - {fileID: 8298864761781766825}
   - {fileID: 5670001073766260208}
-  badgeSprites:
-  - {fileID: -2249780160586466669, guid: 9358614078e504d8f8ff55587f7f6fc7, type: 3}
-  - {fileID: -6240320559961112061, guid: 4ad365f4e9f0944fd8d67ef675945c6d, type: 3}
-  - {fileID: -2542512816601137504, guid: e184362098f844a978400c4145ae5261, type: 3}
-  - {fileID: 8365247308834641496, guid: 198157ede871e4db285fb73a3b4ed651, type: 3}
-  - {fileID: 1591152477525429734, guid: d1d87652a195f47749f876698e76b9b7, type: 3}
-  - {fileID: -2596154730737599100, guid: e52749562975b487b9559e7e74a5faa9, type: 3}
-  - {fileID: -6800965517148886466, guid: 5399975cee95c4dd9936c21a26790527, type: 3}
-  - {fileID: -6512582711194300196, guid: da95c8a961a994c02b4e936a3545f760, type: 3}
-  - {fileID: -4143261434310361011, guid: fa7c10088a34c416fb818f668ed78957, type: 3}
-  - {fileID: -684057443874771528, guid: 477c08e5bdad143d99e8be1c20f5f748, type: 3}
-  - {fileID: 3261707429046591213, guid: 5089c1f6eb4fa428d8bb66f1d2739819, type: 3}
-  badgeDatas:
-  - {fileID: 11400000, guid: 4c9c060cb00fc4d7eb5c122b5c8a6fb2, type: 2}
-  - {fileID: 11400000, guid: 27b67074ef11f43fba383c6330765543, type: 2}
-  - {fileID: 11400000, guid: ab8f0d815f93d4fbea95c6893c7efb9e, type: 2}
-  - {fileID: 11400000, guid: 4dba446d9741b48cd8b37649dd22e475, type: 2}
-  - {fileID: 11400000, guid: 40b547603248346a8b384dde309a32c7, type: 2}
-  - {fileID: 11400000, guid: b0a3dac3446914e7f98636a59196c321, type: 2}
-  - {fileID: 11400000, guid: a4efeb67e5e6444f486c76642d155c27, type: 2}
-  - {fileID: 11400000, guid: e2cb5b231862f481b9da64e1a79b53d0, type: 2}
-  - {fileID: 11400000, guid: bb76e44de72ad4b4dbc1c38152d9aca1, type: 2}
-  - {fileID: 11400000, guid: 4b3d7d77a40934e07a7cd0c980bea2a2, type: 2}
-  - {fileID: 11400000, guid: 90198cf2d33614fb7ba0e70e96cfd91d, type: 2}
   closeButton: {fileID: 2562571796082112968}
   badgeSlotsParent: {fileID: 4692583706217634043}
   caseHiddenPos: {x: 0, y: -1200}
   caseVisiblePos: {x: 0, y: 0}
+  badgeDB: {fileID: 11400000, guid: 6bb9f8cffe4d047e9a24695f31fd510e, type: 2}
 --- !u!225 &5350724669931297384
 CanvasGroup:
   m_ObjectHideFlags: 0

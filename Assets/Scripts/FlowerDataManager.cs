@@ -31,12 +31,16 @@ public class FlowerDataManager : MonoBehaviour
             if (flower.flowerName == flowerName)
             {
                 flower.isRegistered = true;
+
+                FindFirstObjectByType<BadgeManager>(FindObjectsInactive.Include)?.ReevaluateBadges();
+
                 return;
 
             }
         }
 
         Debug.LogWarning("등록하려는 꽃 없음: " + flowerName);
+
     }
 
     // 서버에서 받은 등록 상태 반영 (예: 서버가 등록된 flowerName 목록을 내려줌)
