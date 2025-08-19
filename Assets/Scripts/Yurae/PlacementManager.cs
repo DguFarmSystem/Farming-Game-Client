@@ -235,6 +235,8 @@ public class PlacementManager : MonoBehaviour
             c.a = 0.5f;
             r.color = c;
         }
+
+        ghostObject.GetComponent<SpriteRenderer>().sortingOrder++;
     }
 
     void SetRedVisual(GameObject obj)

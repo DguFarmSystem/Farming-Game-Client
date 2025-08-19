@@ -14,11 +14,15 @@ public class ObjectSelectButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI countTMP;
     [SerializeField] private ObjectDatabase database;
 
-    public void Init(string _id, string _name, Sprite _sprite, int _count)
+    public void Init(string _id, string _name, Sprite _sprite, int _count, PlaceType _type = PlaceType.Tile)
     {
         id = _id; 
         nameTMP.text = _name;
         image.sprite = _sprite;
+
+        if (_type == PlaceType.Object || _type == PlaceType.Plant) image.rectTransform.sizeDelta = new Vector2(128, 256);
+        else image.rectTransform.sizeDelta = new Vector2(256, 128);
+
         if (_count == -1) countTMP.text = "¹«ÇÑ";
         else countTMP.text = _count.ToString();
     }

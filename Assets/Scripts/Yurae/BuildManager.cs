@@ -54,9 +54,9 @@ public class BuildManager : MonoBehaviour
             Sprite sprite = database.GetSprite(index);
             int count = database.GetCountFromIndex(index);
 
-            objSelectButton.Init(placeablePrefabs[i].GetComponent<PlaceableObject>().GetID(), name, sprite, count);
-
             PlaceType type = database.GetType(index);
+
+            objSelectButton.Init(placeablePrefabs[i].GetComponent<PlaceableObject>().GetID(), name, sprite, count, type);
 
             switch (type)
             {
