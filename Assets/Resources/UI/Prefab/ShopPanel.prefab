@@ -1600,10 +1600,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectDatabase: {fileID: 11400000, guid: cc70b75ca37c75e43aa216e563324c06, type: 2}
   bagManager: {fileID: 0}
-  buildManager: {fileID: 8595679067906579798, guid: b83a26a0f9f5346cc94d6dd8477584d7, type: 3}
+  buildManagerTag: BuildManager
+  buildManagerObjectName: Build UI Manager
   refreshBagOnPurchase: 1
   refreshGardenOnPurchase: 1
-  autoFindManagers: 1
 --- !u!1 &4328671587305109248
 GameObject:
   m_ObjectHideFlags: 0
@@ -3463,6 +3463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b8062bb799e5459ba70745af39431ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: b74a40bcf0be844d8825a8ac186ccd7b, type: 2}
   shopItemSlotPrefab: {fileID: 3061120026016657169, guid: b666aadb641cd42798a98d50fde1376d, type: 3}
   tileContentParent: {fileID: 7068218419953267328}
   objectContentParent: {fileID: 6144418656431304688}

@@ -79,9 +79,12 @@ public class RPS : MonoBehaviour
         isShuffling = false;
         int com = (current + 2) % 3;
 
+        Debug.Log($"player: {player} / com: {com}");
+
         if (player == com) {
             result = 0;
             drawBox.gameObject.SetActive(true);
+            Debug.Log("draw!!!!!!!!!!!!");
         }
         else if ((player == 0 && com == 2) || (player == 1 && com == 0) || (player == 2 && com == 1)) {
             result = 1;
@@ -92,10 +95,20 @@ public class RPS : MonoBehaviour
             result = -1;
             loseBox.gameObject.SetActive(true);
         }
-        StartCoroutine(Result());
+
+        if (player == com)
+            StartCoroutine(Hold(() => {StartCoroutine(ShuffleImages());}));
+        else
+            StartCoroutine(Hold(() => {Result();}));
     }
 
-    IEnumerator Result()
+    IEnumerator Hold(System.Action callback)
+    {
+        yield return new WaitForSeconds(2f);
+        callback?.Invoke();
+    }
+
+    void Result()
     {
         if (round == 1 && result < 1) currentGold = 0;
         else if (round == 1 && result == 1) currentGold = 10;
@@ -103,7 +116,6 @@ public class RPS : MonoBehaviour
         else if (round == 2 && result == 1) currentGold = 20;
         else if (round == 3 && result < 1) currentGold = 10;
         else if (round == 3 && result == 1) currentGold = 40;
-        yield return new WaitForSeconds(3f);
 
         Debug.Log($"round: {round} / result : {result} / winCount : {winCount}");
         if (result == 1 && winCount < 3) {

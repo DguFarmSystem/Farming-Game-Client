@@ -1,24 +1,19 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class FlowerSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
+public class FlowerSlotUI : MonoBehaviour
 {
-    [SerializeField] private Image imageBackground;
-    [SerializeField] private Image imageIcon;          // Image_Icon
-    [SerializeField] private TextMeshProUGUI textNo;   // 숫자
-    [SerializeField] private TextMeshProUGUI textName; // "No." 고정 표기
+    //[SerializeField] private Image imageBackground;
+    [SerializeField] private Image imageIcon;              // 아이콘
+    [SerializeField] private TextMeshProUGUI textName;     // 이름
 
     private bool collected;
     private string flowerNameCache = "";
-    private int indexCache;
 
-    public void Init(int index)
+    public void Init()
     {
-        indexCache = index;
-        textNo.text = (index + 1).ToString();
-        textName.text = "No.";
+        textName.text = "???";
         imageIcon.gameObject.SetActive(false);
         collected = false;
         flowerNameCache = "";
@@ -32,21 +27,7 @@ public class FlowerSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         imageIcon.sprite = sprite;
         imageIcon.preserveAspect = true;
         imageIcon.gameObject.SetActive(true);
-    }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (collected && !string.IsNullOrEmpty(flowerNameCache))
-            FlowerTooltip.Instance?.Show(flowerNameCache);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        FlowerTooltip.Instance?.Hide();
-    }
-
-    public void OnPointerMove(PointerEventData eventData)
-    {
-        // 위치 업데이트는 TooltipController가 LateUpdate에서 처리
+        textName.text = collected ? flowerNameCache : "???";
     }
 }

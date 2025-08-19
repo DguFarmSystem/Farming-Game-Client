@@ -1,4 +1,3 @@
-// ShopItemSlot.cs
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -12,42 +11,41 @@ public class ShopItemSlot : MonoBehaviour
     public string itemName;
     public int price;
 
-    private ShopItemData data;
     private string resourceKey;
 
-    public void Init(string itemName, int price, Sprite iconSprite)
+    /*public void Init(string itemName, int price, Sprite iconSprite)
     {
         this.itemName = itemName;
         this.price = price;
         this.resourceKey = null;
-        this.data = null;
 
         textName.text = itemName;
         textPrice.text = price.ToString();
         icon.sprite = iconSprite;
     }
+    */
 
-    public void Init(ShopItemData data)
+    public void Init(ShopItemEntry entry)
     {
-        this.data = data;
-        this.itemName = data.itemName;
-        this.price = data.price;
-        this.resourceKey = data.resourceKey;
+        if (entry == null) return;
 
-        textName.text = data.itemName;
-        textPrice.text = data.price.ToString();
-        icon.sprite = data.icon;
+        this.itemName = entry.itemName;
+        this.price = entry.price;
+        this.resourceKey = entry.resourceKey;
 
-        Debug.Log($"[Slot.Init] {gameObject.name} id={GetInstanceID()} key={resourceKey}");
+        textName.text = entry.itemName;
+        textPrice.text = entry.price.ToString();
+        icon.sprite = entry.icon;
     }
+
+    public void SetResourceKey(string key) => resourceKey = key;
 
     public void OnClick()
     {
-        Debug.Log($"[Slot.Click] {gameObject.name} id={GetInstanceID()} key={resourceKey}");
+        Debug.Log($"[Slot.Click] {gameObject.name} key={resourceKey}");
         if (!string.IsNullOrEmpty(resourceKey))
             PurchasePopup.Instance.Open(itemName, price, resourceKey);
         else
-            PurchasePopup.Instance.Open(itemName, price); // fallback
+            PurchasePopup.Instance.Open(itemName, price);
     }
-
 }

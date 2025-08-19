@@ -60,7 +60,7 @@ public class CarrotFarm_Manager : MonoBehaviour
     {
         score = 0;
         timer = gameDuration;
-        cursorImage.enabled = true;
+        cursorImage.enabled = false;
         enabled = true;
     }
 
