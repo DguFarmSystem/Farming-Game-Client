@@ -278,22 +278,17 @@ MonoBehaviour:
     price: 2000
     category: 1
     icon: {fileID: 3328275712102828698, guid: 0f42aac1f3cc4480989669dfaa9fc14f, type: 3}
-  - itemName: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uC758\uC790(\uC67C\uCABD\uD615)"
-    resourceKey: Deco_Chair_Wood_Left
-    price: 2000
-    category: 1
-    icon: {fileID: 8288587855404676360, guid: 3514997e8c9f24dfe8dceb4064ea5abe, type: 3}
   - itemName: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uC758\uC790(\uC624\uB978\uCABD\uD615)"
     resourceKey: Deco_Chair_Wood_Right
     price: 2000
     category: 1
     icon: {fileID: -5137658984450098947, guid: 859f2c94d7a7c4324a25bc9e4131fae2, type: 3}
-  - itemName: "\uC57C\uC678\uC6A9 \uCCA0\uC81C \uD14C\uC774\uBE14"
+  - itemName: "\uCCA0\uC81C \uD14C\uC774\uBE14"
     resourceKey: Deco_Table_Metal
     price: 2000
     category: 1
     icon: {fileID: 6394145394236549448, guid: 92d1bd42c76424d0bba911cc5ec03239, type: 3}
-  - itemName: "\uC57C\uC678\uC6A9 \uCCA0\uC81C \uC758\uC790(\uC67C\uCABD\uD615)"
+  - itemName: "\uCCA0\uC81C \uC758\uC790"
     resourceKey: Deco_Chair_Metal_Left
     price: 2000
     category: 1
