@@ -13,113 +13,113 @@ MonoBehaviour:
   m_Name: ShopDatabase
   m_EditorClassIdentifier: 
   items:
-  - itemName: "\uAC00\uB85C\uD615 \uB098\uBB34 \uC6B8\uD0C0\uB9AC"
-    resourceKey: Fence_Horizon_Wood
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC LD"
+    resourceKey: Fence_Wood_LD
     price: 500
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC138\uB85C\uD615 \uB098\uBB34 \uC6B8\uD0C0\uB9AC"
-    resourceKey: Fence_Vertical_Wood
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC LU"
+    resourceKey: Fence_Wood_LU
     price: 500
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uAC00\uB85C\uD615 \uB098\uBB34 \uC6B8\uD0C0\uB9AC\uBB38"
-    resourceKey: Fence_Gate_Wood
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC LUD"
+    resourceKey: Fence_Wood_LUD
     price: 1000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC138\uB85C\uD615 \uCCA0\uC81C \uC6B8\uD0C0\uB9AC"
-    resourceKey: Fence_Horizon_Metal
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC M"
+    resourceKey: Fence_Wood_M
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uAC00\uB85C\uD615 \uCCA0\uC81C \uC6B8\uD0C0\uB9AC"
+  - itemName: Fence_Wood_RD
     resourceKey: Fence_Vertical_Metal
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC\uBB38"
-    resourceKey: Fence_Gate_Metal
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC RDLU"
+    resourceKey: Fence_Wood_RDLU
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uAC00\uB85C\uD615 \uB300\uB098\uBB34 \uC6B8\uD0C0\uB9AC"
-    resourceKey: Fence_Vertical_Bamboo
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC RDLUD"
+    resourceKey: Fence_Wood_RDLUD
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC138\uB85C\uD615 \uB300\uB098\uBB34 \uC6B8\uD0C0\uB9AC"
-    resourceKey: Fence_Horizion_Bamboo
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC RLD"
+    resourceKey: Fence_Wood_RLD
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uB300\uB098\uBB34 \uC6B8\uD0C0\uB9AC\uBB38"
-    resourceKey: Fence_Gate_Bamboo
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC RU"
+    resourceKey: Fence_Wood_RU
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC57C\uC790\uC218 \uD654\uBD84"
-    resourceKey: Deco_Pot_Palm
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC RUD"
+    resourceKey: Fence_Wood_RUD
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uB300\uB098\uBB34 \uD654\uBD84"
-    resourceKey: Deco_Pot_Bamboo
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC RUDLD"
+    resourceKey: Fence_Wood_RUDLD
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC120\uC778\uC7A5 \uD654\uBD84"
-    resourceKey: Deco_Pot_Cactus
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC RUDLU"
+    resourceKey: Fence_Wood_RUDLU
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uD14C\uC774\uBE14"
-    resourceKey: Deco_Table_Wood
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC RUDLUD"
+    resourceKey: Fence_Wood_RUDLUD
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uC758\uC790(\uC67C\uCABD\uD615)"
-    resourceKey: Deco_Chair_Wood_Left
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC RULD"
+    resourceKey: Fence_Wood_RULD
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uC758\uC790(\uC624\uB978\uCABD\uD615)"
-    resourceKey: Deco_Chair_Wood_Right
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC RULU"
+    resourceKey: Fence_Wood_RULU
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC57C\uC678\uC6A9 \uCCA0\uC81C \uD14C\uC774\uBE14"
-    resourceKey: Deco_Table_Metal
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC RULUD"
+    resourceKey: Fence_Wood_RULUD
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC57C\uC678\uC6A9 \uCCA0\uC81C \uC758\uC790(\uC67C\uCABD\uD615)"
-    resourceKey: Deco_Chair_Metal_Left
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC LD"
+    resourceKey: Fence_WhiteWood_LD
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC57C\uC678\uC6A9 \uCCA0\uC81C \uC758\uC790(\uC624\uB978\uCABD\uD615)"
-    resourceKey: Deco_Chair_Metal_Right
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC LU"
+    resourceKey: Fence_WhiteWood_LU
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC57C\uC678\uC6A9 \uB300\uB098\uBB34 \uD14C\uC774\uBE14"
-    resourceKey: Deco_Table_Bamboo
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC LUD"
+    resourceKey: Fence_WhiteWood_LUD
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC57C\uC678\uC6A9 \uB300\uB098\uBB34 \uC758\uC790(\uC67C\uCABD\uD615)"
-    resourceKey: Deco_Chair_Bamboo_Left
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC M"
+    resourceKey: Fence_WhiteWood_M
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uC57C\uC678\uC6A9 \uB300\uB098\uBB34 \uC758\uC790(\uC624\uB978\uCABD\uD615)"
-    resourceKey: Deco_Chair_Bamboo_Right
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RD"
+    resourceKey: Fence_WhiteWood_RD
     price: 2000
     category: 1
     icon: {fileID: 0}
-  - itemName: "\uAC00\uB85C\uB4F1"
-    resourceKey: Deco_Lamp_Post
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RDLU"
+    resourceKey: Fence_WhiteWood_RDLU
     price: 2000
     category: 1
     icon: {fileID: 0}
@@ -128,33 +128,238 @@ MonoBehaviour:
     price: 2000
     category: 1
     icon: {fileID: 0}
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RDLUD"
+    resourceKey: Fence_WhiteWood_RDLUD
+    price: 2000
+    category: 1
+    icon: {fileID: 0}
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RLD"
+    resourceKey: Fence_WhiteWood_RLD
+    price: 2000
+    category: 1
+    icon: {fileID: 2177108965186078295, guid: 881c71e1226f34571a35933ac45993de, type: 3}
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RU"
+    resourceKey: Fence_WhiteWood_RU
+    price: 2000
+    category: 1
+    icon: {fileID: 7351637415587066830, guid: 032b19c64acb243a38f84f74f0809e46, type: 3}
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RUD"
+    resourceKey: Fence_WhiteWood_RUD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RUDLD"
+    resourceKey: Fence_WhiteWood_RUDLD
+    price: 2000
+    category: 1
+    icon: {fileID: -2592956508147909491, guid: a74d3ce59ffe84383af3d0e799acecb8, type: 3}
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RUDLU"
+    resourceKey: Fence_WhiteWood_RUDLU
+    price: 2000
+    category: 1
+    icon: {fileID: -652440190934727125, guid: 8e91092e43b6a43faad0cec0a10647ad, type: 3}
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RUDLUD"
+    resourceKey: Fence_WhiteWood_RUDLUD
+    price: 2000
+    category: 1
+    icon: {fileID: -652440190934727125, guid: 8e91092e43b6a43faad0cec0a10647ad, type: 3}
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RULD"
+    resourceKey: Fence_WhiteWood_RULD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RULU"
+    resourceKey: Fence_WhiteWood_RULU
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC RULUD"
+    resourceKey: Fence_WhiteWood_RULUD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC LD"
+    resourceKey: Fence_Metal_LD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC LU"
+    resourceKey: Fence_Metal_LU
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC LUD"
+    resourceKey: Fence_Metal_LUD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC M"
+    resourceKey: Fence_Metal_M
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RD"
+    resourceKey: Fence_Metal_RD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RDLU"
+    resourceKey: Fence_Metal_RDLU
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RDLUD"
+    resourceKey: Fence_Metal_RDLUD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RLD"
+    resourceKey: Fence_Metal_RLD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RU"
+    resourceKey: Fence_Metal_RU
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RUD"
+    resourceKey: Fence_Metal_RUD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RUDLD"
+    resourceKey: Fence_Metal_RUDLD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RUDLU"
+    resourceKey: Fence_Metal_RUDLU
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RUDLUD"
+    resourceKey: Fence_Metal_RUDLUD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RULD"
+    resourceKey: Fence_Metal_RULD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RULU"
+    resourceKey: Fence_Metal_RULU
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC RULUD"
+    resourceKey: Fence_Metal_RULUD
+    price: 2000
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uC57C\uC790\uC218 \uD654\uBD84(\uC2DD\uBB3C \uC544\uB2D8)"
+    resourceKey: Deco_Pot_Palm
+    price: 2000
+    category: 1
+    icon: {fileID: -1611899011305051494, guid: c9ae12bf2b00841708d59327a18b64bd, type: 3}
+  - itemName: "\uB300\uB098\uBB34 \uD654\uBD84(\uC2DD\uBB3C \uC544\uB2D8)"
+    resourceKey: Deco_Pot_Bamboo
+    price: 2000
+    category: 1
+    icon: {fileID: 6227538660288444684, guid: ef88e29003e284eb7b9d8891f002ab4e, type: 3}
+  - itemName: "\uC120\uC778\uC7A5 \uD654\uBD84(\uC2DD\uBB3C \uC544\uB2D8)"
+    resourceKey: Deco_Pot_Cactus
+    price: 2000
+    category: 1
+    icon: {fileID: -6203018213765586610, guid: 398ddb964f2d14a93a4257f0f5eab885, type: 3}
+  - itemName: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uD14C\uC774\uBE14"
+    resourceKey: Deco_Table_Wood
+    price: 2000
+    category: 1
+    icon: {fileID: 3328275712102828698, guid: 0f42aac1f3cc4480989669dfaa9fc14f, type: 3}
+  - itemName: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uC758\uC790(\uC624\uB978\uCABD\uD615)"
+    resourceKey: Deco_Chair_Wood_Right
+    price: 2000
+    category: 1
+    icon: {fileID: -5137658984450098947, guid: 859f2c94d7a7c4324a25bc9e4131fae2, type: 3}
+  - itemName: "\uCCA0\uC81C \uD14C\uC774\uBE14"
+    resourceKey: Deco_Table_Metal
+    price: 2000
+    category: 1
+    icon: {fileID: 6394145394236549448, guid: 92d1bd42c76424d0bba911cc5ec03239, type: 3}
+  - itemName: "\uCCA0\uC81C \uC758\uC790"
+    resourceKey: Deco_Chair_Metal_Left
+    price: 2000
+    category: 1
+    icon: {fileID: 6128776633282750556, guid: 08a8f102b6e7f4b56b5754b94eb29ee1, type: 3}
+  - itemName: "\uC57C\uC678\uC6A9 \uCCA0\uC81C \uC758\uC790(\uC624\uB978\uCABD\uD615)"
+    resourceKey: Deco_Chair_Metal_Right
+    price: 2000
+    category: 1
+    icon: {fileID: -2648291398256750912, guid: 0b6bf4aa15c7b461ba5242831f265555, type: 3}
+  - itemName: "\uC57C\uC678\uC6A9 \uD654\uC774\uD2B8 \uD14C\uC774\uBE14"
+    resourceKey: Deco_Table_White
+    price: 2000
+    category: 1
+    icon: {fileID: -8813698512745689355, guid: 045d2bb09951147339f62457b4be1f19, type: 3}
+  - itemName: "\uC57C\uC678\uC6A9 \uD654\uC774\uD2B8 \uC758\uC790(\uC67C\uCABD\uD615)"
+    resourceKey: Deco_Chair_White_Left
+    price: 2000
+    category: 1
+    icon: {fileID: 6806445801937816015, guid: bc292abeec7cc4cf68ee2024358b63e4, type: 3}
+  - itemName: "\uC57C\uC678\uC6A9 \uD654\uC774\uD2B8 \uC758\uC790(\uC624\uB978\uCABD\uD615)"
+    resourceKey: Deco_Chair_White_Right
+    price: 2000
+    category: 1
+    icon: {fileID: -4583415149285929099, guid: 0fd1a881283f94226a345f0ede8352c0, type: 3}
+  - itemName: "\uAC00\uB85C\uB4F1"
+    resourceKey: Deco_Lamp_Post
+    price: 2000
+    category: 1
+    icon: {fileID: 3840743316631763920, guid: 6afa797588f8c4f34bd30d320ce017be, type: 3}
+  - itemName: "\uBBF8\uB2C8 \uB4F1"
+    resourceKey: Deco_Lamp_Mini
+    price: 2000
+    category: 1
+    icon: {fileID: -3921479718895435695, guid: a43be5beb15434c75bee6075c2e9aaac, type: 3}
   - itemName: "\uD5C8\uC218\uC544\uBE44"
     resourceKey: Deco_Scarecrow
     price: 2000
     category: 1
-    icon: {fileID: 0}
+    icon: {fileID: -166466446883158291, guid: 1fa58198d329e46f5994489be7ebaf66, type: 3}
+  - itemName: "\uC548\uB0B4\uD310"
+    resourceKey: Deco_Signboard
+    price: 2000
+    category: 1
+    icon: {fileID: 1208785238370206999, guid: bc661fd7f56e14ac48fdedb40ff830be, type: 3}
+  - itemName: "\uC218\uB808"
+    resourceKey: Deco_Wagon
+    price: 2000
+    category: 1
+    icon: {fileID: 49090607627816924, guid: cfb97a7c2a40a4ecfaad9dcdc76dc92b, type: 3}
   - itemName: "\uC794\uB514(\uAE30\uBCF8)"
     resourceKey: Tilemap_Grass
     price: 0
     category: 0
     icon: {fileID: 2177108965186078295, guid: 881c71e1226f34571a35933ac45993de, type: 3}
-  - itemName: "\uBB3C \uD0C0\uC77C 1\uC885"
-    resourceKey: Tilemap_Water
-    price: 1000
-    category: 0
-    icon: {fileID: 7351637415587066830, guid: 032b19c64acb243a38f84f74f0809e46, type: 3}
   - itemName: "\uBC2D \uD0C0\uC77C 1\uC885"
     resourceKey: Tilemap_Field
     price: 1000
     category: 0
     icon: {fileID: 4966695935349635398, guid: 140383027e5c54cbab7ccc464aa7b17c, type: 3}
+  - itemName: "\uBB3C \uD0C0\uC77C 1\uC885"
+    resourceKey: Tilemap_Water
+    price: 1000
+    category: 0
+    icon: {fileID: 7351637415587066830, guid: 032b19c64acb243a38f84f74f0809e46, type: 3}
   - itemName: "\uB3CC \uD0C0\uC77C 1\uC885"
     resourceKey: Tilemap_Stone
     price: 1000
     category: 0
     icon: {fileID: -2592956508147909491, guid: a74d3ce59ffe84383af3d0e799acecb8, type: 3}
   - itemName: "\uB545 \uD655\uC7A5\uAD8C"
-    resourceKey: Tile_Upgrade
-    price: 2000
+    resourceKey: Tilemap_Upgrade
+    price: 1000
     category: 0
     icon: {fileID: -652440190934727125, guid: 8e91092e43b6a43faad0cec0a10647ad, type: 3}
