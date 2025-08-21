@@ -121,7 +121,6 @@ public class PlacementManager : MonoBehaviour
                     if (database.GetCountFromID(lastTile.GetID()) >= 0)
                     {
                         database.AddData(lastTile.GetID());
-                        //lastButton.UpdateCountTMP(database.GetCountFromID(lastTile.GetID()));
                     }
 
                     // 제거 후 타일 배치
@@ -176,7 +175,6 @@ public class PlacementManager : MonoBehaviour
             if (database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()) > 0)
             {
                 database.PlaceData(place.GetComponent<PlaceableObject>().GetID());
-                //curButton.UpdateCountTMP(database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()));
                 buildManager.Init();
             }
             
