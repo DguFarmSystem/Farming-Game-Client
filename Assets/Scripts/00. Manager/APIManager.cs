@@ -28,10 +28,10 @@ public class APIManager : MonoBehaviour
         Get(
         "https://api.dev.farmsystem.kr/api/cheer",
         (result) => {
-        Debug.Log("성공: " + result);
+            Debug.Log("????: " + result);
         },
         (error) => {
-        Debug.LogError("실패: " + error);
+            Debug.LogError("????: " + error);
         }
         );
     }
@@ -47,12 +47,12 @@ public class APIManager : MonoBehaviour
 
         if (www.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("Base URL 접근 성공: " + baseUrl);
-            Debug.Log("응답: " + www.downloadHandler.text);
+            Debug.Log("Base URL ???? ????: " + baseUrl);
+            Debug.Log("????: " + www.downloadHandler.text);
         }
         else
         {
-            Debug.LogError("Base URL 접근 실패: " + baseUrl + " / Error: " + www.error);
+            Debug.LogError("Base URL ???? ????: " + baseUrl + " / Error: " + www.error);
         }
     }
 
