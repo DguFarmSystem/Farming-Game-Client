@@ -25,7 +25,7 @@ public class CarrotFarm_Field : MonoBehaviour
     public SpriteRenderer waterDropObj;
 
     private FieldState current;
-    private Coroutine moleCoroutine; // (씨앗 심고 10초 뒤)
+    private Coroutine moleCoroutine; // (씨앗 심고 3~10초 뒤)
     private Coroutine moleAnimCoroutine; // 두더지 애니메이션 :loop
     private Coroutine waterAnimCoroutine; // (물아이템 사용) 물방울 애니메이션
     private Coroutine growAnimCoroutine; // (물아이템 사용 성공) 식물 자라는 애니메이션 lev1->2->3->carrot
@@ -39,7 +39,7 @@ public class CarrotFarm_Field : MonoBehaviour
     void Start()
     {
         current = FieldState.NONE;
-        moleTimer_appear = 10f;
+        moleTimer_appear = Random.Range(3f, 10f);
         moleTimer_eat = 5;
 
         moleObj.enabled = false;
