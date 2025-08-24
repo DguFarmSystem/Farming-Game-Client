@@ -8,6 +8,7 @@ using System.Collections.Generic;
 public class SceneData
 {
     public string sceneName;
+    public Sprite minimapSprite;
     public Sprite labelSprite;
 }
 
@@ -37,6 +38,7 @@ public class SceneLoader : MonoBehaviour
 
     private Button leftButton;
     private Button rightButton;
+    private Image minimapImage;
     private GameObject labelPanel;
     private CanvasGroup fadePanel;
 
@@ -58,6 +60,7 @@ public class SceneLoader : MonoBehaviour
 
         leftButton = transform.Find("LeftButton")?.GetComponent<Button>();
         rightButton = transform.Find("RightButton")?.GetComponent<Button>();
+        minimapImage = transform.Find("Minimap")?.GetComponent<Image>();
         labelPanel = transform.Find("LabelPanel")?.gameObject;
         fadePanel = transform.Find("FadePanel")?.GetComponent<CanvasGroup>();
         if (!leftButton || !rightButton || !labelPanel || !fadePanel)
@@ -172,6 +175,7 @@ public class SceneLoader : MonoBehaviour
     {
         leftButton.gameObject.SetActive(index > 0);
         rightButton.gameObject.SetActive(index < mainSceneList.Count - 1);
+        minimapImage.sprite = mainSceneList[index].minimapSprite;
         labelPanel.SetActive(true);
         labelPanel.GetComponent<Image>().sprite = mainSceneList[index].labelSprite;
         labelPanel.GetComponent<CanvasGroup>().alpha = 1f;
