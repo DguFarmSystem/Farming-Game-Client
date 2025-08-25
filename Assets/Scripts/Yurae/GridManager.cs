@@ -35,7 +35,6 @@ public class GridManager : MonoBehaviour
             {
                 Vector2 pos = GetWorldPosition(x, y);
                 Vector2Int gridPos = GetGridPosition(pos);
-                Debug.Log(gridPos);
 
                 GameObject gridObj = Instantiate(baseGridPrefab, pos, Quaternion.identity, gridParent);
 

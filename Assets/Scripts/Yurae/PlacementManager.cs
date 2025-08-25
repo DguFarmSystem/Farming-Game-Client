@@ -183,6 +183,10 @@ public class PlacementManager : MonoBehaviour
 
             place.GetComponent<PlaceableObject>().SetPosition(_gridPos);
             place.transform.SetParent(objectParent);
+
+            SpriteRenderer spriteRenderer = place.GetComponent<SpriteRenderer>();
+
+            spriteRenderer.sortingOrder -= _hitObject.GetComponent<BaseGrid>().GetGridPos().x + _hitObject.GetComponent<BaseGrid>().GetGridPos().y;
         }
     }
 

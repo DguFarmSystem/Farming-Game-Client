@@ -25,28 +25,28 @@ MonoBehaviour:
     name: "\uBC2D"
     prefab: {fileID: 0}
     sprite: {fileID: 4966695935349635398, guid: 0fe185a70c4276243b131476f053f6ee, type: 3}
-    count: 19
+    count: 12
     type: 0
     price: 1000
   - id: Tilemap_Water
     name: "\uBB3C"
     prefab: {fileID: 0}
     sprite: {fileID: 7351637415587066830, guid: 8e9bf0f1540d6ac48b93a5a758fec95e, type: 3}
-    count: 31
+    count: 9
     type: 0
     price: 1000
   - id: Tilemap_Stone
     name: "\uB3CC"
     prefab: {fileID: 0}
     sprite: {fileID: -2592956508147909491, guid: 2587a5d5c1df5ea4f8e10b2da84bb29d, type: 3}
-    count: 33
+    count: 32
     type: 0
     price: 1000
   - id: Deco_Pot_Palm
     name: "\uC57C\uC790\uC218 \uD654\uBD84"
     prefab: {fileID: 0}
     sprite: {fileID: -1611899011305051494, guid: 55aebaf64eda07040b7257ef06871940, type: 3}
-    count: 35
+    count: 33
     type: 1
     price: 1000
   - id: Deco_Pot_Bamboo

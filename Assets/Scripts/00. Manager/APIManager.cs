@@ -26,7 +26,7 @@ public class APIManager : MonoBehaviour
 
         // Test Code
         Get(
-        "https://api.dev.farmsystem.kr/api/cheer",
+        "/api/cheer",
         (result) => {
             Debug.Log("????: " + result);
         },
@@ -37,7 +37,7 @@ public class APIManager : MonoBehaviour
     }
 
     // Token
-    public string AccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU1ODEwMjA5LCJleHAiOjE3NTU4MTM4MDl9.sjgI3ekKGuLr6j6ph14zGf4glazK9QGKCQsbHAzyMkc";
+    [SerializeField] private string AccessToken;
 
     private IEnumerator CheckUrlRoutine(string baseUrl)
     {
