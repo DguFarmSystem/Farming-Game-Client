@@ -18,6 +18,7 @@ public class seedTicketResultUI : MonoBehaviour
             closeButton.onClick.RemoveAllListeners();
             closeButton.onClick.AddListener(() =>
             {
+                GameManager.Sound.SFXPlay("SFX_ButtonClick");
                 onClose?.Invoke();
             });
         }

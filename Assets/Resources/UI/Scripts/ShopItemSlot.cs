@@ -42,6 +42,7 @@ public class ShopItemSlot : MonoBehaviour
 
     public void OnClick()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         Debug.Log($"[Slot.Click] {gameObject.name} key={resourceKey}");
         if (!string.IsNullOrEmpty(resourceKey))
             PurchasePopup.Instance.Open(itemName, price, resourceKey);

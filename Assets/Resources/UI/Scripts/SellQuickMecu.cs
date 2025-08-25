@@ -57,6 +57,7 @@ public class SellQuickMenu : MonoBehaviour
 
     void OnClickSell()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         HideImmediate();
         var canvasTf = GetComponentInParent<Canvas>()?.transform ?? transform;
         Instantiate(popupPrefab, canvasTf).Open(db, index, unitPrice);

@@ -138,6 +138,7 @@ public class BadgeManager : MonoBehaviour
 
     public void Close()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonCancle");
         openSeq?.Kill(); closeSeq?.Kill();
         caseRoot.DOKill(); badgeLid.DOKill();
 

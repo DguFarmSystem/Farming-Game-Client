@@ -24,7 +24,7 @@ public class FarmPopup : MonoBehaviour
         plusButton.onClick.AddListener(OnPlusClicked);
         minusButton.onClick.AddListener(OnMinusClicked);
         confirmButton.onClick.AddListener(OnConfirm);
-        cancelButton.onClick.AddListener(() => Destroy(gameObject));
+        cancelButton.onClick.AddListener(() => { GameManager.Sound.SFXPlay("SFX_ButtonCancle"); Destroy(gameObject); });
     }
 
     public void SetTargetTile(FarmGround tile)
@@ -76,7 +76,7 @@ public class FarmPopup : MonoBehaviour
         Debug.LogError("[FarmPopup] targetTile이 null입니다. Init이 제대로 안 됐을 가능성 있음");
         return;
     }
-
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         // 씨앗 1개 사용 가능할 때만
         if (CurrencyManager.Instance.SpendSeedCount(1))
         {

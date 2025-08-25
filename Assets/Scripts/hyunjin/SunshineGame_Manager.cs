@@ -116,6 +116,7 @@ public class SunshineGame_Manager : MonoBehaviour
         int sum = 0;
         foreach (var sun in dragedList) sum += sun.GetNum();
         if (sum != 10) return;
+        GameManager.Sound.SFXPlay("SFX_SunGame_Clear");
         foreach (var sun in dragedList) sun.Pop();
         score += dragedList.Count;
         scoreText.text = $"{score}";

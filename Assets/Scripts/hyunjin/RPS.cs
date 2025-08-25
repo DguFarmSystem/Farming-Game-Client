@@ -21,6 +21,7 @@ public class RPS : MonoBehaviour
     public bool isShuffling = false;
 
     private Coroutine autoExitCoroutine;
+    private AudioSource shuffleSFX;
 
     void Start()
     {
@@ -60,12 +61,16 @@ public class RPS : MonoBehaviour
         loseBox.gameObject.SetActive(false);
         drawBox.gameObject.SetActive(false);
 
+        if (shuffleSFX == null || !shuffleSFX.isPlaying)
+            shuffleSFX = GameManager.Sound.SFXPlay("SFX_PSR", true);
         autoExitCoroutine = StartCoroutine(AutoExitCoroutine());
         while (isShuffling) {
             currentImage.sprite = choiceSprites[current];
             current = (current + 1) % 3;
             yield return new WaitForSeconds(0.1f);
         }
+        GameManager.Sound.SFXStop(shuffleSFX);
+        shuffleSFX = null;
     }
 
     void PlayerSelect(int player)
@@ -76,15 +81,13 @@ public class RPS : MonoBehaviour
             autoExitCoroutine = null;
         }
 
+        GameManager.Sound.SFXPlay("SFX_PSR_Select");
         isShuffling = false;
         int com = (current + 2) % 3;
-
-        Debug.Log($"player: {player} / com: {com}");
 
         if (player == com) {
             result = 0;
             drawBox.gameObject.SetActive(true);
-            Debug.Log("draw!!!!!!!!!!!!");
         }
         else if ((player == 0 && com == 2) || (player == 1 && com == 0) || (player == 2 && com == 1)) {
             result = 1;
@@ -110,6 +113,7 @@ public class RPS : MonoBehaviour
 
     void Result()
     {
+        GameManager.Sound.SFXPlay((result == 1 ? "SFX_PSR_Clear" : "SFX_PSR_Lose"));
         if (round == 1 && result < 1) currentGold = 0;
         else if (round == 1 && result == 1) currentGold = 10;
         else if (round == 2 && result < 1) currentGold = 5;
@@ -117,7 +121,6 @@ public class RPS : MonoBehaviour
         else if (round == 3 && result < 1) currentGold = 10;
         else if (round == 3 && result == 1) currentGold = 40;
 
-        Debug.Log($"round: {round} / result : {result} / winCount : {winCount}");
         if (result == 1 && winCount < 3) {
             minigamePopup.BettingPopup("RPS", round, round==1 ? -5 : -10, round==1 ? 20 : 40, currentGold);
         }

@@ -148,6 +148,7 @@ public class PowerStationManager : MonoBehaviour
             // 서버에도 반영
             //StartCoroutine(UpdateChargeStartTimeToNow());
         }
+        GameManager.Sound.SFXPlay("SFX_Powerstation");
     }
 
     private int GetLevelFromPercent(int percent)

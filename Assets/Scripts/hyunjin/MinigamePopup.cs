@@ -19,8 +19,8 @@ public class MinigamePopup : MonoBehaviour
     public GameObject bettingPopup;
     public TMP_Text betRewardText;
     public TMP_Text bettingText;
-    public Button betButton;
-    public Button endButton;
+    public Button goButton;
+    public Button stopButton;
 
     [Header("Reward")]
     public GameObject rewardPopup;
@@ -44,7 +44,7 @@ public class MinigamePopup : MonoBehaviour
         startButton.onClick.AddListener(StartGame);
         resumeButton.onClick.AddListener(ResumeGame);
         exitButton_esc.onClick.AddListener(ExitGame);
-        betButton.onClick.AddListener(NextRound);
+        goButton.onClick.AddListener(NextRound);
         exitButton_reward.onClick.AddListener(ExitGame);
     }
 
@@ -56,6 +56,7 @@ public class MinigamePopup : MonoBehaviour
 
     void StartGame()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         desciptionPopup.SetActive(false);
         bettingPopup.SetActive(false);
         rewardPopup.SetActive(false);
@@ -66,6 +67,7 @@ public class MinigamePopup : MonoBehaviour
     {
         if (isPaused) return;
 
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         Time.timeScale = 0f;
         isPaused = true;
         escPopup.SetActive(true);
@@ -76,6 +78,7 @@ public class MinigamePopup : MonoBehaviour
     {
         if (!isPaused) return;
 
+        GameManager.Sound.SFXPlay("SFX_ButtonCancle");
         Time.timeScale = 1f;
         isPaused = false;
         escPopup.gameObject.SetActive(false);
@@ -84,6 +87,7 @@ public class MinigamePopup : MonoBehaviour
 
     void NextRound()
     {
+        GameManager.Sound.SFXPlay("SFX_GameStart");
         desciptionPopup.SetActive(false);
         bettingPopup.SetActive(false);
         rewardPopup.SetActive(false);
@@ -92,6 +96,7 @@ public class MinigamePopup : MonoBehaviour
 
     void ExitGame()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         onExit?.Invoke();
         Time.timeScale = 1f;
         if (SceneLoader.Instance != null)
@@ -104,14 +109,18 @@ public class MinigamePopup : MonoBehaviour
 
     public void BettingPopup(string game, int round, int ifWin, int ifLose, int currentGold)
     {
+        if (game != "RPS")
+            GameManager.Sound.SFXPlay("SFX_GameOver");
         betRewardText.text = $"골드를 획득했습니다!\n획득 골드 : {currentGold}G";
         bettingText.text = $"{round+1} round\n도전 실패 시 : {ifWin}G\n도전 성공 시 : +{ifLose}G";
-        endButton.onClick.AddListener(() => { bettingPopup.SetActive(false); ExitGame(); }); // db 저장
+        stopButton.onClick.AddListener(() => { bettingPopup.SetActive(false); ExitGame(); }); // db 저장
         bettingPopup.gameObject.SetActive(true);
     }
     
     public void RewardPopup(string game, int gold)
     {
+        if (game != "RPS")
+            GameManager.Sound.SFXPlay("SFX_GameOver");
         rewardPopup.gameObject.SetActive(true);
         if (gold == 0)
             rewardText.text = "골드를 획득하지 못했습니다.\n조금만 더 힘내보세요!";

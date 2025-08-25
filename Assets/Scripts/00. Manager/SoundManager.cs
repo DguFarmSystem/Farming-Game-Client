@@ -43,45 +43,79 @@ public class SoundManager
         }
     }
 
-    public void SFXPlay(string _clipName)
+    //public void SFXPlay(string _clipName)
+    //{
+    //    GameObject sfxPlayer = GameObject.Find("SFXPlayer");
+
+    //    AudioMixer audioMixer = GameManager.Resource.Load<AudioMixer>("Sounds", "AudioMixer");
+    //    AudioMixerGroup[] sfxGroup = audioMixer.FindMatchingGroups("SFX");
+
+    //    if (sfxPlayer != null)
+    //    {
+    //        List<AudioSource> clipPlayers = GetSFXClips(); // Get Clip Players
+    //        AudioSource audio = null;
+
+    //        audio = GetEmptyClip(clipPlayers); // Find Empty Clip Player
+
+    //        AudioClip clip = GameManager.Resource.Load<AudioClip>("Sounds/SFX", _clipName);
+
+    //        audio.outputAudioMixerGroup = sfxGroup[0]; // Set audio mixer
+    //        audio.clip = clip; // Set Clip
+    //        audio.loop = false; // Set loop
+
+    //        audio.Play();
+    //    }
+    //    else
+    //    {
+    //        GenerateSFXClipPlayer(); // Generate SFX clip player
+
+    //        List<AudioSource> clipPlayers = GetSFXClips(); // Get Clip Players
+    //        AudioSource audio = null;
+
+    //        audio = GetEmptyClip(clipPlayers); // Find Empty Clip Player
+
+    //        AudioClip clip = GameManager.Resource.Load<AudioClip>("Sounds/SFX", _clipName);
+
+    //        audio.outputAudioMixerGroup = sfxGroup[0]; // Set audio mixer
+    //        audio.clip = clip; // Set Clip
+    //        audio.loop = false; // Set loop
+
+    //        audio.Play();
+    //    }
+    //}
+
+    public AudioSource SFXPlay(string _clipName, bool loop = false)
     {
         GameObject sfxPlayer = GameObject.Find("SFXPlayer");
 
         AudioMixer audioMixer = GameManager.Resource.Load<AudioMixer>("Sounds", "AudioMixer");
         AudioMixerGroup[] sfxGroup = audioMixer.FindMatchingGroups("SFX");
 
-        if (sfxPlayer != null)
+        if (sfxPlayer == null)
         {
-            List<AudioSource> clipPlayers = GetSFXClips(); // Get Clip Players
-            AudioSource audio = null;
-
-            audio = GetEmptyClip(clipPlayers); // Find Empty Clip Player
-
-            AudioClip clip = GameManager.Resource.Load<AudioClip>("Sounds/SFX", _clipName);
-
-            audio.outputAudioMixerGroup = sfxGroup[0]; // Set audio mixer
-            audio.clip = clip; // Set Clip
-            audio.loop = false; // Set loop
-
-            audio.Play();
+            GenerateSFXClipPlayer();
+            sfxPlayer = GameObject.Find("SFXPlayer");
         }
-        else
-        {
-            GenerateSFXClipPlayer(); // Generate SFX clip player
 
-            List<AudioSource> clipPlayers = GetSFXClips(); // Get Clip Players
-            AudioSource audio = null;
+        List<AudioSource> clipPlayers = GetSFXClips();
+        AudioSource audio = GetEmptyClip(clipPlayers);
 
-            audio = GetEmptyClip(clipPlayers); // Find Empty Clip Player
+        AudioClip clip = GameManager.Resource.Load<AudioClip>("Sounds/SFX", _clipName);
 
-            AudioClip clip = GameManager.Resource.Load<AudioClip>("Sounds/SFX", _clipName);
+        audio.outputAudioMixerGroup = sfxGroup[0]; // Set audio mixer
+        audio.clip = clip; // Set Clip
+        audio.loop = loop; // Set loop
+        audio.Play();
 
-            audio.outputAudioMixerGroup = sfxGroup[0]; // Set audio mixer
-            audio.clip = clip; // Set Clip
-            audio.loop = false; // Set loop
+        return audio;
+    }
 
-            audio.Play();
-        }
+    public void SFXStop(AudioSource src)
+    {
+        if (src == null) return;
+        src.Stop();
+        src.loop = false;
+        src.clip = null;
     }
 
     public void GenerateSFXClipPlayer(int n = 10)
@@ -105,7 +139,7 @@ public class SoundManager
         AudioSource[] clipPlayers = sfxPlayer.GetComponentsInChildren<AudioSource>();
         List<AudioSource> finClipPlayers = new List<AudioSource>();
 
-        for (int i = 1; i < clipPlayers.Length; i++)
+        for (int i = 0; i < clipPlayers.Length; i++)
         {
             finClipPlayers.Add(clipPlayers[i]);
         }

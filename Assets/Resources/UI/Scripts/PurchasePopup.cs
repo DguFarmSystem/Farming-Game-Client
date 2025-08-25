@@ -146,6 +146,7 @@ public class PurchasePopup : MonoBehaviour
 
     private void OnConfirm()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         int totalCost = Mathf.Max(0, unitPrice) * currentCount;
         popupPanel.gameObject.SetActive(false);
 
@@ -167,6 +168,7 @@ public class PurchasePopup : MonoBehaviour
 
     public void Close()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonCancle");
         popupPanel.DOAnchorPos(hiddenPos, slideDuration).SetEase(Ease.InBack)
             .OnComplete(() =>
             {
@@ -186,6 +188,7 @@ public class PurchasePopup : MonoBehaviour
 
     private void HideCompletePanel()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         completePanelRect.DOAnchorPos(completePanelStartPos, completeSlideDuration)
         .SetEase(Ease.InCubic)
         .OnComplete(() => purchaseCompletePanel.SetActive(false));

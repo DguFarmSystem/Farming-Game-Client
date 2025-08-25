@@ -46,6 +46,7 @@ public class seedGGang : MonoBehaviour
     {
         if (!CurrencyManager.Instance.SpendSeedTicket(1)) return;
 
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         Debug.Log("씨앗 뽑기!");
     
 
@@ -74,6 +75,7 @@ public class seedGGang : MonoBehaviour
         CurrencyManager.Instance.AddSeedCount(amount);
         resultUI.SetActive(true);
         resultText.text = "X" + amount.ToString();
+        GameManager.Sound.SFXPlay("SFX_Result");
     }
     public void ClosePopup()
     {
@@ -82,11 +84,13 @@ public class seedGGang : MonoBehaviour
 
     public void CloseResultUI()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         UIManager.Instance.HideAll(); //전부 꺼주기
     }
 
     public void closeAll()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonCancle");
         UIManager.Instance.HideAll(); //전부 꺼주기
     }
 

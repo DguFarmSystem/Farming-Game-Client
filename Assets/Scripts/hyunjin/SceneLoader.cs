@@ -90,6 +90,7 @@ public class SceneLoader : MonoBehaviour
         
         currentIdx--;
         StartCoroutine(TransitionScene(mainSceneList[currentIdx].sceneName, "Left"));
+        GameManager.Sound.SFXPlay("SFX_SceneChange");
     }
 
     public void GoRight() {
@@ -97,6 +98,7 @@ public class SceneLoader : MonoBehaviour
         
         currentIdx++;
         StartCoroutine(TransitionScene(mainSceneList[currentIdx].sceneName, "Right"));
+        GameManager.Sound.SFXPlay("SFX_SceneChange");
     }
 
     public void GoToMiniGame(string gameName) {
@@ -176,15 +178,17 @@ public class SceneLoader : MonoBehaviour
         leftButton.gameObject.SetActive(index > 0);
         rightButton.gameObject.SetActive(index < mainSceneList.Count - 1);
         minimapImage.sprite = mainSceneList[index].minimapSprite;
-        labelPanel.SetActive(true);
+        minimapImage.gameObject.SetActive(true);
         labelPanel.GetComponent<Image>().sprite = mainSceneList[index].labelSprite;
         labelPanel.GetComponent<CanvasGroup>().alpha = 1f;
+        labelPanel.SetActive(true);
     }
 
     void HideSceneLoaderUI()
     {
         leftButton.gameObject.SetActive(false);
         rightButton.gameObject.SetActive(false);
+        minimapImage.gameObject.SetActive(false);
         labelPanel.SetActive(false);
     }
 }

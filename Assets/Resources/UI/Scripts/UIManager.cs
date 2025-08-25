@@ -28,7 +28,19 @@ public class UIManager : MonoBehaviour
     {
         if (popupParent != null && popupParent.gameObject.scene.IsValid()) return popupParent;
 
-        var cv = FindObjectOfType<Canvas>();                  // 씬의 Canvas 찾기
+        //var cv = FindObjectOfType<Canvas>();                  // 씬의 Canvas 찾기
+        Canvas[] canvases = Object.FindObjectsOfType<Canvas>(true);
+        Canvas cv = null;
+        int bestOrder = int.MinValue;
+
+        foreach (var c in canvases) {
+            if (!c.isActiveAndEnabled) continue;
+            if (c.gameObject.name == "FadePanel") continue; // 제외
+            if (c.sortingOrder >= bestOrder) {
+                bestOrder = c.sortingOrder;
+                cv = c;
+            }
+        }
         if (cv == null) { Debug.LogError("Canvas 없음"); return null; }
 
         var t = cv.transform.Find("PopupParent");             // 이미 있으면 사용
@@ -80,6 +92,7 @@ public class UIManager : MonoBehaviour
     {
         if (currentPopup != null) { DOTween.Kill(currentPopup, complete: false); Destroy(currentPopup); }
 
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         currentPopup = Instantiate(seedDrawPrefab, popupParent);
     }
 
@@ -122,6 +135,7 @@ public class UIManager : MonoBehaviour
     {
         if (currentPopup != null) { DOTween.Kill(currentPopup, complete: false); Destroy(currentPopup); }
 
+        GameManager.Sound.SFXPlay("SFX_Result");
         currentPopup = Instantiate(seedTicketPrefab, popupParent);
 
         return currentPopup;
@@ -132,6 +146,7 @@ public class UIManager : MonoBehaviour
         var parent = P(); if (parent == null) return;
         if (currentPopup != null) { DOTween.Kill(currentPopup, complete: false); Destroy(currentPopup); }
 
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         currentPopup = Instantiate(collectionUIPrefab, parent);
         currentPopup.transform.SetAsLastSibling();
 
@@ -152,6 +167,7 @@ public class UIManager : MonoBehaviour
             Destroy(currentPopup);
         }
 
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         currentPopup = Instantiate(TitleUIPrefab, parent);
         currentPopup.transform.SetAsLastSibling();
 
@@ -174,6 +190,7 @@ public class UIManager : MonoBehaviour
 
         if (currentPopup != null) { DOTween.Kill(currentPopup, complete: false); Destroy(currentPopup); }
 
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         currentPopup = Instantiate(shopUIPrefab, parent);
 
         var shop = currentPopup.GetComponentInChildren<ShopUIManager>();
@@ -189,6 +206,7 @@ public class UIManager : MonoBehaviour
 
         if (currentPopup != null) { DOTween.Kill(currentPopup, complete: false); Destroy(currentPopup); }
 
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         currentPopup = Instantiate(bagUIPrefab, parent);
 
         var bag = currentPopup.GetComponentInChildren<BagManager>(true);

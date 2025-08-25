@@ -84,6 +84,7 @@ public class BagManager : MonoBehaviour
 
     public void Close()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonCancle");
         windowRect.DOKill();
         panelGroup.DOKill();
 

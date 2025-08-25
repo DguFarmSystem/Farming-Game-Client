@@ -28,7 +28,7 @@ public class MiniGameButtonHandler : MonoBehaviour
         title.text = titleValue;
         description.text = descriptionValue;
         popupPanel.SetActive(true);
-        Debug.Log($"{selected} is selected");
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
     }
 
     public void StartGame()
@@ -41,6 +41,7 @@ public class MiniGameButtonHandler : MonoBehaviour
             Debug.Log($"selected nothing");
             return;
         }
+        GameManager.Sound.SFXPlay("SFX_GameStart");
         SceneLoader.Instance.GoToMiniGame(selected);
     }
 
@@ -48,5 +49,6 @@ public class MiniGameButtonHandler : MonoBehaviour
     {
         selected = null;
         popupPanel.SetActive(false);
+        GameManager.Sound.SFXPlay("SFX_ButtonCancle");
     }
 }

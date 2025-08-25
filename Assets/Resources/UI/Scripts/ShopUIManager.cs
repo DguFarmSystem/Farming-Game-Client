@@ -48,6 +48,7 @@ public class ShopUIManager : MonoBehaviour
 
     public void CloseShopPanel()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonCancle");
         shopPanel.DOAnchorPos(hiddenPos, slideDuration).SetEase(Ease.InCubic)
         .OnComplete(() =>
         {

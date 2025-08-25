@@ -42,6 +42,7 @@ public class CollectionManager : MonoBehaviour
 
     public void Close()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonCancle");
         CollectionPanel.blocksRaycasts = false;
         bookRect.DOAnchorPos(hiddenPos, slideDuration).SetEase(Ease.InBack)
             .OnComplete(() =>

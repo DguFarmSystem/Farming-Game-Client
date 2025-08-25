@@ -44,6 +44,7 @@ public class HarvestUI : MonoBehaviour
         yield return StartCoroutine(FlashWhiteScreen());
 
         // 5. 결과 출력
+        GameManager.Sound.SFXPlay("SFX_Result");
         resultUI.SetActive(true);
     }
 
@@ -103,6 +104,7 @@ public class HarvestUI : MonoBehaviour
 
     public void CloseResultUI()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         UIManager.Instance.HideAll(); //전부 꺼주기
     }
 }

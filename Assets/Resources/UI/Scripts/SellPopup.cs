@@ -71,6 +71,7 @@ public class SellPopup : MonoBehaviour
     void SellAndShowDone()
     {
         if (selling || max <= 0 || sel <= 0) return;
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         selling = true;
         okBtn.interactable = false;
 
@@ -94,6 +95,7 @@ public class SellPopup : MonoBehaviour
     void CloseDone()
     {
         if (done == null) return;
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         done.DOKill();
 
         var parentRT = done.parent as RectTransform;
@@ -114,6 +116,7 @@ public class SellPopup : MonoBehaviour
 
     void SlideToBelow(RectTransform p, float dur, System.Action onEnd)
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonCancle");
         p.DOKill();
         var target = p.anchoredPosition + Vector2.down * slideOffset;
         p.DOAnchorPos(target, dur).SetEase(Ease.InQuad).OnComplete(() => onEnd?.Invoke());
