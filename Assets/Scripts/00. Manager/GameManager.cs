@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    //Temp
+    public int playerLV = 1;
+
     private Scene scene = new Scene();
     private ResourceManager resourceManager = new ResourceManager();
     private SoundManager soundManager = new SoundManager();

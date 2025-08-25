@@ -24,11 +24,14 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        GenerateBaseGrid();
+        GenerateBaseGrid(GameManager.Instance.playerLV);
     }
 
-    private void GenerateBaseGrid()
+    private void GenerateBaseGrid(int _playerLevel = 1)
     {
+        width = GetSize(_playerLevel);
+        height = GetSize(_playerLevel);
+
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -68,4 +71,25 @@ public class GridManager : MonoBehaviour
         return new Vector2Int(x, y);
     }
 
+    private int GetSize(int _playerLevel)
+    {
+        switch (_playerLevel)
+        {
+            case 1:
+                return 10;
+            case 2:
+                return 20;
+            case 3:
+                return 30;
+            default:
+                Debug.LogError("Player Level Error!");
+                return 0;
+        }
+    }
+
+    public void LevelUp()
+    {
+        GameManager.Instance.playerLV++;
+        GameManager.Scene.ReLoad();
+    }
 }
