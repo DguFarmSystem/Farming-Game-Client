@@ -22,9 +22,10 @@ public class APIManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(CheckUrlRoutine(baseUrl));
+        //StartCoroutine(CheckUrlRoutine(baseUrl));
 
         // Test Code
+        /*
         Get(
         "/api/cheer",
         (result) => {
@@ -34,6 +35,7 @@ public class APIManager : MonoBehaviour
             Debug.LogError("????: " + error);
         }
         );
+        */
     }
 
     // Token
