@@ -12,10 +12,16 @@ public enum FenceDirection
     Down = 1 << 3    // 1000
 }
 
+public enum FenceType
+{
+    Wood, Metal, White
+}
+
 [DisallowMultipleComponent]
 public class Fence : MonoBehaviour
 {
     [SerializeField] private Sprite[] sprites;
+    [SerializeField] private FenceType fenceType = FenceType.Wood;
 
     private PlaceableObject placeableObject;
     private SpriteRenderer spriteRenderer;
@@ -31,11 +37,12 @@ public class Fence : MonoBehaviour
 
     private void Update()
     {
+        // Have do modify call time
         UpdateSprite();
     }
 
     /// <summary>
-    /// 현재 위치 기준으로 연결된 방향 조사해서 스프라이트 갱신
+    /// 현재 위치 기준으로 연결된 방향 조사해서 스프라이트 갱신 (Bit 연산)
     /// </summary>
     public void UpdateSprite()
     {
@@ -74,7 +81,12 @@ public class Fence : MonoBehaviour
 
         if (string.IsNullOrEmpty(key)) key = "M"; // 혼자 있을 경우 기둥(M)
 
-        string spriteName = "Fence_Wood_" + key + "_0";
+        string spriteName = "";
+
+        if (fenceType == FenceType.Wood) spriteName = "Fence_Wood_" + key + "_0";
+        else if (fenceType == FenceType.White) spriteName = "Fence_White_" + key + "_0";
+        else if (fenceType == FenceType.Metal) spriteName = "Fence_Metal_" + key + "_0";
+
         Debug.Log(spriteName);
 
         foreach (Sprite sprite in sprites)
