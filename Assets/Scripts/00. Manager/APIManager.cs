@@ -22,20 +22,7 @@ public class APIManager : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(CheckUrlRoutine(baseUrl));
-
-        // Test Code
-        /*
-        Get(
-        "/api/cheer",
-        (result) => {
-            Debug.Log("????: " + result);
-        },
-        (error) => {
-            Debug.LogError("????: " + error);
-        }
-        );
-        */
+        // ...
     }
 
     // Token
@@ -44,19 +31,22 @@ public class APIManager : MonoBehaviour
     private IEnumerator CheckUrlRoutine(string baseUrl)
     {
         UnityWebRequest www = UnityWebRequest.Get(baseUrl);
-
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("Base URL ???? ????: " + baseUrl);
-            Debug.Log("????: " + www.downloadHandler.text);
+            Debug.Log("Base URL 테스트 성공: " + baseUrl);
+            Debug.Log("응답: " + www.downloadHandler.text);
         }
         else
         {
-            Debug.LogError("Base URL ???? ????: " + baseUrl + " / Error: " + www.error);
+            Debug.LogError("Base URL 테스트 실패: " + baseUrl + " / 오류: " + www.error);
         }
     }
+
+    //-------------------------------------
+    // Public API Request Methods
+    //-------------------------------------
 
     public void Get(string endPoint, Action<string> onSuccess, Action<string> onError = null)
     {
@@ -67,6 +57,16 @@ public class APIManager : MonoBehaviour
     {
         StartCoroutine(PostRequest(baseUrl + endPoint, json, onSuccess, onError));
     }
+    
+    // PUT 메서드 추가
+    public void Put(string endPoint, string json, Action<string> onSuccess, Action<string> onError = null)
+    {
+        StartCoroutine(PutRequest(baseUrl + endPoint, json, onSuccess, onError));
+    }
+
+    //-------------------------------------
+    // Private Coroutine Logic
+    //-------------------------------------
 
     private IEnumerator GetRequest(string url, Action<string> onSuccess, Action<string> onError)
     {
@@ -86,6 +86,26 @@ public class APIManager : MonoBehaviour
     private IEnumerator PostRequest(string url, string json, Action<string> onSuccess, Action<string> onError)
     {
         UnityWebRequest www = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+        www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        www.downloadHandler = new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/json");
+
+        if (!string.IsNullOrEmpty(AccessToken))
+            www.SetRequestHeader("Authorization", "Bearer " + AccessToken);
+
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+            onSuccess?.Invoke(www.downloadHandler.text);
+        else
+            onError?.Invoke(www.error);
+    }
+    
+    // PUT 요청을 위한 코루틴 추가
+    private IEnumerator PutRequest(string url, string json, Action<string> onSuccess, Action<string> onError)
+    {
+        UnityWebRequest www = new UnityWebRequest(url, "PUT");
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
         www.uploadHandler = new UploadHandlerRaw(bodyRaw);
         www.downloadHandler = new DownloadHandlerBuffer();

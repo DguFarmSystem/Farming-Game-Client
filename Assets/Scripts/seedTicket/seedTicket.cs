@@ -3,43 +3,133 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Networking;
 
 public class seedTicket : MonoBehaviour
 {
     [Header("유아이 관련")]
     public TMP_Text ticketCountText; //티켓 수 텍스트
-
     public Button closeButton; // 닫기 버튼
-
-    [Header("조건")]
-    public bool condition1;
-    public bool condition3;
-    public bool condition5;
 
     // PlayerPrefs 키
     private const string PREF_DATE = "SeedTicket_LastDate";
-    private const string PREF_MASK = "SeedTicket_ClaimedMask"; // bit0=1개, bit1=3개, bit2=5개
+    private const string PREF_MASK = "SeedTicket_ClaimedMask";
 
     // 비트 마스크
-    private const int BIT_1 = 1 << 0;   // 1
-    private const int BIT_3 = 1 << 1;   // 2
-    private const int BIT_5 = 1 << 2;   // 4
+    private const int BIT_ATTENDANCE = 1 << 0;  // 1
+    private const int BIT_CHEER = 1 << 1;     // 2
+    private const int BIT_FARMING = 1 << 2;   // 4
+
+    [Header("테스트용 임시 토큰")]
+    [SerializeField] private string temporaryAccessToken;
+    // API 응답 데이터 구조체
+    [System.Serializable]
+    public class TodaySeedStatusDto
+    {
+        public bool isAttendance;
+        public bool isCheer;
+        public bool isFarmingLog;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        OnClickClaim(); //입장했을때 조건 보고 보상 수령
-
-
-        EnsureDailyReset();
+        // 게임 시작 시 서버에서 조건 확인 및 보상 수령 로직 실행
+        StartCoroutine(FetchAndClaimTickets());
     }
 
-    // 매일 0시 기준 초기화 (로컬 날짜 기준. 서버 붙이면 서버 날짜 사용 권장)
+    private IEnumerator FetchAndClaimTickets()
+    {
+        // API 엔드포인트 설정
+        string baseUrl = "https://api.dev.farmsystem.kr";
+        string url = baseUrl + "/api/user/today-seed";
+
+        // UnityWebRequest를 사용하여 GET 요청 생성
+        using (UnityWebRequest www = UnityWebRequest.Get(url))
+        {
+            // 토큰이 필요하다면 여기에서 Authorization 헤더를 설정합니다.
+            // 예: www.SetRequestHeader("Authorization", "Bearer " + "YOUR_ACCESS_TOKEN");
+
+            // temporaryAccessToken 필드를 사용하여 헤더에 토큰 추가
+            if (!string.IsNullOrEmpty(temporaryAccessToken))
+            {
+                www.SetRequestHeader("Authorization", "Bearer " + temporaryAccessToken);
+            }
+
+            yield return www.SendWebRequest();
+
+            TodaySeedStatusDto status = null;
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                try
+                {
+                    // 응답을 DTO로 파싱
+                    status = JsonUtility.FromJson<TodaySeedStatusDto>(www.downloadHandler.text);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError("[SeedTicket] JSON 파싱 오류: " + ex.Message);
+                    yield break;
+                }
+            }
+            else
+            {
+                Debug.LogError($"[SeedTicket] 서버 통신 실패: {www.error}");
+                yield break;
+            }
+
+            // 서버에서 받아온 데이터로 로직 처리
+            if (status == null)
+            {
+                Debug.LogError("[SeedTicket] 서버에서 유효한 조건 정보를 받지 못했습니다.");
+                yield break;
+            }
+
+            EnsureDailyReset();
+
+            int claimedMask = PlayerPrefs.GetInt(PREF_MASK, 0);
+            int newMask = 0;
+            int total = 0;
+
+            // 서버 조건 체크: 충족 && 아직 미수령이면 마스크 세팅 + 개수 합산
+            if (status.isAttendance && (claimedMask & BIT_ATTENDANCE) == 0) { newMask |= BIT_ATTENDANCE; total += 1; }
+            if (status.isCheer && (claimedMask & BIT_CHEER) == 0) { newMask |= BIT_CHEER; total += 3; }
+            if (status.isFarmingLog && (claimedMask & BIT_FARMING) == 0) { newMask |= BIT_FARMING; total += 5; }
+
+            if (total <= 0)
+            {
+                Debug.Log("[SeedTicket] 오늘 추가로 받을 수 있는 뽑기권 없음.");
+                yield break;
+            }
+
+            // 지급
+            // CurrencyManager.Instance.AddSeedTicket(total); // 실제 게임 로직에 맞게 주석 해제
+
+            // UI 팝업 처리
+            GameObject ui = UIManager.Instance.OpenSeedTicketPopup();
+            var view = ui.GetComponent<seedTicketResultUI>();
+            
+            StartCoroutine(ShowAll(ui, 0.5f, 1f, 0.5f));
+
+            view.ticketCountText.text = "X " + total.ToString();
+            view.Init(total, onClose: () =>
+            {
+                StartCoroutine(CloseUI(ui));
+            });
+
+            // 수령 기록 저장
+            claimedMask |= newMask;
+            PlayerPrefs.SetInt(PREF_MASK, claimedMask);
+            PlayerPrefs.Save();
+        }
+    }
+
     private void EnsureDailyReset()
     {
         string today = DateTime.Now.ToString("yyyyMMdd");
         string last = PlayerPrefs.GetString(PREF_DATE, "");
 
-        PlayerPrefs.SetInt(PREF_MASK, 0); // 하루치 수령 기록 초기화
         if (last != today)
         {
             PlayerPrefs.SetString(PREF_DATE, today);
@@ -48,71 +138,11 @@ public class seedTicket : MonoBehaviour
         }
     }
 
-    // 수령 버튼 클릭
-    private void OnClickClaim()
+    private IEnumerator CloseUI(GameObject ui)
     {
-        EnsureDailyReset();
-
-        int claimedMask = PlayerPrefs.GetInt(PREF_MASK, 0);
-        int newMask = 0;
-        int total = 0;
-
-        // 조건 체크: 충족 && 아직 미수령이면 마스크 세팅 + 개수 합산
-        if (condition1 && (claimedMask & BIT_1) == 0) { newMask |= BIT_1; total += 1; }
-        if (condition3 && (claimedMask & BIT_3) == 0) { newMask |= BIT_3; total += 3; }
-        if (condition5 && (claimedMask & BIT_5) == 0) { newMask |= BIT_5; total += 5; }
-
-        if (total <= 0)
-        {
-            // 아무 것도 새로 받을 게 없으면 조용히 리턴 (아무 반응 X)
-            // 필요하면 토스트 하나 띄우고 싶다면 여기서 처리
-            Debug.Log("[SeedTicket] 오늘 추가로 받을 수 있는 뽑기권 없음.");
-            return;
-        }
-
-
-        // 지급
-        CurrencyManager.Instance.AddSeedTicket(total);
-
-        GameObject ui = UIManager.Instance.OpenSeedTicketPopup();
-        var view = ui.GetComponent<seedTicketResultUI>();
-
-        StartCoroutine(ShowAll(ui, 0.5f, 1f, 0.5f)); // 전체 페이드인
-
-        view.ticketCountText.text = "X " + total.ToString();
-        view.Init(total, onClose: () =>
-        {
-            StartCoroutine(CloseUI(ui));
-            // 닫힐 때 추가로 하고 싶은 처리
-            // 예: UIManager.Instance.HideAll();
-        });
-
-        Debug.Log($"[SeedTicket] 오늘 새로 지급: {total}개 (누적 보유: {CurrencyManager.Instance.seedTicket})");
-
-
-        // 수령 기록 저장
-        claimedMask |= newMask;
-        PlayerPrefs.SetInt(PREF_MASK, claimedMask);
-        PlayerPrefs.Save();
-
+        yield return StartCoroutine(ShowAll(ui, 1f, 0f, 0.5f));
+        UIManager.Instance.HideAll();
     }
-
-    // 외부 시스템에서 조건 갱신해줄 때 호출 (예: 출석 완료, 미션 완료 등)
-    public void SetConditions(bool c1, bool c3, bool c5)
-    {
-        condition1 = c1;
-        condition3 = c3;
-        condition5 = c5;
-    }
-
-    public IEnumerator CloseUI(GameObject ui)
-    {
-        // 1. 검은 배경 페이드 아웃
-        yield return StartCoroutine(ShowAll(ui, 1f, 0f, 0.5f)); // 전체 페이드인
-
-        UIManager.Instance.HideAll(); //전부 꺼주기
-    }
-
 
     private CanvasGroup EnsureCanvasGroup(GameObject root)
     {
@@ -141,11 +171,10 @@ public class seedTicket : MonoBehaviour
         cg.blocksRaycasts = (to > 0f);
     }
 
-    // 통째로 페이드인
     private IEnumerator ShowAll(GameObject root, float from, float to, float duration = 0.3f)
     {
         if (!root) yield break;
-        root.SetActive(true); // 꺼져있으면 알파 못 바꿈
+        root.SetActive(true);
         var cg = EnsureCanvasGroup(root);
         yield return StartCoroutine(FadeCanvasGroup(cg, from, to, duration));
     }

@@ -1,15 +1,17 @@
 using UnityEngine;
 using System;
 using TMPro;
+using System.Collections;
 
 public class FarmGround : MonoBehaviour
 {
+    [Header("밭 ID")]
+    public int x;
+    public int y;
+
     [Header("밭 상태")]
     public FarmPlotData data; //데이터 받아오기
     public SpriteRenderer spriter;
-
-    [Header("성장 시간")]
-    public DateTime bloomReadyAt; //수확 가능 시간 (기본 24시간 이후 아이템 사용시 줄어듬)
 
     [Header("상태별 밭 스프라이트")]
     public Sprite emptySprite;
@@ -22,6 +24,17 @@ public class FarmGround : MonoBehaviour
     public GameObject timer_UI; //자라고 있는 상황 유아이
     public TMP_Text timer_text; //타이머 시간 텍스트
 
+    void Awake()
+    {
+        // Start 메서드에서 data를 초기화하고 x, y를 할당
+        if (data == null)
+        {
+            data = new FarmPlotData();
+        }
+        data.x = this.x; // 인스펙터에 설정된 x 값을 data에 할당
+        data.y = this.y; // 인스펙터에 설정된 y 값을 data에 할당
+    }
+    
     public void InitGround(FarmPlotData newData)
     {
         data = newData;
@@ -34,89 +47,119 @@ public class FarmGround : MonoBehaviour
         {
             case "empty":
                 spriter.sprite = emptySprite;
+                timer_UI.SetActive(false);
                 break;
             case "growing":
+                // 서버에서 받은 ISO-8601 문자열을 DateTime으로 파싱
                 if (DateTime.TryParse(data.planted_at, out DateTime plantedTime))
                 {
-                    double growTime = 24 * 3600 - (2 * 3600 *  data.useSunCount);
-                    growTime = Mathf.Max(1, (float)growTime); // 최소 1초
+                    // 서버와 동일한 성장 시간 로직 사용
+                    double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
+                    growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
 
-                    double elapsedSeconds = (DateTime.Now - plantedTime).TotalSeconds;
-                    double progress = elapsedSeconds / (growTime); // 진행률 0~1  시간으로 수정해야함 테스트라 초
+                    double elapsedSeconds = (DateTime.UtcNow - plantedTime.ToUniversalTime()).TotalSeconds;
+                    double progress = elapsedSeconds / growTimeSeconds;
 
                     if (progress < 0.25)
-                        spriter.sprite = seedSprite; // 초기 씨앗
+                        spriter.sprite = seedSprite;
                     else if (progress < 0.5)
                         spriter.sprite = growingSprite;
                     else if (progress < 0.75)
                         spriter.sprite = growingSprite_1;
                     else
                         spriter.sprite = growingSprite_2;
+
+                    timer_UI.SetActive(true);
                 }
                 else
                 {
-                    spriter.sprite = seedSprite; // 실패 시 기본
+                    spriter.sprite = seedSprite;
                 }
                 break;
             case "grown":
                 spriter.sprite = grownSprite;
+                timer_UI.SetActive(false);
                 break;
         }
     }
-    public void PlantSeed(string plantName)
+
+    public void PlantSeed()
     {
-
-        data.plant_name = plantName;
-        data.planted_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+        // 로컬 데이터 업데이트
+        data.planted_at = FarmGroundAPI.NowIsoUtc();
         data.status = "growing";
-        data.is_shiny = UnityEngine.Random.value < 0.05f;
-
-        // DB에 업데이트 요청
+        data.plant_name = ""; // 심을 때 작물명 초기화 (수확 시점에 지정)
+        data.useSunCount = 0; // 심을 때 햇살 사용 횟수 초기화
 
         UpdateVisual();
 
+        // 서버에 데이터 업데이트 요청 (Patch)
+        StartCoroutine(FarmGroundAPI.PatchTile(data.x, data.y, FarmGroundAPI.ToDto(data), (ok, raw) =>
+        {
+            if (!ok)
+            {
+                Debug.LogError($"[FarmGround] 씨앗 심기 실패: {raw}");
+            }
+            else
+            {
+                Debug.Log("[FarmGround] 씨앗 심기 성공.");
+            }
+        }));
+
+        // UIManager 로직은 그대로 유지
         Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 0.5f);
         timer_UI.transform.position = screenPos;
-        timer_UI.SetActive(true); //타이머 켜주기
-
-        FarmGroundAPI.UpdatePlot(data);
-
     }
 
     public void TryHarvest()
     {
         if (data.status != "grown") return;
 
-        UIManager.Instance.OpenHarvestPopup(data.plant_name);
+        // 꽃을 미리 지정하고 팝업을 띄움
+        data.plant_name = FlowerDataManager.Instance.GetRandomFlowerNameByRarityWeighted();
 
+        UIManager.Instance.OpenHarvestPopup(data.plant_name);
         FlowerDataManager.Instance.RegisterFlower(data.plant_name);
+
+        // 로컬 데이터 'empty' 상태로 업데이트
         data.plant_name = "";
         data.planted_at = "";
         data.status = "empty";
-        data.is_shiny = false;
+        data.useSunCount = 0;
 
         UpdateVisual();
 
-        FarmGroundAPI.UpdatePlot(data);
+        // 서버에 데이터 업데이트 요청 (Patch)
+        StartCoroutine(FarmGroundAPI.PatchTile(data.x, data.y, FarmGroundAPI.ToDto(data), (ok, raw) =>
+        {
+            if (!ok)
+            {
+                Debug.LogError($"[FarmGround] 수확 실패: {raw}");
+            }
+            else
+            {
+                Debug.Log("[FarmGround] 수확 성공.");
+            }
+        }));
     }
 
     public void CheckGrowth()
     {
-        if (data.status != "growing") return;
-
-        DateTime plantedTime;
-        if (DateTime.TryParse(data.planted_at, out plantedTime))
+        if (data.status != "growing")
         {
-            //아이템 사용시 줄어들게 해야함
-            //double growTime = 24 * 3600 - (2 * 3600 * data.useSunCount);
-            double growTime = 3;
-            growTime = Mathf.Max(1, (float)growTime); // 최소 1초 보장
-            Debug.Log("수확 시간 : " + growTime);
-            
-            double elapsed = (DateTime.Now - plantedTime).TotalSeconds;
-            double remainingSeconds = growTime - elapsed;
+            timer_UI.SetActive(false);
+            return;
+        }
 
-            // 남은 시간 표시 (0보다 작을 경우 0으로 고정)
+        if (DateTime.TryParse(data.planted_at, out DateTime plantedTime))
+        {
+            double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
+            growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
+
+            double elapsed = (DateTime.UtcNow - plantedTime.ToUniversalTime()).TotalSeconds;
+            double remainingSeconds = growTimeSeconds - elapsed;
+
+            // 남은 시간 표시
             if (remainingSeconds > 0)
             {
                 TimeSpan ts = TimeSpan.FromSeconds(remainingSeconds);
@@ -125,22 +168,25 @@ public class FarmGround : MonoBehaviour
             }
             else
             {
-                timer_UI.SetActive(false); //유아이 꺼주기 다자라면
-            }
-
-            if ((DateTime.Now - plantedTime).TotalSeconds >= growTime)
-            {
-                Debug.Log("다자람");
+                // 성장 완료
+                Debug.Log("다 자람!");
                 data.status = "grown";
                 UpdateVisual();
-                FarmGroundAPI.UpdatePlot(data);
+                
+                // 서버에 상태 업데이트 요청 (Patch)
+                StartCoroutine(FarmGroundAPI.PatchTile(data.x, data.y, FarmGroundAPI.ToDto(data), (ok, raw) =>
+                {
+                    if (!ok)
+                    {
+                        Debug.LogError($"[FarmGround] 성장 완료 상태 업데이트 실패: {raw}");
+                    }
+                }));
             }
         }
     }
     
     private void OnMouseDown()
     {
-        //팝업 켜져있으면 다른 유아이는 안키키
         if (UIManager.Instance.IsPopupOpen())
             return;
 
