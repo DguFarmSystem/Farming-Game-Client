@@ -118,6 +118,13 @@ public class FriendManager : MonoBehaviour
     {
         inputField.text = "";
         friendPopup.SetActive(false);
+        CloseConfirmPopup();
+
+        RectTransform rect = frameParent.GetComponent<RectTransform>();
+
+        Vector2 pos = rect.anchoredPosition;
+        pos.y = 0;
+        rect.anchoredPosition = pos;
     }
 
     public void OpenConfirmPopUp(string _name)
