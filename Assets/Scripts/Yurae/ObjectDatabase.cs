@@ -6,8 +6,8 @@ using System;
 [System.Serializable]
 public class Database
 {
-    public string id;
     public string name;
+    public string id;
     public PlaceableObject prefab;
     public Sprite sprite;
 
@@ -43,9 +43,29 @@ public class ObjectDatabase : ScriptableObject
         return data[index].name;
     }
 
+    public string GetNameFromID(string id)
+    {
+        foreach (Database datum in data)
+        {
+            if (datum.id == id)
+                return datum.name;
+        }
+        return null;
+    }
+
     public Sprite GetSprite(int index)
     {
         return data[index].sprite;
+    }
+
+    public Sprite GetSpriteFromID(string id)
+    {
+        foreach (Database datum in data)
+        {
+            if (datum.id == id)
+                return datum.sprite;
+        }
+        return null;
     }
 
     public int GetCountFromIndex(int index)

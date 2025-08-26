@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using TMPro;
+using UnityEngine.Networking;
 
 [DisallowMultipleComponent]
 public class FriendPopup : MonoBehaviour
@@ -11,15 +12,24 @@ public class FriendPopup : MonoBehaviour
 
     private void Start()
     {
-        
+        string query = "¼Û";
+        string endpoint = $"/api/user/search?query={UnityWebRequest.EscapeURL(query)}";
+
+        APIManager.Instance.Get(
+            endpoint,
+            (result) =>
+            {
+                Debug.Log(result);
+            },
+            (error) =>
+            {
+                Debug.Log(error);
+            }
+        );
     }
 
     private void Update()
     {
-        Debug.Log(inputField.text);
-        if (inputField.text == null) return;
 
-        string user = inputField.text;
-        //APIManager.Instance.Get("/api/user/" + user, (result) => { Debug.Log(result); }, (error) => { Debug.LogError(error); });
     }
 }

@@ -103,8 +103,8 @@ public class TileSelectionUI : MonoBehaviour
     {
         if (placedObject == null) return;
 
-        SpriteRenderer sprite = placedObject.GetComponent<SpriteRenderer>();
-        sprite.flipX = !sprite.flipX;
+        PlaceableObject placeableObject = placedObject.GetComponent<PlaceableObject>();
+        placeableObject.Rotation();
 
         DeslectObject();
     }

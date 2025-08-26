@@ -171,13 +171,9 @@ public class PlacementManager : MonoBehaviour
                     break;
             }
 
-            // Count 감소
-            if (database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()) > 0)
-            {
-                database.PlaceData(place.GetComponent<PlaceableObject>().GetID());
-                buildManager.Init();
-            }
-            
+            database.PlaceData(place.GetComponent<PlaceableObject>().GetID());
+            buildManager.Init();
+
             // 취소 여부 판별
             if (database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()) == 0) CancelPlace();
 
