@@ -25,7 +25,7 @@ MonoBehaviour:
     id: Tilemap_Field
     prefab: {fileID: 0}
     sprite: {fileID: 4966695935349635398, guid: 0fe185a70c4276243b131476f053f6ee, type: 3}
-    count: 8
+    count: 7
     type: 0
     price: 1000
   - name: "\uB3CC"
@@ -46,7 +46,7 @@ MonoBehaviour:
     id: Deco_Pot_Palm
     prefab: {fileID: 0}
     sprite: {fileID: -1611899011305051494, guid: 55aebaf64eda07040b7257ef06871940, type: 3}
-    count: 33
+    count: 32
     type: 1
     price: 1000
   - name: "\uB300\uB098\uBB34 \uD654\uBD84"
@@ -636,4 +636,11 @@ MonoBehaviour:
     sprite: {fileID: 7429649762109471711, guid: cc244e8414c580b48a65abee3c95715b, type: 3}
     count: 50
     type: 2
+    price: -1
+  - name: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC"
+    id: Wood_Fence
+    prefab: {fileID: 0}
+    sprite: {fileID: 819436441730897038, guid: 79c1764bfcb85db4e9c465572c3b4dad, type: 3}
+    count: 100
+    type: 1
     price: -1

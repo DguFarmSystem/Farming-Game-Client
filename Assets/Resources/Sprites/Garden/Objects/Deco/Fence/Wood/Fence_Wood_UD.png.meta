@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 94e2979687e8fdd4a83fb75990e0c823
+guid: 79c1764bfcb85db4e9c465572c3b4dad
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8329851655915534802
-    second: Fence_Test_RDLU_0
+      213: 819436441730897038
+    second: Fence_Wood_UD_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 512
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fence_Test_RDLU_0
+      name: Fence_Wood_UD_0
       rect:
         serializedVersion: 2
         x: 120
         y: 73
         width: 260
         height: 354
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e2684796d0c666c80800000000000000
-      internalID: -8329851655915534802
+      spriteID: e8451692a193f5b00800000000000000
+      internalID: 819436441730897038
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b890ba173bbf59e449f5f49a59cf45d6
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Fence_Test_RDLU_0: -8329851655915534802
+      Fence_Wood_UD_0: 819436441730897038
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

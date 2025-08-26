@@ -1,5 +1,6 @@
 // Unity
 using UnityEngine;
+using System.Collections.Generic;
 
 [DisallowMultipleComponent]
 public class GridManager : MonoBehaviour
@@ -17,6 +18,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Transform gridParent;
     [SerializeField] private Transform objectParent;
 
+    private List<GameObject> gridObjects;
+
+
     private void Awake()
     {
         Instance = this;
@@ -24,11 +28,19 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
+        gridObjects = new List<GameObject>();
         GenerateBaseGrid(GameManager.Instance.playerLV);
     }
 
     private void GenerateBaseGrid(int _playerLevel = 1)
     {
+        foreach (GameObject gridObject in gridObjects)
+        {
+            DestroyImmediate(gridObject.gameObject);
+        }
+
+        gridObjects.Clear();
+
         width = GetSize(_playerLevel);
         height = GetSize(_playerLevel);
 
@@ -40,6 +52,7 @@ public class GridManager : MonoBehaviour
                 Vector2Int gridPos = GetGridPosition(pos);
 
                 GameObject gridObj = Instantiate(baseGridPrefab, pos, Quaternion.identity, gridParent);
+                gridObjects.Add(gridObj);
 
                 BaseGrid grid = gridObj.GetComponent<BaseGrid>();
                 if (grid != null) grid.SetGridPos(gridPos);
@@ -91,5 +104,23 @@ public class GridManager : MonoBehaviour
     {
         GameManager.Instance.playerLV++;
         GameManager.Scene.ReLoad();
+    }
+
+    public bool HasFenceAt(Vector2Int gridPos)
+    {
+        BaseGrid baseGrid = null;
+        foreach(GameObject gridObject in gridObjects)
+        {
+            BaseGrid tempBG = gridObject.GetComponent<BaseGrid>();
+            if (tempBG.GetGridPos() == gridPos) baseGrid = tempBG;
+        }
+
+        if (baseGrid == null) return false;
+
+        if (baseGrid.GetObject() == null) return false;
+        else if (baseGrid.GetObject().gameObject.name.Contains("Fence")) return true;
+
+        return false;
+
     }
 }
