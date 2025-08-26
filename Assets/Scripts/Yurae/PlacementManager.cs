@@ -174,7 +174,7 @@ public class PlacementManager : MonoBehaviour
             database.PlaceData(place.GetComponent<PlaceableObject>().GetID());
             buildManager.Init();
 
-            // 취소 여부 판별
+            // Judge Cancel
             if (database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()) == 0) CancelPlace();
 
             place.GetComponent<PlaceableObject>().SetPosition(_gridPos);
