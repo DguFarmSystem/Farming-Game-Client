@@ -31,8 +31,6 @@ public class FarmPopup : MonoBehaviour
     {
         targetTile = tile;
 
-        //꽃 미리 지정
-        selectedPlantName = FlowerDataManager.Instance.GetRandomFlowerNameByRarityWeighted();
 
         // 초기 상태
         useSun = 0;
@@ -82,7 +80,7 @@ public class FarmPopup : MonoBehaviour
         {
             CurrencyManager.Instance.SpendSunlight(useSun);
             targetTile.data.useSunCount = useSun;
-            targetTile.PlantSeed(selectedPlantName);  // 씨앗 랜덤 뽑힌거로 확정
+            targetTile.PlantSeed();  // 씨앗 랜덤 뽑힌거로 확정
         }
         else
         {
