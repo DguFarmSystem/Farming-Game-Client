@@ -70,21 +70,26 @@ public class BagManager : MonoBehaviour
     {
         Debug.Log("BagManager.Open 호출됨");
 
+        // 열기 사운드
+        try { GameManager.Sound.SFXPlay("SFX_ButtonClick"); } catch { }
+
         gameObject.SetActive(true);
         windowRect.DOKill();
         panelGroup.DOKill();
 
-        Rebuild();
+        // 서버에서 인벤토리 갱신 후 재구성
+        FetchInventoryAndRebuild();
 
         panelGroup.blocksRaycasts = true;
         windowRect.DOAnchorPosY(0, slideDuration).SetEase(Ease.OutBack);
-
         panelGroup.alpha = 1f;
     }
 
     public void Close()
     {
-        GameManager.Sound.SFXPlay("SFX_ButtonCancle");
+        // 닫기 사운드
+        try { GameManager.Sound.SFXPlay("SFX_ButtonCancle"); } catch { }
+
         windowRect.DOKill();
         panelGroup.DOKill();
 
@@ -110,6 +115,21 @@ public class BagManager : MonoBehaviour
         BuildBagSlots();
     }
 
+    public void FetchInventoryAndRebuild()
+    {
+        if (APIManager.Instance == null || objectDatabase == null)
+        {
+            Debug.LogError("[Bag] APIManager 또는 ObjectDatabase 누락");
+            BuildBagSlots();
+            return;
+        }
+
+        APIManager.Instance.Get("/api/inventory",
+            ok => { objectDatabase.ApplyInventoryJson(ok, true); BuildBagSlots(); },
+            err => { Debug.LogError("[Bag] 인벤토리 로드 실패: " + err); BuildBagSlots(); }
+        );
+    }
+
     private void BuildBagSlots()
     {
         foreach (var parent in parents)
@@ -132,7 +152,7 @@ public class BagManager : MonoBehaviour
         for (int i = 0; i < total; i++)
         {
             int count = objectDatabase.GetCountFromIndex(i);
-            if (count <= 0) continue; 
+            if (count <= 0) continue;
 
             string id = objectDatabase.GetID(i);
             string name = objectDatabase.GetName(i);
@@ -146,7 +166,7 @@ public class BagManager : MonoBehaviour
                 continue;
             }
 
-            Transform parent = parents[(int)type];
+            Transform parent = parents[idx];
 
             var slotObj = Instantiate(objectSelectButtonPrefab, parent, false);
             slotObj.name = $"BagSlot_{id}";
@@ -154,7 +174,7 @@ public class BagManager : MonoBehaviour
             var bagView = slotObj.GetComponent<BagItemSlotView>();
             if (bagView)
             {
-                bagView.Bind(objectDatabase, i); 
+                bagView.Bind(objectDatabase, i);
             }
             else
             {
@@ -165,7 +185,7 @@ public class BagManager : MonoBehaviour
                 }
             }
 
-            // 3) 우클릭 판매 연결
+            // 우클릭 판매 연결
             var rcSell = slotObj.GetComponent<RightClickSell>();
             if (!rcSell) rcSell = slotObj.AddComponent<RightClickSell>();
             rcSell.Init(i, objectDatabase, sellPopupPrefab, defaultSellPrice, quickMenu);

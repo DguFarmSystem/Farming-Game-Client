@@ -10,10 +10,11 @@ public class FarmManager : MonoBehaviour
 
     [Header("유저/식별")]
     public string uid;
-    [Tooltip("임시 액세스 토큰 (테스트용)")]
-    [SerializeField] private string temporaryAccessToken;
+    
     [Tooltip("plot_id 자동 채번 시 접두사 (기본: uid_인덱스)")]
     public string plotIdPrefixOverride = "";
+    [Tooltip("임시 액세스 토큰 (테스트용)")]
+    [SerializeField] private string temporaryAccessToken;
 
     [Header("상태별 밭 스프라이트")]
     public Sprite emptySprite;
@@ -30,7 +31,10 @@ public class FarmManager : MonoBehaviour
 
     private void Start()
     {
-        FarmGroundAPI.AccessToken = temporaryAccessToken;
+        if (APIManager.Instance != null)
+        {
+            FarmGroundAPI.AccessToken = APIManager.Instance.getAccessToken();
+        }
         CollectSceneTiles();
         StartCoroutine(InitFarmFromServer());
     }

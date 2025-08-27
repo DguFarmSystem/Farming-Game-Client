@@ -24,6 +24,8 @@ public class FarmGround : MonoBehaviour
     public GameObject timer_UI; //자라고 있는 상황 유아이
     public TMP_Text timer_text; //타이머 시간 텍스트
 
+    public ObjectDatabase database; //데이터 베이스용
+
     void Awake()
     {
         // Start 메서드에서 data를 초기화하고 x, y를 할당
@@ -54,7 +56,8 @@ public class FarmGround : MonoBehaviour
                 if (DateTime.TryParse(data.planted_at, out DateTime plantedTime))
                 {
                     // 서버와 동일한 성장 시간 로직 사용
-                    double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
+                    //double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
+                    double growTimeSeconds = 10;
                     growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
 
                     double elapsedSeconds = (DateTime.UtcNow - plantedTime.ToUniversalTime()).TotalSeconds;
@@ -89,7 +92,6 @@ public class FarmGround : MonoBehaviour
         data.planted_at = FarmGroundAPI.NowIsoUtc();
         data.status = "growing";
         data.plant_name = ""; // 심을 때 작물명 초기화 (수확 시점에 지정)
-        data.useSunCount = 0; // 심을 때 햇살 사용 횟수 초기화
 
         UpdateVisual();
 
@@ -118,8 +120,13 @@ public class FarmGround : MonoBehaviour
         // 꽃을 미리 지정하고 팝업을 띄움
         data.plant_name = FlowerDataManager.Instance.GetRandomFlowerNameByRarityWeighted();
 
-        UIManager.Instance.OpenHarvestPopup(data.plant_name);
+        string getFlower = "Deco_" + data.plant_name;
+        
+        database.AddData(getFlower); //꽃 추가
+        
+        UIManager.Instance.OpenHarvestPopup(data.plant_name, database.GetNameFromID(getFlower));
         FlowerDataManager.Instance.RegisterFlower(data.plant_name);
+
 
         // 로컬 데이터 'empty' 상태로 업데이트
         data.plant_name = "";
@@ -153,7 +160,8 @@ public class FarmGround : MonoBehaviour
 
         if (DateTime.TryParse(data.planted_at, out DateTime plantedTime))
         {
-            double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
+            //double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
+            double growTimeSeconds = 10;
             growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
 
             double elapsed = (DateTime.UtcNow - plantedTime.ToUniversalTime()).TotalSeconds;
