@@ -142,7 +142,7 @@ public class CurrencyManager : MonoBehaviour
         bool done = false;
         string error = null;
 
-        APIManager.Instance.Put(url, json,
+        /*APIManager.Instance.Put(url, json,
             (response) =>
             {
                 Debug.Log("재화 저장 성공: " + response);
@@ -153,7 +153,7 @@ public class CurrencyManager : MonoBehaviour
                 error = err;
                 done = true;
             }
-        );
+        );*/
 
         while (!done) yield return null;
 

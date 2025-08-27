@@ -106,5 +106,6 @@ public class HarvestUI : MonoBehaviour
     {
         GameManager.Sound.SFXPlay("SFX_ButtonClick");
         UIManager.Instance.HideAll(); //전부 꺼주기
+        UIManager.Instance.PlayQueuedBadges(); // 뱃지 연출 재생하기 
     }
 }

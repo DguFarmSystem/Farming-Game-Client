@@ -414,7 +414,6 @@ MonoBehaviour:
   gold: 0
   sunlight: 20
   seedCount: 2
-  temporaryAccessToken: 
 --- !u!4 &159021075
 Transform:
   m_ObjectHideFlags: 0
@@ -1562,6 +1561,10 @@ PrefabInstance:
       propertyPath: popupParent
       value: 
       objectReference: {fileID: 887311101}
+    - target: {fileID: 4271729146432909322, guid: f6b61373f580e40d68e2e68b1983a7d4, type: 3}
+      propertyPath: badgeUnlockPrefab
+      value: 
+      objectReference: {fileID: 5032363625306022309, guid: 7fb415b2ff670460a96d45e3c0955d3d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
