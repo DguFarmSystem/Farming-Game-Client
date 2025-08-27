@@ -113,24 +113,24 @@ public class MiniGameButtonHandler : MonoBehaviour
         var body = new DailyGameUseRequest { gameType = info.gameType };
         string json = JsonUtility.ToJson(body);
 
-        APIManager.Instance.Patch(
-            "/api/daily-game/use",
-            json,
-            onSuccess: (_) =>
-            {
-                GameManager.Sound.SFXPlay("SFX_GameStart");
-                SceneLoader.Instance.GoToMiniGame(selected);
-            },
-            onError: (err) =>
-            {
-                if (!string.IsNullOrEmpty(err) && err.Contains("400"))
-                    Debug.LogWarning("일일 게임 제한 초과");
-                else
-                    Debug.LogWarning($"daily-game/use PATCH error : {err}");
+        //APIManager.Instance.Patch(
+        //    "/api/daily-game/use",
+        //    json,
+        //    onSuccess: (_) =>
+        //    {
+        //        GameManager.Sound.SFXPlay("SFX_GameStart");
+        //        SceneLoader.Instance.GoToMiniGame(selected);
+        //    },
+        //    onError: (err) =>
+        //    {
+        //        if (!string.IsNullOrEmpty(err) && err.Contains("400"))
+        //            Debug.LogWarning("일일 게임 제한 초과");
+        //        else
+        //            Debug.LogWarning($"daily-game/use PATCH error : {err}");
 
-                popupPanel.SetActive(false);
-            }
-        );
+        //        popupPanel.SetActive(false);
+        //    }
+        //);
     }
 
     public void CancelGame()
