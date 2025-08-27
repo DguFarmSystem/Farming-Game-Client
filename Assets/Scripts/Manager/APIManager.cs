@@ -61,7 +61,7 @@ public class APIManager : MonoBehaviour
         StartCoroutine(PostRequest(baseUrl + endPoint, json, onSuccess, onError));
     }
 
-     // ❗ PUT 메서드 추가
+     // PUT 메서드 추가
     public void Put(string endPoint, string json, Action<string> onSuccess, Action<string> onError = null)
     {
         StartCoroutine(PutRequest(baseUrl + endPoint, json, onSuccess, onError));
@@ -222,7 +222,7 @@ public class APIManager : MonoBehaviour
             onError?.Invoke(string.IsNullOrEmpty(body) ? www.error : body);
     }
 
-    // ❗ PUT 요청을 위한 코루틴 추가
+    // PUT 요청을 위한 코루틴 추가
     private IEnumerator PutRequest(string url, string json, Action<string> onSuccess, Action<string> onError)
     {
         if (IsJwtExpired(AccessToken))

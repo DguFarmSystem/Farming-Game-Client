@@ -52,6 +52,16 @@ public class PurchasePopup : MonoBehaviour
     [Header("구매 성공 시 알림 (resourceKey, displayName, count)")]
     public PurchaseEvent onPurchased;
 
+    [Header("Single-Qty Item")]
+    [SerializeField] private string singleQtyResourceKey = "Tilemap_Upgrade";
+    private bool isSingleQtyItem = false;
+
+    [SerializeField] private string deferDispatchKey = "Tilemap_Upgrade";
+    private bool deferPurchase;
+    private string pendingKey;
+    private string pendingItemName;
+    private int pendingCount;
+
     private void Awake()
     {
         Instance = this;
@@ -74,51 +84,62 @@ public class PurchasePopup : MonoBehaviour
             failPanelStartPos = failPanelShownPos + new Vector2(0, -Screen.height);
             failPanelRect.anchoredPosition = failPanelStartPos;
         }
-
         if (purchaseFailPanel != null) purchaseFailPanel.SetActive(false);
+
         plusButton.onClick.AddListener(() => ChangeCount(1));
         minusButton.onClick.AddListener(() => ChangeCount(-1));
         confirmButton.onClick.AddListener(OnConfirm);
         rejectButton.onClick.AddListener(Close);
         inputField.onEndEdit.AddListener(OnInputChanged);
         completeConfirmButton.onClick.AddListener(HideCompletePanel);
-
-        if (failConfirmButton != null)
-            failConfirmButton.onClick.AddListener(HideFailPanel);
+        if (failConfirmButton != null) failConfirmButton.onClick.AddListener(HideFailPanel);
     }
 
     public void Open(string itemName, int pricePerItem)
     {
+        deferPurchase = false;
+        pendingKey = null; pendingItemName = null; pendingCount = 0;
         Open(itemName, pricePerItem, null);
     }
 
     public void Open(string itemName, int pricePerItem, string resourceKey)
     {
-        Debug.Log($"Open called: {itemName} / {pricePerItem}");
-
         this.itemName = itemName;
         this.unitPrice = pricePerItem;
         this.resourceKey = resourceKey;
-        currentCount = 1;
 
-        // 초기화 안전하게
+        isSingleQtyItem = (!string.IsNullOrEmpty(resourceKey) && resourceKey == singleQtyResourceKey);
+
+        // 초기화
+        currentCount = 1;
         gameObject.SetActive(true);
         popupPanel.gameObject.SetActive(true);
-
         popupPanel.anchoredPosition = hiddenPos;
         popupPanel.DOAnchorPos(shownPos, slideDuration).SetEase(Ease.OutBack);
 
-        this.itemName = itemName;
-        this.unitPrice = pricePerItem;
-        currentCount = 1;
-
         itemNameText.text = $"{itemName}을(를)\n구매하시겠습니까?";
-        inputField.text = currentCount.ToString();
+        SetupQtyUI(isSingleQtyItem);
         UpdateTotalPrice();
+    }
+
+    private void SetupQtyUI(bool single)
+    {
+        currentCount = 1;
+        inputField.text = "1";
+
+        if (plusButton) plusButton.interactable = !single;
+        if (minusButton) minusButton.interactable = !single;
+
+        if (inputField)
+        {
+            inputField.readOnly = single;
+            inputField.interactable = !single;
+        }
     }
 
     private void ChangeCount(int delta)
     {
+        if (isSingleQtyItem) return;
         currentCount = Mathf.Clamp(currentCount + delta, 1, 999);
         inputField.text = currentCount.ToString();
         UpdateTotalPrice();
@@ -126,28 +147,29 @@ public class PurchasePopup : MonoBehaviour
 
     private void OnInputChanged(string val)
     {
+        if (isSingleQtyItem) { inputField.text = "1"; UpdateTotalPrice(); return; }
+
         if (int.TryParse(val, out int num))
-        {
             currentCount = Mathf.Clamp(num, 1, 999);
-        }
         else
-        {
             currentCount = 1;
-        }
+
         inputField.text = currentCount.ToString();
         UpdateTotalPrice();
     }
 
     private void UpdateTotalPrice()
     {
-        int total = unitPrice * currentCount;
+        int total = unitPrice * Mathf.Max(1, currentCount);
         totalPriceText.text = $": {total}G";
     }
 
     private void OnConfirm()
     {
         GameManager.Sound.SFXPlay("SFX_ButtonClick");
-        int totalCost = Mathf.Max(0, unitPrice) * currentCount;
+        int finalCount = (resourceKey == singleQtyResourceKey) ? 1 : Mathf.Clamp(currentCount, 1, 999);
+        int totalCost = Mathf.Max(0, unitPrice) * finalCount;
+
         popupPanel.gameObject.SetActive(false);
 
         var cm = CurrencyManager.Instance;
@@ -155,10 +177,21 @@ public class PurchasePopup : MonoBehaviour
 
         if (cm.SpendGold(totalCost))
         {
-            try { onPurchased?.Invoke(resourceKey, itemName, currentCount); }
-            catch (System.Exception e) { Debug.LogError($"onPurchased invoke error: {e}"); }
+            bool shouldDefer = !string.IsNullOrEmpty(resourceKey) && resourceKey == deferDispatchKey;
+            if (shouldDefer)
+            {
+                deferPurchase = true;
+                pendingKey = resourceKey;
+                pendingItemName = itemName;
+                pendingCount = finalCount;
+            }
+            else
+            {
+                try { onPurchased?.Invoke(resourceKey, itemName, finalCount); }
+                catch (System.Exception e) { Debug.LogError($"onPurchased invoke error: {e}"); }
+            }
 
-            ShowPurchaseCompleteMessage(itemName, currentCount);
+            ShowPurchaseCompleteMessage(itemName, finalCount);
         }
         else
         {
@@ -180,8 +213,6 @@ public class PurchasePopup : MonoBehaviour
     private void ShowPurchaseCompleteMessage(string name, int count)
     {
         completeText.text = $"{name} {count}개를 구매하였습니다.";
-
-        // 위치를 먼저 세팅하고 활성화 (이 부분이 핵심!)
         completePanelRect.anchoredPosition = completePanelShownPos;
         purchaseCompletePanel.SetActive(true);
     }
@@ -190,31 +221,39 @@ public class PurchasePopup : MonoBehaviour
     {
         GameManager.Sound.SFXPlay("SFX_ButtonClick");
         completePanelRect.DOAnchorPos(completePanelStartPos, completeSlideDuration)
-        .SetEase(Ease.InCubic)
-        .OnComplete(() => purchaseCompletePanel.SetActive(false));
+            .SetEase(Ease.InCubic)
+            .OnComplete(() =>
+            {
+                purchaseCompletePanel.SetActive(false);
+
+            if (deferPurchase)
+                {
+                    var key = pendingKey;
+                    var name = pendingItemName;
+                    var cnt = pendingCount;
+
+                deferPurchase = false;
+                    pendingKey = null; pendingItemName = null; pendingCount = 0;
+
+                    try { onPurchased?.Invoke(key, name, cnt); }
+                    catch (System.Exception e) { Debug.LogError($"onPurchased (deferred) error: {e}"); }
+                }
+            });
     }
+
 
     private void ShowPurchaseFailMessage(string msg)
     {
         if (failText != null) failText.text = msg;
-
-        if (failPanelRect != null)
-        {
-            // 위치 세팅 후 즉시 표시
-            failPanelRect.anchoredPosition = failPanelShownPos;
-        }
-
-        if (purchaseFailPanel != null)
-            purchaseFailPanel.SetActive(true);
-        else
-            Debug.LogWarning("구매 실패 패널이 설정되지 않았습니다.");
+        if (failPanelRect != null) failPanelRect.anchoredPosition = failPanelShownPos;
+        if (purchaseFailPanel != null) purchaseFailPanel.SetActive(true);
+        else Debug.LogWarning("구매 실패 패널이 설정되지 않았습니다.");
     }
 
     private void HideFailPanel()
     {
         if (failPanelRect == null || purchaseFailPanel == null)
         {
-            // 세팅이 안됐으면 그냥 끈다
             if (purchaseFailPanel != null) purchaseFailPanel.SetActive(false);
             return;
         }

@@ -73,9 +73,18 @@ public class UIManager : MonoBehaviour
     public void HideAll()
     {
         plantUI?.Hide();
+
         if (currentPopup != null)
         {
             DOTween.Kill(currentPopup, complete: false);
+
+            if (currentPopup.GetComponentInChildren<BadgeManager>(true) != null)
+            {
+                currentPopup.SetActive(false);
+                currentPopup = null;
+                return;
+            }
+
             Destroy(currentPopup);
             currentPopup = null;
         }

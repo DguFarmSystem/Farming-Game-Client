@@ -21,7 +21,7 @@ public class SellPopup : MonoBehaviour
     [SerializeField] float openDur = 0.20f, closeDur = 0.18f, doneCloseDur = 0.22f;
 
     [Header("API")]
-    [SerializeField] string sellEndpoint = "/api/inventory/update/object";
+    [SerializeField] string sellEndpoint = "/api/inventory/update";
 
     ObjectDatabase db;
     int index, unitPrice, max, sel = 1;
@@ -32,8 +32,26 @@ public class SellPopup : MonoBehaviour
     [Serializable] class InvGetRow { public long object_type; public int object_count; }
     [Serializable] class InvGetEnv { public int status; public string message; public InvGetRow[] data; }
 
+    void Awake()
+    {
+        Debug.Log($"[SellPopup.Awake] name={name}, path={GetPath(transform)}, scene={gameObject.scene.path}, endpoint={sellEndpoint}");
+    }
+    string GetPath(Transform t)
+    {
+        var p = t.name;
+        while (t.parent != null) { t = t.parent; p = t.name + "/" + p; }
+        return p;
+    }
+    
     public void Open(ObjectDatabase database, int itemIndex, int defaultUnitPrice)
     {
+        if (sellEndpoint != null && sellEndpoint.EndsWith("/object"))
+        {
+            Debug.LogWarning($"[Sell] endpoint had trailing '/object'. Fixing: {sellEndpoint}");
+            sellEndpoint = sellEndpoint.Substring(0, sellEndpoint.Length - "/object".Length);
+        }
+        Debug.Log($"[Sell] Using endpoint: {sellEndpoint}");
+
         db = database;
         index = itemIndex;
         unitPrice = defaultUnitPrice;
@@ -71,7 +89,7 @@ public class SellPopup : MonoBehaviour
         okBtn.onClick.AddListener(() =>
         {
             GameManager.Sound.SFXPlay("SFX_ButtonClick");
-            StartCoroutine(SellFlow_FinalOnly());
+            StartCoroutine(SellFlow());
         });
 
         // 완료 OK: 클릭 사운드 + 닫기
@@ -109,10 +127,10 @@ public class SellPopup : MonoBehaviour
         var payload = new InvUpdateReq { object_type = storeNo, object_count = newCount };
         string json = JsonUtility.ToJson(payload);
 
-        APIManager.Instance.Post(sellEndpoint, json,
+        APIManager.Instance.Put(sellEndpoint, json,
             onSuccess: ok =>
             {
-                Debug.Log($"[Sell] POST OK: {ok}");
+                Debug.Log($"[Sell] PUT OK: {ok}");
                 try
                 {
                     var env = JsonUtility.FromJson<Envelope>(ok);
@@ -145,12 +163,16 @@ public class SellPopup : MonoBehaviour
         );
     }
 
-    System.Collections.IEnumerator SellFlow_FinalOnly()
+    System.Collections.IEnumerator SellFlow()
     {
+        // 1. 이미 판매 중이거나 판매 수량/최대치가 0 이하이면 종료
         if (selling || max <= 0 || sel <= 0) yield break;
+        // 2. 판매 상태로 전환 및 UI 갱신
         selling = true; Refresh();
 
+        // 3. 상점 아이템 번호 조회
         long storeNo = db != null ? db.GetStoreGoodsNumber(index) : -1;
+        // 4. 잘못된 번호면 에러 처리 및 복구
         if (storeNo <= 0)
         {
             Debug.LogError($"[Sell] invalid storeGoodsNumber: {storeNo}");
@@ -158,8 +180,10 @@ public class SellPopup : MonoBehaviour
             yield break;
         }
 
+        // 5. 서버에서 현재 수량 조회
         int serverCount = -1;
         yield return StartCoroutine(GetServerCount(storeNo, v => serverCount = v));
+        // 6. 조회 실패 시 에러 처리 및 복구
         if (serverCount < 0)
         {
             Debug.LogError("[Sell] preflight GET failed");
@@ -167,9 +191,11 @@ public class SellPopup : MonoBehaviour
             yield break;
         }
 
+        // 7. 실제 판매 수량 및 최종 수량 계산
         int sellCnt = Mathf.Min(sel, serverCount);
         int finalCount = Mathf.Max(0, serverCount - sellCnt);
 
+        // 8. 변경 사항 없으면 종료
         if (finalCount == serverCount)
         {
             Debug.Log("[Sell] nothing to change (serverCount == finalCount)");
@@ -177,24 +203,29 @@ public class SellPopup : MonoBehaviour
             yield break;
         }
 
+        // 9. 판매 요청 페이로드 생성 및 로그
         var payload = new InvUpdateReq { object_type = storeNo, object_count = finalCount };
         string json = JsonUtility.ToJson(payload);
-        Debug.Log($"[Sell] FINAL POST {sellEndpoint} body={json} (serverBefore={serverCount}, sell={sellCnt}, final={finalCount})");
+        Debug.Log($"[Sell] FINAL PUT {sellEndpoint} body={json} (serverBefore={serverCount}, sell={sellCnt}, final={finalCount})");
 
+        // 10. PUT 요청 및 결과 대기
         bool postDone = false, postOk = false;
-        APIManager.Instance.Post(
+        APIManager.Instance.Put(
             sellEndpoint,
             json,
-            ok => { postOk = true; Debug.Log($"[Sell] POST OK: {ok}"); postDone = true; },
-            err => { Debug.LogError($"[Sell] POST ERR: {err}"); postDone = true; }
+            ok => { postOk = true; Debug.Log($"[Sell] PUT OK: {ok}"); postDone = true; },
+            err => { Debug.LogError($"[Sell] PUT ERR: {err}"); postDone = true; }
         );
         yield return new WaitUntil(() => postDone);
+        // 11. 실패 시 복구
         if (!postOk) { OnSellFailRestore(); yield break; }
 
+        // 12. 서버 수량 재확인
         int after = -1;
         yield return StartCoroutine(GetServerCount(storeNo, v => after = v));
         Debug.Log($"[Sell] verify serverCount={after}, expected={finalCount}");
 
+        // 13. 정상 반영 시 보상 지급 및 UI 처리
         if (after == finalCount)
         {
             CurrencyManager.Instance?.AddGold(sellCnt * unitPrice);
@@ -208,6 +239,7 @@ public class SellPopup : MonoBehaviour
 
             selling = false; Refresh();
         }
+        // 14. 불일치 시 에러 및 복구
         else
         {
             Debug.LogError("[Sell] verify failed: server != expected (백엔드 규칙/권한/트랜잭션 확인 필요)");

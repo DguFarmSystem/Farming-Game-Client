@@ -74,7 +74,7 @@ MonoBehaviour:
     category: 1
     icon: {fileID: -4583415149285929099, guid: 0fd1a881283f94226a345f0ede8352c0, type: 3}
   - itemName: "\uAC00\uB85C\uB4F1"
-    resourceKey: Deco_Lamp_Post
+    resourceKey: 200610
     price: 2000
     category: 1
     icon: {fileID: 3840743316631763920, guid: 6afa797588f8c4f34bd30d320ce017be, type: 3}
