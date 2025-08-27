@@ -7,7 +7,7 @@ public enum ShopCategory { Tile, Object }
 public class ShopItemEntry
 {
     public string itemName;       // 화면표시 이름
-    public string resourceKey;    // 리소스 키
+    public long resourceKey;    // 리소스 키
     public int price;             // 골드
     public ShopCategory category; // 분류
     public Sprite icon;           // 아이콘

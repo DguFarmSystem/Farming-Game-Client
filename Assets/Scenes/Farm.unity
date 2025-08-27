@@ -415,7 +415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uid: 
   seedTicket: 1
-  gold: 0
+  gold: 20000
   sunlight: 20
   seedCount: 2
 --- !u!4 &159021075

@@ -42,6 +42,9 @@ public class ShopPurchaseBridge : MonoBehaviour
             Debug.LogWarning("[Shop] ObjectDatabase 미연결(일반 아이템)");
         }
 
+        // 서버에 최종 수량 PUT
+        StartCoroutine(PurchaseFlow(resourceKey, count));
+
         // 3) UI 갱신
         if (refreshBagOnPurchase)
         {
@@ -54,8 +57,6 @@ public class ShopPurchaseBridge : MonoBehaviour
             if (build) build.UpdateCountTMP();
         }
 
-        // 서버에 최종 수량 PUT
-        StartCoroutine(PurchaseFlow(resourceKey, count));
     }
 
     private void ApplyGridUpgrade(int count)

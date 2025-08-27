@@ -13,7 +13,7 @@ public class ShopItemSlot : MonoBehaviour
     [SerializeField] private TMP_Text textProgress;   // "1/3", "2/3", "MAX"
 
     [Header("Upgrade Settings")]
-    [SerializeField] private string upgradeResourceKey = "Tilemap_Upgrade";
+    [SerializeField] private long upgradeResourceKey = 200610; // 업그레이드 아이템 ID
     [SerializeField] private int upgradeMaxCalls = 3;
 
     private string PrefsKey => $"upgrade_calls_{upgradeResourceKey}";
@@ -24,7 +24,7 @@ public class ShopItemSlot : MonoBehaviour
     // 슬롯 데이터
     public string itemName;
     public int price;
-    private string resourceKey;
+    private long resourceKey; // ← long으로 변경
 
     private void OnEnable()
     {
@@ -43,7 +43,7 @@ public class ShopItemSlot : MonoBehaviour
 
         itemName = entry.itemName;
         price = entry.price;
-        resourceKey = entry.resourceKey;
+        resourceKey = entry.resourceKey; // ← long 그대로
 
         if (textName) textName.text = entry.itemName;
         if (textPrice) textPrice.text = entry.price.ToString();
@@ -52,9 +52,17 @@ public class ShopItemSlot : MonoBehaviour
         RefreshUpgradeStatus();
     }
 
-    public void SetResourceKey(string key)
+    // 필요 시 외부에서 설정
+    public void SetResourceKey(long key)
     {
         resourceKey = key;
+        RefreshUpgradeStatus();
+    }
+
+    // (호환용) string이 들어오면 파싱 시도
+    public void SetResourceKey(string key)
+    {
+        if (long.TryParse(key, out var v)) resourceKey = v;
         RefreshUpgradeStatus();
     }
 
@@ -69,10 +77,8 @@ public class ShopItemSlot : MonoBehaviour
             return;
         }
 
-        if (!string.IsNullOrEmpty(resourceKey))
-            PurchasePopup.Instance.Open(itemName, price, resourceKey);
-        else
-            PurchasePopup.Instance.Open(itemName, price);
+        // 팝업은 long 키 버전 사용
+        PurchasePopup.Instance.Open(itemName, price, resourceKey);
     }
 
     private void RefreshUpgradeStatus()
@@ -85,6 +91,7 @@ public class ShopItemSlot : MonoBehaviour
 
         int max = Mathf.Max(1, upgradeMaxCalls);
 
+        // (옵션) 과거 글로벌 키 마이그레이션
         const string LEGACY = "grid_upgrade_calls";
         if (PlayerPrefs.HasKey(LEGACY) && !PlayerPrefs.HasKey(PrefsKey))
         {
@@ -98,6 +105,7 @@ public class ShopItemSlot : MonoBehaviour
         int used = Mathf.Clamp(stored, 0, max);
         if (used != stored) { PlayerPrefs.SetInt(PrefsKey, used); PlayerPrefs.Save(); }
 
+        // 1/3 → 2/3 → MAX (3/3은 바로 MAX 표기)
         int purchaseCap = Mathf.Max(1, max - 1);
         bool maxForDisplay = used >= purchaseCap;
 
@@ -106,15 +114,13 @@ public class ShopItemSlot : MonoBehaviour
     }
 
     private bool IsUpgradeItem()
-        => !string.IsNullOrEmpty(resourceKey) && resourceKey == upgradeResourceKey;
+        => resourceKey > 0 && resourceKey == upgradeResourceKey;
 
     private bool IsUpgradeMaxed()
     {
         int max = Mathf.Max(1, upgradeMaxCalls);
         int used = Mathf.Clamp(PlayerPrefs.GetInt(PrefsKey, 0), 0, max);
-
         int purchaseCap = Mathf.Max(1, max - 1);
         return used >= purchaseCap;
     }
-
 }

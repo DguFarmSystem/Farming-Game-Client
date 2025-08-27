@@ -20,7 +20,7 @@ public class PurchasePopup : MonoBehaviour
     public int currentCount = 1;
     public int unitPrice;
     public string itemName;
-    private string resourceKey;
+    private long resourceKeyId;
 
     public float slideDuration = 0.5f;
     private Vector2 hiddenPos;
@@ -47,18 +47,19 @@ public class PurchasePopup : MonoBehaviour
     private Vector2 failPanelShownPos;
 
     [System.Serializable]
-    public class PurchaseEvent : UnityEvent<string, string, int> { }
+    public class PurchaseEvent : UnityEvent<long, string, int> { }
 
-    [Header("구매 성공 시 알림 (resourceKey, displayName, count)")]
+    [Header("구매 성공 시 알림 (resourceKeyId, displayName, count)")]
     public PurchaseEvent onPurchased;
 
-    [Header("Single-Qty Item")]
-    [SerializeField] private string singleQtyResourceKey = "Tilemap_Upgrade";
+    [Header("단일 수량 & 디퍼 처리 키 (IDs)")]
+    [SerializeField] private long singleQtyResourceKeyId = 0; // 예: 200610 (업그레이드 키)
+    [SerializeField] private long deferDispatchKeyId = 0; // 예: 200610 (완료 패널 닫힌 뒤 처리)
+
     private bool isSingleQtyItem = false;
 
-    [SerializeField] private string deferDispatchKey = "Tilemap_Upgrade";
     private bool deferPurchase;
-    private string pendingKey;
+    private long pendingKeyId;
     private string pendingItemName;
     private int pendingCount;
 
@@ -66,18 +67,15 @@ public class PurchasePopup : MonoBehaviour
     {
         Instance = this;
 
-        // 기존 PurchasePopup
         shownPos = popupPanel.anchoredPosition;
         hiddenPos = shownPos + new Vector2(0, -Screen.height);
         popupPanel.anchoredPosition = hiddenPos;
 
-        // 구매 완료 패널
         completePanelShownPos = completePanelRect.anchoredPosition;
         completePanelStartPos = completePanelShownPos + new Vector2(0, -Screen.height);
         completePanelRect.anchoredPosition = completePanelStartPos;
         purchaseCompletePanel.SetActive(false);
 
-        // 구매 실패 패널
         if (failPanelRect != null)
         {
             failPanelShownPos = failPanelRect.anchoredPosition;
@@ -97,20 +95,20 @@ public class PurchasePopup : MonoBehaviour
 
     public void Open(string itemName, int pricePerItem)
     {
-        deferPurchase = false;
-        pendingKey = null; pendingItemName = null; pendingCount = 0;
-        Open(itemName, pricePerItem, null);
+        Open(itemName, pricePerItem, 0L);
     }
 
-    public void Open(string itemName, int pricePerItem, string resourceKey)
+    public void Open(string itemName, int pricePerItem, long resourceKeyId)
     {
+        deferPurchase = false;
+        pendingKeyId = 0; pendingItemName = null; pendingCount = 0;
+
         this.itemName = itemName;
         this.unitPrice = pricePerItem;
-        this.resourceKey = resourceKey;
+        this.resourceKeyId = resourceKeyId;
 
-        isSingleQtyItem = (!string.IsNullOrEmpty(resourceKey) && resourceKey == singleQtyResourceKey);
+        isSingleQtyItem = (resourceKeyId > 0 && resourceKeyId == singleQtyResourceKeyId);
 
-        // 초기화
         currentCount = 1;
         gameObject.SetActive(true);
         popupPanel.gameObject.SetActive(true);
@@ -167,7 +165,11 @@ public class PurchasePopup : MonoBehaviour
     private void OnConfirm()
     {
         GameManager.Sound.SFXPlay("SFX_ButtonClick");
-        int finalCount = (resourceKey == singleQtyResourceKey) ? 1 : Mathf.Clamp(currentCount, 1, 999);
+
+        int finalCount = (resourceKeyId > 0 && resourceKeyId == singleQtyResourceKeyId)
+            ? 1
+            : Mathf.Clamp(currentCount, 1, 999);
+
         int totalCost = Mathf.Max(0, unitPrice) * finalCount;
 
         popupPanel.gameObject.SetActive(false);
@@ -177,17 +179,17 @@ public class PurchasePopup : MonoBehaviour
 
         if (cm.SpendGold(totalCost))
         {
-            bool shouldDefer = !string.IsNullOrEmpty(resourceKey) && resourceKey == deferDispatchKey;
+            bool shouldDefer = (resourceKeyId > 0 && resourceKeyId == deferDispatchKeyId);
             if (shouldDefer)
             {
                 deferPurchase = true;
-                pendingKey = resourceKey;
+                pendingKeyId = resourceKeyId;
                 pendingItemName = itemName;
                 pendingCount = finalCount;
             }
             else
             {
-                try { onPurchased?.Invoke(resourceKey, itemName, finalCount); }
+                try { onPurchased?.Invoke(resourceKeyId, itemName, finalCount); }
                 catch (System.Exception e) { Debug.LogError($"onPurchased invoke error: {e}"); }
             }
 
@@ -226,21 +228,22 @@ public class PurchasePopup : MonoBehaviour
             {
                 purchaseCompletePanel.SetActive(false);
 
-            if (deferPurchase)
+                if (deferPurchase)
                 {
-                    var key = pendingKey;
+                    var key = pendingKeyId;
                     var name = pendingItemName;
                     var cnt = pendingCount;
 
-                deferPurchase = false;
-                    pendingKey = null; pendingItemName = null; pendingCount = 0;
+                    deferPurchase = false;
+                    pendingKeyId = 0;
+                    pendingItemName = null;
+                    pendingCount = 0;
 
                     try { onPurchased?.Invoke(key, name, cnt); }
                     catch (System.Exception e) { Debug.LogError($"onPurchased (deferred) error: {e}"); }
                 }
             });
     }
-
 
     private void ShowPurchaseFailMessage(string msg)
     {
