@@ -263,4 +263,51 @@ public class APIManager : MonoBehaviour
         return AccessToken;
     }
 
+    public void Patch(string endPoint, string json, Action<string> onSuccess, Action<string> onError = null)
+    {
+        StartCoroutine(PatchRequest(baseUrl + endPoint, json, onSuccess, onError));
+    }
+
+    private IEnumerator PatchRequest(string url, string json, Action<string> onSuccess, Action<string> onError)
+    {
+        if (IsJwtExpired(AccessToken))
+        {
+            onError?.Invoke("AccessToken expired or invalid. 재발급 필요");
+            yield break;
+        }
+
+        UnityWebRequest www = new UnityWebRequest(url, "PATCH");
+
+        byte[] bodyRaw = string.IsNullOrEmpty(json)
+            ? new byte[0]
+            : System.Text.Encoding.UTF8.GetBytes(json);
+
+        www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        www.downloadHandler = new DownloadHandlerBuffer();
+
+        www.SetRequestHeader("Content-Type", "application/json");
+        www.SetRequestHeader("Accept", "application/json");
+
+        if (!string.IsNullOrEmpty(AccessToken))
+            www.SetRequestHeader("Authorization", "Bearer " + AccessToken);
+
+        yield return www.SendWebRequest();
+
+        string body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
+        string wwwAuth = www.GetResponseHeader("WWW-Authenticate");
+
+        Debug.Log($"PATCH {url} => {(long)www.responseCode}, err={www.error}");
+        if (!string.IsNullOrEmpty(wwwAuth)) Debug.Log($"WWW-Authenticate: {wwwAuth}");
+        if (!string.IsNullOrEmpty(body)) Debug.Log($"Body: {body}");
+
+        if (www.result == UnityWebRequest.Result.Success ||
+            (www.responseCode >= 200 && www.responseCode < 300))
+        {
+            onSuccess?.Invoke(body);
+        }
+        else
+        {
+            onError?.Invoke(string.IsNullOrEmpty(body) ? www.error : body);
+        }
+    }
 }

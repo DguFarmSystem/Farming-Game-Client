@@ -108,19 +108,26 @@ public class PlacementManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canPlace)
         { 
             GameObject place = Instantiate(currentPrefab);
+            BaseGrid grid = _hitObject.GetComponent<BaseGrid>();
+
+            TileData placedtileData = grid.GetTile();
+            PlaceableObject placedTile = placedtileData.GetComponent<PlaceableObject>();
 
             switch (place.tag)
             {
                 case "Tile":
                     // 제거된 타일 갯수 추가
-                    BaseGrid grid = _hitObject.GetComponent<BaseGrid>();
+                    //BaseGrid grid = _hitObject.GetComponent<BaseGrid>();
 
-                    TileData placedtileData = grid.GetTile();
-                    PlaceableObject lastTile = placedtileData.GetComponent<PlaceableObject>();
+                    //TileData placedtileData = grid.GetTile();
+                    //PlaceableObject placedTile = placedtileData.GetComponent<PlaceableObject>();
 
-                    if (database.GetCountFromID(lastTile.GetID()) >= 0)
+                    if (database.GetCountFromID(placedTile.GetID()) >= 0)
                     {
-                        database.AddData(lastTile.GetID());
+                        //database.AddData(lastTile.GetID());
+                        database.ChangeCountByID(placedTile.GetID(), 1,
+                        onSuccess: () => Debug.Log("서버 동기화 성공"),
+                        onError: e => Debug.LogError(e));
                     }
 
                     // 제거 후 타일 배치
@@ -138,7 +145,10 @@ public class PlacementManager : MonoBehaviour
                             PlaceableObject currentPlant = grid.GetPlant().GetComponent<PlaceableObject>();
                             if (database.GetCountFromID(currentPlant.GetID()) >= 0)
                             {
-                                database.AddData(currentPlant.GetID());
+                                //database.AddData(currentPlant.GetID());
+                                database.ChangeCountByID(currentPlant.GetID(), 1,
+                                onSuccess: () => Debug.Log("서버 동기화 성공"),
+                                onError: e => Debug.LogError(e));
                             }
 
                             grid.InitPlant();
@@ -153,7 +163,10 @@ public class PlacementManager : MonoBehaviour
                             PlaceableObject currentObject = grid.GetObject().GetComponent<PlaceableObject>();
                             if (database.GetCountFromID(currentObject.GetID()) >= 0)
                             {
-                                database.AddData(currentObject.GetID());
+                                //database.AddData(currentObject.GetID());
+                                database.ChangeCountByID(currentObject.GetID(), 1,
+                                onSuccess: () => Debug.Log("서버 동기화 성공"),
+                                onError: e => Debug.LogError(e));
                             }
 
                             grid.InitObject();
@@ -163,15 +176,46 @@ public class PlacementManager : MonoBehaviour
                     break;
 
                 case "Object":
-                    _hitObject.GetComponent<BaseGrid>().PlaceObject(place.GetComponent<ObjectData>());
+                    //_hitObject.GetComponent<BaseGrid>().PlaceObject(place.GetComponent<ObjectData>());
+                    grid.PlaceObject(place.GetComponent<ObjectData>());
+
+                    ObjectData objectData = grid.GetObject().GetComponent<ObjectData>();
+                    PlaceableObject placedObject = objectData.GetComponent<PlaceableObject>();
+
+                    GardenControllerAPI.UpdateGardenTile(
+                        _gridPos.x, _gridPos.y,
+                        tileType: placedTile.GetNoID(),
+                        objectType: placedObject.GetNoID(),
+                        rotation: Garden.RotationEnum.R0,
+                        onSuccess: res => Debug.Log("PATCH Success: " + res),
+                        onError: err => Debug.LogError(err)
+                    );
                     break;
 
                 case "Plant":   
-                    _hitObject.GetComponent<BaseGrid>().PlacePlant(place.GetComponent<PlantData>());
+                    //_hitObject.GetComponent<BaseGrid>().PlacePlant(place.GetComponent<PlantData>());
+                    grid.PlacePlant(place.GetComponent<PlantData>());
+
+                    PlantData plantData = grid.GetObject().GetComponent<PlantData>();
+                    PlaceableObject placedPlant = plantData.GetComponent<PlaceableObject>();
+
+                    GardenControllerAPI.UpdateGardenTile(
+                        _gridPos.x, _gridPos.y,
+                        tileType: placedTile.GetNoID(),
+                        objectType: placedPlant.GetNoID(),
+                        rotation: Garden.RotationEnum.R0,
+                        onSuccess: res => Debug.Log("PATCH Success: " + res),
+                        onError: err => Debug.LogError(err)
+                    );
                     break;
             }
 
-            database.PlaceData(place.GetComponent<PlaceableObject>().GetID());
+            //database.PlaceData(place.GetComponent<PlaceableObject>().GetID());
+
+            database.ChangeCountByID(place.GetComponent<PlaceableObject>().GetID(), -1,
+            onSuccess: () => Debug.Log("서버 동기화 성공"),
+            onError: e => Debug.LogError(e));
+
             buildManager.Init();
 
             // Judge Cancel

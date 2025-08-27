@@ -19,6 +19,7 @@ public class PlaceableObject : MonoBehaviour
 
     [Header("ID")]
     [SerializeField] private string id;
+    [SerializeField] private long numberId;
 
     [Header("Rotation Sprite")]
     [SerializeField] private Sprite[] rotationSprites;
@@ -29,6 +30,11 @@ public class PlaceableObject : MonoBehaviour
     public string GetID()
     {
         return id;
+    }
+
+    public long GetNoID()
+    {
+        return numberId;
     }
 
     private void OnEnable()

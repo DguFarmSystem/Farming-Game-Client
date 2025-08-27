@@ -27,7 +27,15 @@ public class BuildManager : MonoBehaviour
 
     public void Init()
     {
-        foreach(ObjectSelectButton button in objectSelectButtons)
+        APIManager.Instance.Get("/api/inventory",
+            ok => { database.ApplyInventoryJson(ok, true); BuildInventory(); },
+            err => { Debug.LogError("인벤토리 로드 실패: " + err); }
+        );
+    }
+
+    private void BuildInventory()
+    {
+        foreach (ObjectSelectButton button in objectSelectButtons)
         {
             DestroyImmediate(button.gameObject);
         }

@@ -213,4 +213,67 @@ public class ObjectDatabase : ScriptableObject
     }
 
     private void OnEnable() => BuildIndexMaps();
+
+    [Serializable] private class InvUpdateReq { public long object_type; public int object_count; }
+    [Serializable] private class InvUpdateRes { public int status; public string message; public string data; }
+
+    // id로 Count 변경
+    public void ChangeCountByID(string id, int amount, Action onSuccess = null, Action<string> onError = null)
+    {
+        if (string.IsNullOrEmpty(id) || amount <= 0) { onError?.Invoke("invalid id/amount"); return; }
+        if (!TryGetIndexByID(id, out var index)) { onError?.Invoke($"unknown id: {id}"); return; }
+        ChangeCountByIndex(index, amount, onSuccess, onError);
+    }
+
+    // storeGoodsNumber로 Count 변경
+    public void ChangeCountByStoreNo(long storeNo, int amount, Action onSuccess = null, Action<string> onError = null)
+    {
+        if (amount <= 0) { onError?.Invoke("invalid amount"); return; }
+        if (!TryGetIndexByStoreNo(storeNo, out var index)) { onError?.Invoke($"unknown storeNo: {storeNo}"); return; }
+        ChangeCountByIndex(index, amount, onSuccess, onError);
+    }
+
+    // index로 Count 변경
+    public void ChangeCountByIndex(int index, int amount, Action onSuccess = null, Action<string> onError = null)
+    {
+        if (data == null || !InRange(index)) { onError?.Invoke("index out of range"); return; }
+
+        // -1이면 무한
+        if (data[index].count == -1) { onSuccess?.Invoke(); return; }
+
+        var storeNo = data[index].storeGoodsNumber;
+        if (storeNo == 0) { onError?.Invoke("storeGoodsNumber not set"); return; }
+
+        var before = data[index].count;
+        var after = Mathf.Max(0, before + amount); // 하한 0
+
+        data[index].count = after;
+
+        var req = new InvUpdateReq { object_type = storeNo, object_count = after };
+        var json = JsonUtility.ToJson(req);
+
+        APIManager.Instance.Put(
+            "/api/inventory/update",
+            json,
+            ok =>
+            {
+                try
+                {
+                    var res = JsonUtility.FromJson<InvUpdateRes>(ok);
+                    if (res != null && res.status >= 200 && res.status < 300) onSuccess?.Invoke();
+                    else onSuccess?.Invoke();
+                }
+                catch
+                {
+                    onSuccess?.Invoke();
+                }
+            },
+            err =>
+            {
+                data[index].count = before;
+                onError?.Invoke($"inventory update failed: {err}");
+            }
+        );
+    }
+
 }

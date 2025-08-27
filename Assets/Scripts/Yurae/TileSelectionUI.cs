@@ -86,6 +86,13 @@ public class TileSelectionUI : MonoBehaviour
             database.AddData(placeableObj.GetID());
             buildManager.Init();
             _grid.InitObject();
+
+            // 수정해야 함
+            GardenControllerAPI.ClearGardenObject(
+                1, 1, tileType: 0,
+                onSuccess: res => Debug.Log("Object Remove!"),
+                onError: err => Debug.LogError(err)
+            );
         }
         else if (_grid.GetPlant() != null)
         {

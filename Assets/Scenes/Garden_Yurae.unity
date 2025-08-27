@@ -4941,11 +4941,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 487071911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -50, y: 50}
   m_SizeDelta: {x: 124, y: 118}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &1468295393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7776,8 +7776,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793bf4adc560ece40806c26dbd13714e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  height: 10
+  width: 0
+  height: 0
   cellSize: 1
   baseTile: {fileID: 8511615565523577852, guid: c9557f7e67970cb4590fefc38e99a172, type: 3}
   baseGridPrefab: {fileID: 8511615565523577852, guid: 1be7b6a29208dbc4a93a3efc3e6647df, type: 3}

@@ -7,7 +7,7 @@ public class GridManager : MonoBehaviour
 {
     public static GridManager Instance { get; private set; }
 
-    [SerializeField] private int width = 10, height = 10;
+    [SerializeField] private int width = 0, height = 0;
     [SerializeField] private float cellSize = 1f;
 
     [Header("프리팹")]
@@ -29,11 +29,28 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         gridObjects = new List<GameObject>();
-        GenerateBaseGrid(GameManager.Instance.playerLV);
+        Build();
     }
 
-    private void GenerateBaseGrid(int _playerLevel = 1)
+    private void Build()
     {
+        // Get Data
+        PlayerControllerAPI.GetPlayerDataFromServer(
+        data =>
+        {
+            width = GetSize(data.level);
+            height = GetSize(data.level);
+
+            BuildBaseMap();
+            LoadDataFromServer();
+        },
+        error => Debug.LogError(error)
+        );
+    }
+
+    private void BuildBaseMap()
+    {
+        // Initialize
         foreach (GameObject gridObject in gridObjects)
         {
             DestroyImmediate(gridObject.gameObject);
@@ -41,9 +58,7 @@ public class GridManager : MonoBehaviour
 
         gridObjects.Clear();
 
-        width = GetSize(_playerLevel);
-        height = GetSize(_playerLevel);
-
+        // Set Base Grid And Base(Grass) Tile
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -65,6 +80,27 @@ public class GridManager : MonoBehaviour
                 grid.PlaceTile(tileData);
             }
         }
+    }
+
+    private void LoadDataFromServer()
+    {
+        // Set Player Tile From Server
+        GardenControllerAPI.GetGardenDataFromServer(
+        (gardens, objects) =>
+        {
+            /*
+            Debug.Log($"타일 개수: {gardens.Count}");
+            if (objects.Count > 0 && objects[0] != null)
+                Debug.Log($"첫 오브젝트 타입: {objects[0].objectKind}, 회전: {objects[0].rotation}");
+            */
+            Debug.Log($"타일 개수: {gardens.Count}");
+            for (int i = 0; i < objects.Count; i++)
+            {
+                
+            }
+        },
+        error => Debug.LogError(error)
+        );
     }
 
     public Vector2 GetWorldPosition(int x, int y)
