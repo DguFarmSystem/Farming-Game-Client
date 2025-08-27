@@ -102,7 +102,7 @@ public class UIManager : MonoBehaviour
         currentPopup = Instantiate(seedDrawPrefab, popupParent);
     }
 
-    public void OpenHarvestPopup(string flower_name)
+    public void OpenHarvestPopup(string flower_name, string kr_flower)
     {
         if (currentPopup != null) { DOTween.Kill(currentPopup, complete: false); Destroy(currentPopup); }
 
@@ -127,10 +127,10 @@ public class UIManager : MonoBehaviour
                 H_UI.Collect_UI.sprite = H_UI.Legend;
                 break;
         }
+        
+       
 
-
-        H_UI.flower_Text.text = flower_name; //꽃 이름 넘겨주기
-        Debug.Log(flower_name);
+        H_UI.flower_Text.text = kr_flower; //꽃 이름 넘겨주기
         if (flower_image != null)
         {
             H_UI.flower_image.sprite = flower_image;

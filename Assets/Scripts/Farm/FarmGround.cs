@@ -120,12 +120,13 @@ public class FarmGround : MonoBehaviour
         // 꽃을 미리 지정하고 팝업을 띄움
         data.plant_name = FlowerDataManager.Instance.GetRandomFlowerNameByRarityWeighted();
 
-        UIManager.Instance.OpenHarvestPopup(data.plant_name);
+        string getFlower = "Deco_" + data.plant_name;
+        
+        database.AddData(getFlower); //꽃 추가
+        
+        UIManager.Instance.OpenHarvestPopup(data.plant_name, database.GetNameFromID(getFlower));
         FlowerDataManager.Instance.RegisterFlower(data.plant_name);
 
-        string getFlower = "Deco_" + data.plant_name;
-
-        database.AddData(getFlower); //꽃 추가
 
         // 로컬 데이터 'empty' 상태로 업데이트
         data.plant_name = "";
