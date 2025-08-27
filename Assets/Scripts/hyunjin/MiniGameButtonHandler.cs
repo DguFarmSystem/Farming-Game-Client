@@ -58,26 +58,26 @@ public class MiniGameButtonHandler : MonoBehaviour
                     if (res != null && res.data != null)
                     {
                         playCount.text = $"플레이 가능 횟수 : {res.data.count}/3";
-                        startButton.interactable = (res.data.count > 0);
+                        //startButton.interactable = (res.data.count > 0);
                     }
                     else
                     {
                         playCount.text = $"플레이 가능 횟수 : 3/3";
-                        startButton.interactable = true;
+                        //startButton.interactable = true;
                         Debug.LogWarning($"daily-game GET failed");
                     }
                 }
                 catch (Exception e)
                 {
                     playCount.text = $"플레이 가능 횟수 : 3/3";
-                    startButton.interactable = true;
+                    //startButton.interactable = true;
                     Debug.LogWarning($"daily-game GET parsing error : {e.Message}");
                 }
             },
             onError: (err) =>
             {
                 playCount.text = $"-";
-                startButton.interactable = false;
+                //startButton.interactable = false;
                 Debug.LogWarning($"daily-game GET error : {err}");
             }
         );
@@ -110,16 +110,16 @@ public class MiniGameButtonHandler : MonoBehaviour
             return;
         }
 
-        var body = new DailyGameUseRequest { gameType = info.gameType };
-        string json = JsonUtility.ToJson(body);
+        //var body = new DailyGameUseRequest { gameType = info.gameType };
+        //string json = JsonUtility.ToJson(body);
 
         //APIManager.Instance.Patch(
         //    "/api/daily-game/use",
         //    json,
         //    onSuccess: (_) =>
         //    {
-        //        GameManager.Sound.SFXPlay("SFX_GameStart");
-        //        SceneLoader.Instance.GoToMiniGame(selected);
+                GameManager.Sound.SFXPlay("SFX_GameStart");
+        SceneLoader.Instance.GoToMiniGame(selected);
         //    },
         //    onError: (err) =>
         //    {

@@ -42,7 +42,7 @@ public class SceneLoader : MonoBehaviour
     private GameObject labelPanel;
     private CanvasGroup fadePanel;
 
-    private float fadeDuration = 0.5f; // public으로 빼기!!!!!!!!!!!!!!!!
+    private float fadeDuration = 0.3f; // public으로 빼기!!!!!!!!!!!!!!!!
     private bool isTransitioning = false;
     private int currentIdx = 0;
     private Coroutine fadeOutLabelCoroutine;
