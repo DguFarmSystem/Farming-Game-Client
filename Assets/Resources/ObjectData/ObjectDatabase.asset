@@ -18,7 +18,7 @@ MonoBehaviour:
     name: "\uC794\uB514"
     prefab: {fileID: 0}
     sprite: {fileID: 2177108965186078295, guid: 40b25d89fdd48ef4eab51b8118b7be1b, type: 3}
-    count: 0
+    count: -1
     type: 0
     price: -1
     storeGoodsNumber: 0

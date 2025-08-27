@@ -1,6 +1,7 @@
 // Unity
 using UnityEngine;
-using UnityEngine.UI;
+
+// System
 using System;
 using System.Collections.Generic;
 
@@ -8,8 +9,8 @@ using System.Collections.Generic;
 public class Database
 {
     [Header("ID/Name/Prefab/Sprite")]
-    public string id;
     public string name;
+    public string id;
     public PlaceableObject prefab;
     public Sprite sprite;
 
@@ -25,7 +26,6 @@ public class Database
 [CreateAssetMenu(fileName = "ObjectDatabase", menuName = "Data/ObjectDatabase")]
 public class ObjectDatabase : ScriptableObject
 {
-    [SerializeField] private PlaceableObject[] prefabs;
     [SerializeField] private Database[] data;
 
     private Dictionary<string, int> _id2idx;
@@ -50,7 +50,11 @@ public class ObjectDatabase : ScriptableObject
         foreach (Database datum in data)
         {
             if (datum.id == id)
+            {
+                Debug.Log(datum.id);
                 return datum.name;
+            }
+
         }
         return null;
     }
@@ -89,16 +93,6 @@ public class ObjectDatabase : ScriptableObject
         if (_id2idx.TryGetValue(id, out var i))
         {
             if (data[i].count != -1) data[i].count++;
-        }
-    }
-
-    public void DemolitionData(string id)
-    {
-        if (string.IsNullOrEmpty(id) || data == null) return;
-        if (_id2idx == null) BuildIndexMaps();
-        if (_id2idx.TryGetValue(id, out var i))
-        {
-            data[i].count++;
         }
     }
 

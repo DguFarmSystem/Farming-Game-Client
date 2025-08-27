@@ -67,8 +67,6 @@ public class FriendManager : MonoBehaviour
 
     private void Suggest(string _query)
     {
-        Debug.Log(_query);
-
         string query = _query;
         string endpoint = $"/api/user/suggest?query={UnityWebRequest.EscapeURL(query)}";
 

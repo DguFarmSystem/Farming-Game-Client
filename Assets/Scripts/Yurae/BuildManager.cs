@@ -50,8 +50,8 @@ public class BuildManager : MonoBehaviour
             objectSelectButtons.Add(objSelectButton);
             button.onClick.AddListener(() => SetCurrentButton(objSelectButton));
 
-
             string id = placeablePrefabs[i].GetComponent<PlaceableObject>().GetID();
+
             string name = database.GetNameFromID(id);
             Sprite sprite = database.GetSpriteFromID(id);
             int count = database.GetCountFromID(id);
