@@ -35,6 +35,7 @@ public class seedTicket : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        temporaryAccessToken = APIManager.Instance.getAccessToken();
         // 게임 시작 시 서버에서 조건 확인 및 보상 수령 로직 실행
         StartCoroutine(FetchAndClaimTickets());
     }

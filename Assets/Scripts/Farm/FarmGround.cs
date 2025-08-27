@@ -89,7 +89,6 @@ public class FarmGround : MonoBehaviour
         data.planted_at = FarmGroundAPI.NowIsoUtc();
         data.status = "growing";
         data.plant_name = ""; // 심을 때 작물명 초기화 (수확 시점에 지정)
-        data.useSunCount = 0; // 심을 때 햇살 사용 횟수 초기화
 
         UpdateVisual();
 

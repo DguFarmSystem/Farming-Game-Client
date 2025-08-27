@@ -26,7 +26,7 @@ public class PlayerDataResponse
 [System.Serializable]
 public class PlayerCurrencyData
 {
-    public int seedticket;
+    public int seedTicket;
     public int gold;
     public int sunlight;
     public int seedCount; // 새로운 필드 추가
@@ -59,6 +59,7 @@ public class CurrencyManager : MonoBehaviour
 
     void Start()
     {
+        
         StartCoroutine(LoadCurrencyFromServer());
     }
 
@@ -112,7 +113,7 @@ public class CurrencyManager : MonoBehaviour
 
             // 모든 재화 값을 로컬 변수에 할당
             gold = playerData.gold;
-            seedTicket = playerData.seedticket; // 필드명 변경에 주의
+            seedTicket = playerData.seedTicket; // 필드명 변경에 주의
             sunlight = playerData.sunlight;
             seedCount = playerData.seedCount; // 새롭게 추가된 재화 값 할당
             
@@ -131,7 +132,7 @@ public class CurrencyManager : MonoBehaviour
         PlayerCurrencyData data = new PlayerCurrencyData()
         {
             gold = gold,
-            seedticket = seedTicket,
+            seedTicket = seedTicket,
             sunlight = sunlight,
             seedCount = seedCount // 새로운 필드 포함
         };
@@ -142,7 +143,7 @@ public class CurrencyManager : MonoBehaviour
         bool done = false;
         string error = null;
 
-        /*APIManager.Instance.Put(url, json,
+        APIManager.Instance.Put(url, json,
             (response) =>
             {
                 Debug.Log("재화 저장 성공: " + response);
@@ -153,7 +154,7 @@ public class CurrencyManager : MonoBehaviour
                 error = err;
                 done = true;
             }
-        );*/
+        );
 
         while (!done) yield return null;
 

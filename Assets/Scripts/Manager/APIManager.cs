@@ -15,6 +15,12 @@ public class APIManager : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+
+        // 베이스 URL 헬스체크
+        StartCoroutine(CheckUrlRoutine(baseUrl));
+
+        // 시작 시 임시 토큰 발급 후 테스트 API 호출
+        StartCoroutine(InitRoutine());
     }
     #endregion
 
@@ -22,11 +28,7 @@ public class APIManager : MonoBehaviour
 
     private void Start()
     {
-        // 베이스 URL 헬스체크
-        StartCoroutine(CheckUrlRoutine(baseUrl));
 
-        // 시작 시 임시 토큰 발급 후 테스트 API 호출
-        StartCoroutine(InitRoutine());
     }
 
     // Token
@@ -57,6 +59,12 @@ public class APIManager : MonoBehaviour
     public void Post(string endPoint, string json, Action<string> onSuccess, Action<string> onError = null)
     {
         StartCoroutine(PostRequest(baseUrl + endPoint, json, onSuccess, onError));
+    }
+
+     // ❗ PUT 메서드 추가
+    public void Put(string endPoint, string json, Action<string> onSuccess, Action<string> onError = null)
+    {
+        StartCoroutine(PutRequest(baseUrl + endPoint, json, onSuccess, onError));
     }
 
     // 시작 시 임시 토큰 발급
@@ -213,4 +221,46 @@ public class APIManager : MonoBehaviour
         else
             onError?.Invoke(string.IsNullOrEmpty(body) ? www.error : body);
     }
+
+    // ❗ PUT 요청을 위한 코루틴 추가
+    private IEnumerator PutRequest(string url, string json, Action<string> onSuccess, Action<string> onError)
+    {
+        if (IsJwtExpired(AccessToken))
+        {
+            onError?.Invoke("AccessToken expired or invalid. 재발급 필요");
+            yield break;
+        }
+
+        UnityWebRequest www = new UnityWebRequest(url, "PUT");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+        www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        www.downloadHandler = new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/json");
+        // 응답 포맷 명시
+        www.SetRequestHeader("Accept", "application/json");
+
+        if (!string.IsNullOrEmpty(AccessToken))
+            www.SetRequestHeader("Authorization", "Bearer " + AccessToken);
+
+        yield return www.SendWebRequest();
+
+        string body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
+        string wwwAuth = www.GetResponseHeader("WWW-Authenticate");
+
+        // 상세 로깅
+        Debug.Log($"PUT {url} => {(long)www.responseCode}, err={www.error}");
+        if (!string.IsNullOrEmpty(wwwAuth)) Debug.Log($"WWW-Authenticate: {wwwAuth}");
+        if (!string.IsNullOrEmpty(body)) Debug.Log($"Body: {body}");
+
+        if (www.result == UnityWebRequest.Result.Success)
+            onSuccess?.Invoke(body);
+        else
+            onError?.Invoke(string.IsNullOrEmpty(body) ? www.error : body);
+    }
+
+    public string getAccessToken()
+    {
+        return AccessToken;
+    }
+
 }
