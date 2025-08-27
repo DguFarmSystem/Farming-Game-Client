@@ -50,7 +50,7 @@ public class ShopPurchaseBridge : MonoBehaviour
         }
         if (refreshGardenOnPurchase)
         {
-            var build = Object.FindFirstObjectByType<BuildManager>(FindObjectsInactive.Include);
+            var build = UnityEngine.Object.FindFirstObjectByType<BuildManager>(FindObjectsInactive.Include);
             if (build) build.UpdateCountTMP();
         }
 
