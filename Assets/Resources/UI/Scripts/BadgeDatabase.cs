@@ -23,6 +23,10 @@ public class BadgeEntry
     public int threshold;
     public FlowerRarity rarity;
     public List<string> nameWhitelist = new();
+
+    [Header("Reward")]
+    public long rewardStoreGoodsNumber;  // 서버 object_type
+    public int rewardCount = 1;
 }
 
 [CreateAssetMenu(fileName = "BadgeDatabase", menuName = "Badge/Badge Database")]

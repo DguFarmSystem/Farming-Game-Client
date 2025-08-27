@@ -52,9 +52,9 @@ public class PurchasePopup : MonoBehaviour
     [Header("구매 성공 시 알림 (resourceKeyId, displayName, count)")]
     public PurchaseEvent onPurchased;
 
-    [Header("단일 수량 & 디퍼 처리 키 (IDs)")]
-    [SerializeField] private long singleQtyResourceKeyId = 0; // 예: 200610 (업그레이드 키)
-    [SerializeField] private long deferDispatchKeyId = 0; // 예: 200610 (완료 패널 닫힌 뒤 처리)
+    [Header("땅 확장권")]
+    [SerializeField] private long singleQtyResourceKeyId = 400050;
+    [SerializeField] private long deferDispatchKeyId = 400050;
 
     private bool isSingleQtyItem = false;
 

@@ -13,7 +13,7 @@ public class ShopItemSlot : MonoBehaviour
     [SerializeField] private TMP_Text textProgress;   // "1/3", "2/3", "MAX"
 
     [Header("Upgrade Settings")]
-    [SerializeField] private long upgradeResourceKey = 200610; // 업그레이드 아이템 ID
+    [SerializeField] private long upgradeResourceKey = 400050;
     [SerializeField] private int upgradeMaxCalls = 3;
 
     private string PrefsKey => $"upgrade_calls_{upgradeResourceKey}";

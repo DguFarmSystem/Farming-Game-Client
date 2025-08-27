@@ -500,8 +500,7 @@ MonoBehaviour:
   textPrice: {fileID: 1078348492312388305}
   icon: {fileID: 6598343132487604760}
   textProgress: {fileID: 8655993920402270877}
-  buyButton: {fileID: 0}
-  upgradeResourceKey: Tilemap_Upgrade
+  upgradeResourceKey: 400050
   upgradeMaxCalls: 3
   itemName: ex
   price: 0
