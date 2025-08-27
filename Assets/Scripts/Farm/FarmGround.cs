@@ -24,6 +24,8 @@ public class FarmGround : MonoBehaviour
     public GameObject timer_UI; //자라고 있는 상황 유아이
     public TMP_Text timer_text; //타이머 시간 텍스트
 
+    public ObjectDatabase database; //데이터 베이스용
+
     void Awake()
     {
         // Start 메서드에서 data를 초기화하고 x, y를 할당
@@ -54,7 +56,8 @@ public class FarmGround : MonoBehaviour
                 if (DateTime.TryParse(data.planted_at, out DateTime plantedTime))
                 {
                     // 서버와 동일한 성장 시간 로직 사용
-                    double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
+                    //double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
+                    double growTimeSeconds = 10;
                     growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
 
                     double elapsedSeconds = (DateTime.UtcNow - plantedTime.ToUniversalTime()).TotalSeconds;
@@ -120,6 +123,10 @@ public class FarmGround : MonoBehaviour
         UIManager.Instance.OpenHarvestPopup(data.plant_name);
         FlowerDataManager.Instance.RegisterFlower(data.plant_name);
 
+        string getFlower = "Deco_" + data.plant_name;
+
+        database.AddData(getFlower); //꽃 추가
+
         // 로컬 데이터 'empty' 상태로 업데이트
         data.plant_name = "";
         data.planted_at = "";
@@ -152,7 +159,8 @@ public class FarmGround : MonoBehaviour
 
         if (DateTime.TryParse(data.planted_at, out DateTime plantedTime))
         {
-            double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
+            //double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
+            double growTimeSeconds = 10;
             growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
 
             double elapsed = (DateTime.UtcNow - plantedTime.ToUniversalTime()).TotalSeconds;
