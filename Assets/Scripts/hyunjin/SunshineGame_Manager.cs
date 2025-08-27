@@ -24,7 +24,7 @@ public class SunshineGame_Manager : MonoBehaviour
     void Start()
     {
         enabled = false;
-        totalTime = 120;
+        totalTime = 120f;
         timerSize = timerMask.rect.height;
         dragBox.gameObject.SetActive(false);
 
