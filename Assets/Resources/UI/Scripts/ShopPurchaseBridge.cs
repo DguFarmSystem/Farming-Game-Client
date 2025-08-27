@@ -17,7 +17,7 @@ public class ShopPurchaseBridge : MonoBehaviour
     [SerializeField] private bool refreshGardenOnPurchase = true;
 
     [Header("Grid Upgrade Item")]
-    [SerializeField] private long gridUpgradeResourceKey = 0;
+    [SerializeField] private long gridUpgradeResourceKey = 400050;
     [SerializeField] private int gridUpgradeMaxCalls = 3;
     private string PrefsKey => $"upgrade_calls_{gridUpgradeResourceKey}";
 
@@ -164,7 +164,4 @@ public class ShopPurchaseBridge : MonoBehaviour
         yield return new WaitUntil(() => doneFlag);
         onDone?.Invoke(val);
     }
-
-
-
 }

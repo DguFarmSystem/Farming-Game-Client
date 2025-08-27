@@ -96,6 +96,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 0
+    rewardCount: 1
 --- !u!1 &906556771863598373
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +194,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 0
+    rewardCount: 1
 --- !u!1 &1134780986572707246
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +292,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 0
+    rewardCount: 1
 --- !u!1 &1531168128473402598
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,6 +390,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 0
+    rewardCount: 1
 --- !u!1 &2126652983342518904
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +488,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 0
+    rewardCount: 1
 --- !u!1 &2562571796082112968
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,6 +718,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 0
+    rewardCount: 1
 --- !u!1 &2998216132898360196
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,6 +816,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 0
+    rewardCount: 1
 --- !u!1 &4414219769918534203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,6 +1037,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 0
+    rewardCount: 1
 --- !u!1 &5370300342837673005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1119,6 +1135,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 0
+    rewardCount: 1
 --- !u!1 &5969666116455934513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,6 +1233,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 0
+    rewardCount: 1
 --- !u!1 &6721473849540354176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,6 +1331,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 0
+    rewardCount: 1
 --- !u!1 &6828084506475736139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,6 +1594,8 @@ MonoBehaviour:
   caseHiddenPos: {x: 0, y: -1200}
   caseVisiblePos: {x: 0, y: 0}
   badgeDB: {fileID: 11400000, guid: 6bb9f8cffe4d047e9a24695f31fd510e, type: 2}
+  purchaseBridge: {fileID: 2040164655733798039, guid: b9a8d519099cc4851bfd3146ab770b48, type: 3}
+  objectDatabase: {fileID: 11400000, guid: cc70b75ca37c75e43aa216e563324c06, type: 2}
 --- !u!225 &5350724669931297384
 CanvasGroup:
   m_ObjectHideFlags: 0

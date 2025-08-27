@@ -122,7 +122,7 @@ MonoBehaviour:
     name: "\uAC00\uB85C\uB4F1"
     prefab: {fileID: 0}
     sprite: {fileID: 3840743316631763920, guid: d9a907ef2de375d45a81faea6339a8d5, type: 3}
-    count: 0
+    count: 94
     type: 1
     price: 1500
     storeGoodsNumber: 200610
@@ -165,7 +165,7 @@ MonoBehaviour:
     count: 0
     type: 1
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 310010
   - id: Deco_Statue_DexExpert
     name: "\uB3C4\uAC10 \uC218\uC9D1 \uB2EC\uC778"
     prefab: {fileID: 0}
@@ -173,7 +173,7 @@ MonoBehaviour:
     count: 0
     type: 1
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 310020
   - id: Deco_Statue_DexMaster
     name: "\uB3C4\uAC10 \uC218\uC9D1 \uB300\uBD80"
     prefab: {fileID: 0}
@@ -181,7 +181,7 @@ MonoBehaviour:
     count: 0
     type: 1
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 310030
   - id: Deco_Statue_ShinyExpert
     name: "\uC774\uB85C\uCE58 \uC218\uC9D1 \uB2EC\uC778"
     prefab: {fileID: 0}
@@ -189,7 +189,7 @@ MonoBehaviour:
     count: 0
     type: 1
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 310040
   - id: Deco_Statue_ShinyMaster
     name: "\uC774\uB85C\uCE58 \uC218\uC9D1 \uB300\uBD80\uD638"
     prefab: {fileID: 0}
@@ -197,7 +197,7 @@ MonoBehaviour:
     count: 0
     type: 1
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 310050
   - id: Deco_Statue_DecoLover
     name: "\uC778\uD14C\uB9AC\uC5B4\uC5D0 \uC9C4\uC2EC"
     prefab: {fileID: 0}
@@ -205,7 +205,7 @@ MonoBehaviour:
     count: 0
     type: 1
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 310060
   - id: Deco_Statue_NormalMaster
     name: "\uB178\uB9D0 \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
     prefab: {fileID: 0}

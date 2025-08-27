@@ -23,6 +23,11 @@ public class BadgeManager : MonoBehaviour
     [Header("Data")]
     [SerializeField] private BadgeDatabase badgeDB;
 
+    // 뱃지 동상 
+    [Header("Reward Dispatch (optional)")]
+    [SerializeField] private ShopPurchaseBridge purchaseBridge;
+    [SerializeField] private ObjectDatabase objectDatabase;
+
     // ===== Server DTOs =====
     [Serializable] private class ServerBadge { public long badgeId; public int badgeType; }
     [Serializable] private class ServerBadgeList { public ServerBadge[] items; }
@@ -34,6 +39,8 @@ public class BadgeManager : MonoBehaviour
 
     private bool[] unlocked;
     private readonly HashSet<int> serverRecordedTypes = new HashSet<int>(); // 중복 POST 방지
+
+    private const string RewardGrantedKeyPrefix = "badge_reward_granted_"; // 동상 중복 방지 
 
     private void Awake()
     {
@@ -190,6 +197,8 @@ public class BadgeManager : MonoBehaviour
             unlocked[index] = true;
             RefreshBadges();
             PostBadgeToServer(index);
+
+            TryGrantBadgeReward(index); // 뱃지 해금 보상 동상 지급 
         }
     }
 
@@ -271,7 +280,7 @@ public class BadgeManager : MonoBehaviour
 
     public void Close()
     {
-        try { GameManager.Sound.SFXPlay("SFX_ButtonCancle"); } catch { /* 사운드 시스템 없으면 무시 */ }
+        try { GameManager.Sound.SFXPlay("SFX_ButtonCancle"); } catch { }
 
         openSeq?.Kill(); closeSeq?.Kill();
         caseRoot?.DOKill(); badgeLid?.DOKill();
@@ -380,6 +389,8 @@ public class BadgeManager : MonoBehaviour
                 var data = badgeDB.items[i];
                 if (data != null && UIManager.Instance != null)
                     UIManager.Instance.EnqueueBadgeUnlock(data.icon, data.title, data.description);
+
+                TryGrantBadgeReward(i);  // 동상 지급 
             }
             else
             {
@@ -391,7 +402,10 @@ public class BadgeManager : MonoBehaviour
     }
 
     static bool IsShiny(string name)
-        => !string.IsNullOrEmpty(name) && name.Contains("이로치");
+    {
+        if (string.IsNullOrEmpty(name)) return false;
+        return name.IndexOf("Shiny", StringComparison.OrdinalIgnoreCase) >= 0;
+    }
 
     private void RefreshBadges()
     {
@@ -417,6 +431,58 @@ public class BadgeManager : MonoBehaviour
                 c.a = 0f;
                 badgeSlots[i].color = c;
             }
+        }
+    }
+
+    private void TryGrantBadgeReward(int badgeIndex)
+    {
+        if (badgeDB == null || badgeIndex < 0 || badgeIndex >= badgeDB.items.Count) return;
+
+        var bd = badgeDB.items[badgeIndex];
+        if (bd == null) return;
+
+        long storeNo = bd.rewardStoreGoodsNumber;
+        int qty = Mathf.Max(1, bd.rewardCount);
+
+        if (storeNo <= 0 || qty <= 0) return;
+
+        string guardKey = RewardGrantedKeyPrefix + badgeIndex;
+        if (PlayerPrefs.GetInt(guardKey, 0) == 1)
+        {
+            Debug.Log($"[Badge] reward already granted (idx={badgeIndex})");
+            return;
+        }
+        PlayerPrefs.SetInt(guardKey, 1);
+        PlayerPrefs.Save();
+
+        var bridge = purchaseBridge != null
+            ? purchaseBridge
+            : FindFirstObjectByType<ShopPurchaseBridge>(FindObjectsInactive.Include);
+
+        if (bridge != null)
+        {
+            bridge.OnPurchased(storeNo, bd.title, qty);
+            return;
+        }
+
+        if (objectDatabase != null)
+        {
+            if (objectDatabase.TryGetIndexByStoreNo(storeNo, out var idx))
+            {
+                string id = objectDatabase.GetID(idx);
+                for (int i = 0; i < qty; i++) objectDatabase.AddData(id);
+            }
+            else
+            {
+                for (int i = 0; i < qty; i++) objectDatabase.AddData(storeNo.ToString());
+            }
+
+            var bag = BagManager.Instance;
+            if (bag && bag.gameObject.activeInHierarchy) bag.Rebuild();
+        }
+        else
+        {
+            Debug.LogWarning("[Badge] ShopPurchaseBridge/ObjectDatabase 미연결 → 보상 지급을 서버/로컬에 반영하지 못했습니다.");
         }
     }
 }

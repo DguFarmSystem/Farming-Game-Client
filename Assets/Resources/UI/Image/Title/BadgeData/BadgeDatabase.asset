@@ -21,6 +21,8 @@ MonoBehaviour:
     threshold: 10
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 310040
+    rewardCount: 1
   - title: "\uB178\uB9D0 \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
     description: "\uB178\uB9D0 \uB3C4\uAC10 10\uC885 \uC804\uCCB4 \uB4F1\uB85D"
     icon: {fileID: -6240320559961112061, guid: 4ad365f4e9f0944fd8d67ef675945c6d, type: 3}
@@ -28,6 +30,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 310070
+    rewardCount: 1
   - title: "\uB808\uC5B4 \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
     description: "\uB808\uC5B4 \uB3C4\uAC10 9\uC885 \uC804\uCCB4 \uB4F1\uB85D"
     icon: {fileID: -2542512816601137504, guid: e184362098f844a978400c4145ae5261, type: 3}
@@ -35,6 +39,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 1
     nameWhitelist: []
+    rewardStoreGoodsNumber: 310080
+    rewardCount: 1
   - title: "\uC774\uB85C\uCE58 \uC218\uC9D1 \uB300\uBD80\uD638"
     description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uC774\uB85C\uCE58
       \uCD1D 30\uC885 \uB4F1\uB85D"
@@ -43,6 +49,8 @@ MonoBehaviour:
     threshold: 30
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 310050
+    rewardCount: 1
   - title: "\uB3C4\uAC10 \uC218\uC9D1 \uB2EC\uC778"
     description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uCD1D 20\uC885 \uB4F1\uB85D"
     icon: {fileID: 1591152477525429734, guid: d1d87652a195f47749f876698e76b9b7, type: 3}
@@ -50,6 +58,8 @@ MonoBehaviour:
     threshold: 20
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 310020
+    rewardCount: 1
   - title: "\uB3C4\uAC10 \uC218\uC9D1 \uB300\uBD80\uD638"
     description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uCD1D 30\uC885 \uB4F1\uB85D"
     icon: {fileID: -2596154730737599100, guid: e52749562975b487b9559e7e74a5faa9, type: 3}
@@ -57,6 +67,8 @@ MonoBehaviour:
     threshold: 30
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 310030
+    rewardCount: 1
   - title: "\uB3C4\uAC10 \uC218\uC9D1 \uAFC8\uB098\uBB34"
     description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uCD1D 10\uC885 \uB4F1\uB85D"
     icon: {fileID: -6800965517148886466, guid: 5399975cee95c4dd9936c21a26790527, type: 3}
@@ -64,6 +76,8 @@ MonoBehaviour:
     threshold: 1
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 310010
+    rewardCount: 1
   - title: "\uC778\uD14C\uB9AC\uC5B4\uC5D0 \uC9C4\uC2EC\uC778"
     description: "\uC815\uC6D0\uC5D0 \uC885\uB958 \uBD88\uBB38 \uB9AC\uC18C\uC2A4
       30\uC885 \uBC30\uCE58"
@@ -72,6 +86,8 @@ MonoBehaviour:
     threshold: 39
     rarity: 0
     nameWhitelist: []
+    rewardStoreGoodsNumber: 310060
+    rewardCount: 1
   - title: "\uC5D0\uD53D \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
     description: "\uC5D0\uD53D \uB3C4\uAC10 6\uC885 \uC804\uCCB4 \uB4F1\uB85D"
     icon: {fileID: -4143261434310361011, guid: fa7c10088a34c416fb818f668ed78957, type: 3}
@@ -79,6 +95,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 2
     nameWhitelist: []
+    rewardStoreGoodsNumber: 310090
+    rewardCount: 1
   - title: "\uB808\uC804\uB4DC \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
     description: "\uB808\uC804\uB4DC \uB3C4\uAC10 6\uC885\uC804\uCCB4 \uB4F1\uB85D"
     icon: {fileID: -684057443874771528, guid: 477c08e5bdad143d99e8be1c20f5f748, type: 3}
@@ -86,6 +104,8 @@ MonoBehaviour:
     threshold: 0
     rarity: 3
     nameWhitelist: []
+    rewardStoreGoodsNumber: 310100
+    rewardCount: 1
   - title: "\uACFC\uC77C\uB098\uBB34 \uB9C8\uC2A4\uD130"
     description: "\uACFC\uC77C\uB098\uBB34 6\uC885 \uC804\uCCB4 \uB4F1\uB85D"
     icon: {fileID: 3261707429046591213, guid: 5089c1f6eb4fa428d8bb66f1d2739819, type: 3}
@@ -99,3 +119,5 @@ MonoBehaviour:
     - "\uCCB4\uB9AC\uB098\uBB34"
     - "\uADE4\uB098\uBB34"
     - "\uBC30\uB098\uBB34"
+    rewardStoreGoodsNumber: 310110
+    rewardCount: 1
