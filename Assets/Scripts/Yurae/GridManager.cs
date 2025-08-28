@@ -18,6 +18,12 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Transform gridParent;
     [SerializeField] private Transform objectParent;
 
+    [Header("설치 오브젝트 프리팹")]
+    [SerializeField] private PlaceableObject[] tilePrefabs;
+    [SerializeField] private PlaceableObject[] objectPrefabs;
+    [SerializeField] private PlaceableObject[] plantPrefabs;
+    [SerializeField] private Transform objectParents;
+
     private List<GameObject> gridObjects;
 
 
@@ -82,6 +88,18 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    private BaseGrid GetBaseGrid(Vector2Int pos)
+    {
+        foreach(GameObject gridObject in gridObjects)
+        {
+            BaseGrid grid = gridObject.GetComponent<BaseGrid>();
+
+            if (grid.GetGridPos() == pos) return grid;
+        }
+
+        return null;
+    }
+
     private void LoadDataFromServer()
     {
         // Set Player Tile From Server
@@ -94,13 +112,94 @@ public class GridManager : MonoBehaviour
                 Debug.Log($"첫 오브젝트 타입: {objects[0].objectKind}, 회전: {objects[0].rotation}");
             */
             Debug.Log($"타일 개수: {gardens.Count}");
-            for (int i = 0; i < objects.Count; i++)
+            for (int i = 0; i < gardens.Count; i++)
             {
+                int x = gardens[i].x;
+                int y = gardens[i].y;
+
+                Debug.Log($"타일 타입: {gardens[i].tileType}");
+                Debug.Log($"첫 오브젝트 타입: {objects[0].objectKind}");
+
+                // Get Tile
+                PlaceableObject tileObj = FindTile(gardens[i].tileType);
+                TileData tile = tileObj.GetComponent<TileData>();
+
+                PlaceableObject obj = FindObject(objects[0].objectKind);
+                PlaceableObject plant = FindPlant(objects[0].objectKind);
+
+                // Get Base Grid
+                BaseGrid grid = GetBaseGrid(new Vector2Int(x, y));
+
+                // Place Tile
+                TileData placedTile = grid.GetTile();
+                DestroyImmediate(placedTile.gameObject); // Remove
+                grid.PlaceTile(tile);
+
+                GameObject tilePrefab = Instantiate(tileObj.gameObject);
+                tilePrefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                tilePrefab.transform.SetParent(objectParent);
                 
+
+                // Place Object or Plant
+                if (obj != null)
+                {
+                    GameObject prefab = Instantiate(obj.gameObject);
+                    prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                    prefab.transform.SetParent(objectParent);
+
+                    prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;
+
+                    grid.PlaceObject(obj.GetComponent<ObjectData>());
+                }
+                else if (plant != null)
+                {
+                    GameObject prefab = Instantiate(plant.gameObject);
+                    prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                    prefab.transform.SetParent(objectParent);
+
+                    prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;
+
+                    grid.PlacePlant(obj.GetComponent<PlantData>());
+                }
             }
         },
         error => Debug.LogError(error)
         );
+    }
+
+    private void PlaceTile(int x, int y)
+    {
+
+    }
+
+    private PlaceableObject FindObject(long id)
+    {
+        foreach(PlaceableObject obj in objectPrefabs)
+        {
+            if (obj.GetNoID() == id) return obj;
+        }
+
+        return null;
+    }
+
+    private PlaceableObject FindTile(long id)
+    {
+        foreach (PlaceableObject tile in tilePrefabs)
+        {
+            if (tile.GetNoID() == id) return tile;
+        }
+
+        Debug.LogError("알 수 없는 타일");
+        return null;
+    }
+
+    private PlaceableObject FindPlant(long id)
+    {
+        foreach (PlaceableObject plant in plantPrefabs)
+        {
+            if (plant.GetNoID() == id) return plant;
+        }
+        return null;
     }
 
     public Vector2 GetWorldPosition(int x, int y)

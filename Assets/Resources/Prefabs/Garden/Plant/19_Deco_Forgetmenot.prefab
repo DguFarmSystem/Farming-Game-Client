@@ -114,4 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53cd6643812c9524e9edce53db67fb19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridPosition: {x: 0, y: 0}
   id: Deco_Forgetmenot
+  numberId: 100100
+  rotationSprites: []

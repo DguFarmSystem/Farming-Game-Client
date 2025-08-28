@@ -185,7 +185,7 @@ public class PlacementManager : MonoBehaviour
                     GardenControllerAPI.UpdateGardenTile(
                         _gridPos.x, _gridPos.y,
                         tileType: placedTile.GetNoID(),
-                        objectType: placedObject.GetNoID(),
+                        objectKind: placedObject.GetNoID(),
                         rotation: Garden.RotationEnum.R0,
                         onSuccess: res => Debug.Log("PATCH Success: " + res),
                         onError: err => Debug.LogError(err)
@@ -202,7 +202,7 @@ public class PlacementManager : MonoBehaviour
                     GardenControllerAPI.UpdateGardenTile(
                         _gridPos.x, _gridPos.y,
                         tileType: placedTile.GetNoID(),
-                        objectType: placedPlant.GetNoID(),
+                        objectKind: placedPlant.GetNoID(),
                         rotation: Garden.RotationEnum.R0,
                         onSuccess: res => Debug.Log("PATCH Success: " + res),
                         onError: err => Debug.LogError(err)

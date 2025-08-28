@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridPosition: {x: 0, y: 0}
   id: Tilemap_Grass
-  numberId: 40010
+  numberId: 400010
   rotationSprites: []
 --- !u!114 &-7513710498647453244
 MonoBehaviour:

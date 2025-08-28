@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8446410201687712487}
   - component: {fileID: 2358404210580079753}
-  - component: {fileID: 2628316351476869338}
-  - component: {fileID: 6367868774206878630}
+  - component: {fileID: 4214927053991855641}
+  - component: {fileID: -2473537051117188778}
+  - component: {fileID: 7945919854927391897}
   m_Layer: 0
-  m_Name: 47_Deco_Blueberry
-  m_TagString: Plant
+  m_Name: 27_Deco_White_Fence
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,21 +76,21 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -204862077
-  m_SortingLayer: 4
+  m_SortingLayerID: 1705495195
+  m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3593471636808728357, guid: d57e65a94c0e65f48b88a5cea3bad4cc, type: 3}
+  m_Sprite: {fileID: 819436441730897038, guid: 79c1764bfcb85db4e9c465572c3b4dad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 7.74, y: 6.67}
+  m_Size: {x: 0.5078125, y: 0.69140625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2628316351476869338
+--- !u!114 &4214927053991855641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,11 +99,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2385325362487762811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba63584e1156c6a469eccf4ce59b524d, type: 3}
+  m_Script: {fileID: 11500000, guid: 83ef3ab67afcd684db85d7fc64997a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
---- !u!114 &6367868774206878630
+--- !u!114 &-2473537051117188778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,6 +115,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPosition: {x: 0, y: 0}
-  id: Deco_Blueberry
-  numberId: 120050
+  id: White_Fence
+  numberId: 200020
   rotationSprites: []
+--- !u!114 &7945919854927391897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2385325362487762811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c2614c052c98f4ba2110b66dc9ca66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 7136809038283548612, guid: 058cd3891cff2464bbe6620ccf98d5b8, type: 3}
+  - {fileID: 2184573161565924855, guid: 470a02a04dac33044a05632904473a8a, type: 3}
+  - {fileID: 8235862248290961205, guid: 938f81c6c6cd31e4db0eec7034c1a1e3, type: 3}
+  - {fileID: -4895742331571220090, guid: a2d994a0f1a83bc489d519e91c6525ab, type: 3}
+  - {fileID: 358226822051933349, guid: 2d59035c45d7d934299abdf408a7216b, type: 3}
+  - {fileID: -1968456843583985456, guid: 0fcb1a9564539fe4f97add1fff797150, type: 3}
+  - {fileID: 5534558305232970913, guid: aa9c1d8ff9a2a0442822b8031384e9a4, type: 3}
+  - {fileID: -3825975271956193137, guid: b4bc1bb3ba53d9444b5480e7e0d3bd00, type: 3}
+  - {fileID: -154806524843993188, guid: 549908b704cf2f448a1baf149bd835bd, type: 3}
+  - {fileID: -7818288900336237092, guid: d3000b0efcd107444a7aafdff43cc8d7, type: 3}
+  - {fileID: -8003583212362821080, guid: 710c8d0bb440f5548966382f407b7ec5, type: 3}
+  - {fileID: -3694546931812572732, guid: 88aeef4bcfb4edc4fa88c019191e7f27, type: 3}
+  - {fileID: 5668744910155398070, guid: bdfcaa695774b91459beaed668441637, type: 3}
+  - {fileID: 2875212285654424842, guid: 5a0b278c6e24fb145be4322a2bba3453, type: 3}
+  - {fileID: 953395383592804703, guid: 4796dc2de7fe40a43bcea29d0dbd54ba, type: 3}
+  - {fileID: 819436441730897038, guid: 79c1764bfcb85db4e9c465572c3b4dad, type: 3}
+  fenceType: 2

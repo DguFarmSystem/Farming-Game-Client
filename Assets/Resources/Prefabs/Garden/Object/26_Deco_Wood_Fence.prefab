@@ -116,6 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridPosition: {x: 0, y: 0}
   id: Wood_Fence
+  numberId: 200010
   rotationSprites: []
 --- !u!114 &7945919854927391897
 MonoBehaviour:
@@ -146,3 +147,4 @@ MonoBehaviour:
   - {fileID: 2875212285654424842, guid: 5a0b278c6e24fb145be4322a2bba3453, type: 3}
   - {fileID: 953395383592804703, guid: 4796dc2de7fe40a43bcea29d0dbd54ba, type: 3}
   - {fileID: 819436441730897038, guid: 79c1764bfcb85db4e9c465572c3b4dad, type: 3}
+  fenceType: 0

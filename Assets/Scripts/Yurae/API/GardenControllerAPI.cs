@@ -9,11 +9,13 @@ using UnityEngine;
 public class GardenControllerAPI : MonoBehaviour
 {
     /// <summary>
-    /// /api/garden 호출 → data가 배열이므로 List<GardenData>로 파싱
-    /// GardenData 리스트와 ObjectData 리스트 둘 다 전달
+    /// GET /api/garden
+    /// - data: List<GardenData>
+    /// - GardenData.objectData: 단일 ObjectData (없을 수 있음 → null)
+    /// onSuccess: gardens (원본 리스트), objects (gardens와 인덱스 1:1, null 포함)
     /// </summary>
     public static void GetGardenDataFromServer(
-        Action<List<Garden.GardenData>, List<Garden.ObjectData>> onSuccess,
+        Action<List<GardenData>, List<Garden.ObjectData>> onSuccess,
         Action<string> onError = null)
     {
         APIManager.Instance.Get(
@@ -22,11 +24,12 @@ public class GardenControllerAPI : MonoBehaviour
             {
                 try
                 {
-                    var resp = JsonConvert.DeserializeObject<Garden.ApiResponse<List<Garden.GardenData>>>(result);
+                    var resp = JsonConvert.DeserializeObject<ApiResponse<List<GardenData>>>(result);
 
                     if (resp != null && resp.status == 200 && resp.data != null)
                     {
-                        var gardens = resp.data;
+                        var gardens = resp.data; // 여러 개
+                        // 각 garden의 단일 objectData를 1:1로 모음 (null 가능)
                         var objects = gardens.Select(g => g.objectData).ToList();
 
                         onSuccess?.Invoke(gardens, objects);
@@ -46,7 +49,7 @@ public class GardenControllerAPI : MonoBehaviour
     }
 
     /// <summary>
-    /// /api/garden/update/{x}/{y} PATCH (직접 DTO 전달)
+    /// PATCH /api/garden/update/{x}/{y} (DTO 직접 전달)
     /// </summary>
     public static void UpdateGardenTile(
         int x, int y,
@@ -59,18 +62,13 @@ public class GardenControllerAPI : MonoBehaviour
             var settings = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,
-                Converters = { new StringEnumConverter() }
+                Converters = { new StringEnumConverter() } // "R90" 문자열 enum 대응
             };
 
             string json = JsonConvert.SerializeObject(payload, settings);
             string endpoint = $"/api/garden/update/{x}/{y}";
 
-            APIManager.Instance.Patch(
-                endpoint,
-                json,
-                onSuccess,
-                onError
-            );
+            APIManager.Instance.Patch(endpoint, json, onSuccess, onError);
         }
         catch (Exception e)
         {
@@ -79,12 +77,12 @@ public class GardenControllerAPI : MonoBehaviour
     }
 
     /// <summary>
-    /// /api/garden/update/{x}/{y} PATCH (간편 오버로드)
+    /// PATCH /api/garden/update/{x}/{y} (간편 오버로드)
     /// </summary>
     public static void UpdateGardenTile(
         int x, int y,
         long tileType,
-        long objectType,
+        long objectKind,
         RotationEnum rotation,
         Action<string> onSuccess,
         Action<string> onError = null)
@@ -94,7 +92,7 @@ public class GardenControllerAPI : MonoBehaviour
             tileType = tileType,
             objectData = new Garden.ObjectData
             {
-                objectKind = objectType,
+                objectKind = objectKind,
                 rotation = rotation
             }
         };
@@ -103,7 +101,7 @@ public class GardenControllerAPI : MonoBehaviour
     }
 
     /// <summary>
-    /// /api/garden/update/{x}/{y} PATCH (오브젝트 제거하고 싶을 때)
+    /// PATCH /api/garden/update/{x}/{y} (오브젝트 제거: object를 생략)
     /// </summary>
     public static void ClearGardenObject(
         int x, int y,
@@ -111,7 +109,11 @@ public class GardenControllerAPI : MonoBehaviour
         Action<string> onSuccess,
         Action<string> onError = null)
     {
-        var req = new GardenUpdateRequest { tileType = tileType, objectData = null };
+        var req = new GardenUpdateRequest
+        {
+            tileType = tileType,
+            objectData = null // NullValueHandling.Ignore로 JSON에서 "object" 빠짐
+        };
         UpdateGardenTile(x, y, req, onSuccess, onError);
     }
 }

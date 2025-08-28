@@ -116,4 +116,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridPosition: {x: 0, y: 0}
   id: Deco_Pear_Shiny
+  numberId: 120121
   rotationSprites: []

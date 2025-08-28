@@ -116,4 +116,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridPosition: {x: 0, y: 0}
   id: Deco_Apple
+  numberId: 120040
   rotationSprites: []
