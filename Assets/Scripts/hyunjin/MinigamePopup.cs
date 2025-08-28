@@ -4,30 +4,6 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System;
 
-[Serializable]
-public class PlayerGetResponse
-{
-    public int status;
-    public string message;
-    public PlayerData data;
-}
-
-[Serializable]
-public class PlayerData
-{
-    public int seedTicket;
-    public int gold;
-    public int sunlight;
-    public int seedCount;
-}
-
-[Serializable]
-public class PlayerUpdateBody
-{
-    public int gold;
-    public PlayerUpdateBody(int gold) { this.gold = gold; }
-}
-
 public class MinigamePopup : MonoBehaviour
 {
     [Header("Description")]
@@ -138,23 +114,13 @@ public class MinigamePopup : MonoBehaviour
         betRewardText.text = $"골드를 획득했습니다!\n획득 골드 : {currentGold}G";
         bettingText.text = $"{round+1} round\n도전 실패 시 : {ifWin}G\n도전 성공 시 : +{ifLose}G";
 
-        // 저장 후 종료
+            // 저장 후 종료
         stopButton.onClick.RemoveAllListeners();
         stopButton.onClick.AddListener(() =>
         {
-        UpdateGold(currentGold,
-                onSuccess: () =>
-                {
-                    bettingPopup.SetActive(false);
-                    ExitGame();
-                },
-                onError: (err) =>
-                {
-                    Debug.LogWarning($"player gold update failed : {err}");
-                    bettingPopup.SetActive(false);
-                    ExitGame();
-                }
-            );
+            CurrencyManager.Instance?.AddGold(currentGold);
+            bettingPopup.SetActive(false);
+            ExitGame();
         });
         bettingPopup.gameObject.SetActive(true);
     }
@@ -167,42 +133,10 @@ public class MinigamePopup : MonoBehaviour
         if (gold == 0)
             rewardText.text = "골드를 획득하지 못했습니다.\n조금만 더 힘내보세요!";
         else
+        {
             rewardText.text = $"골드를 획득했습니다!\n획득 골드 : {gold}G";
-
-        UpdateGold(
-            gold,
-            onSuccess: () => { },
-            onError: (err) => { Debug.LogWarning($"player gold update failed : {err}"); }
-        );
-    }
-
-    private void UpdateGold(int delta, Action onSuccess, Action<string> onError)
-    {
-        APIManager.Instance.Get("/api/player",
-            onSuccess: (json) =>
-            {
-                try
-                {
-                    var res = JsonUtility.FromJson<PlayerGetResponse>(json);
-                    int serverGold = res?.data?.gold ?? 0;
-                    int finalGold = Mathf.Max(0, serverGold + delta);
-
-                    string body = JsonUtility.ToJson(new PlayerUpdateBody(finalGold));
-                    APIManager.Instance.Patch("/api/player/currency", body,
-                        onSuccess: (_) => {
-                            Debug.Log($"[TEST] Gold updated: server={serverGold}, delta={delta}, total={finalGold}");
-                            onSuccess?.Invoke();
-                        },
-                        onError: (err2) => onError?.Invoke(err2)
-                    );
-                }
-                catch (Exception e)
-                {
-                    onError?.Invoke($"parse: {e.Message}");
-                }
-            },
-            onError: (err) => onError?.Invoke(err)
-        );
+            CurrencyManager.Instance?.AddGold(gold);
+        }
     }
 
 }
