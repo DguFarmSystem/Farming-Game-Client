@@ -261,7 +261,8 @@ PrefabInstance:
       value: FarmPopup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3684714467524452570, guid: 8c31258ef62304c068d0fbbb26e27054, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c31258ef62304c068d0fbbb26e27054, type: 3}
@@ -1647,7 +1648,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stationData:
-    uid: 
     chargeStartTime: 
   tankImage: {fileID: 381086778}
   percentText: {fileID: 526576554}
