@@ -28,13 +28,12 @@ public class FarmGround : MonoBehaviour
 
     void Awake()
     {
-        // Start 메서드에서 data를 초기화하고 x, y를 할당
         if (data == null)
         {
             data = new FarmPlotData();
         }
-        data.x = this.x; // 인스펙터에 설정된 x 값을 data에 할당
-        data.y = this.y; // 인스펙터에 설정된 y 값을 data에 할당
+        data.x = this.x;
+        data.y = this.y;
     }
     
     public void InitGround(FarmPlotData newData)
@@ -52,32 +51,22 @@ public class FarmGround : MonoBehaviour
                 timer_UI.SetActive(false);
                 break;
             case "growing":
-                // 서버에서 받은 ISO-8601 문자열을 DateTime으로 파싱
-                if (DateTime.TryParse(data.planted_at, out DateTime plantedTime))
-                {
-                    // 서버와 동일한 성장 시간 로직 사용
-                    //double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
-                    double growTimeSeconds = 10;
-                    growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
+                // ❗ planted_at이 DateTime이므로 바로 사용
+                double growTimeSeconds = 10;
+                growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
+                double elapsedSeconds = (DateTime.UtcNow - data.planted_at.ToUniversalTime()).TotalSeconds;
+                double progress = elapsedSeconds / growTimeSeconds;
 
-                    double elapsedSeconds = (DateTime.UtcNow - plantedTime.ToUniversalTime()).TotalSeconds;
-                    double progress = elapsedSeconds / growTimeSeconds;
-
-                    if (progress < 0.25)
-                        spriter.sprite = seedSprite;
-                    else if (progress < 0.5)
-                        spriter.sprite = growingSprite;
-                    else if (progress < 0.75)
-                        spriter.sprite = growingSprite_1;
-                    else
-                        spriter.sprite = growingSprite_2;
-
-                    timer_UI.SetActive(true);
-                }
-                else
-                {
+                if (progress < 0.25)
                     spriter.sprite = seedSprite;
-                }
+                else if (progress < 0.5)
+                    spriter.sprite = growingSprite;
+                else if (progress < 0.75)
+                    spriter.sprite = growingSprite_1;
+                else
+                    spriter.sprite = growingSprite_2;
+
+                timer_UI.SetActive(true);
                 break;
             case "grown":
                 spriter.sprite = grownSprite;
@@ -88,15 +77,14 @@ public class FarmGround : MonoBehaviour
 
     public void PlantSeed()
     {
-        // 로컬 데이터 업데이트
-        data.planted_at = FarmGroundAPI.NowIsoUtc();
+        data.planted_at = DateTime.UtcNow;
         data.status = "growing";
-        data.plant_name = ""; // 심을 때 작물명 초기화 (수확 시점에 지정)
+        data.plant_name = "";
+        data.useSunCount = 0;
 
         UpdateVisual();
 
-        // 서버에 데이터 업데이트 요청 (Patch)
-        StartCoroutine(FarmGroundAPI.PatchTile(data.x, data.y, FarmGroundAPI.ToDto(data), (ok, raw) =>
+        StartCoroutine(FarmGroundAPI.PatchTile(FarmGroundAPI.ToDto(data), (ok, raw) =>
         {
             if (!ok)
             {
@@ -108,7 +96,6 @@ public class FarmGround : MonoBehaviour
             }
         }));
 
-        // UIManager 로직은 그대로 유지
         Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 0.5f);
         timer_UI.transform.position = screenPos;
     }
@@ -117,27 +104,29 @@ public class FarmGround : MonoBehaviour
     {
         if (data.status != "grown") return;
 
-        // 꽃을 미리 지정하고 팝업을 띄움
         data.plant_name = FlowerDataManager.Instance.GetRandomFlowerNameByRarityWeighted();
+        string getFlowerId = "Deco_" + data.plant_name;
+        
+        if(database != null)
+        {
+            database.AddData(getFlowerId);
+        }
+        else
+        {
+            Debug.LogError("[FarmGround] ObjectDatabase가 할당되지 않았습니다!");
+        }
 
-        string getFlower = "Deco_" + data.plant_name;
-        
-        database.AddData(getFlower); //꽃 추가
-        
-        UIManager.Instance.OpenHarvestPopup(data.plant_name, database.GetNameFromID(getFlower));
+        UIManager.Instance.OpenHarvestPopup(data.plant_name, database.GetNameFromID(getFlowerId));
         FlowerDataManager.Instance.RegisterFlower(data.plant_name);
 
-
-        // 로컬 데이터 'empty' 상태로 업데이트
         data.plant_name = "";
-        data.planted_at = "";
+        data.planted_at = default(DateTime); // ❗ DateTime 기본값으로 초기화
         data.status = "empty";
         data.useSunCount = 0;
 
         UpdateVisual();
 
-        // 서버에 데이터 업데이트 요청 (Patch)
-        StartCoroutine(FarmGroundAPI.PatchTile(data.x, data.y, FarmGroundAPI.ToDto(data), (ok, raw) =>
+        StartCoroutine(FarmGroundAPI.PatchTile(FarmGroundAPI.ToDto(data), (ok, raw) =>
         {
             if (!ok)
             {
@@ -158,38 +147,31 @@ public class FarmGround : MonoBehaviour
             return;
         }
 
-        if (DateTime.TryParse(data.planted_at, out DateTime plantedTime))
+        // ❗ planted_at이 DateTime이므로 바로 사용
+        double growTimeSeconds = 10;
+        growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
+        double elapsed = (DateTime.UtcNow - data.planted_at.ToUniversalTime()).TotalSeconds;
+        double remainingSeconds = growTimeSeconds - elapsed;
+
+        if (remainingSeconds > 0)
         {
-            //double growTimeSeconds = 24 * 3600 - (2 * 3600 * data.useSunCount);
-            double growTimeSeconds = 10;
-            growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
-
-            double elapsed = (DateTime.UtcNow - plantedTime.ToUniversalTime()).TotalSeconds;
-            double remainingSeconds = growTimeSeconds - elapsed;
-
-            // 남은 시간 표시
-            if (remainingSeconds > 0)
+            TimeSpan ts = TimeSpan.FromSeconds(remainingSeconds);
+            string display = string.Format("{0:D2}:{1:D2}", ts.Hours, ts.Minutes);
+            timer_text.text = display;
+        }
+        else
+        {
+            Debug.Log("다 자람!");
+            data.status = "grown";
+            UpdateVisual();
+            
+            StartCoroutine(FarmGroundAPI.PatchTile(FarmGroundAPI.ToDto(data), (ok, raw) =>
             {
-                TimeSpan ts = TimeSpan.FromSeconds(remainingSeconds);
-                string display = string.Format("{0:D2}:{1:D2}", ts.Hours, ts.Minutes);
-                timer_text.text = display;
-            }
-            else
-            {
-                // 성장 완료
-                Debug.Log("다 자람!");
-                data.status = "grown";
-                UpdateVisual();
-                
-                // 서버에 상태 업데이트 요청 (Patch)
-                StartCoroutine(FarmGroundAPI.PatchTile(data.x, data.y, FarmGroundAPI.ToDto(data), (ok, raw) =>
+                if (!ok)
                 {
-                    if (!ok)
-                    {
-                        Debug.LogError($"[FarmGround] 성장 완료 상태 업데이트 실패: {raw}");
-                    }
-                }));
-            }
+                    Debug.LogError($"[FarmGround] 성장 완료 상태 업데이트 실패: {raw}");
+                }
+            }));
         }
     }
     

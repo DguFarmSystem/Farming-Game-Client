@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,6 @@ public class FarmManager : MonoBehaviour
 
     private void Start()
     {
-        // 1. APIManager가 존재하면 토큰을 가져와 FarmGroundAPI에 할당
         if (APIManager.Instance != null)
         {
             FarmGroundAPI.AccessToken = APIManager.Instance.getAccessToken();
@@ -39,7 +39,6 @@ public class FarmManager : MonoBehaviour
             Debug.LogError("[FarmManager] APIManager 인스턴스를 찾을 수 없습니다!");
             return;
         }
-
         CollectSceneTiles();
         StartCoroutine(InitFarmFromServer());
     }
@@ -58,44 +57,32 @@ public class FarmManager : MonoBehaviour
     private void CollectSceneTiles()
     {
         tilesById.Clear();
-
         FarmGround[] grounds = (tileParent != null)
             ? tileParent.GetComponentsInChildren<FarmGround>(true)
             : FindObjectsOfType<FarmGround>(true);
-
         string prefix = string.IsNullOrEmpty(plotIdPrefixOverride) ? (uid + "_") : plotIdPrefixOverride;
-
         for (int i = 0; i < grounds.Length; i++)
         {
             var g = grounds[i];
-
+            
+            if (g.data == null)
+            {
+                g.data = new FarmPlotData();
+            }
+            g.data.uid = uid;
+            g.data.x = g.x;
+            g.data.y = g.y;
+            g.data.status = "empty";
+            g.data.useSunCount = 0;
+           
+            
             g.emptySprite = emptySprite;
             g.seedSprite = seedSprite;
             g.growingSprite = growingSprite;
             g.growingSprite_1 = growingSprite_1;
             g.growingSprite_2 = growingSprite_2;
             g.grownSprite = grownSprite;
-
             string plotId = $"{g.x}_{g.y}";
-            
-            if (g.data == null)
-            {
-                g.data = new FarmPlotData
-                {
-                    uid = uid,
-                    x = g.x, 
-                    y = g.y,
-                    plant_name = "",
-                    planted_at = "",
-                    status = "empty",
-                    useSunCount = 0
-                };
-            }
-            else
-            {
-                g.data.uid = uid;
-            }
-
             if (!tilesById.ContainsKey(plotId))
             {
                 tilesById.Add(plotId, g);
@@ -105,7 +92,6 @@ public class FarmManager : MonoBehaviour
                 Debug.LogWarning($"[FarmManager] 중복 plot_id 발견: {plotId} (씬 배치를 확인하세요)");
             }
         }
-        
         Debug.Log($"[FarmManager] 씬에서 수집한 타일 수: {tilesById.Count}");
     }
 
@@ -114,24 +100,20 @@ public class FarmManager : MonoBehaviour
         foreach (var kv in tilesById)
         {
             var tile = kv.Value;
-
             bool done = false;
             FarmGroundAPI.FarmTileDto serverData = null;
             string error = null;
-
             yield return FarmGroundAPI.GetTile(tile.data.x, tile.data.y, (ok, dto, raw) =>
             {
                 serverData = dto;
                 error = ok ? null : raw;
                 done = true;
             });
-
             if (!done)
             {
                 Debug.LogError($"[FarmManager] 서버 통신 실패: {error}");
                 continue;
             }
-
             if (serverData != null)
             {
                 FarmGroundAPI.ApplyDtoToPlot(serverData, tile.data);
@@ -144,10 +126,9 @@ public class FarmManager : MonoBehaviour
                 var d = tile.data;
                 var dto = FarmGroundAPI.ToDto(d);
                 tile.InitGround(d);
-
                 Debug.Log($"[FarmManager] 밭({d.x}, {d.y}) 데이터 없음. 새로 생성 요청.");
-
-                yield return FarmGroundAPI.PatchTile(d.x, d.y, dto, (ok, raw) =>
+                
+                yield return FarmGroundAPI.PatchTile(dto, (ok, raw) =>
                 {
                     if (!ok)
                         Debug.LogError($"[FarmManager] 신규 밭 생성 실패: {raw}");

@@ -31,51 +31,61 @@ public class FarmGroundAPI
         public int x;
         public int y;
         public string status;
-        public string plantedAt;
+        public string plantedAt; // string 타입 유지 (JsonUtility 호환성)
         public int sunlightCount;
         public string plantName;
     }
 
     public static IEnumerator GetTile(int x, int y, Action<bool, FarmTileDto, string> onDone)
     {
-        string url = $"{baseUrl}/api/farm/tile?x={x}&y={y}";
-        using (var req = UnityWebRequest.Get(url))
-        {
-            SetHeaders(req);
-            yield return req.SendWebRequest();
-            string raw = req.downloadHandler?.text;
-            if (req.result != UnityWebRequest.Result.Success)
-            {
-                onDone?.Invoke(false, null, $"{req.responseCode} {req.error} :: {raw}");
-                yield break;
-            }
-            FarmTileDto dto = null;
-            try
-            {
-                var wrapped = JsonUtility.FromJson<ApiResponse<FarmTileDto>>(raw);
-                if (wrapped != null && wrapped.data != null) dto = wrapped.data;
-                else dto = JsonUtility.FromJson<FarmTileDto>(raw);
-            }
-            catch { }
-            onDone?.Invoke(dto != null, dto, raw);
-        }
-    }
+        string endPoint = $"/api/farm/tile?x={x}&y={y}";
+        bool done = false;
+        FarmTileDto dto = null;
+        string error = null;
 
-    public static IEnumerator PatchTile(int x, int y, FarmTileDto body, Action<bool, string> onDone)
+        APIManager.Instance.Get(endPoint,
+            (rawResponse) =>
+            {
+                try
+                {
+                    var wrapped = JsonUtility.FromJson<ApiResponse<FarmTileDto>>(rawResponse);
+                    if (wrapped != null && wrapped.data != null) dto = wrapped.data;
+                    else dto = JsonUtility.FromJson<FarmTileDto>(rawResponse);
+                }
+                catch { }
+                done = true;
+            },
+            (err) =>
+            {
+                error = err;
+                done = true;
+            }
+        );
+
+        while (!done) yield return null;
+        onDone?.Invoke(dto != null, dto, error);
+    }
+    
+    public static IEnumerator PatchTile(FarmTileDto body, Action<bool, string> onDone)
     {
-        // ❗ URL에 x, y 좌표를 쿼리 파라미터로 추가
-        string url = $"{baseUrl}/api/farm/tile?x={x}&y={y}";
+        string endPoint = "/api/farm/tile";
         string json = JsonUtility.ToJson(body);
-        using (var req = new UnityWebRequest(url, "PATCH"))
-        {
-            req.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(json));
-            req.downloadHandler = new DownloadHandlerBuffer();
-            SetHeaders(req);
-            yield return req.SendWebRequest();
-            string raw = req.downloadHandler?.text;
-            bool ok = (req.result == UnityWebRequest.Result.Success);
-            onDone?.Invoke(ok, ok ? raw : $"{req.responseCode} {req.error} :: {raw}");
-        }
+        bool done = false;
+        string error = null;
+        
+        APIManager.Instance.Patch(endPoint, json,
+            (rawResponse) => {
+                done = true;
+                onDone?.Invoke(true, rawResponse);
+            },
+            (err) => {
+                error = err;
+                done = true;
+                onDone?.Invoke(false, error);
+            }
+        );
+        
+        while (!done) yield return null;
     }
     
     public static FarmTileDto ToDto(FarmPlotData p)
@@ -85,7 +95,8 @@ public class FarmGroundAPI
             x = p.x,
             y = p.y,
             status = p.status,
-            plantedAt = string.IsNullOrEmpty(p.planted_at) ? null : p.planted_at,
+            // ❗ DateTime.MinValue일 경우 null, 아닐 경우 문자열로 변환
+            plantedAt = (p.planted_at == DateTime.MinValue) ? null : p.planted_at.ToString("o"),
             sunlightCount = p.useSunCount,
             plantName = p.plant_name,
         };
@@ -97,7 +108,15 @@ public class FarmGroundAPI
         p.x = dto.x;
         p.y = dto.y;
         p.status = string.IsNullOrEmpty(dto.status) ? p.status : dto.status;
-        p.planted_at = dto.plantedAt ?? p.planted_at;
+        // ❗ dto.plantedAt이 null이 아니면 파싱하여 할당
+        if (!string.IsNullOrEmpty(dto.plantedAt) && DateTime.TryParse(dto.plantedAt, out DateTime parsedTime))
+        {
+            p.planted_at = parsedTime;
+        }
+        else
+        {
+            p.planted_at = default(DateTime);
+        }
         p.useSunCount = dto.sunlightCount;
         if (!string.IsNullOrEmpty(dto.plantName)) p.plant_name = dto.plantName;
     }
