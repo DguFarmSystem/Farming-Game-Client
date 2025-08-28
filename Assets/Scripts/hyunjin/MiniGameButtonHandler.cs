@@ -23,7 +23,7 @@ public class MiniGameButtonHandler : MonoBehaviour
 {
     [SerializeField] private GameObject popupPanel;
     [SerializeField] private string selected;
-    private Dictionary<string, (string title, string description, string gameType)> gameInfo;
+    private Dictionary<string, (string title, string description, string gameType, int count)> gameInfo;
 
     public TMP_Text title;
     public TMP_Text description;
@@ -34,11 +34,39 @@ public class MiniGameButtonHandler : MonoBehaviour
     {
         popupPanel.SetActive(false);
 
-        gameInfo = new Dictionary<string, (string, string, string)> {
-            {"RPS", ("가위바위보", "모두가 아는 그 게임 맞아요.", "rock")},
-            {"CarrotFarm", ("당근농장 아르바이트", "Carrot Farm part time job description", "carrot")},
-            {"SunshineGame", ("햇빛게임", "sunshine game description", "sunlight")},
+        gameInfo = new Dictionary<string, (string, string, string, int)> {
+            {"RPS", ("가위바위보", "모두가 아는 그 게임 맞아요.", "rock", 3)},
+            {"CarrotFarm", ("당근농장 아르바이트", "Carrot Farm part time job description", "carrot", 3)},
+            {"SunshineGame", ("햇빛게임", "sunshine game description", "sunlight", 3)},
         };
+    }
+
+    void Start()
+    {
+        foreach(var kv in gameInfo)
+        {
+            string sceneName = kv.Key;
+            var info = kv.Value;
+
+            APIManager.Instance.Get( $"/api/daily-game/{info.gameType}",
+                onSuccess: (json) =>
+                {
+                    try
+                    {
+                        var res = JsonUtility.FromJson<DailyGameGetResponse>(json);
+                        if (res != null && res.data != null)
+                            gameInfo[sceneName] = (info.title, info.description, info.gameType, Mathf.Clamp(res.data.count, 0, 3));
+                        else
+                            Debug.LogWarning($"daily-game GET failed");
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogWarning($"daily-game GET parsing error : {e.Message}");
+                    }
+                },
+                onError: (err) => Debug.LogWarning($"daily-game GET error : {err}")
+            );
+        }
     }
 
     public void OpenPopup(string sceneName) {
@@ -47,40 +75,8 @@ public class MiniGameButtonHandler : MonoBehaviour
         {
             title.text = info.title;
             description.text = info.description;
-            playCount.text = "불러오는 중...";
-            APIManager.Instance.Get(
-            $"/api/daily-game/{info.gameType}",
-            onSuccess: (json) =>
-            {
-                try
-                {
-                    var res = JsonUtility.FromJson<DailyGameGetResponse>(json);
-                    if (res != null && res.data != null)
-                    {
-                        playCount.text = $"플레이 가능 횟수 : {res.data.count}/3";
-                        //startButton.interactable = (res.data.count > 0);
-                    }
-                    else
-                    {
-                        playCount.text = $"플레이 가능 횟수 : 3/3";
-                        //startButton.interactable = true;
-                        Debug.LogWarning($"daily-game GET failed");
-                    }
-                }
-                catch (Exception e)
-                {
-                    playCount.text = $"플레이 가능 횟수 : 3/3";
-                    //startButton.interactable = true;
-                    Debug.LogWarning($"daily-game GET parsing error : {e.Message}");
-                }
-            },
-            onError: (err) =>
-            {
-                playCount.text = $"-";
-                //startButton.interactable = false;
-                Debug.LogWarning($"daily-game GET error : {err}");
-            }
-        );
+            playCount.text = $"플레이 가능 횟수 : {info.count}/3";
+            startButton.interactable = (info.count > 0);
         }
         else
         {
@@ -90,7 +86,6 @@ public class MiniGameButtonHandler : MonoBehaviour
         }
         
         popupPanel.SetActive(true);
-        startButton.interactable = true;
         GameManager.Sound.SFXPlay("SFX_ButtonClick");
     }
 
@@ -110,27 +105,27 @@ public class MiniGameButtonHandler : MonoBehaviour
             return;
         }
 
-        //var body = new DailyGameUseRequest { gameType = info.gameType };
-        //string json = JsonUtility.ToJson(body);
+        var body = new DailyGameUseRequest { gameType = info.gameType };
+        string json = JsonUtility.ToJson(body);
 
-        //APIManager.Instance.Patch(
-        //    "/api/daily-game/use",
-        //    json,
-        //    onSuccess: (_) =>
-        //    {
+        APIManager.Instance.Patch(
+            "/api/daily-game/use",
+            json,
+            onSuccess: (_) =>
+            {
                 GameManager.Sound.SFXPlay("SFX_GameStart");
-        SceneLoader.Instance.GoToMiniGame(selected);
-        //    },
-        //    onError: (err) =>
-        //    {
-        //        if (!string.IsNullOrEmpty(err) && err.Contains("400"))
-        //            Debug.LogWarning("일일 게임 제한 초과");
-        //        else
-        //            Debug.LogWarning($"daily-game/use PATCH error : {err}");
+                SceneLoader.Instance.GoToMiniGame(selected);
+            },
+            onError: (err) =>
+            {
+                if (!string.IsNullOrEmpty(err) && err.Contains("400"))
+                    Debug.LogWarning("일일 게임 제한 초과");
+                else
+                    Debug.LogWarning($"daily-game/use PATCH error : {err}");
 
-        //        popupPanel.SetActive(false);
-        //    }
-        //);
+                popupPanel.SetActive(false);
+            }
+        );
     }
 
     public void CancelGame()

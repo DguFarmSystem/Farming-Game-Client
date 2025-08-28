@@ -1265,8 +1265,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.035}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26, y: 227}
-  m_SizeDelta: {x: 429.1836, y: 243.417}
+  m_AnchoredPosition: {x: -37.3271, y: 180.5402}
+  m_SizeDelta: {x: 503.3648, y: 265.9908}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &958234511
 MonoBehaviour:
@@ -1544,7 +1544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7903715428723582859, guid: 4211dcc03a23be9499919de57a6e4dff, type: 3}
       propertyPath: AccessToken
-      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU2MjcyNjI3LCJleHAiOjE3NTYyNzYyMjd9.C-jbSX5EeX3-YA0lHDv4aJkq42BP5EErDJv65xgZ-Y4
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU2MzQ5NjcwLCJleHAiOjE3NTYzNTMyNzB9.cwjYlnIro7v_n6CmOslAkeIyJOv6iR3x_GgfgDkCngE
       objectReference: {fileID: 0}
     - target: {fileID: 8235675204870113962, guid: 4211dcc03a23be9499919de57a6e4dff, type: 3}
       propertyPath: m_Name
@@ -2126,7 +2126,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.127}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -526.2479, y: 85}
+  m_AnchoredPosition: {x: -615, y: 14}
   m_SizeDelta: {x: 411.9662, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1980055545
@@ -2258,8 +2258,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -9.289}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 528, y: 104}
-  m_SizeDelta: {x: 383.9637, y: 212.0765}
+  m_AnchoredPosition: {x: 631.3191, y: 43.25421}
+  m_SizeDelta: {x: 383.8287, y: 219.6897}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2084124479
 MonoBehaviour:
