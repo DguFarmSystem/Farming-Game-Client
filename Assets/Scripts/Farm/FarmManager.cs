@@ -13,8 +13,6 @@ public class FarmManager : MonoBehaviour
     
     [Tooltip("plot_id 자동 채번 시 접두사 (기본: uid_인덱스)")]
     public string plotIdPrefixOverride = "";
-    [Tooltip("임시 액세스 토큰 (테스트용)")]
-    [SerializeField] private string temporaryAccessToken;
 
     [Header("상태별 밭 스프라이트")]
     public Sprite emptySprite;
@@ -31,10 +29,17 @@ public class FarmManager : MonoBehaviour
 
     private void Start()
     {
+        // 1. APIManager가 존재하면 토큰을 가져와 FarmGroundAPI에 할당
         if (APIManager.Instance != null)
         {
             FarmGroundAPI.AccessToken = APIManager.Instance.getAccessToken();
         }
+        else
+        {
+            Debug.LogError("[FarmManager] APIManager 인스턴스를 찾을 수 없습니다!");
+            return;
+        }
+
         CollectSceneTiles();
         StartCoroutine(InitFarmFromServer());
     }
@@ -92,9 +97,13 @@ public class FarmManager : MonoBehaviour
             }
 
             if (!tilesById.ContainsKey(plotId))
+            {
                 tilesById.Add(plotId, g);
+            }
             else
+            {
                 Debug.LogWarning($"[FarmManager] 중복 plot_id 발견: {plotId} (씬 배치를 확인하세요)");
+            }
         }
         
         Debug.Log($"[FarmManager] 씬에서 수집한 타일 수: {tilesById.Count}");
@@ -128,6 +137,7 @@ public class FarmManager : MonoBehaviour
                 FarmGroundAPI.ApplyDtoToPlot(serverData, tile.data);
                 tile.data.uid = uid;
                 tile.InitGround(tile.data);
+                Debug.Log($"[FarmManager] 밭({tile.x}, {tile.y}) 서버 데이터 로드 성공: {tile.data.status}");
             }
             else
             {
@@ -135,9 +145,8 @@ public class FarmManager : MonoBehaviour
                 var dto = FarmGroundAPI.ToDto(d);
                 tile.InitGround(d);
 
-                Debug.Log(d.x + " " + d.y);
+                Debug.Log($"[FarmManager] 밭({d.x}, {d.y}) 데이터 없음. 새로 생성 요청.");
 
-                // 밭이 없는 경우, PATCH 요청으로 생성
                 yield return FarmGroundAPI.PatchTile(d.x, d.y, dto, (ok, raw) =>
                 {
                     if (!ok)

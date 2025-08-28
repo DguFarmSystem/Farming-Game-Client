@@ -2156,7 +2156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8252836463525131365, guid: 790b4c5e0a74eac44a7c0137359175a9, type: 3}
       propertyPath: temporaryAccessToken
-      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU2MTg2NzQxLCJleHAiOjE3NTYxOTAzNDF9.LeEI04KXLQeMEgaEEh6CHg9ugwAVRflBqiZAokIaRJ4
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8738044005628103780, guid: 790b4c5e0a74eac44a7c0137359175a9, type: 3}
       propertyPath: m_LocalPosition.x

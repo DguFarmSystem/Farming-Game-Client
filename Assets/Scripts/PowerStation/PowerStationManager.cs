@@ -1,16 +1,30 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;
-using System.Collections;
 using UnityEngine.UI;
 
 [System.Serializable]
 public class PowerStationData
 {
-    public string uid;
-    public string chargeStartTime; // 충전 시작 시간
+    public string chargeStartTime;
 }
+
+[System.Serializable]
+public class SolarStationDataResponse
+{
+    public int status;
+    public string message;
+    public SolarStationDto data;
+}
+
+[System.Serializable]
+public class SolarStationDto
+{
+    public string chargeStartTime;
+}
+
 
 public class PowerStationManager : MonoBehaviour
 {
@@ -19,25 +33,25 @@ public class PowerStationManager : MonoBehaviour
     public PowerStationData stationData;
 
     [Header("UI Components")]
-    public Image tankImage;            // 리소스 이미지 (Lv0~Lv9)
-    public TMP_Text percentText;       // "충전량 0%" 등 텍스트
-    public Button collectButton;       // 수령 버튼
+    public Image tankImage;
+    public TMP_Text percentText;
+    public Button collectButton;
     [Header("Sprites (Lv0 ~ Lv9)")]
-    public Sprite[] levelSprites;      // 총 10개 (index 0 = Lv0, 9 = Lv9)
+    public Sprite[] levelSprites;
 
     [Header("Settings")]
-    public string uid; //유저 아이디
-    private DateTime chargeStartTime; //충전 시작 시간
+    public string uid;
+    private DateTime chargeStartTime;
     private float chargeCheckInterval = 5f;
     private float chargeCheckTimer = 0f;
-    float maxTime = 100f; //최대 충전 시간
+    float maxTime = 100f;
 
     [Header("Sunlight Effect")]
-    public GameObject sunEffectPrefab;      // 햇살 프리팹
-    public Transform sunEffectParent;       // 캔버스 내 부모
-    public Transform sunTargetUI;           // 목표 위치 (햇살 도착 위치)
-    public int effectCount = 3;             // 몇 개의 햇살 생성
-    public float spreadRadius = 100f;       // 뿅 하고 퍼지는 거리
+    public GameObject sunEffectPrefab;
+    public Transform sunEffectParent;
+    public Transform sunTargetUI;
+    public int effectCount = 3;
+    public float spreadRadius = 100f;
 
     private void Awake()
     {
@@ -47,51 +61,111 @@ public class PowerStationManager : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(LoadPowerStationData(uid));
-
-        chargeStartTime = DateTime.Now;
-
+        StartCoroutine(LoadPowerStationData());
         collectButton.onClick.AddListener(OnCollectSunlight);
-        UpdateUI();
     }
 
-    private IEnumerator LoadPowerStationData(string uid)
+    private IEnumerator LoadPowerStationData()
     {
-        string url = $"https://yourserver.com/api/powerstation?uid={uid}";
-        UnityWebRequest req = UnityWebRequest.Get(url);
-        yield return req.SendWebRequest();
+        string endPoint = "/api/solarstation";
 
-        if (req.result == UnityWebRequest.Result.Success)
+        bool done = false;
+        string rawResponse = null;
+        string error = null;
+
+        APIManager.Instance.Get(endPoint,
+            (response) => { rawResponse = response; done = true; },
+            (err) => { error = err; done = true; }
+        );
+
+        while (!done) yield return null;
+        
+        bool requiresInitialSave = false;
+        
+        if (!string.IsNullOrEmpty(error))
         {
-            string json = req.downloadHandler.text;
-            PowerStationData data = JsonUtility.FromJson<PowerStationData>(json);
-            this.chargeStartTime = DateTime.Parse(data.chargeStartTime);
-            UpdateUI();
+            Debug.LogError("Failed to load power station data: " + error);
+            chargeStartTime = DateTime.UtcNow;
+            requiresInitialSave = true;
         }
         else
         {
-            Debug.LogError("Failed to load power station data: " + req.error);
-        }
-    }
+            try
+            {
+                var responseData = JsonUtility.FromJson<SolarStationDataResponse>(rawResponse);
+                DateTime parsedTime;
 
-    private IEnumerator UpdateChargeStartTimeToNow()
-    {
-        string url = $"https://yourserver.com/api/powerstation/{uid}";
-        PowerStationData newData = new PowerStationData
+                if (responseData != null && responseData.data != null && 
+                    DateTime.TryParse(responseData.data.chargeStartTime, out parsedTime))
+                {
+                    chargeStartTime = parsedTime.ToUniversalTime();
+                }
+                else
+                {
+                    Debug.LogWarning("Server returned no solar station data. Initializing with local time and sending to server.");
+                    chargeStartTime = DateTime.UtcNow;
+                    requiresInitialSave = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Failed to parse solar station data: " + ex.Message);
+                chargeStartTime = DateTime.UtcNow;
+                requiresInitialSave = true;
+            }
+        }
+        
+        if (requiresInitialSave)
         {
-            uid = uid,
-            chargeStartTime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
+            yield return StartCoroutine(UpdateChargeStartTimeToServer(true));
+        }
+        
+        UpdateUI();
+    }
+    
+    private IEnumerator UpdateChargeStartTimeToServer(bool isInitialLoad)
+    {
+        string endPoint = "/api/solarstation/chargetime";
+
+        SolarStationDto newData = new SolarStationDto
+        {
+            chargeStartTime = chargeStartTime.ToString("o")
         };
 
         string json = JsonUtility.ToJson(newData);
-        UnityWebRequest req = UnityWebRequest.Put(url, json);
-        req.method = "PATCH";
-        req.SetRequestHeader("Content-Type", "application/json");
-        yield return req.SendWebRequest();
+        
+        bool done = false;
+        string error = null;
+        
+        APIManager.Instance.Patch(endPoint, json,
+            (response) => {
+                Debug.Log("Charge start time updated successfully.");
+                done = true;
+            },
+            (err) => {
+                error = err;
+                done = true;
+            }
+        );
 
-        if (req.result != UnityWebRequest.Result.Success)
-            Debug.LogError("충전 시작 시간 갱신 실패: " + req.error);
+        while(!done) yield return null;
+
+        if (!string.IsNullOrEmpty(error))
+        {
+            Debug.LogError("Failed to update charge start time: " + error);
+        }
+        
+        if (isInitialLoad)
+        {
+            UpdateUI();
+        }
     }
+
+    private IEnumerator UpdateChargeStartTimeToServer()
+    {
+        yield return StartCoroutine(UpdateChargeStartTimeToServer(false));
+    }
+
 
     private void Update()
     {
@@ -105,28 +179,26 @@ public class PowerStationManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        TimeSpan elapsed = DateTime.Now - chargeStartTime;
+        TimeSpan elapsed = DateTime.UtcNow - chargeStartTime;
         double totalSeconds = elapsed.TotalSeconds;
 
-        float percent = Mathf.Clamp01((float)(totalSeconds / maxTime)) * 100f;
-        int displayPercent = Mathf.FloorToInt(percent);
+        float percent = Mathf.Clamp01((float)(totalSeconds / maxTime));
+        int displayPercent = Mathf.FloorToInt(percent * 100f);
 
-        // Lv 결정
         int level = GetLevelFromPercent(displayPercent);
-        tankImage.sprite = levelSprites[level];
+        if (level >= 0 && level < levelSprites.Length)
+        {
+            tankImage.sprite = levelSprites[level];
+        }
 
-        // 텍스트 업데이트
         percentText.text = $"충전량 {displayPercent}%";
-
-
         collectButton.interactable = (displayPercent >= 5);
     }
 
     private void OnCollectSunlight()
     {
-        TimeSpan elapsed = DateTime.Now - chargeStartTime;
+        TimeSpan elapsed = DateTime.UtcNow - chargeStartTime;
         double totalSeconds = elapsed.TotalSeconds;
-
 
         float percent = Mathf.Clamp01((float)(totalSeconds / maxTime)) * 100f;
         int availableSunlight = Mathf.FloorToInt(percent) / 2;
@@ -138,15 +210,11 @@ public class PowerStationManager : MonoBehaviour
         {
             CurrencyManager.Instance.AddSunlight(newSun);
 
-            // 충전 시간 초기화
-            chargeStartTime = DateTime.Now;
+            chargeStartTime = DateTime.UtcNow;
+            StartCoroutine(UpdateChargeStartTimeToServer());
+
             collectButton.interactable = false;
-
-            // UI 바로 갱신
             UpdateUI();
-
-            // 서버에도 반영
-            //StartCoroutine(UpdateChargeStartTimeToNow());
         }
         GameManager.Sound.SFXPlay("SFX_Powerstation");
     }
@@ -176,7 +244,6 @@ public class PowerStationManager : MonoBehaviour
         float midDuration = 0.3f;
         float endDuration = 0.5f;
 
-        //모든 이펙트를 동시에 생성하고 퍼트릴 위치 미리 계산
         for (int i = 0; i < effectCount; i++)
         {
             GameObject sun = Instantiate(sunEffectPrefab, sunEffectParent);
@@ -192,7 +259,6 @@ public class PowerStationManager : MonoBehaviour
             midPositions[i] = midPos;
         }
 
-        //동시에 mid 위치로 이동
         float t = 0f;
         while (t < midDuration)
         {
@@ -205,7 +271,6 @@ public class PowerStationManager : MonoBehaviour
             yield return null;
         }
 
-        //동시에 target 위치로 이동
         t = 0f;
         Vector3 endPos = sunTargetUI.position;
         while (t < endDuration)
@@ -219,7 +284,6 @@ public class PowerStationManager : MonoBehaviour
             yield return null;
         }
 
-        // 삭제
         for (int i = 0; i < effectCount; i++)
         {
             Destroy(sunObjects[i]);

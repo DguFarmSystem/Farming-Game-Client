@@ -14,22 +14,23 @@ public class CurrencyData
     public int seedCount;
 }
 
+// ❗ PlayerDataResponse DTO 수정: data 필드를 PlayerCurrencyData 타입으로 변경
 [System.Serializable]
 public class PlayerDataResponse
 {
     public int status;
     public string message;
-    public string data;
+    public PlayerCurrencyData data;
 }
 
-// PlayerCurrencyData DTO에 seedCount 필드 추가
+// PlayerCurrencyData DTO 필드명 수정: 서버 응답과 대소문자가 일치하도록 변경
 [System.Serializable]
 public class PlayerCurrencyData
 {
     public int seedTicket;
     public int gold;
     public int sunlight;
-    public int seedCount; // 새로운 필드 추가
+    public int seedCount;
 }
 
 public class CurrencyManager : MonoBehaviour
@@ -59,7 +60,6 @@ public class CurrencyManager : MonoBehaviour
 
     void Start()
     {
-        
         StartCoroutine(LoadCurrencyFromServer());
     }
 
@@ -83,6 +83,7 @@ public class CurrencyManager : MonoBehaviour
         if (!string.IsNullOrEmpty(error))
         {
             Debug.LogError("재화 로딩 실패: " + error);
+            SetDefaultCurrencyValues();
             yield break;
         }
 
@@ -90,32 +91,17 @@ public class CurrencyManager : MonoBehaviour
         {
             var responseData = JsonUtility.FromJson<PlayerDataResponse>(rawResponse);
             
-            if (responseData == null)
+            if (responseData == null || responseData.data == null)
             {
-                Debug.LogError("서버 응답 파싱 실패 (PlayerDataResponse). 응답 형식을 확인하세요.");
+                Debug.LogWarning("서버 응답에 재화 데이터가 없거나 파싱 실패. 초기 재화 생성 로직을 실행합니다.");
+                SetDefaultCurrencyValues();
                 yield break;
             }
 
-            if (string.IsNullOrEmpty(responseData.data) || responseData.data.Trim() == "null")
-            {
-                Debug.LogWarning("서버 응답에 재화 데이터가 없습니다. JSON 파싱을 건너뜁니다.");
-                yield break;
-            }
-
-            // data 필드가 JSON 문자열이므로 다시 파싱
-            PlayerCurrencyData playerData = JsonUtility.FromJson<PlayerCurrencyData>(responseData.data);
-            
-            if (playerData == null)
-            {
-                Debug.LogError("재화 데이터 파싱 실패 (PlayerCurrencyData). data 필드 내용 확인 필요.");
-                yield break;
-            }
-
-            // 모든 재화 값을 로컬 변수에 할당
-            gold = playerData.gold;
-            seedTicket = playerData.seedTicket; // 필드명 변경에 주의
-            sunlight = playerData.sunlight;
-            seedCount = playerData.seedCount; // 새롭게 추가된 재화 값 할당
+            gold = responseData.data.gold;
+            seedTicket = responseData.data.seedTicket;
+            sunlight = responseData.data.sunlight;
+            seedCount = responseData.data.seedCount;
             
             OnCurrencyChanged?.Invoke();
             Debug.Log("재화 로딩 성공!");
@@ -123,27 +109,40 @@ public class CurrencyManager : MonoBehaviour
         catch (Exception ex)
         {
             Debug.LogError("재화 로딩 실패 (JSON 파싱 오류): " + ex.Message + " | 원본 응답: " + rawResponse);
+            SetDefaultCurrencyValues();
         }
     }
     
+    private void SetDefaultCurrencyValues()
+    {
+        gold = 1000;
+        seedTicket = 10;
+        sunlight = 0;
+        seedCount = 5;
+        uid = "default_uid";
+        
+        OnCurrencyChanged?.Invoke();
+        
+        StartCoroutine(SaveCurrencyToServer());
+    }
+
     public IEnumerator SaveCurrencyToServer()
     {
-        // 서버가 요구하는 형식의 데이터 객체에 모든 재화 값 포함
         PlayerCurrencyData data = new PlayerCurrencyData()
         {
-            gold = gold,
             seedTicket = seedTicket,
+            gold = gold,
             sunlight = sunlight,
-            seedCount = seedCount // 새로운 필드 포함
+            seedCount = seedCount
         };
 
         string json = JsonUtility.ToJson(data);
-        string url = "/api/player/update";
+        string url = "/api/player/currency";
 
         bool done = false;
         string error = null;
-
-        APIManager.Instance.Put(url, json,
+        
+        APIManager.Instance.Patch(url, json,
             (response) =>
             {
                 Debug.Log("재화 저장 성공: " + response);
@@ -189,7 +188,7 @@ public class CurrencyManager : MonoBehaviour
     {
         seedCount += amount;
         OnCurrencyChanged?.Invoke();
-        StartCoroutine(SaveCurrencyToServer()); // seedCount가 추가되면 저장 로직도 추가
+        StartCoroutine(SaveCurrencyToServer());
     }
 
     public bool SpendGold(int amount)
@@ -234,7 +233,7 @@ public class CurrencyManager : MonoBehaviour
         {
             seedCount -= amount;
             OnCurrencyChanged?.Invoke();
-            StartCoroutine(SaveCurrencyToServer()); // seedCount가 추가되면 저장 로직도 추가
+            StartCoroutine(SaveCurrencyToServer());
             return true;
         }
         return false;

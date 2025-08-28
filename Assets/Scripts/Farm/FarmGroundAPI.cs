@@ -43,54 +43,41 @@ public class FarmGroundAPI
         {
             SetHeaders(req);
             yield return req.SendWebRequest();
-
             string raw = req.downloadHandler?.text;
             if (req.result != UnityWebRequest.Result.Success)
             {
                 onDone?.Invoke(false, null, $"{req.responseCode} {req.error} :: {raw}");
                 yield break;
             }
-
             FarmTileDto dto = null;
             try
             {
                 var wrapped = JsonUtility.FromJson<ApiResponse<FarmTileDto>>(raw);
-                if (wrapped != null && wrapped.data != null)
-                {
-                    dto = wrapped.data;
-                }
-                else
-                {
-                    dto = JsonUtility.FromJson<FarmTileDto>(raw);
-                }
+                if (wrapped != null && wrapped.data != null) dto = wrapped.data;
+                else dto = JsonUtility.FromJson<FarmTileDto>(raw);
             }
             catch { }
-
             onDone?.Invoke(dto != null, dto, raw);
         }
     }
 
-    // FarmGroundAPI.cs의 PatchTile 메서드 수정
     public static IEnumerator PatchTile(int x, int y, FarmTileDto body, Action<bool, string> onDone)
     {
-        // URL에 x, y 좌표를 쿼리 파라미터로 추가
+        // ❗ URL에 x, y 좌표를 쿼리 파라미터로 추가
         string url = $"{baseUrl}/api/farm/tile?x={x}&y={y}";
         string json = JsonUtility.ToJson(body);
-
         using (var req = new UnityWebRequest(url, "PATCH"))
         {
             req.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(json));
             req.downloadHandler = new DownloadHandlerBuffer();
             SetHeaders(req);
-
             yield return req.SendWebRequest();
-
             string raw = req.downloadHandler?.text;
             bool ok = (req.result == UnityWebRequest.Result.Success);
             onDone?.Invoke(ok, ok ? raw : $"{req.responseCode} {req.error} :: {raw}");
         }
     }
-
+    
     public static FarmTileDto ToDto(FarmPlotData p)
     {
         return new FarmTileDto
@@ -103,7 +90,7 @@ public class FarmGroundAPI
             plantName = p.plant_name,
         };
     }
-
+    
     public static void ApplyDtoToPlot(FarmTileDto dto, FarmPlotData p)
     {
         if (dto == null || p == null) return;
@@ -114,6 +101,6 @@ public class FarmGroundAPI
         p.useSunCount = dto.sunlightCount;
         if (!string.IsNullOrEmpty(dto.plantName)) p.plant_name = dto.plantName;
     }
-
+    
     public static string NowIsoUtc() => DateTime.UtcNow.ToString("o");
 }
