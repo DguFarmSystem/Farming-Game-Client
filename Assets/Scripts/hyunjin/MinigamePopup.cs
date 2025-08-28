@@ -15,7 +15,7 @@ public class PlayerGetResponse
 [Serializable]
 public class PlayerData
 {
-    public int seedticket;
+    public int seedTicket;
     public int gold;
     public int sunlight;
     public int seedCount;
@@ -188,7 +188,7 @@ public class MinigamePopup : MonoBehaviour
                     int finalGold = Mathf.Max(0, serverGold + delta);
 
                     string body = JsonUtility.ToJson(new PlayerUpdateBody(finalGold));
-                    APIManager.Instance.Put("/api/player/update", body,
+                    APIManager.Instance.Patch("/api/player/currency", body,
                         onSuccess: (_) => {
                             Debug.Log($"[TEST] Gold updated: server={serverGold}, delta={delta}, total={finalGold}");
                             onSuccess?.Invoke();
