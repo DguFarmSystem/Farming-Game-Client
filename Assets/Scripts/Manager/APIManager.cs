@@ -6,10 +6,18 @@ using UnityEngine.Networking;
 using System;
 using System.Collections;
 
+using System.Runtime.InteropServices; // DllImport
+
 public class APIManager : MonoBehaviour
 {
     #region Singleton
     public static APIManager Instance;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")] private static extern string GetCookieJS(string name);
+    [DllImport("__Internal")] private static extern string GetLocalStorageJS(string key);
+    // SetUnityAccessToken은 JS에서 SendMessage로 호출하므로 extern 선언 불필요
+#endif
 
     private void Awake()
     {
@@ -19,17 +27,69 @@ public class APIManager : MonoBehaviour
         // 베이스 URL 헬스체크
         StartCoroutine(CheckUrlRoutine(baseUrl));
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+        AccessToken = TryLoadTokenFromBrowser();
+        if (string.IsNullOrEmpty(AccessToken))
+            Debug.LogWarning("[API] 브라우저에서 토큰을 찾지 못했습니다.");
+#else
+
         // 시작 시 임시 토큰 발급 후 테스트 API 호출
         StartCoroutine(InitRoutine());
+#endif
     }
     #endregion
 
-    private string baseUrl = "https://api.dev.farmsystem.kr";
-
-    private void Start()
+    // 호스트 페이지에서 SendMessage("APIManager", "SetAccessTokenFromJS", token)로 주입 가능
+    public void SetAccessTokenFromJS(string token)
     {
-       
+        if (!string.IsNullOrEmpty(token))
+        {
+            AccessToken = token.Trim();
+            Debug.Log("[API] AccessToken set from JS.");
+        }
     }
+
+    private string TryLoadTokenFromBrowser()
+    {
+        string token = null;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        try
+        {
+            // 쿠키 이름에 맞게
+            token = GetCookieJS("accessToken");
+            if (string.IsNullOrEmpty(token)) token = GetCookieJS("access_token");
+            if (string.IsNullOrEmpty(token)) token = GetCookieJS("Authorization");
+
+            // Authorization=Bearer xxx 형태면 잘라내기
+            if (!string.IsNullOrEmpty(token) && token.StartsWith("Bearer "))
+                token = token.Substring(7);
+
+            // localStorage fallback
+            if (string.IsNullOrEmpty(token)) token = GetLocalStorageJS("accessToken");
+            if (string.IsNullOrEmpty(token)) token = GetLocalStorageJS("access_token");
+
+            // URL 쿼리스트링 fallback
+            if (string.IsNullOrEmpty(token) && !string.IsNullOrEmpty(Application.absoluteURL))
+            {
+                var uri = new System.Uri(Application.absoluteURL);
+                var query = uri.Query; // e.g. ?token=xxx
+                if (!string.IsNullOrEmpty(query))
+                {
+                    var qp = System.Web.HttpUtility.ParseQueryString(query);
+                    token = qp.Get("token");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("[API] TryLoadTokenFromBrowser error: " + e.Message);
+        }
+#endif
+        return token;
+    }
+
+    private string baseUrl = "https://api.dev.farmsystem.kr";
 
     // Token
     public string AccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU1ODQwMDM2LCJleHAiOjE3NTU4NDM2MzZ9.f4Y16eG9-VUxfkTCocsDpZok00NhwMw1jAjAHQqSpBc";
