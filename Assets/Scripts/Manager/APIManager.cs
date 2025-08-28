@@ -65,7 +65,7 @@ public class APIManager : MonoBehaviour
         try
         {
             // 1) localStorage: fauth-storage(JSON) -> state.accessToken
-            string raw = GetLocalStorageJS("fauth-storage");
+            string raw = GetLocalStorageJS("auth-storage");
             if (!string.IsNullOrEmpty(raw) && raw.TrimStart().StartsWith("{"))
             {
                 try
@@ -92,6 +92,8 @@ public class APIManager : MonoBehaviour
             // 4) URL 쿼리 ?token=... 폴백
             if (string.IsNullOrEmpty(token) && !string.IsNullOrEmpty(Application.absoluteURL))
                 token = GetUrlParam(Application.absoluteURL, "token");
+
+            Debug.log("[Token] token :" + token);
         }
         catch (Exception e)
         {
