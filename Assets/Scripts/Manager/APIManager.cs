@@ -5,8 +5,10 @@ using UnityEngine.Networking;
 // System
 using System;
 using System.Collections;
-
 using System.Runtime.InteropServices; // DllImport
+
+// JSON
+using Newtonsoft.Json.Linq;
 
 public class APIManager : MonoBehaviour
 {
@@ -16,39 +18,45 @@ public class APIManager : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")] private static extern string GetCookieJS(string name);
     [DllImport("__Internal")] private static extern string GetLocalStorageJS(string key);
-    // SetUnityAccessToken은 JS에서 SendMessage로 호출하므로 extern 선언 불필요
+    // (Optional) jslib에 브리지 설치 함수가 있다면 여기서 extern 선언
+    // [DllImport("__Internal")] private static extern void InstallUnityAccessTokenBridge(string go, string method);
 #endif
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        else { Destroy(gameObject); return; }
 
-        // 베이스 URL 헬스체크
         StartCoroutine(CheckUrlRoutine(baseUrl));
 
 #if UNITY_WEBGL && !UNITY_EDITOR
+        // 호스트에서 직접 푸시할 경우: SendMessage("APIManager","SetAccessTokenFromJS", token)
         AccessToken = TryLoadTokenFromBrowser();
         if (string.IsNullOrEmpty(AccessToken))
-            Debug.LogWarning("[API] 브라우저에서 토큰을 찾지 못했습니다.");
+            Debug.LogWarning("[API] 브라우저 저장소에서 토큰을 찾지 못했습니다.");
 #else
-
-        // 시작 시 임시 토큰 발급 후 테스트 API 호출
+        // 임시 토큰 발급 로직
         StartCoroutine(InitRoutine());
 #endif
     }
     #endregion
 
-    // 호스트 페이지에서 SendMessage("APIManager", "SetAccessTokenFromJS", token)로 주입 가능
+    [SerializeField] private string baseUrl = "https://api.dev.farmsystem.kr";
+    public string AccessToken = "";
+
+    /// <summary>호스트 페이지에서 토큰을 푸시로 주입</summary>
     public void SetAccessTokenFromJS(string token)
     {
         if (!string.IsNullOrEmpty(token))
         {
+            // "Bearer " 접두사 오면 제거
+            if (token.StartsWith("Bearer ")) token = token.Substring(7);
             AccessToken = token.Trim();
             Debug.Log("[API] AccessToken set from JS.");
         }
     }
 
+    /// <summary>WebGL에서 쿠키/로컬스토리지/URL 쿼리 순으로 토큰 자동 로드</summary>
     private string TryLoadTokenFromBrowser()
     {
         string token = null;
@@ -56,30 +64,34 @@ public class APIManager : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
         try
         {
-            // 쿠키 이름에 맞게
-            token = GetCookieJS("accessToken");
-            if (string.IsNullOrEmpty(token)) token = GetCookieJS("access_token");
-            if (string.IsNullOrEmpty(token)) token = GetCookieJS("Authorization");
+            // 1) localStorage: fauth-storage(JSON) -> state.accessToken
+            string raw = GetLocalStorageJS("fauth-storage");
+            if (!string.IsNullOrEmpty(raw) && raw.TrimStart().StartsWith("{"))
+            {
+                try
+                {
+                    var jo = JObject.Parse(raw);
+                    token = (string)jo.SelectToken("state.accessToken");
+                }
+                catch { /* JSON 파싱 실패 -> 폴백 진행 */ }
+            }
 
-            // Authorization=Bearer xxx 형태면 잘라내기
-            if (!string.IsNullOrEmpty(token) && token.StartsWith("Bearer "))
-                token = token.Substring(7);
-
-            // localStorage fallback
+            // 2) 다른 localStorage 키
             if (string.IsNullOrEmpty(token)) token = GetLocalStorageJS("accessToken");
             if (string.IsNullOrEmpty(token)) token = GetLocalStorageJS("access_token");
 
-            // URL 쿼리스트링 fallback
+            // 3) 쿠키
+            if (string.IsNullOrEmpty(token)) token = GetCookieJS("accessToken");
+            if (string.IsNullOrEmpty(token)) token = GetCookieJS("access_token");
+            if (string.IsNullOrEmpty(token)) token = GetCookieJS("Authorization");
+
+            // 형태 정리
+            if (!string.IsNullOrEmpty(token) && token.StartsWith("Bearer "))
+                token = token.Substring(7);
+
+            // 4) URL 쿼리 ?token=... 폴백
             if (string.IsNullOrEmpty(token) && !string.IsNullOrEmpty(Application.absoluteURL))
-            {
-                var uri = new System.Uri(Application.absoluteURL);
-                var query = uri.Query; // e.g. ?token=xxx
-                if (!string.IsNullOrEmpty(query))
-                {
-                    var qp = System.Web.HttpUtility.ParseQueryString(query);
-                    token = qp.Get("token");
-                }
-            }
+                token = GetUrlParam(Application.absoluteURL, "token");
         }
         catch (Exception e)
         {
@@ -89,48 +101,80 @@ public class APIManager : MonoBehaviour
         return token;
     }
 
-    private string baseUrl = "https://api.dev.farmsystem.kr";
-
-    // Token
-    public string AccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU1ODQwMDM2LCJleHAiOjE3NTU4NDM2MzZ9.f4Y16eG9-VUxfkTCocsDpZok00NhwMw1jAjAHQqSpBc";
-
-    private IEnumerator CheckUrlRoutine(string baseUrl)
+    /// <summary>쿼리 파서 (System.Web 대체)</summary>
+    private static string GetUrlParam(string url, string key)
     {
-        UnityWebRequest www = UnityWebRequest.Get(baseUrl);
+        try
+        {
+            int q = url.IndexOf('?');
+            if (q < 0) return null;
+            var parts = url.Substring(q + 1).Split('&');
+            for (int i = 0; i < parts.Length; i++)
+            {
+                var kv = parts[i].Split('=');
+                if (kv.Length == 2 && kv[0] == key)
+                    return Uri.UnescapeDataString(kv[1]);
+            }
+        }
+        catch { }
+        return null;
+    }
 
+    /// <summary>요청 전에 토큰을 자동 확보(빈 값/만료 시 브라우저에서 재로드)</summary>
+    private bool EnsureToken()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (string.IsNullOrEmpty(AccessToken) || IsJwtExpired(AccessToken))
+        {
+            var t = TryLoadTokenFromBrowser();
+            if (!string.IsNullOrEmpty(t))
+            {
+                AccessToken = t;
+            }
+            else
+            {
+                return false;
+            }
+        }
+#endif
+        return true;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+
+    private IEnumerator CheckUrlRoutine(string urlToCheck)
+    {
+        UnityWebRequest www = UnityWebRequest.Get(urlToCheck);
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("Base URL 테스트 성공 : " + baseUrl);
-            Debug.Log("응답 : " + www.downloadHandler.text);
+            Debug.Log("Base URL 테스트 성공 : " + urlToCheck);
+            if (!string.IsNullOrEmpty(www.downloadHandler.text))
+                Debug.Log("응답 : " + www.downloadHandler.text);
         }
         else
         {
-            Debug.LogError("Base URL 테스트 실패 : " + baseUrl + " / Error: " + www.error);
+            Debug.LogError("Base URL 테스트 실패 : " + urlToCheck + " / Error: " + www.error);
         }
     }
 
     public void Get(string endPoint, Action<string> onSuccess, Action<string> onError = null)
-    {
-        StartCoroutine(GetRequest(baseUrl + endPoint, onSuccess, onError));
-    }
+        => StartCoroutine(GetRequest(baseUrl + endPoint, onSuccess, onError));
 
     public void Post(string endPoint, string json, Action<string> onSuccess, Action<string> onError = null)
-    {
-        StartCoroutine(PostRequest(baseUrl + endPoint, json, onSuccess, onError));
-    }
+        => StartCoroutine(PostRequest(baseUrl + endPoint, json, onSuccess, onError));
 
-     // PUT 메서드 추가
     public void Put(string endPoint, string json, Action<string> onSuccess, Action<string> onError = null)
-    {
-        StartCoroutine(PutRequest(baseUrl + endPoint, json, onSuccess, onError));
-    }
+        => StartCoroutine(PutRequest(baseUrl + endPoint, json, onSuccess, onError));
 
-    // 시작 시 임시 토큰 발급
+    public void Patch(string endPoint, string json, Action<string> onSuccess, Action<string> onError = null)
+        => StartCoroutine(PatchRequest(baseUrl + endPoint, json, onSuccess, onError));
+
+    // ────────────────────────── 임시 토큰 발급(에디터 전용) ──────────────────────────
+
     private IEnumerator InitRoutine()
     {
-        // 임시 토큰 발급(userId=1)
         string issuedToken = null;
         yield return StartCoroutine(RequestTempToken(1,
             (token) => { issuedToken = token; },
@@ -139,9 +183,8 @@ public class APIManager : MonoBehaviour
 
         if (!string.IsNullOrEmpty(issuedToken))
         {
-            AccessToken = issuedToken; // 발급 토큰 적용
+            AccessToken = issuedToken;
 
-            // 발급된 토큰으로 테스트 GET 호출
             yield return StartCoroutine(GetRequest(
                 baseUrl + "/api/player",
                 (result) => { Debug.Log("GET 성공: " + result); },
@@ -150,7 +193,6 @@ public class APIManager : MonoBehaviour
         }
     }
 
-    // 임시 토큰 발급 API 호출
     private IEnumerator RequestTempToken(long userId, Action<string> onSuccess, Action<string> onError)
     {
         string url = $"{baseUrl}/api/auth/token/{userId}";
@@ -164,7 +206,6 @@ public class APIManager : MonoBehaviour
         string body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
         if (www.result == UnityWebRequest.Result.Success)
         {
-            // 응답 파싱: { status, message, data:{ accessToken, refreshToken } }
             try
             {
                 TokenResponse parsed = JsonUtility.FromJson<TokenResponse>(body);
@@ -183,22 +224,18 @@ public class APIManager : MonoBehaviour
         }
     }
 
-    // 임시 토큰 응답 DTO
-    [Serializable]
-    private class TokenData { public string accessToken; public string refreshToken; }
-    [Serializable]
-    private class TokenResponse { public int status; public string message; public TokenData data; }
+    [Serializable] private class TokenData { public string accessToken; public string refreshToken; }
+    [Serializable] private class TokenResponse { public int status; public string message; public TokenData data; }
 
-    // JWT 만료 여부 확인 함수 추가
+    // ────────────────────────── JWT 체크 ──────────────────────────
+
     private bool IsJwtExpired(string jwt)
     {
         if (string.IsNullOrEmpty(jwt)) return true;
         var parts = jwt.Split('.');
         if (parts.Length < 2) return true;
 
-        string payloadBase64 = parts[1]
-            .Replace('-', '+')
-            .Replace('_', '/');
+        string payloadBase64 = parts[1].Replace('-', '+').Replace('_', '/');
         payloadBase64 = payloadBase64.PadRight((payloadBase64.Length + 3) / 4 * 4, '=');
 
         try
@@ -213,29 +250,21 @@ public class APIManager : MonoBehaviour
         catch { return true; }
     }
 
-    // 토큰 만료 사전 체크 및 상세 로깅 추가
+    // ────────────────────────── 요청 코루틴 ──────────────────────────
+
     private IEnumerator GetRequest(string url, Action<string> onSuccess, Action<string> onError)
     {
-        if (IsJwtExpired(AccessToken))
-        {
-            onError?.Invoke("AccessToken expired or invalid. 재발급 필요");
-            yield break;
-        }
+        if (!EnsureToken()) { onError?.Invoke("AccessToken missing/expired"); yield break; }
 
-        UnityWebRequest www = UnityWebRequest.Get(url);
-
-        // 응답 포맷 명시
+        var www = UnityWebRequest.Get(url);
         www.SetRequestHeader("Accept", "application/json");
-
         if (!string.IsNullOrEmpty(AccessToken))
             www.SetRequestHeader("Authorization", "Bearer " + AccessToken);
 
         yield return www.SendWebRequest();
 
-        string body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
-        string wwwAuth = www.GetResponseHeader("WWW-Authenticate");
-
-        // 상세 로깅
+        var body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
+        var wwwAuth = www.GetResponseHeader("WWW-Authenticate");
         Debug.Log($"GET {url} => {(long)www.responseCode}, err={www.error}");
         if (!string.IsNullOrEmpty(wwwAuth)) Debug.Log($"WWW-Authenticate: {wwwAuth}");
         if (!string.IsNullOrEmpty(body)) Debug.Log($"Body: {body}");
@@ -246,32 +275,22 @@ public class APIManager : MonoBehaviour
             onError?.Invoke(string.IsNullOrEmpty(body) ? www.error : body);
     }
 
-    // 토큰 만료 사전 체크 및 상세 로깅 추가
     private IEnumerator PostRequest(string url, string json, Action<string> onSuccess, Action<string> onError)
     {
-        if (IsJwtExpired(AccessToken))
-        {
-            onError?.Invoke("AccessToken expired or invalid. 재발급 필요");
-            yield break;
-        }
+        if (!EnsureToken()) { onError?.Invoke("AccessToken missing/expired"); yield break; }
 
-        UnityWebRequest www = new UnityWebRequest(url, "POST");
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
-        www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        var www = new UnityWebRequest(url, "POST");
+        www.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(json ?? ""));
         www.downloadHandler = new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
-        // 응답 포맷 명시
         www.SetRequestHeader("Accept", "application/json");
-
         if (!string.IsNullOrEmpty(AccessToken))
             www.SetRequestHeader("Authorization", "Bearer " + AccessToken);
 
         yield return www.SendWebRequest();
 
-        string body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
-        string wwwAuth = www.GetResponseHeader("WWW-Authenticate");
-
-        // 상세 로깅
+        var body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
+        var wwwAuth = www.GetResponseHeader("WWW-Authenticate");
         Debug.Log($"POST {url} => {(long)www.responseCode}, err={www.error}");
         if (!string.IsNullOrEmpty(wwwAuth)) Debug.Log($"WWW-Authenticate: {wwwAuth}");
         if (!string.IsNullOrEmpty(body)) Debug.Log($"Body: {body}");
@@ -282,32 +301,22 @@ public class APIManager : MonoBehaviour
             onError?.Invoke(string.IsNullOrEmpty(body) ? www.error : body);
     }
 
-    // PUT 요청을 위한 코루틴 추가
     private IEnumerator PutRequest(string url, string json, Action<string> onSuccess, Action<string> onError)
     {
-        if (IsJwtExpired(AccessToken))
-        {
-            onError?.Invoke("AccessToken expired or invalid. 재발급 필요");
-            yield break;
-        }
+        if (!EnsureToken()) { onError?.Invoke("AccessToken missing/expired"); yield break; }
 
-        UnityWebRequest www = new UnityWebRequest(url, "PUT");
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
-        www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        var www = new UnityWebRequest(url, "PUT");
+        www.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(json ?? ""));
         www.downloadHandler = new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
-        // 응답 포맷 명시
         www.SetRequestHeader("Accept", "application/json");
-
         if (!string.IsNullOrEmpty(AccessToken))
             www.SetRequestHeader("Authorization", "Bearer " + AccessToken);
 
         yield return www.SendWebRequest();
 
-        string body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
-        string wwwAuth = www.GetResponseHeader("WWW-Authenticate");
-
-        // 상세 로깅
+        var body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
+        var wwwAuth = www.GetResponseHeader("WWW-Authenticate");
         Debug.Log($"PUT {url} => {(long)www.responseCode}, err={www.error}");
         if (!string.IsNullOrEmpty(wwwAuth)) Debug.Log($"WWW-Authenticate: {wwwAuth}");
         if (!string.IsNullOrEmpty(body)) Debug.Log($"Body: {body}");
@@ -318,56 +327,34 @@ public class APIManager : MonoBehaviour
             onError?.Invoke(string.IsNullOrEmpty(body) ? www.error : body);
     }
 
-    public string getAccessToken()
-    {
-        return AccessToken;
-    }
-
-    public void Patch(string endPoint, string json, Action<string> onSuccess, Action<string> onError = null)
-    {
-        StartCoroutine(PatchRequest(baseUrl + endPoint, json, onSuccess, onError));
-    }
-
     private IEnumerator PatchRequest(string url, string json, Action<string> onSuccess, Action<string> onError)
     {
-        if (IsJwtExpired(AccessToken))
-        {
-            onError?.Invoke("AccessToken expired or invalid. 재발급 필요");
-            yield break;
-        }
+        if (!EnsureToken()) { onError?.Invoke("AccessToken missing/expired"); yield break; }
 
-        UnityWebRequest www = new UnityWebRequest(url, "PATCH");
-
-        byte[] bodyRaw = string.IsNullOrEmpty(json)
-            ? new byte[0]
-            : System.Text.Encoding.UTF8.GetBytes(json);
-
-        www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        var www = new UnityWebRequest(url, "PATCH");
+        www.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(json ?? ""));
         www.downloadHandler = new DownloadHandlerBuffer();
-
         www.SetRequestHeader("Content-Type", "application/json");
         www.SetRequestHeader("Accept", "application/json");
-
         if (!string.IsNullOrEmpty(AccessToken))
             www.SetRequestHeader("Authorization", "Bearer " + AccessToken);
 
         yield return www.SendWebRequest();
 
-        string body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
-        string wwwAuth = www.GetResponseHeader("WWW-Authenticate");
-
+        var body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
+        var wwwAuth = www.GetResponseHeader("WWW-Authenticate");
         Debug.Log($"PATCH {url} => {(long)www.responseCode}, err={www.error}");
         if (!string.IsNullOrEmpty(wwwAuth)) Debug.Log($"WWW-Authenticate: {wwwAuth}");
         if (!string.IsNullOrEmpty(body)) Debug.Log($"Body: {body}");
 
         if (www.result == UnityWebRequest.Result.Success ||
             (www.responseCode >= 200 && www.responseCode < 300))
-        {
             onSuccess?.Invoke(body);
-        }
         else
-        {
             onError?.Invoke(string.IsNullOrEmpty(body) ? www.error : body);
-        }
     }
+
+    // ────────────────────────── 기타 ──────────────────────────
+
+    public string getAccessToken() => AccessToken;
 }
