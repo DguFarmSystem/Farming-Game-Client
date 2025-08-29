@@ -98,8 +98,6 @@ public class seedTicket : MonoBehaviour
             if (status.isCheer && (claimedMask & BIT_CHEER) == 0) { newMask |= BIT_CHEER; total += 3; }
             if (status.isFarmingLog && (claimedMask & BIT_FARMING) == 0) { newMask |= BIT_FARMING; total += 5; }
 
-            total = 1;
-
 
             if (total <= 0)
             {
