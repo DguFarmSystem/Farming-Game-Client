@@ -116,8 +116,26 @@ public class FarmGround : MonoBehaviour
             Debug.LogError("[FarmGround] ObjectDatabase가 할당되지 않았습니다!");
         }
 
+
+        long flower_server = 0; // 값을 받을 변수 선언
+
+        // TryGetIndexByID를 호출하면서 out 키워드를 사용합니다.
+        if (database.TryGetIndexByID(getFlowerId, out int index))
+        {
+            // 함수가 true를 반환했으므로, index 변수에 올바른 값이 담겨있습니다.
+            // 이제 이 값을 flower_server에 할당할 수 있습니다.
+    
+            // 할당된 값을 사용하여 GetStoreGoodsNumber 함수를 호출합니다.
+            flower_server = database.GetStoreGoodsNumber(index);
+        }
+        else
+        {
+            // id를 찾지 못한 경우
+            Debug.Log("ID를 찾을 수 없습니다.");
+        }
+
         UIManager.Instance.OpenHarvestPopup(data.plant_name, database.GetNameFromID(getFlowerId));
-        FlowerDataManager.Instance.RegisterFlower(data.plant_name);
+        FlowerDataManager.Instance.RegisterFlower(data.plant_name, flower_server);
 
         data.plant_name = "";
         data.planted_at = default(DateTime); // ❗ DateTime 기본값으로 초기화

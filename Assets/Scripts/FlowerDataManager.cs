@@ -1,6 +1,12 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+// FlowerDataManager.cs 또는 별도 파일에 추가
+[System.Serializable]
+public class DexRegisterDto
+{
+    public long ownedPlant;
+}
 
 public class FlowerDataManager : MonoBehaviour
 {
@@ -23,24 +29,49 @@ public class FlowerDataManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
-    //도감 등록 (꽃 이름 넣어서 등록 변수를 true로 만들어줌)
-    public void RegisterFlower(string flowerName)
+    
+    //도감 등록
+    public void RegisterFlower(string flowerName, long flower_servermapping)
     {
         foreach (var flower in flowerData.flowerList)
         {
             if (flower.flowerName == flowerName)
             {
-                flower.isRegistered = true;
+                if (flower.isRegistered) return; // 이미 등록된 경우 중복 호출 방지
 
+                flower.isRegistered = true;
                 FindFirstObjectByType<BadgeManager>(FindObjectsInactive.Include)?.ReevaluateBadges();
 
-                return;
+                // 1. 요청에 필요한 DTO 객체 생성
+                DexRegisterDto dto = new DexRegisterDto
+                {
+                    ownedPlant = flower_servermapping
+                };
 
+                // 2. DTO를 JSON 문자열로 변환
+                string json = JsonUtility.ToJson(dto);
+
+                // 3. APIManager를 사용하여 POST 요청 전송
+                APIManager.Instance.Post(
+                    "/api/dex",
+                    json,
+                    (response) =>
+                    {
+                        // 요청 성공 시 로직
+                        Debug.Log("[Dex API] 등록 성공: " + response);
+                    },
+                    (error) =>
+                    {
+                        // 요청 실패 시 로직
+                        Debug.LogError("[Dex API] 등록 실패: " + error);
+                    }
+                );
+
+                return;
             }
         }
 
         Debug.LogWarning("등록하려는 꽃 없음: " + flowerName);
-
     }
 
     // 서버에서 받은 등록 상태 반영 (예: 서버가 등록된 flowerName 목록을 내려줌)
