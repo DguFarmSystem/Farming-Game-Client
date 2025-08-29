@@ -84,7 +84,7 @@ jobs:
           ref: ${{ env.DEPLOY_BRANCH }}
           token: ${{ secrets.PERSONAL_TOKEN }}
           path: deploy
-        fetch-depth: 0
+          fetch-depth: 0
 
     # 3) WebGL 루트 자동 탐지 (index.html이 있는 폴더)
       - name: Resolve WebGL root
