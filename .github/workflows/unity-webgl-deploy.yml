@@ -95,16 +95,13 @@ jobs:
             ROOT="build_dist/build"
           else
             CANDIDATE="$(find build_dist -maxdepth 3 -type f -name index.html | head -n 1 || true)"
-            if [ -n "${CANDIDATE:-}" ]; then
-              ROOT="$(dirname "$CANDIDATE")"
-            fi
+            [ -n "${CANDIDATE:-}" ] && ROOT="$(dirname "$CANDIDATE")"
           fi
-          if [ -z "$ROOT" ] || [ ! -d "$ROOT" ]; then
-            echo "❌ WebGL root (index.html) 를 찾지 못했습니다."
-            exit 1
-          fi
-          echo "WEBGL_ROOT=$ROOT" | tee -a "$GITHUB_ENV"
-          echo "✅ Detected WEBGL_ROOT=$ROOT"
+          [ -z "$ROOT" ] && { echo "❌ WebGL root not found"; exit 1; }
+          ABS_ROOT="$(pwd)/$ROOT"
+          echo "WEBGL_ROOT=$ABS_ROOT" | tee -a "$GITHUB_ENV"
+          echo "✅ Detected WEBGL_ROOT=$ABS_ROOT"
+          echo "🔎 Listing:" && ls -lah "$ABS_ROOT"
 
       # 4) Build/, TemplateData/, index.html 교체
       - name: Replace only Build/, TemplateData/, index.html
