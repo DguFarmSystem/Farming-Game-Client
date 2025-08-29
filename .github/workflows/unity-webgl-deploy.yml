@@ -80,9 +80,9 @@ jobs:
           set -e
           cd deploy
           rm -rf Build TemplateData index.html
-          cp -r ../Build ./Build
-          cp -r ../TemplateData ./TemplateData
-          cp -f ../index.html ./index.html
+          cp -r ..build/WebGL/Build ./Build
+          cp -r ..build/WebGL/TemplateData ./TemplateData
+          cp -f ..build/WebGL/index.html ./index.html
 
       # 4) 커밋 & 푸시
       - name: Commit & Push (main)
