@@ -41,7 +41,7 @@ public class PowerStationManager : MonoBehaviour
 
     [Header("Settings")]
     public string uid;
-    private DateTime chargeStartTime;
+    private DateTime chargeStartTimeUtc; // UTC 시간으로 저장
     private float chargeCheckInterval = 5f;
     private float chargeCheckTimer = 0f;
     float maxTime = 100f;
@@ -52,6 +52,9 @@ public class PowerStationManager : MonoBehaviour
     public Transform sunTargetUI;
     public int effectCount = 3;
     public float spreadRadius = 100f;
+
+    // 한국 시간대 정보
+    private static readonly TimeZoneInfo KstZone = TimeZoneInfo.FindSystemTimeZoneById("Korea Standard Time");
 
     private void Awake()
     {
@@ -85,7 +88,7 @@ public class PowerStationManager : MonoBehaviour
         if (!string.IsNullOrEmpty(error))
         {
             Debug.LogError("Failed to load power station data: " + error);
-            chargeStartTime = DateTime.UtcNow;
+            chargeStartTimeUtc = DateTime.UtcNow; // 오류 시 현재 UTC 시간으로 초기화
             requiresInitialSave = true;
         }
         else
@@ -93,24 +96,25 @@ public class PowerStationManager : MonoBehaviour
             try
             {
                 var responseData = JsonUtility.FromJson<SolarStationDataResponse>(rawResponse);
-                DateTime parsedTime;
+                DateTime parsedTimeUtc;
 
                 if (responseData != null && responseData.data != null && 
-                    DateTime.TryParse(responseData.data.chargeStartTime, out parsedTime))
+                    DateTime.TryParse(responseData.data.chargeStartTime, out parsedTimeUtc))
                 {
-                    chargeStartTime = parsedTime.ToUniversalTime();
+                    // 서버에서 받은 시간은 UTC라고 가정하고 그대로 저장
+                    chargeStartTimeUtc = parsedTimeUtc.ToUniversalTime();
                 }
                 else
                 {
                     Debug.LogWarning("Server returned no solar station data. Initializing with local time and sending to server.");
-                    chargeStartTime = DateTime.UtcNow;
+                    chargeStartTimeUtc = DateTime.UtcNow;
                     requiresInitialSave = true;
                 }
             }
             catch (Exception ex)
             {
                 Debug.LogError("Failed to parse solar station data: " + ex.Message);
-                chargeStartTime = DateTime.UtcNow;
+                chargeStartTimeUtc = DateTime.UtcNow;
                 requiresInitialSave = true;
             }
         }
@@ -129,7 +133,8 @@ public class PowerStationManager : MonoBehaviour
 
         SolarStationDto newData = new SolarStationDto
         {
-            chargeStartTime = chargeStartTime.ToString("o")
+            // 서버에 보낼 때는 UTC 시간(ISO 8601 형식)을 사용
+            chargeStartTime = chargeStartTimeUtc.ToString("o")
         };
 
         string json = JsonUtility.ToJson(newData);
@@ -179,7 +184,8 @@ public class PowerStationManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        TimeSpan elapsed = DateTime.UtcNow - chargeStartTime;
+        // 충전 경과 시간 계산은 UTC를 기준으로
+        TimeSpan elapsed = DateTime.UtcNow - chargeStartTimeUtc;
         double totalSeconds = elapsed.TotalSeconds;
 
         float percent = Mathf.Clamp01((float)(totalSeconds / maxTime));
@@ -197,7 +203,7 @@ public class PowerStationManager : MonoBehaviour
 
     private void OnCollectSunlight()
     {
-        TimeSpan elapsed = DateTime.UtcNow - chargeStartTime;
+        TimeSpan elapsed = DateTime.UtcNow - chargeStartTimeUtc;
         double totalSeconds = elapsed.TotalSeconds;
 
         float percent = Mathf.Clamp01((float)(totalSeconds / maxTime)) * 100f;
@@ -210,7 +216,7 @@ public class PowerStationManager : MonoBehaviour
         {
             CurrencyManager.Instance.AddSunlight(newSun);
 
-            chargeStartTime = DateTime.UtcNow;
+            chargeStartTimeUtc = DateTime.UtcNow; // 새로운 UTC 시간으로 업데이트
             StartCoroutine(UpdateChargeStartTimeToServer());
 
             collectButton.interactable = false;
