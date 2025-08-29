@@ -47,49 +47,6 @@ public class APIManager : MonoBehaviour
         StartCoroutine(LoadPlayerRoutine());
     }
 
-    // 플레이어 데이터 로드 및 초기화 루틴
-    private IEnumerator LoadPlayerRoutine()
-    {
-        bool done = false;
-        string error = null;
-
-        Debug.Log("[Player API] 플레이어 데이터 로드 시도...");
-        
-        // GET /api/player 엔드포인트 호출
-        Get("/api/player", 
-            (response) => {
-                Debug.Log("[Player API] 데이터 로드 성공. " + response);
-                done = true;
-            },
-            (err) => {
-                Debug.LogWarning("[Player API] 데이터 로드 실패. 플레이어 초기화 시도. " + err);
-                error = err;
-                done = true;
-            }
-        );
-
-        while(!done) yield return null;
-        
-        // 데이터 로드 실패 시 (404) 초기화 API 호출
-        if (!string.IsNullOrEmpty(error) && error.Contains("404"))
-        {
-            Debug.Log("[Player API] 플레이어 초기화 POST 요청 전송...");
-            
-            bool initDone = false;
-            Post("/api/player/init", "{}", 
-                (response) => {
-                    Debug.Log("[Player API] 초기화 성공! " + response);
-                    initDone = true;
-                },
-                (err) => {
-                    Debug.LogError("[Player API] 초기화 실패! " + err);
-                    initDone = true;
-                }
-            );
-
-            while(!initDone) yield return null;
-        }
-    }
 
     [SerializeField] private string baseUrl = "https://api.dev.farmsystem.kr";
     public string AccessToken = "";
@@ -111,46 +68,95 @@ public class APIManager : MonoBehaviour
     {
         string token = null;
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-        try
-        {
-            // 1) localStorage: fauth-storage(JSON) -> state.accessToken
-            string raw = GetLocalStorageJS("auth-storage");
-            if (!string.IsNullOrEmpty(raw) && raw.TrimStart().StartsWith("{"))
+    #if UNITY_WEBGL && !UNITY_EDITOR
+            try
             {
-                try
+                // 1) localStorage: fauth-storage(JSON) -> state.accessToken
+                string raw = GetLocalStorageJS("auth-storage");
+                if (!string.IsNullOrEmpty(raw) && raw.TrimStart().StartsWith("{"))
                 {
-                    var jo = JObject.Parse(raw);
-                    token = (string)jo.SelectToken("state.accessToken");
+                    try
+                    {
+                        var jo = JObject.Parse(raw);
+                        token = (string)jo.SelectToken("state.accessToken");
+                    }
+                    catch { /* JSON 파싱 실패 -> 폴백 진행 */ }
                 }
-                catch { /* JSON 파싱 실패 -> 폴백 진행 */ }
+
+                // 2) 다른 localStorage 키
+                if (string.IsNullOrEmpty(token)) token = GetLocalStorageJS("accessToken");
+                if (string.IsNullOrEmpty(token)) token = GetLocalStorageJS("access_token");
+
+                // 3) 쿠키
+                if (string.IsNullOrEmpty(token)) token = GetCookieJS("accessToken");
+                if (string.IsNullOrEmpty(token)) token = GetCookieJS("access_token");
+                if (string.IsNullOrEmpty(token)) token = GetCookieJS("Authorization");
+
+                // 형태 정리
+                if (!string.IsNullOrEmpty(token) && token.StartsWith("Bearer "))
+                    token = token.Substring(7);
+
+                // 4) URL 쿼리 ?token=... 폴백
+                if (string.IsNullOrEmpty(token) && !string.IsNullOrEmpty(Application.absoluteURL))
+                    token = GetUrlParam(Application.absoluteURL, "token");
+
+                Debug.Log("[Token] token :" + token);
             }
-
-            // 2) 다른 localStorage 키
-            if (string.IsNullOrEmpty(token)) token = GetLocalStorageJS("accessToken");
-            if (string.IsNullOrEmpty(token)) token = GetLocalStorageJS("access_token");
-
-            // 3) 쿠키
-            if (string.IsNullOrEmpty(token)) token = GetCookieJS("accessToken");
-            if (string.IsNullOrEmpty(token)) token = GetCookieJS("access_token");
-            if (string.IsNullOrEmpty(token)) token = GetCookieJS("Authorization");
-
-            // 형태 정리
-            if (!string.IsNullOrEmpty(token) && token.StartsWith("Bearer "))
-                token = token.Substring(7);
-
-            // 4) URL 쿼리 ?token=... 폴백
-            if (string.IsNullOrEmpty(token) && !string.IsNullOrEmpty(Application.absoluteURL))
-                token = GetUrlParam(Application.absoluteURL, "token");
-
-            Debug.log("[Token] token :" + token);
-        }
-        catch (Exception e)
-        {
-            Debug.LogWarning("[API] TryLoadTokenFromBrowser error: " + e.Message);
-        }
-#endif
+            
+            catch (Exception e)
+            {
+                Debug.LogWarning("[API] TryLoadTokenFromBrowser error: " + e.Message);
+            }
+    #endif
         return token;
+    }
+    
+    // 플레이어 데이터 로드 및 초기화 루틴
+    private IEnumerator LoadPlayerRoutine()
+    {
+        bool done = false;
+        string error = null;
+
+        Debug.Log("[Player API] 플레이어 데이터 로드 시도...");
+
+        // GET /api/player 엔드포인트 호출
+        Get("/api/player",
+            (response) =>
+            {
+                Debug.Log("[Player API] 데이터 로드 성공. " + response);
+                done = true;
+            },
+            (err) =>
+            {
+                Debug.LogWarning("[Player API] 데이터 로드 실패. 플레이어 초기화 시도. " + err);
+                error = err;
+                done = true;
+            }
+        );
+
+        while (!done) yield return null;
+
+        // 데이터 로드 실패 시 (404) 초기화 API 호출
+        if (!string.IsNullOrEmpty(error) && error.Contains("404"))
+        {
+            Debug.Log("[Player API] 플레이어 초기화 POST 요청 전송...");
+
+            bool initDone = false;
+            Post("/api/player/init", "{}",
+                (response) =>
+                {
+                    Debug.Log("[Player API] 초기화 성공! " + response);
+                    initDone = true;
+                },
+                (err) =>
+                {
+                    Debug.LogError("[Player API] 초기화 실패! " + err);
+                    initDone = true;
+                }
+            );
+
+            while (!initDone) yield return null;
+        }
     }
 
     /// <summary>쿼리 파서 (System.Web 대체)</summary>
