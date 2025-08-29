@@ -30,15 +30,7 @@ public class FarmManager : MonoBehaviour
 
     private void Start()
     {
-        if (APIManager.Instance != null)
-        {
-            FarmGroundAPI.AccessToken = APIManager.Instance.getAccessToken();
-        }
-        else
-        {
-            Debug.LogError("[FarmManager] APIManager 인스턴스를 찾을 수 없습니다!");
-            return;
-        }
+
         CollectSceneTiles();
         StartCoroutine(InitFarmFromServer());
     }
@@ -97,12 +89,30 @@ public class FarmManager : MonoBehaviour
 
     private IEnumerator InitFarmFromServer()
     {
+        bool done = false;
+        string error = null;
+
+        // 모든 밭 데이터를 한 번에 로드하는 API 호출만 실행
+        APIManager.Instance.Get("/api/farm",
+            (response) =>
+            {
+                Debug.Log("[FarmManager] /api/farm 호출 성공. 응답: " + response);
+                done = true;
+            },
+            (err) =>
+            {
+                Debug.LogError("[FarmManager] /api/farm 호출 실패: " + err);
+                error = err;
+                done = true;
+            }
+        );
+
         foreach (var kv in tilesById)
         {
             var tile = kv.Value;
-            bool done = false;
+            done = false;
             FarmGroundAPI.FarmTileDto serverData = null;
-            string error = null;
+            error = null;
             yield return FarmGroundAPI.GetTile(tile.data.x, tile.data.y, (ok, dto, raw) =>
             {
                 serverData = dto;
@@ -127,7 +137,7 @@ public class FarmManager : MonoBehaviour
                 var dto = FarmGroundAPI.ToDto(d);
                 tile.InitGround(d);
                 Debug.Log($"[FarmManager] 밭({d.x}, {d.y}) 데이터 없음. 새로 생성 요청.");
-                
+
                 yield return FarmGroundAPI.PatchTile(dto, (ok, raw) =>
                 {
                     if (!ok)
