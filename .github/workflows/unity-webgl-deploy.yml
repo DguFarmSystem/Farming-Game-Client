@@ -4,17 +4,12 @@ on:
   push:
     branches: [ "Build" ]            # Build 브랜치 푸시 시 자동 실행
   workflow_dispatch:                 # 수동 실행 지원
-    inputs:
-      deploy_target:
-        description: "netlify | vercel | s3 | none"
-        required: false
-        default: "none"              # 기본 none → 토큰 없어도 빌드만 수행
 
 env:
-  UNITY_VERSION: 6000.0.51f1         # ← 프로젝트 Unity 버전에 맞게 수정
-  PROJECT_PATH: .                    # ← Unity 프로젝트 루트
+  UNITY_VERSION: 6000.0.51f1
+  PROJECT_PATH: .
   BUILD_NAME: WebGL
-  BUILDS_PATH: build                 # ← v4 입력명: buildsPath (기본: build)
+  BUILDS_PATH: build
 
 jobs:
   build-webgl:
@@ -39,85 +34,62 @@ jobs:
       - name: Build WebGL
         uses: game-ci/unity-builder@v4
         env:
-          # 🔑 Personal: 이메일/비번 + ULF 모두 필요 (Pro는 SERIAL)
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          # Pro/Plus일 경우:
-          # UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         with:
           projectPath: ${{ env.PROJECT_PATH }}
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: WebGL
           allowDirtyBuild: true
-          buildName: ${{ env.BUILD_NAME }}     # 최종 폴더명: build/WebGL
-          buildsPath: ${{ env.BUILDS_PATH }}   # 출력 루트: build
+          buildName: ${{ env.BUILD_NAME }}
+          buildsPath: ${{ env.BUILDS_PATH }}
 
       - name: Upload artifact (WebGL folder contents)
         uses: actions/upload-artifact@v4
         with:
           name: webgl-build
-          # 폴더 '내용물'만 업로드 → dist 바로 밑에 index.html 오도록
           path: ${{ env.BUILDS_PATH }}/${{ env.BUILD_NAME }}/
           if-no-files-found: error
 
   deploy:
-    name: Deploy (${{ github.event.inputs.deploy_target || 'none' }})
+    name: Deploy to HomePage-Game
     needs: build-webgl
     runs-on: ubuntu-latest
-    # none이면 배포 잡 자체 스킵 → 빌드만 성공
-    if: ${{ (github.event.inputs.deploy_target || 'none') != 'none' }}
-
-    # S3 OIDC 사용 시 필요한 권한 (Netlify/Vercel엔 영향 없음)
-    permissions:
-      contents: read
-      id-token: write
-
-    env:
-      DEPLOY_TARGET: ${{ github.event.inputs.deploy_target || 'none' }}
 
     steps:
+      # 1) 빌드 산출물 다운로드
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: webgl-build
-          path: dist
+          path: build_dist
 
-      # ───────── Netlify ─────────
-      - name: Install Netlify CLI
-        if: env.DEPLOY_TARGET == 'netlify'
-        run: npm i -g netlify-cli
-
-      - name: Deploy to Netlify
-        if: env.DEPLOY_TARGET == 'netlify'
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: netlify deploy --dir=dist --prod --site "$NETLIFY_SITE_ID"
-
-      # ───────── Vercel ─────────
-      - name: Install Vercel CLI
-        if: env.DEPLOY_TARGET == 'vercel'
-        run: npm i -g vercel
-
-      - name: Deploy to Vercel
-        if: env.DEPLOY_TARGET == 'vercel'
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: |
-          vercel deploy dist --prod --token "$VERCEL_TOKEN" \
-            --scope "$VERCEL_ORG_ID" --project "$VERCEL_PROJECT_ID"
-
-      # ───────── S3 ─────────
-      - name: Configure AWS Credentials (OIDC)
-        if: env.DEPLOY_TARGET == 's3'
-        uses: aws-actions/configure-aws-credentials@v4
+      # 2) 배포 대상 레포 체크아웃
+      - name: Checkout deploy repo (main)
+        uses: actions/checkout@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          repository: DguFarmSystem/HomePage-Game
+          ref: main
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          path: deploy
 
-      - name: Sync to S3
-        if: env.DEPLOY_TARGET == 's3'
-        run: aws s3 sync dist "s3://${{ secrets.S3_BUCKET }}/" --delete
+      # 3) Build/, TemplateData/, index.html 교체
+      - name: Replace only Build/, TemplateData/, index.html
+        run: |
+          set -e
+          cd deploy
+          rm -rf Build TemplateData index.html
+          cp -r ../build_dist/Build ./Build
+          cp -r ../build_dist/TemplateData ./TemplateData
+          cp -f ../build_dist/index.html ./index.html
+
+      # 4) 커밋 & 푸시
+      - name: Commit & Push (main)
+        run: |
+          cd deploy
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Build TemplateData index.html
+          git commit -m "Deploy WebGL build: $GITHUB_SHA" || echo "No changes to commit"
+          git push origin main
