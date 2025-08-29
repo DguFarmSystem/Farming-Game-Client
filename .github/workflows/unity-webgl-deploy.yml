@@ -52,73 +52,87 @@ jobs:
           path: ${{ env.BUILDS_PATH }}/${{ env.BUILD_NAME }}/
           if-no-files-found: error
 
-  deploy:
-    name: Deploy to HomePage-Game
-    needs: build-webgl
-    runs-on: ubuntu-latest
+deploy:
+  name: Deploy to HomePage-Game
+  needs: build-webgl
+  runs-on: ubuntu-latest
+  env:
+    DEPLOY_REPO: farmsystem-account/HomePage-FE
+    DEPLOY_BRANCH: develop         # ← main으로 쓰면 'main'으로 변경
+    TARGET_SUBDIR: apps/farminglog/public/WebGLBuild/BuildTest
+  steps:
+    # 1) 빌드 산출물 다운로드
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: webgl-build
+        path: build_dist
 
-    steps:
-      # 1) 빌드 산출물 다운로드 (v4는 자동 해제됨)
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: webgl-build
-          path: build_dist
+    # (옵션) 구조 확인
+    - name: Debug artifact tree
+      run: |
+        echo "=== Artifact file tree (build_dist) ==="
+        ls -lah build_dist || true
+        echo "=== Recursive ==="
+        ls -R build_dist || true
 
-      # 🔍 1-1) 디버깅: 아티팩트 구조 확인 -> 이거 어캐 찾아... 어디로 가야하오
-      - name: Debug artifact tree
-        run: |
-          echo "=== Artifact file tree (build_dist) ==="
-          ls -lah build_dist || true
-          echo "=== Recursive ==="
-          ls -R build_dist || true
+    # 2) 배포 대상 레포 체크아웃
+    - name: Checkout deploy repo
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ env.DEPLOY_REPO }}
+        ref: ${{ env.DEPLOY_BRANCH }}
+        token: ${{ secrets.PERSONAL_TOKEN }}
+        path: deploy
+        fetch-depth: 0
 
-      # 2) 배포 대상 레포 체크아웃 
-      - name: Checkout deploy repo (main)
-        uses: actions/checkout@v4
-        with:
-          repository: DguFarmSystem/HomePage-Game
-          ref: main
-          token: ${{ secrets.PERSONAL_TOKEN }}
-          path: deploy
+    # 3) WebGL 루트 자동 탐지 (index.html이 있는 폴더)
+    - name: Resolve WebGL root
+      id: resolve
+      shell: bash
+      run: |
+        set -euo pipefail
+        ROOT=""
+        if [ -f build_dist/index.html ] && [ -d build_dist/TemplateData ]; then
+          ROOT="build_dist"
+        elif [ -f build_dist/WebGL/index.html ]; then
+          ROOT="build_dist/WebGL"
+        elif [ -f build_dist/build/index.html ]; then
+          ROOT="build_dist/build"
+        else
+          CANDIDATE="$(find build_dist -maxdepth 3 -type f -name index.html | head -n 1 || true)"
+          [ -n "${CANDIDATE:-}" ] && ROOT="$(dirname "$CANDIDATE")"
+        fi
+        [ -z "$ROOT" ] && { echo "❌ WebGL root not found"; exit 1; }
+        ABS_ROOT="$(pwd)/$ROOT"
+        echo "WEBGL_ROOT=$ABS_ROOT" | tee -a "$GITHUB_ENV"
+        echo "root=$ABS_ROOT" >> "$GITHUB_OUTPUT"
+        echo "✅ Detected WEBGL_ROOT=$ABS_ROOT"
+        ls -lah "$ABS_ROOT"
 
-      # 3) WebGL 루트 자동 탐지 (index.html이 있는 폴더) -> cli는 신이다
-      - name: Resolve WebGL root
-        run: |
-          set -euo pipefail
-          ROOT=""
-          if [ -f build_dist/index.html ] && [ -d build_dist/TemplateData ]; then
-            ROOT="build_dist"
-          elif [ -f build_dist/WebGL/index.html ]; then
-            ROOT="build_dist/WebGL"
-          elif [ -f build_dist/build/index.html ]; then
-            ROOT="build_dist/build"
-          else
-            CANDIDATE="$(find build_dist -maxdepth 3 -type f -name index.html | head -n 1 || true)"
-            [ -n "${CANDIDATE:-}" ] && ROOT="$(dirname "$CANDIDATE")"
-          fi
-          [ -z "$ROOT" ] && { echo "❌ WebGL root not found"; exit 1; }
-          ABS_ROOT="$(pwd)/$ROOT"
-          echo "WEBGL_ROOT=$ABS_ROOT" | tee -a "$GITHUB_ENV"
-          echo "✅ Detected WEBGL_ROOT=$ABS_ROOT"
-          echo "🔎 Listing:" && ls -lah "$ABS_ROOT"
+    # 4) 대상 경로에 Build/, TemplateData/, index.html만 교체
+    - name: Replace files into target subdir
+      shell: bash
+      run: |
+        set -euo pipefail
+        DEST="deploy/${TARGET_SUBDIR}"
+        mkdir -p "$DEST"
+        # 깨끗하게 교체
+        rm -rf "$DEST/Build" "$DEST/TemplateData" "$DEST/index.html"
+        cp -r "$WEBGL_ROOT/Build" "$DEST/Build"
+        cp -r "$WEBGL_ROOT/TemplateData" "$DEST/TemplateData"
+        cp -f "$WEBGL_ROOT/index.html" "$DEST/index.html"
+        echo "📁 Deployed files:"
+        ls -lah "$DEST"
 
-      # 4) Build/, TemplateData/, index.html 교체
-      - name: Replace only Build/, TemplateData/, index.html
-        run: |
-          set -e
-          cd deploy
-          rm -rf Build TemplateData index.html
-          cp -r "$WEBGL_ROOT/Build" ./Build
-          cp -r "$WEBGL_ROOT/TemplateData" ./TemplateData
-          cp -f "$WEBGL_ROOT/index.html" ./index.html
-
-      # 5) 커밋 & 푸시
-      - name: Commit & Push (main)
-        run: |
-          cd deploy
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Build TemplateData index.html
-          git commit -m "Deploy WebGL build: $GITHUB_SHA" || echo "No changes to commit"
-          git push origin main
+    # 5) 커밋 & 푸시 (rebase로 충돌 최소화)
+    - name: Commit & Push
+      working-directory: deploy
+      shell: bash
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add "${TARGET_SUBDIR}/Build" "${TARGET_SUBDIR}/TemplateData" "${TARGET_SUBDIR}/index.html"
+        git commit -m "Deploy WebGL build: ${GITHUB_SHA}" || echo "No changes to commit"
+        git pull --rebase origin "${DEPLOY_BRANCH}" || true
+        git push origin "${DEPLOY_BRANCH}"
