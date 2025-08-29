@@ -29,23 +29,22 @@ public class APIManager : MonoBehaviour
 
         StartCoroutine(CheckUrlRoutine(baseUrl));
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-        // 호스트에서 직접 푸시할 경우: SendMessage("APIManager","SetAccessTokenFromJS", token)
-        AccessToken = TryLoadTokenFromBrowser();
-        if (string.IsNullOrEmpty(AccessToken))
-            Debug.LogWarning("[API] 브라우저 저장소에서 토큰을 찾지 못했습니다.");
-#else
-        // 임시 토큰 발급 로직
-        StartCoroutine(InitRoutine());
-#endif
+        #if UNITY_WEBGL && !UNITY_EDITOR
+                // 호스트에서 직접 푸시할 경우: SendMessage("APIManager","SetAccessTokenFromJS", token)
+                AccessToken = TryLoadTokenFromBrowser();
+                if (string.IsNullOrEmpty(AccessToken))
+                    Debug.LogWarning("[API] 브라우저 저장소에서 토큰을 찾지 못했습니다.");
+        #else
+                // 임시 토큰 발급 로직
+                StartCoroutine(InitRoutine());
+                // ❗ 플레이어 데이터 로딩 및 초기화 루틴 시작
+                StartCoroutine(LoadPlayerRoutine());
+        #endif
+
+
     }
     #endregion
 
-    void Start()
-    {
-        // ❗ 플레이어 데이터 로딩 및 초기화 루틴 시작
-        StartCoroutine(LoadPlayerRoutine());
-    }
 
 
     [SerializeField] private string baseUrl = "https://api.dev.farmsystem.kr";
