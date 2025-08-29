@@ -58,14 +58,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) 빌드 산출물 다운로드
+      # 1) 빌드 산출물 다운로드 (v4는 자동 해제됨)
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: webgl-build
           path: build_dist
 
-      # 2) 배포 대상 레포 체크아웃
+      # 🔍 1-1) 디버깅: 아티팩트 구조 확인 -> 이거 어캐 찾아... 어디로 가야하오
+      - name: Debug artifact tree
+        run: |
+          echo "=== Artifact file tree (build_dist) ==="
+          ls -lah build_dist || true
+          echo "=== Recursive ==="
+          ls -R build_dist || true
+
+      # 2) 배포 대상 레포 체크아웃 
       - name: Checkout deploy repo (main)
         uses: actions/checkout@v4
         with:
@@ -74,17 +82,41 @@ jobs:
           token: ${{ secrets.PERSONAL_TOKEN }}
           path: deploy
 
-      # 3) Build/, TemplateData/, index.html 교체
+      # 3) WebGL 루트 자동 탐지 (index.html이 있는 폴더) -> cli는 신이다
+      - name: Resolve WebGL root
+        run: |
+          set -euo pipefail
+          ROOT=""
+          if [ -f build_dist/index.html ] && [ -d build_dist/TemplateData ]; then
+            ROOT="build_dist"
+          elif [ -f build_dist/WebGL/index.html ]; then
+            ROOT="build_dist/WebGL"
+          elif [ -f build_dist/build/index.html ]; then
+            ROOT="build_dist/build"
+          else
+            CANDIDATE="$(find build_dist -maxdepth 3 -type f -name index.html | head -n 1 || true)"
+            if [ -n "${CANDIDATE:-}" ]; then
+              ROOT="$(dirname "$CANDIDATE")"
+            fi
+          fi
+          if [ -z "$ROOT" ] || [ ! -d "$ROOT" ]; then
+            echo "❌ WebGL root (index.html) 를 찾지 못했습니다."
+            exit 1
+          fi
+          echo "WEBGL_ROOT=$ROOT" | tee -a "$GITHUB_ENV"
+          echo "✅ Detected WEBGL_ROOT=$ROOT"
+
+      # 4) Build/, TemplateData/, index.html 교체
       - name: Replace only Build/, TemplateData/, index.html
         run: |
           set -e
           cd deploy
           rm -rf Build TemplateData index.html
-          cp -r ..build/WebGL/Build ./Build
-          cp -r ..build/WebGL/TemplateData ./TemplateData
-          cp -f ..build/WebGL/index.html ./index.html
+          cp -r "$WEBGL_ROOT/Build" ./Build
+          cp -r "$WEBGL_ROOT/TemplateData" ./TemplateData
+          cp -f "$WEBGL_ROOT/index.html" ./index.html
 
-      # 4) 커밋 & 푸시
+      # 5) 커밋 & 푸시
       - name: Commit & Push (main)
         run: |
           cd deploy
