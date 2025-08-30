@@ -113,8 +113,6 @@ public class MiniGameButtonHandler : MonoBehaviour
             json,
             onSuccess: (_) =>
             {
-                GameManager.Sound.SFXPlay("SFX_GameStart");
-                SceneLoader.Instance.GoToMiniGame(selected);
             },
             onError: (err) =>
             {
@@ -126,6 +124,8 @@ public class MiniGameButtonHandler : MonoBehaviour
                 popupPanel.SetActive(false);
             }
         );
+        GameManager.Sound.SFXPlay("SFX_GameStart");
+        SceneLoader.Instance.GoToMiniGame(selected);
     }
 
     public void CancelGame()
