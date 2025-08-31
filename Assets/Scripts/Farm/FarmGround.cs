@@ -109,7 +109,7 @@ public class FarmGround : MonoBehaviour
         
         if(database != null)
         {
-            database.AddData(getFlowerId);
+            database.ChangeCountByID(getFlowerId, 1);
         }
         else
         {
