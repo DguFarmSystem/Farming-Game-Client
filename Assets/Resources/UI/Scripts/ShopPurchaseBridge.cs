@@ -139,7 +139,8 @@ public class ShopPurchaseBridge : MonoBehaviour
     private IEnumerator GetServerCount(long storeGoodsNumber, Action<int> onDone)
     {
         bool doneFlag = false;
-        int val = -1;
+        int val = 0;                 // 기본값을 0으로 (없으면 0개부터 시작)
+        bool hardFail = false;       // 네트워크/파싱 진짜 실패만 구분
 
         APIManager.Instance.Get(
             inventoryGetEndpoint,
@@ -147,23 +148,55 @@ public class ShopPurchaseBridge : MonoBehaviour
             {
                 try
                 {
-                    var env = JsonUtility.FromJson<InvGetEnv>(ok);
-                    if (env?.data != null)
+                // 원문 프리뷰 남기기 (디버깅)
+                string preview = ok.Length > 400 ? ok.Substring(0, 400) + "...(truncated)" : ok;
+                    Debug.Log($"[Buy] GET ok raw preview: {preview}");
+
+                // 기존 스키마 (data: [{object_type, object_count}])
+                var env = JsonUtility.FromJson<InvGetEnv>(ok);
+                    if (env?.data != null && env.data.Length > 0)
                     {
+                        bool found = false;
                         foreach (var r in env.data)
                         {
-                            if (r.object_type == storeGoodsNumber) { val = r.object_count; break; }
+                            if (r.object_type == storeGoodsNumber)
+                            {
+                                val = r.object_count;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found)
+                        {
+                        // 항목이 없으면 0개로 시작 (서버가 미생성 상태인 것)
+                        val = 0;
+                            Debug.Log($"[Buy] inventory missing key={storeGoodsNumber}, defaulting to 0");
                         }
                     }
+                    else
+                    {
+                    // 전체가 빈 배열이면 전부 0개로 간주
+                    val = 0;
+                        Debug.Log("[Buy] inventory empty list, defaulting to 0 for all");
+                    }
                 }
-                catch { }
-                doneFlag = true;
+                catch (Exception e)
+                {
+                    hardFail = true;     // 파싱 폭발 같은 진짜 실패만 하드 실패
+                Debug.LogError($"[Buy] GET parse error: {e}");
+                }
+                finally { doneFlag = true; }
             },
-            err => { Debug.LogError("[Buy] GET inventory error: " + err); doneFlag = true; }
+            err =>
+            {
+                hardFail = true;         // 네트워크/401/5xx 등은 하드 실패
+            Debug.LogError("[Buy] GET inventory error: " + err);
+                doneFlag = true;
+            }
         );
 
         yield return new WaitUntil(() => doneFlag);
-        onDone?.Invoke(val);
+        onDone?.Invoke(hardFail ? -1 : val);   // 하드 실패만 -1, 아니면 0 이상
     }
+
 }
- 
