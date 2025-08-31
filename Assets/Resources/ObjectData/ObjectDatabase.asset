@@ -20,7 +20,7 @@ MonoBehaviour:
     count: 0
     type: 0
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 400010
   - name: "\uBC2D"
     id: Tilemap_Field
     prefab: {fileID: 0}
@@ -28,7 +28,7 @@ MonoBehaviour:
     count: 0
     type: 0
     price: 1000
-    storeGoodsNumber: 0
+    storeGoodsNumber: 400020
   - name: "\uB3CC"
     id: Tilemap_Stone
     prefab: {fileID: 0}
@@ -36,7 +36,7 @@ MonoBehaviour:
     count: 0
     type: 0
     price: 1000
-    storeGoodsNumber: 0
+    storeGoodsNumber: 400040
   - name: "\uBB3C"
     id: Tilemap_Water
     prefab: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
     count: 0
     type: 0
     price: 1000
-    storeGoodsNumber: 0
+    storeGoodsNumber: 400030
   - name: "\uC57C\uC790\uC218 \uD654\uBD84"
     id: Deco_Pot_Palm
     prefab: {fileID: 0}
@@ -52,7 +52,7 @@ MonoBehaviour:
     count: 0
     type: 1
     price: 1000
-    storeGoodsNumber: 0
+    storeGoodsNumber: 200040
   - name: "\uB300\uB098\uBB34 \uD654\uBD84"
     id: Deco_Pot_Bamboo
     prefab: {fileID: 0}
@@ -60,7 +60,7 @@ MonoBehaviour:
     count: 0
     type: 1
     price: 1000
-    storeGoodsNumber: 0
+    storeGoodsNumber: 200041
   - name: "\uC120\uC778\uC7A5 \uD654\uBD84"
     id: Deco_Pot_Cactus
     prefab: {fileID: 0}
@@ -68,55 +68,55 @@ MonoBehaviour:
     count: 0
     type: 1
     price: 1000
-    storeGoodsNumber: 0
-  - name: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uD14C\uC774\uBE14"
+    storeGoodsNumber: 200042
+  - name: "\uB098\uBB34 \uD14C\uC774\uBE14"
     id: Deco_Table_Wood
     prefab: {fileID: 0}
     sprite: {fileID: 3328275712102828698, guid: b5364791d67718b46b9a1ba4af7e6370, type: 3}
     count: 0
     type: 1
     price: 1000
-    storeGoodsNumber: 0
-  - name: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uC758\uC790"
+    storeGoodsNumber: 200050
+  - name: "\uB098\uBB34 \uC758\uC790"
     id: Deco_Chair_Wood
     prefab: {fileID: 0}
     sprite: {fileID: 8288587855404676360, guid: cadffb5b3e5257641ae3ed22daef715e, type: 3}
     count: 0
     type: 1
     price: 500
-    storeGoodsNumber: 0
-  - name: "\uC57C\uC678\uC6A9 \uCCA0\uC81C \uD14C\uC774\uBE14"
+    storeGoodsNumber: 200051
+  - name: "\uCCA0\uC81C \uD14C\uC774\uBE14"
     id: Deco_Table_Metal
     prefab: {fileID: 0}
     sprite: {fileID: 6394145394236549448, guid: fa8e096348bdf0049915f506e05d9944, type: 3}
     count: 0
     type: 1
     price: 2000
-    storeGoodsNumber: 0
-  - name: "\uC57C\uC678\uC6A9 \uB098\uBB34 \uC758\uC790"
+    storeGoodsNumber: 200060
+  - name: "\uCCA0\uC81C \uC758\uC790"
     id: Deco_Chair_Metal
     prefab: {fileID: 0}
     sprite: {fileID: 6128776633282750556, guid: 3cbb52bb11ee7d24b8c7f11c6dced690, type: 3}
     count: 0
     type: 1
     price: 1000
-    storeGoodsNumber: 0
-  - name: "\uC57C\uC678\uC6A9 \uB300\uB098\uBB34 \uD14C\uC774\uBE14"
+    storeGoodsNumber: 200061
+  - name: "\uD654\uC774\uD2B8 \uD14C\uC774\uBE14"
     id: Deco_Table_Bamboo
     prefab: {fileID: 0}
     sprite: {fileID: -8813698512745689355, guid: 83c6c9462bac4b94db128b2f4301b285, type: 3}
     count: 0
     type: 1
     price: 2000
-    storeGoodsNumber: 0
-  - name: "\uC57C\uC678\uC6A9 \uB300\uB098\uBB34 \uC758\uC790"
+    storeGoodsNumber: 200070
+  - name: "\uD654\uC774\uD2B8 \uC758\uC790"
     id: Deco_Chair_Bamboo
     prefab: {fileID: 0}
     sprite: {fileID: 6806445801937816015, guid: 5e0faebed41285c41987c64c8943e59c, type: 3}
     count: 0
     type: 1
     price: 1000
-    storeGoodsNumber: 0
+    storeGoodsNumber: 200071
   - name: "\uAC00\uB85C\uB4F1"
     id: Deco_Lamp_Post
     prefab: {fileID: 0}
@@ -124,7 +124,7 @@ MonoBehaviour:
     count: 0
     type: 1
     price: 1500
-    storeGoodsNumber: 200610
+    storeGoodsNumber: 200080
   - name: "\uBBF8\uB2C8\uB4F1"
     id: Deco_Lamp_Mini
     prefab: {fileID: 0}
@@ -132,7 +132,7 @@ MonoBehaviour:
     count: 0
     type: 1
     price: 1000
-    storeGoodsNumber: 0
+    storeGoodsNumber: 200090
   - name: "\uD5C8\uC218\uC544\uBE44"
     id: Deco_Scarecrow
     prefab: {fileID: 0}
@@ -140,15 +140,15 @@ MonoBehaviour:
     count: 0
     type: 1
     price: 2000
-    storeGoodsNumber: 0
-  - name: "\uD45C\uC9C0\uD310"
+    storeGoodsNumber: 200100
+  - name: "\uC548\uB0B4\uD310"
     id: Deco_Signboard
     prefab: {fileID: 0}
     sprite: {fileID: 1208785238370206999, guid: 989223f041e28364bb21cb9c2d3b80c7, type: 3}
     count: 0
     type: 1
     price: 1500
-    storeGoodsNumber: 0
+    storeGoodsNumber: 200110
   - name: "\uC218\uB808"
     id: Deco_Wagon
     prefab: {fileID: 0}
@@ -156,7 +156,7 @@ MonoBehaviour:
     count: 0
     type: 1
     price: 2500
-    storeGoodsNumber: 0
+    storeGoodsNumber: 200120
   - name: "\uB3C4\uAC10 \uC218\uC9D1 \uAFC8\uB098\uBB34"
     id: Deco_Statue_DexBeginner
     prefab: {fileID: 0}
