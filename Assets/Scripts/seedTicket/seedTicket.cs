@@ -98,7 +98,6 @@ public class seedTicket : MonoBehaviour
             if (status.isCheer && (claimedMask & BIT_CHEER) == 0) { newMask |= BIT_CHEER; total += 3; }
             if (status.isFarmingLog && (claimedMask & BIT_FARMING) == 0) { newMask |= BIT_FARMING; total += 5; }
 
-
             if (total <= 0)
             {
                 Debug.Log("[SeedTicket] 오늘 추가로 받을 수 있는 뽑기권 없음.");
@@ -106,7 +105,7 @@ public class seedTicket : MonoBehaviour
             }
 
             // 지급
-            // CurrencyManager.Instance.AddSeedTicket(total); // 실제 게임 로직에 맞게 주석 해제
+            CurrencyManager.Instance.AddSeedTicket(total); // 실제 게임 로직에 맞게 주석 해제
 
             // UI 팝업 처리
             GameObject ui = UIManager.Instance.OpenSeedTicketPopup();

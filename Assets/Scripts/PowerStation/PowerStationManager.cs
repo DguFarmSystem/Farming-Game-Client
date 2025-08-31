@@ -44,7 +44,7 @@ public class PowerStationManager : MonoBehaviour
     private DateTime chargeStartTimeUtc; // UTC 시간으로 저장
     private float chargeCheckInterval = 5f;
     private float chargeCheckTimer = 0f;
-    float maxTime = 100f;
+    float maxTime = 36000f;
 
     [Header("Sunlight Effect")]
     public GameObject sunEffectPrefab;
