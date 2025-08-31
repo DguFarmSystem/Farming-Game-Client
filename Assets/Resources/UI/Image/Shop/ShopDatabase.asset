@@ -84,7 +84,7 @@ MonoBehaviour:
     category: 1
     icon: {fileID: -3921479718895435695, guid: a43be5beb15434c75bee6075c2e9aaac, type: 3}
   - itemName: "\uD5C8\uC218\uC544\uBE44"
-    resourceKey: 0
+    resourceKey: 200100
     price: 2000
     category: 1
     icon: {fileID: -166466446883158291, guid: 1fa58198d329e46f5994489be7ebaf66, type: 3}
@@ -94,7 +94,7 @@ MonoBehaviour:
     category: 1
     icon: {fileID: 1208785238370206999, guid: bc661fd7f56e14ac48fdedb40ff830be, type: 3}
   - itemName: "\uC218\uB808"
-    resourceKey: 0
+    resourceKey: 200120
     price: 2000
     category: 1
     icon: {fileID: 49090607627816924, guid: cfb97a7c2a40a4ecfaad9dcdc76dc92b, type: 3}

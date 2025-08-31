@@ -133,6 +133,7 @@ public class ShopPurchaseBridge : MonoBehaviour
         Debug.Log($"[Buy] verify serverCount={after}, expected={finalCount}");
 
         BagManager.Instance?.FetchInventoryAndRebuild();
+        
     }
 
     private IEnumerator GetServerCount(long storeGoodsNumber, Action<int> onDone)
@@ -165,3 +166,4 @@ public class ShopPurchaseBridge : MonoBehaviour
         onDone?.Invoke(val);
     }
 }
+ 
