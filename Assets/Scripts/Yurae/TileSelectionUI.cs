@@ -63,7 +63,7 @@ public class TileSelectionUI : MonoBehaviour
         uiPanel.transform.localPosition = localPoint;
 
         flipButton.onClick.RemoveAllListeners();
-        flipButton.onClick.AddListener(()=>FlipObject());
+        flipButton.onClick.AddListener(()=>RotationObject());
 
         destroyButton.onClick.RemoveAllListeners();
         destroyButton.onClick.AddListener(() => DestroyObject(_grid));
@@ -117,7 +117,7 @@ public class TileSelectionUI : MonoBehaviour
         DeslectObject();
     }
 
-    public void FlipObject()
+    public void RotationObject()
     {
         if (placedObject == null) return;
 

@@ -145,6 +145,7 @@ public class GridManager : MonoBehaviour
                 {
                     GameObject prefab = Instantiate(obj.gameObject);
                     prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                    prefab.GetComponent<PlaceableObject>().SetRotation(objects[i].rotation);
                     prefab.transform.SetParent(objectParent);
 
                     prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;
@@ -155,6 +156,7 @@ public class GridManager : MonoBehaviour
                 {
                     GameObject prefab = Instantiate(plant.gameObject);
                     prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                    prefab.GetComponent<PlaceableObject>().SetRotation(objects[i].rotation);
                     prefab.transform.SetParent(objectParent);
 
                     prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;

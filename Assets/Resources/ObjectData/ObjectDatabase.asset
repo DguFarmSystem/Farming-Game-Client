@@ -57,7 +57,7 @@ MonoBehaviour:
     id: Deco_Pot_Bamboo
     prefab: {fileID: 0}
     sprite: {fileID: 6227538660288444684, guid: f720c77f4991d1a44b92af80cec8ca0f, type: 3}
-    count: 0
+    count: 10
     type: 1
     price: 1000
     storeGoodsNumber: 200041
@@ -729,7 +729,23 @@ MonoBehaviour:
     id: Wood_Fence
     prefab: {fileID: 0}
     sprite: {fileID: 819436441730897038, guid: 79c1764bfcb85db4e9c465572c3b4dad, type: 3}
-    count: 0
+    count: 19
     type: 1
     price: -1
     storeGoodsNumber: 200010
+  - name: "\uD770\uC0C9 \uC6B8\uD0C0\uB9AC"
+    id: WhiteWood_Fence
+    prefab: {fileID: 0}
+    sprite: {fileID: 8159150672527780840, guid: cd12fa4c6cf8697439f605a8261bc129, type: 3}
+    count: 0
+    type: 1
+    price: 2000
+    storeGoodsNumber: 200020
+  - name: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC"
+    id: Metal_Fence
+    prefab: {fileID: 0}
+    sprite: {fileID: 4815790080164226239, guid: 55c8020227c49e74b9b972763892c483, type: 3}
+    count: 0
+    type: 1
+    price: 2000
+    storeGoodsNumber: 200030

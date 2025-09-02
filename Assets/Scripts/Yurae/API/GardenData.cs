@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Garden
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum RotationEnum { R0, R90, R180, R360 }
+    public enum RotationEnum { R0, R90, R180, R270 }
 
     [System.Serializable]
     public class ObjectData

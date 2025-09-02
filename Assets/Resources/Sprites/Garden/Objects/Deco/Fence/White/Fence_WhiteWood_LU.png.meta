@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3056006f10e15424a8aabb2246374edc
+guid: 9119b4005520efa4f8f11054f1331e21
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2648291398256750912
-    second: Deco_Chair_Metal_Right_0
+      213: 4925421176068338671
+    second: Fence_WhiteWood_LU_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Deco_Chair_Metal_Right_0
+      name: Fence_WhiteWood_LU_0
       rect:
         serializedVersion: 2
-        x: 123
-        y: 0
-        width: 255
-        height: 424
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 120
+        y: 82
+        width: 189
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0ce0f2921016f3bd0800000000000000
-      internalID: -2648291398256750912
+      spriteID: fe37db0b67c9a5440800000000000000
+      internalID: 4925421176068338671
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d82adb3681c57d14a8a2aecdf21276e1
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Deco_Chair_Metal_Right_0: -2648291398256750912
+      Fence_WhiteWood_LU_0: 4925421176068338671
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -116,4 +116,42 @@ public class GardenControllerAPI : MonoBehaviour
         };
         UpdateGardenTile(x, y, req, onSuccess, onError);
     }
+
+    /// <summary>
+    /// PATCH /api/garden/rotate
+    /// - ÁÂÇ¥ (x, y)¿¡ ÀÖ´Â object¸¦ È¸Àü½ÃÅ´
+    /// </summary>
+    public static void RotateGardenObject(
+        int x, int y,
+        long objectType,
+        RotationEnum rotation,
+        Action<string> onSuccess,
+        Action<string> onError = null)
+    {
+        try
+        {
+            var payload = new
+            {
+                x = x,
+                y = y,
+                object_type = objectType,
+                rotation = rotation.ToString() // "R0", "R90", "R180", ...
+            };
+
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Converters = { new StringEnumConverter() }
+            };
+
+            string json = JsonConvert.SerializeObject(payload, settings);
+            string endpoint = "/api/garden/rotate";
+
+            APIManager.Instance.Patch(endpoint, json, onSuccess, onError);
+        }
+        catch (Exception e)
+        {
+            onError?.Invoke($"Serialize Exception: {e.Message}");
+        }
+    }
 }
