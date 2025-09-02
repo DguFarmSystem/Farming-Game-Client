@@ -96,8 +96,8 @@ public class FarmGroundAPI
             x = p.x,
             y = p.y,
             status = p.status,
-            // ❗ DateTime.MinValue일 경우 null, 아닐 경우 문자열로 변환
-            plantedAt = (p.planted_at == DateTime.MinValue) ? null : p.planted_at.ToString("o"),
+            // ❗ 서버로 보낼 때는 항상 UTC로 변환하여 ISO 8601 형식으로 보냅니다.
+            plantedAt = (p.planted_at == default(DateTime)) ? null : p.planted_at.ToUniversalTime().ToString("o"),
             sunlightCount = p.useSunCount,
             plantName = p.plant_name,
         };
@@ -109,8 +109,11 @@ public class FarmGroundAPI
         p.x = dto.x;
         p.y = dto.y;
         p.status = string.IsNullOrEmpty(dto.status) ? p.status : dto.status;
-        // ❗ dto.plantedAt이 null이 아니면 파싱하여 할당
-        if (!string.IsNullOrEmpty(dto.plantedAt) && DateTime.TryParse(dto.plantedAt, out DateTime parsedTime))
+        
+        DateTime parsedTime;
+        // ❗ 서버에서 받은 시간을 UTC로 명시적으로 파싱합니다.
+        // 이것이 9시간 차이를 없애는 핵심 코드입니다.
+        if (!string.IsNullOrEmpty(dto.plantedAt) && DateTime.TryParse(dto.plantedAt, null, System.Globalization.DateTimeStyles.AdjustToUniversal | System.Globalization.DateTimeStyles.AssumeUniversal, out parsedTime))
         {
             p.planted_at = parsedTime;
         }

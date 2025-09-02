@@ -25,7 +25,7 @@ public class FarmManager : MonoBehaviour
 
     private readonly Dictionary<string, FarmGround> tilesById = new Dictionary<string, FarmGround>();
 
-    private float checkInterval = 5f;
+    private float checkInterval = 1f;
     private float checkTimer = 0f;
 
     private void Start()

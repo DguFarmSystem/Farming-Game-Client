@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using TMPro;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class FarmGround : MonoBehaviour
 {
@@ -35,16 +36,46 @@ public class FarmGround : MonoBehaviour
         }
         data.x = this.x;
         data.y = this.y;
+
+        // 게임 시작 시 서버에서 밭 데이터를 로드
+        StartCoroutine(LoadTileData());
     }
     
+    // 서버에서 밭 데이터를 로드하는 코루틴
+    private IEnumerator LoadTileData()
+    {
+        yield return StartCoroutine(FarmGroundAPI.GetTile(this.x, this.y, (ok, dto, error) =>
+        {
+            if (ok)
+            {
+                // API에서 받은 DTO를 FarmPlotData로 변환 및 적용
+                FarmGroundAPI.ApplyDtoToPlot(dto, data);
+                UpdateVisual();
+                Debug.Log($"[FarmGround] Tile ({x},{y}) loaded successfully.");
+            }
+            else
+            {
+                Debug.LogError($"[FarmGround] Failed to load tile ({x},{y}): {error}");
+                // 로드 실패 시 기본 상태로 초기화
+                data.status = "empty";
+                UpdateVisual();
+            }
+        }));
+    }
+
     public void InitGround(FarmPlotData newData)
     {
+        // 이 함수는 외부에서 데이터를 받아올 때 사용됩니다.
+        // 현재는 LoadTileData에서 직접 API를 호출하므로 이 함수를 호출할 필요가 없습니다.
         data = newData;
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 0.5f);
+        timer_UI.transform.position = screenPos;
         UpdateVisual();
     }
 
     public void UpdateVisual()
     {
+        
         switch (data.status)
         {
             case "empty":
@@ -52,12 +83,11 @@ public class FarmGround : MonoBehaviour
                 timer_UI.SetActive(false);
                 break;
             case "growing":
-
-
                 growTimeSeconds = 3600 * 24 - (2 * 3600 * data.useSunCount);
-                // ❗ planted_at이 DateTime이므로 바로 사용
                 growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
-                double elapsedSeconds = (DateTime.UtcNow - data.planted_at.ToUniversalTime()).TotalSeconds;
+                
+                // 데이터의 시간을 UTC로 변환하여 현재 UTC 시간과 비교
+                double elapsedSeconds = (DateTime.UtcNow - data.planted_at).TotalSeconds;
                 double progress = elapsedSeconds / growTimeSeconds;
 
                 if (progress < 0.25)
@@ -80,7 +110,7 @@ public class FarmGround : MonoBehaviour
 
     public void PlantSeed(int useSun)
     {
-        data.planted_at = DateTime.UtcNow;
+        data.planted_at = DateTime.UtcNow; // 심은 시간은 항상 UTC
         data.status = "growing";
         data.plant_name = "";
         data.useSunCount = useSun;
@@ -120,21 +150,13 @@ public class FarmGround : MonoBehaviour
             Debug.LogError("[FarmGround] ObjectDatabase가 할당되지 않았습니다!");
         }
 
-
-        long flower_server = 0; // 값을 받을 변수 선언
-
-        // TryGetIndexByID를 호출하면서 out 키워드를 사용합니다.
+        long flower_server = 0;
         if (database.TryGetIndexByID(getFlowerId, out int index))
         {
-            // 함수가 true를 반환했으므로, index 변수에 올바른 값이 담겨있습니다.
-            // 이제 이 값을 flower_server에 할당할 수 있습니다.
-    
-            // 할당된 값을 사용하여 GetStoreGoodsNumber 함수를 호출합니다.
             flower_server = database.GetStoreGoodsNumber(index);
         }
         else
         {
-            // id를 찾지 못한 경우
             Debug.Log("ID를 찾을 수 없습니다.");
         }
 
@@ -142,7 +164,7 @@ public class FarmGround : MonoBehaviour
         FlowerDataManager.Instance.RegisterFlower(data.plant_name, flower_server);
 
         data.plant_name = "";
-        data.planted_at = default(DateTime); // ❗ DateTime 기본값으로 초기화
+        data.planted_at = default(DateTime); // 기본값으로 초기화
         data.status = "empty";
         data.useSunCount = 0;
 
@@ -169,11 +191,10 @@ public class FarmGround : MonoBehaviour
             return;
         }
 
-
         growTimeSeconds = 3600 * 24 - (2 * 3600 * data.useSunCount);
-        // ❗ planted_at이 DateTime이므로 바로 사용
         growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
-        double elapsed = (DateTime.UtcNow - data.planted_at.ToUniversalTime()).TotalSeconds;
+        // data.planted_at은 이미 UTC이므로 ToUniversalTime() 호출 필요 없음
+        double elapsed = (DateTime.UtcNow - data.planted_at).TotalSeconds;
         double remainingSeconds = growTimeSeconds - elapsed;
 
         if (remainingSeconds > 0)
@@ -200,20 +221,15 @@ public class FarmGround : MonoBehaviour
     
     private void OnMouseEnter()
     {
-        // 팝업이 열려있는지 확인하여 중복 실행을 막습니다.
         if (UIManager.Instance.IsPopupOpen())
         {
             return;
         }
-
-        // 마우스 커서가 오브젝트의 콜라이더 위로 올라갔을 때 UI를 표시합니다.
         UIManager.Instance.ShowPlantUI(this);
     }
 
     private void OnMouseExit()
     {
-        // 마우스 커서가 오브젝트의 콜라이더 밖으로 나갔을 때 UI를 숨깁니다.
-        // UIManager에 UI를 숨기는 메서드(예: HidePlantUI)가 필요합니다.
-        UIManager.Instance.HideAll();
+        UIManager.Instance.HidePlantUI();
     }
 }
