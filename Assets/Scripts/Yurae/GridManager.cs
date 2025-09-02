@@ -117,15 +117,15 @@ public class GridManager : MonoBehaviour
                 int x = gardens[i].x;
                 int y = gardens[i].y;
 
-                Debug.Log($"타일 타입: {gardens[i].tileType}");
-                Debug.Log($"첫 오브젝트 타입: {objects[0].objectKind}");
+                //Debug.Log($"타일 타입: {gardens[i].tileType}");
+                //Debug.Log($"첫 오브젝트 타입: {objects[i].objectKind}");
 
                 // Get Tile
                 PlaceableObject tileObj = FindTile(gardens[i].tileType);
                 TileData tile = tileObj.GetComponent<TileData>();
 
-                PlaceableObject obj = FindObject(objects[0].objectKind);
-                PlaceableObject plant = FindPlant(objects[0].objectKind);
+                PlaceableObject obj = FindObject(objects[i].objectKind);
+                PlaceableObject plant = FindPlant(objects[i].objectKind);
 
                 // Get Base Grid
                 BaseGrid grid = GetBaseGrid(new Vector2Int(x, y));
@@ -145,31 +145,28 @@ public class GridManager : MonoBehaviour
                 {
                     GameObject prefab = Instantiate(obj.gameObject);
                     prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                    prefab.GetComponent<PlaceableObject>().SetRotation(objects[i].rotation);
                     prefab.transform.SetParent(objectParent);
 
                     prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;
 
-                    grid.PlaceObject(obj.GetComponent<ObjectData>());
+                    grid.PlaceObject(prefab.GetComponent<ObjectData>());
                 }
                 else if (plant != null)
                 {
                     GameObject prefab = Instantiate(plant.gameObject);
                     prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                    prefab.GetComponent<PlaceableObject>().SetRotation(objects[i].rotation);
                     prefab.transform.SetParent(objectParent);
 
                     prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;
 
-                    grid.PlacePlant(obj.GetComponent<PlantData>());
+                    grid.PlacePlant(prefab.GetComponent<PlantData>());
                 }
             }
         },
         error => Debug.LogError(error)
         );
-    }
-
-    private void PlaceTile(int x, int y)
-    {
-
     }
 
     private PlaceableObject FindObject(long id)

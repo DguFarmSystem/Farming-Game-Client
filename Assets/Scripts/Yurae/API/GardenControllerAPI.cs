@@ -15,7 +15,7 @@ public class GardenControllerAPI : MonoBehaviour
     /// onSuccess: gardens (원본 리스트), objects (gardens와 인덱스 1:1, null 포함)
     /// </summary>
     public static void GetGardenDataFromServer(
-        Action<List<GardenData>, List<Garden.ObjectData>> onSuccess,
+        Action<List<GardenLoadData>, List<ObjectLoadData>> onSuccess,
         Action<string> onError = null)
     {
         APIManager.Instance.Get(
@@ -24,13 +24,13 @@ public class GardenControllerAPI : MonoBehaviour
             {
                 try
                 {
-                    var resp = JsonConvert.DeserializeObject<ApiResponse<List<GardenData>>>(result);
+                    var resp = JsonConvert.DeserializeObject<ApiResponse<List<GardenLoadData>>>(result);
 
                     if (resp != null && resp.status == 200 && resp.data != null)
                     {
                         var gardens = resp.data; // 여러 개
                         // 각 garden의 단일 objectData를 1:1로 모음 (null 가능)
-                        var objects = gardens.Select(g => g.objectData).ToList();
+                        var objects = gardens.Select(g => g.loadData).ToList();
 
                         onSuccess?.Invoke(gardens, objects);
                     }
@@ -82,7 +82,7 @@ public class GardenControllerAPI : MonoBehaviour
     public static void UpdateGardenTile(
         int x, int y,
         long tileType,
-        long objectKind,
+        long objectType,
         RotationEnum rotation,
         Action<string> onSuccess,
         Action<string> onError = null)
@@ -92,7 +92,7 @@ public class GardenControllerAPI : MonoBehaviour
             tileType = tileType,
             objectData = new Garden.ObjectData
             {
-                objectKind = objectKind,
+                objectType = objectType,
                 rotation = rotation
             }
         };
@@ -115,5 +115,43 @@ public class GardenControllerAPI : MonoBehaviour
             objectData = null // NullValueHandling.Ignore로 JSON에서 "object" 빠짐
         };
         UpdateGardenTile(x, y, req, onSuccess, onError);
+    }
+
+    /// <summary>
+    /// PATCH /api/garden/rotate
+    /// - 좌표 (x, y)에 있는 object를 회전시킴
+    /// </summary>
+    public static void RotateGardenObject(
+        int x, int y,
+        long objectType,
+        RotationEnum rotation,
+        Action<string> onSuccess,
+        Action<string> onError = null)
+    {
+        try
+        {
+            var payload = new
+            {
+                x = x,
+                y = y,
+                object_type = objectType,
+                rotation = rotation.ToString() // "R0", "R90", "R180", ...
+            };
+
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Converters = { new StringEnumConverter() }
+            };
+
+            string json = JsonConvert.SerializeObject(payload, settings);
+            string endpoint = "/api/garden/rotate";
+
+            APIManager.Instance.Patch(endpoint, json, onSuccess, onError);
+        }
+        catch (Exception e)
+        {
+            onError?.Invoke($"Serialize Exception: {e.Message}");
+        }
     }
 }

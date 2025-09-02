@@ -63,7 +63,7 @@ public class TileSelectionUI : MonoBehaviour
         uiPanel.transform.localPosition = localPoint;
 
         flipButton.onClick.RemoveAllListeners();
-        flipButton.onClick.AddListener(()=>FlipObject());
+        flipButton.onClick.AddListener(()=>RotationObject());
 
         destroyButton.onClick.RemoveAllListeners();
         destroyButton.onClick.AddListener(() => DestroyObject(_grid));
@@ -83,30 +83,41 @@ public class TileSelectionUI : MonoBehaviour
         if (_grid.GetObject() != null)
         {
             PlaceableObject placeableObj = _grid.GetObject().GetComponent<PlaceableObject>();
-            database.AddData(placeableObj.GetID());
-            buildManager.Init();
-            _grid.InitObject();
+            //database.AddData(placeableObj.GetID());
 
-            // 수정해야 함
-            GardenControllerAPI.ClearGardenObject(
-                1, 1, tileType: 0,
-                onSuccess: res => Debug.Log("Object Remove!"),
-                onError: err => Debug.LogError(err)
-            );
+            database.ChangeCountByID(placeableObj.GetID(), 1,
+            onSuccess: () =>
+            {
+                buildManager.Init();
+                _grid.InitObject();
+            },
+            onError: e => Debug.LogError(e));
         }
         else if (_grid.GetPlant() != null)
         {
             PlaceableObject placeableObj = _grid.GetPlant().GetComponent<PlaceableObject>();
-            database.AddData(placeableObj.GetID());
-            buildManager.Init();
-            _grid.InitPlant();
+            //database.AddData(placeableObj.GetID());
+
+            database.ChangeCountByID(placeableObj.GetID(), 1,
+            onSuccess: () =>
+            {
+                buildManager.Init();
+                _grid.InitPlant();
+            },
+            onError: e => Debug.LogError(e));
         }
+
+        GardenControllerAPI.ClearGardenObject(
+            _grid.GetGridPos().x, _grid.GetGridPos().y, tileType: _grid.GetTile().GetComponent<PlaceableObject>().GetNoID(),
+            onSuccess: res => Debug.Log("Object Remove!"),
+            onError: err => Debug.LogError(err)
+        );
 
         DestroyImmediate(placedObject);
         DeslectObject();
     }
 
-    public void FlipObject()
+    public void RotationObject()
     {
         if (placedObject == null) return;
 

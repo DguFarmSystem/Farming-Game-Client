@@ -116,4 +116,6 @@ MonoBehaviour:
   gridPosition: {x: 0, y: 0}
   id: Deco_Chair_Bamboo
   numberId: 200071
-  rotationSprites: []
+  rotationSprites:
+  - {fileID: 6806445801937816015, guid: 5e0faebed41285c41987c64c8943e59c, type: 3}
+  - {fileID: -4583415149285929099, guid: 29deba04b97982241991cca7a7439e58, type: 3}

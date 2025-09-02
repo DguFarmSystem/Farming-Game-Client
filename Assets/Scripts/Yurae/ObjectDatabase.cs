@@ -51,7 +51,6 @@ public class ObjectDatabase : ScriptableObject
         {
             if (datum.id == id)
             {
-                Debug.Log(datum.id);
                 return datum.name;
             }
 
@@ -220,7 +219,7 @@ public class ObjectDatabase : ScriptableObject
     // id로 Count 변경
     public void ChangeCountByID(string id, int amount, Action onSuccess = null, Action<string> onError = null)
     {
-        if (string.IsNullOrEmpty(id) || amount <= 0) { onError?.Invoke("invalid id/amount"); return; }
+        if (string.IsNullOrEmpty(id)) { onError?.Invoke("invalid id"); return; }
         if (!TryGetIndexByID(id, out var index)) { onError?.Invoke($"unknown id: {id}"); return; }
         ChangeCountByIndex(index, amount, onSuccess, onError);
     }
@@ -228,7 +227,7 @@ public class ObjectDatabase : ScriptableObject
     // storeGoodsNumber로 Count 변경
     public void ChangeCountByStoreNo(long storeNo, int amount, Action onSuccess = null, Action<string> onError = null)
     {
-        if (amount <= 0) { onError?.Invoke("invalid amount"); return; }
+        //if (amount < 0) { onError?.Invoke("invalid amount"); return; }
         if (!TryGetIndexByStoreNo(storeNo, out var index)) { onError?.Invoke($"unknown storeNo: {storeNo}"); return; }
         ChangeCountByIndex(index, amount, onSuccess, onError);
     }
@@ -247,6 +246,7 @@ public class ObjectDatabase : ScriptableObject
         var before = data[index].count;
         var after = Mathf.Max(0, before + amount); // 하한 0
 
+        Debug.Log("After:" + after);
         data[index].count = after;
 
         var req = new InvUpdateReq { object_type = storeNo, object_count = after };

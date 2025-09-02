@@ -286,10 +286,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -416,13 +416,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7ffebebece1684289a35b204f51b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  x: 0
+  y: 0
   data:
-    plot_id: 
     x: 0
     y: 0
     plant_name: 
-    planted_at: 
-    is_shiny: 0
     status: 
     uid: 
     useSunCount: 0
@@ -435,6 +434,7 @@ MonoBehaviour:
   grownSprite: {fileID: 0}
   timer_UI: {fileID: 3238261806524171872}
   timer_text: {fileID: 7504804143785486549}
+  database: {fileID: 0}
 --- !u!61 &-3701804752433387841
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -116,4 +116,6 @@ MonoBehaviour:
   gridPosition: {x: 0, y: 0}
   id: Deco_Chair_Wood
   numberId: 200051
-  rotationSprites: []
+  rotationSprites:
+  - {fileID: 8288587855404676360, guid: cadffb5b3e5257641ae3ed22daef715e, type: 3}
+  - {fileID: -5137658984450098947, guid: 31b3fa9211a354f41a8fec49da46dc1e, type: 3}

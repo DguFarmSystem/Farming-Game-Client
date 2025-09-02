@@ -84,10 +84,8 @@ public class Fence : MonoBehaviour
         string spriteName = "";
 
         if (fenceType == FenceType.Wood) spriteName = "Fence_Wood_" + key + "_0";
-        else if (fenceType == FenceType.White) spriteName = "Fence_White_" + key + "_0";
+        else if (fenceType == FenceType.White) spriteName = "Fence_WhiteWood_" + key + "_0";
         else if (fenceType == FenceType.Metal) spriteName = "Fence_Metal_" + key + "_0";
-
-        Debug.Log(spriteName);
 
         foreach (Sprite sprite in sprites)
         {

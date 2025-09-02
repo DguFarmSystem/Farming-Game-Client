@@ -4805,6 +4805,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1155967443}
   m_CullTransparentMesh: 1
+--- !u!114 &1235599573 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8542497026661378506, guid: bee1f8285941d9d46bdc0bf881b72576, type: 3}
+  m_PrefabInstance: {fileID: 263792797}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9470fe1c5dc4b459b1711ceb405a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1268265717
 GameObject:
   m_ObjectHideFlags: 0
@@ -5408,6 +5419,7 @@ GameObject:
   - component: {fileID: 1682118850}
   - component: {fileID: 1682118849}
   - component: {fileID: 1682118852}
+  - component: {fileID: 1682118853}
   m_Layer: 5
   m_Name: OpenButton
   m_TagString: Untagged
@@ -5528,6 +5540,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c7ba41e301745a7b865c6e4c23f10a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1682118853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682118847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af64d2c1e8ecf5429fae3138dcd370d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  build: {fileID: 1906227915}
 --- !u!1 &1708361860
 GameObject:
   m_ObjectHideFlags: 0
@@ -6389,8 +6414,8 @@ MonoBehaviour:
   placeablePrefabs:
   - {fileID: 8511615565523577852, guid: c9557f7e67970cb4590fefc38e99a172, type: 3}
   - {fileID: 8511615565523577852, guid: b2dc13fa9fa403c4ba836b84aef28f40, type: 3}
-  - {fileID: 8511615565523577852, guid: 26a3e428f6b236c4ebc56913eabaf29e, type: 3}
   - {fileID: 8511615565523577852, guid: 195b427657bab79449ddfe21f34a50db, type: 3}
+  - {fileID: 8511615565523577852, guid: 26a3e428f6b236c4ebc56913eabaf29e, type: 3}
   - {fileID: 2385325362487762811, guid: 2fbad2c188e633645a11341afa58ff30, type: 3}
   - {fileID: 2385325362487762811, guid: efd59a88112c49b43b89446531331061, type: 3}
   - {fileID: 2385325362487762811, guid: 274cae312ea5c0a47b737631d15929c0, type: 3}
@@ -6477,6 +6502,9 @@ MonoBehaviour:
   - {fileID: 2385325362487762811, guid: 46a5204ee7ec33b48b6152875b2beed4, type: 3}
   - {fileID: 2385325362487762811, guid: c969dae97703e8e46887353e34dbff6f, type: 3}
   - {fileID: 2385325362487762811, guid: 16c316e7242abcd40a29aac682001263, type: 3}
+  - {fileID: 2385325362487762811, guid: d6b09beb093b64149afcaf132a19ca27, type: 3}
+  - {fileID: 2385325362487762811, guid: 0a3e39b5fe487e7499e2c67ff9954de2, type: 3}
+  curreny: {fileID: 1235599573}
   database: {fileID: 11400000, guid: cc70b75ca37c75e43aa216e563324c06, type: 2}
   objectSelectButton: {fileID: 4039203475289616210, guid: 19af86a1316c6e6408da3b05733848bb, type: 3}
   parents:
@@ -8251,7 +8279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7903715428723582859, guid: 4211dcc03a23be9499919de57a6e4dff, type: 3}
       propertyPath: AccessToken
-      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU2MjQ2NTEzLCJleHAiOjE3NTYyNTAxMTN9.HtngVKwrHdk_vWQrLxDL_8DTlmYMbceOrPg1zRPyFKs
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU2ODA3MTE3LCJleHAiOjE3NTY4MTA3MTd9.McI9YZzvBb0O_xTPv-Oq4-kCsyYiKFEMqA-ZZCG_VcM
       objectReference: {fileID: 0}
     - target: {fileID: 8235675204870113962, guid: 4211dcc03a23be9499919de57a6e4dff, type: 3}
       propertyPath: m_Name

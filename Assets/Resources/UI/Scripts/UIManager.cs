@@ -70,6 +70,11 @@ public class UIManager : MonoBehaviour
         plantUI.Show(ground);  // 땅 위에 버튼 띄우기
     }
 
+    public void HidePlantUI()
+    {
+        plantUI?.Hide();
+    }
+
     public void HideAll()
     {
         plantUI?.Hide();

@@ -2220,6 +2220,18 @@ PrefabInstance:
       propertyPath: temporaryAccessToken
       value: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU2MTg2NzQxLCJleHAiOjE3NTYxOTAzNDF9.LeEI04KXLQeMEgaEEh6CHg9ugwAVRflBqiZAokIaRJ4
       objectReference: {fileID: 0}
+    - target: {fileID: 4345285914655219923, guid: 8c31258ef62304c068d0fbbb26e27054, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345285914655219923, guid: 8c31258ef62304c068d0fbbb26e27054, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345285914655219923, guid: 8c31258ef62304c068d0fbbb26e27054, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 8900546052696828064, guid: 8c31258ef62304c068d0fbbb26e27054, type: 3}
       propertyPath: m_Name
       value: FarmPopup

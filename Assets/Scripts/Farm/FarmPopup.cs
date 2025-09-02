@@ -79,8 +79,7 @@ public class FarmPopup : MonoBehaviour
         if (CurrencyManager.Instance.SpendSeedCount(1))
         {
             CurrencyManager.Instance.SpendSunlight(useSun);
-            targetTile.data.useSunCount = useSun;
-            targetTile.PlantSeed();  // 씨앗 랜덤 뽑힌거로 확정
+            targetTile.PlantSeed(useSun);  // 씨앗 랜덤 뽑힌거로 확정
         }
         else
         {

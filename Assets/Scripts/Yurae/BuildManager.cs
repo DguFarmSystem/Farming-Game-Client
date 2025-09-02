@@ -11,6 +11,7 @@ public class BuildManager : MonoBehaviour
     public PlacementManager placementManager;
     public GameObject[] placeablePrefabs;
 
+    [SerializeField] private CurrencyManager curreny;
     [SerializeField] private ObjectDatabase database;
     [SerializeField] private GameObject objectSelectButton;
     [SerializeField] private Transform[] parents;
@@ -33,6 +34,12 @@ public class BuildManager : MonoBehaviour
         );
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N) && Input.GetKeyDown(KeyCode.Y) && Input.GetKeyDown(KeyCode.R))
+            curreny.AddGold(9999999);
+    }
+
     private void BuildInventory()
     {
         foreach (ObjectSelectButton button in objectSelectButtons)
@@ -42,27 +49,27 @@ public class BuildManager : MonoBehaviour
 
         objectSelectButtons.Clear();
 
-        for (int i = 0; i < placeablePrefabs.Length; i++)
+        int totalCount = database.GetItemCount();
+
+        for (int i = 0; i < totalCount; i++)
         {
             int index = i;
-
             if (database.GetCountFromIndex(index) == 0) continue;
 
             GameObject obj = Instantiate(objectSelectButton);
 
             Button button = obj.GetComponent<Button>();
-
             button.onClick.AddListener(() => OnClickPlace(index));
 
             ObjectSelectButton objSelectButton = obj.GetComponent<ObjectSelectButton>();
             objectSelectButtons.Add(objSelectButton);
+
             button.onClick.AddListener(() => SetCurrentButton(objSelectButton));
 
-            string id = placeablePrefabs[i].GetComponent<PlaceableObject>().GetID();
-
-            string name = database.GetNameFromID(id);
-            Sprite sprite = database.GetSpriteFromID(id);
-            int count = database.GetCountFromID(id);
+            string id = database.GetID(index);
+            string name = database.GetName(index);
+            Sprite sprite = database.GetSprite(index);
+            int count = database.GetCountFromIndex(index);
 
             PlaceType type = database.GetType(index);
 

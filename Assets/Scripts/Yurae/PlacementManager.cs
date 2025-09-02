@@ -185,7 +185,7 @@ public class PlacementManager : MonoBehaviour
                     GardenControllerAPI.UpdateGardenTile(
                         _gridPos.x, _gridPos.y,
                         tileType: placedTile.GetNoID(),
-                        objectKind: placedObject.GetNoID(),
+                        objectType: placedObject.GetNoID(),
                         rotation: Garden.RotationEnum.R0,
                         onSuccess: res => Debug.Log("PATCH Success: " + res),
                         onError: err => Debug.LogError(err)
@@ -202,7 +202,7 @@ public class PlacementManager : MonoBehaviour
                     GardenControllerAPI.UpdateGardenTile(
                         _gridPos.x, _gridPos.y,
                         tileType: placedTile.GetNoID(),
-                        objectKind: placedPlant.GetNoID(),
+                        objectType: placedPlant.GetNoID(),
                         rotation: Garden.RotationEnum.R0,
                         onSuccess: res => Debug.Log("PATCH Success: " + res),
                         onError: err => Debug.LogError(err)
@@ -213,20 +213,23 @@ public class PlacementManager : MonoBehaviour
             //database.PlaceData(place.GetComponent<PlaceableObject>().GetID());
 
             database.ChangeCountByID(place.GetComponent<PlaceableObject>().GetID(), -1,
-            onSuccess: () => Debug.Log("서버 동기화 성공"),
+            onSuccess: () =>
+            {
+                buildManager.Init();
+
+                // Judge Cancel
+                if (database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()) == 0) CancelPlace();
+
+                place.GetComponent<PlaceableObject>().SetPosition(_gridPos);
+                place.transform.SetParent(objectParent);
+
+                SpriteRenderer spriteRenderer = place.GetComponent<SpriteRenderer>();
+
+                spriteRenderer.sortingOrder -= _hitObject.GetComponent<BaseGrid>().GetGridPos().x + _hitObject.GetComponent<BaseGrid>().GetGridPos().y;
+            },
             onError: e => Debug.LogError(e));
 
-            buildManager.Init();
 
-            // Judge Cancel
-            if (database.GetCountFromID(place.GetComponent<PlaceableObject>().GetID()) == 0) CancelPlace();
-
-            place.GetComponent<PlaceableObject>().SetPosition(_gridPos);
-            place.transform.SetParent(objectParent);
-
-            SpriteRenderer spriteRenderer = place.GetComponent<SpriteRenderer>();
-
-            spriteRenderer.sortingOrder -= _hitObject.GetComponent<BaseGrid>().GetGridPos().x + _hitObject.GetComponent<BaseGrid>().GetGridPos().y;
         }
     }
 
