@@ -12,6 +12,7 @@ public class FarmGround : MonoBehaviour
     [Header("밭 상태")]
     public FarmPlotData data; //데이터 받아오기
     public SpriteRenderer spriter;
+    double growTimeSeconds;
 
     [Header("상태별 밭 스프라이트")]
     public Sprite emptySprite;
@@ -51,8 +52,10 @@ public class FarmGround : MonoBehaviour
                 timer_UI.SetActive(false);
                 break;
             case "growing":
+
+
+                growTimeSeconds = 3600 * 24 - (2 * 3600 * data.useSunCount);
                 // ❗ planted_at이 DateTime이므로 바로 사용
-                double growTimeSeconds = 10;
                 growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
                 double elapsedSeconds = (DateTime.UtcNow - data.planted_at.ToUniversalTime()).TotalSeconds;
                 double progress = elapsedSeconds / growTimeSeconds;
@@ -75,13 +78,14 @@ public class FarmGround : MonoBehaviour
         }
     }
 
-    public void PlantSeed()
+    public void PlantSeed(int useSun)
     {
         data.planted_at = DateTime.UtcNow;
         data.status = "growing";
         data.plant_name = "";
-        data.useSunCount = 0;
+        data.useSunCount = useSun;
 
+        growTimeSeconds = 3600 * 24 - (2 * 3600 * useSun);
         UpdateVisual();
 
         StartCoroutine(FarmGroundAPI.PatchTile(FarmGroundAPI.ToDto(data), (ok, raw) =>
@@ -165,8 +169,9 @@ public class FarmGround : MonoBehaviour
             return;
         }
 
+
+        growTimeSeconds = 3600 * 24 - (2 * 3600 * data.useSunCount);
         // ❗ planted_at이 DateTime이므로 바로 사용
-        double growTimeSeconds = 10;
         growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
         double elapsed = (DateTime.UtcNow - data.planted_at.ToUniversalTime()).TotalSeconds;
         double remainingSeconds = growTimeSeconds - elapsed;
@@ -193,11 +198,22 @@ public class FarmGround : MonoBehaviour
         }
     }
     
-    private void OnMouseDown()
+    private void OnMouseEnter()
     {
+        // 팝업이 열려있는지 확인하여 중복 실행을 막습니다.
         if (UIManager.Instance.IsPopupOpen())
+        {
             return;
+        }
 
+        // 마우스 커서가 오브젝트의 콜라이더 위로 올라갔을 때 UI를 표시합니다.
         UIManager.Instance.ShowPlantUI(this);
+    }
+
+    private void OnMouseExit()
+    {
+        // 마우스 커서가 오브젝트의 콜라이더 밖으로 나갔을 때 UI를 숨깁니다.
+        // UIManager에 UI를 숨기는 메서드(예: HidePlantUI)가 필요합니다.
+        UIManager.Instance.HideAll();
     }
 }
