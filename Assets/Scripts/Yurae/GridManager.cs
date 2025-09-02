@@ -117,8 +117,8 @@ public class GridManager : MonoBehaviour
                 int x = gardens[i].x;
                 int y = gardens[i].y;
 
-                Debug.Log($"타일 타입: {gardens[i].tileType}");
-                Debug.Log($"첫 오브젝트 타입: {objects[0].objectKind}");
+                //Debug.Log($"타일 타입: {gardens[i].tileType}");
+                //Debug.Log($"첫 오브젝트 타입: {objects[0].objectKind}");
 
                 // Get Tile
                 PlaceableObject tileObj = FindTile(gardens[i].tileType);
@@ -165,11 +165,6 @@ public class GridManager : MonoBehaviour
         },
         error => Debug.LogError(error)
         );
-    }
-
-    private void PlaceTile(int x, int y)
-    {
-
     }
 
     private PlaceableObject FindObject(long id)
