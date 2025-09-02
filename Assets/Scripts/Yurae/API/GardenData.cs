@@ -10,8 +10,27 @@ namespace Garden
     [System.Serializable]
     public class ObjectData
     {
+        public long objectType;
+        public RotationEnum rotation;
+    }
+
+    [System.Serializable]
+    public class ObjectLoadData
+    {
         public long objectKind;
         public RotationEnum rotation;
+    }
+
+    [System.Serializable]
+    public class GardenLoadData
+    {
+        public long tileId;
+        public int x;
+        public int y;
+        public long tileType;
+
+        [JsonProperty("object", NullValueHandling = NullValueHandling.Include)]
+        public ObjectLoadData loadData;
     }
 
     [System.Serializable]
@@ -39,7 +58,7 @@ namespace Garden
     {
         public long tileType;
 
-        [JsonProperty("object", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("object", NullValueHandling = NullValueHandling.Include)]
         public ObjectData objectData;
     }
 }

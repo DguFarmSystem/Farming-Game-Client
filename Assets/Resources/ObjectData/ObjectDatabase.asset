@@ -17,7 +17,7 @@ MonoBehaviour:
     id: Tilemap_Grass
     prefab: {fileID: 0}
     sprite: {fileID: 2177108965186078295, guid: 40b25d89fdd48ef4eab51b8118b7be1b, type: 3}
-    count: 0
+    count: 9301
     type: 0
     price: -1
     storeGoodsNumber: 400010
@@ -25,7 +25,7 @@ MonoBehaviour:
     id: Tilemap_Field
     prefab: {fileID: 0}
     sprite: {fileID: 4966695935349635398, guid: 0fe185a70c4276243b131476f053f6ee, type: 3}
-    count: 0
+    count: 1
     type: 0
     price: 1000
     storeGoodsNumber: 400020
@@ -41,7 +41,7 @@ MonoBehaviour:
     id: Tilemap_Water
     prefab: {fileID: 0}
     sprite: {fileID: 7351637415587066830, guid: 8e9bf0f1540d6ac48b93a5a758fec95e, type: 3}
-    count: 0
+    count: 1121
     type: 0
     price: 1000
     storeGoodsNumber: 400030
@@ -732,4 +732,4 @@ MonoBehaviour:
     count: 0
     type: 1
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 200010
