@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 
 public class seedTicket : MonoBehaviour
 {
-    [Header("유아이 관련")]
+    [Header("UI 관련")]
     public TMP_Text ticketCountText; //티켓 수 텍스트
     public Button closeButton; // 닫기 버튼
 
@@ -21,8 +21,6 @@ public class seedTicket : MonoBehaviour
     private const int BIT_CHEER = 1 << 1;     // 2
     private const int BIT_FARMING = 1 << 2;   // 4
 
-    [Header("테스트용 임시 토큰")]
-    [SerializeField] private string temporaryAccessToken;
     // API 응답 데이터 구조체
     [System.Serializable]
     public class TodaySeedStatusDto
@@ -32,10 +30,8 @@ public class seedTicket : MonoBehaviour
         public bool isFarmingLog;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        temporaryAccessToken = APIManager.Instance.getAccessToken();
         // 게임 시작 시 서버에서 조건 확인 및 보상 수령 로직 실행
         StartCoroutine(FetchAndClaimTickets());
     }
@@ -45,42 +41,41 @@ public class seedTicket : MonoBehaviour
         // API 엔드포인트 설정
         string baseUrl = "https://api.dev.farmsystem.kr";
         string url = baseUrl + "/api/user/today-seed";
+        
+        // APIManager에서 AccessToken을 가져옵니다.
+        string accessToken = APIManager.Instance.getAccessToken();
 
         // UnityWebRequest를 사용하여 GET 요청 생성
         using (UnityWebRequest www = UnityWebRequest.Get(url))
         {
-            // 토큰이 필요하다면 여기에서 Authorization 헤더를 설정합니다.
-            // 예: www.SetRequestHeader("Authorization", "Bearer " + "YOUR_ACCESS_TOKEN");
-
-            // temporaryAccessToken 필드를 사용하여 헤더에 토큰 추가
-            if (!string.IsNullOrEmpty(temporaryAccessToken))
+            // 헤더에 토큰 추가
+            if (!string.IsNullOrEmpty(accessToken))
             {
-                www.SetRequestHeader("Authorization", "Bearer " + temporaryAccessToken);
+                www.SetRequestHeader("Authorization", "Bearer " + accessToken);
             }
 
             yield return www.SendWebRequest();
 
-            TodaySeedStatusDto status = null;
-            if (www.result == UnityWebRequest.Result.Success)
-            {
-                try
-                {
-                    // 응답을 DTO로 파싱
-                    status = JsonUtility.FromJson<TodaySeedStatusDto>(www.downloadHandler.text);
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogError("[SeedTicket] JSON 파싱 오류: " + ex.Message);
-                    yield break;
-                }
-            }
-            else
+            // 통신 성공 여부 확인
+            if (www.result != UnityWebRequest.Result.Success)
             {
                 Debug.LogError($"[SeedTicket] 서버 통신 실패: {www.error}");
                 yield break;
             }
 
-            // 서버에서 받아온 데이터로 로직 처리
+            TodaySeedStatusDto status = null;
+            try
+            {
+                // 응답을 DTO로 파싱
+                status = JsonUtility.FromJson<TodaySeedStatusDto>(www.downloadHandler.text);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("[SeedTicket] JSON 파싱 오류: " + ex.Message);
+                yield break;
+            }
+
+            // 서버에서 유효한 조건 정보를 받았는지 확인
             if (status == null)
             {
                 Debug.LogError("[SeedTicket] 서버에서 유효한 조건 정보를 받지 못했습니다.");
@@ -105,7 +100,7 @@ public class seedTicket : MonoBehaviour
             }
 
             // 지급
-            CurrencyManager.Instance.AddSeedTicket(total); // 실제 게임 로직에 맞게 주석 해제
+            CurrencyManager.Instance.AddSeedTicket(total);
 
             // UI 팝업 처리
             GameObject ui = UIManager.Instance.OpenSeedTicketPopup();
