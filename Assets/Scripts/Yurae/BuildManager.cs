@@ -36,8 +36,11 @@ public class BuildManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N) && Input.GetKeyDown(KeyCode.Y) && Input.GetKeyDown(KeyCode.R))
-            curreny.AddGold(9999999);
+        if (Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.Y) && Input.GetKey(KeyCode.R))
+        {
+            curreny.AddGold(10000);
+        }
+            
     }
 
     private void BuildInventory()
