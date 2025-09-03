@@ -34,6 +34,7 @@ public class APIManager : MonoBehaviour
                 AccessToken = TryLoadTokenFromBrowser();
                 if (string.IsNullOrEmpty(AccessToken))
                     Debug.LogWarning("[API] 브라우저 저장소에서 토큰을 찾지 못했습니다.");
+                StartCoroutine(LoadPlayerRoutine());
         #else
                 // 임시 토큰 발급 로직
                 StartCoroutine(InitRoutine());
