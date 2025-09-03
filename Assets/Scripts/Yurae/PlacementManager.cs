@@ -134,45 +134,84 @@ public class PlacementManager : MonoBehaviour
                     DestroyImmediate(placedtileData.gameObject);
                     grid.PlaceTile(place.GetComponent<TileData>());
 
+                    // 새로 설치된 타일 정보 로드
                     TileType tileType = grid.GetTile().Type();
+                    PlaceableObject newTile = grid.GetTile().GetComponent<PlaceableObject>();
 
-                    // 변경 후 타일이 혹시나 같은 속성일 경우는 Return / 아닐 경우 식물 회수
+                    // 설치된 오브젝트 체크
+                    PlaceableObject placed = null;
+                    if (grid.GetPlant() != null) placed = grid.GetPlant().GetComponent<PlaceableObject>();
+                    else if (grid.GetObject() != null) placed = grid.GetObject().GetComponent<PlaceableObject>();
 
-                    if (grid.GetPlant() != null)
+                    if (placed == null)
                     {
-                        if ((grid.GetPlant().Type() == PlantType.Land && tileType != TileType.Field)||(grid.GetPlant().Type() == PlantType.Water && tileType != TileType.Water))
-                        {
-                            PlaceableObject currentPlant = grid.GetPlant().GetComponent<PlaceableObject>();
-                            if (database.GetCountFromID(currentPlant.GetID()) >= 0)
-                            {
-                                //database.AddData(currentPlant.GetID());
-                                database.ChangeCountByID(currentPlant.GetID(), 1,
-                                onSuccess: () => Debug.Log("서버 동기화 성공"),
-                                onError: e => Debug.LogError(e));
-                            }
-
-                            grid.InitPlant();
-                            DestroyImmediate(currentPlant.gameObject);
-                        }
+                        // 서버에 업데이트
+                        GardenControllerAPI.UpdateGardenTile(
+                            _gridPos.x, _gridPos.y,
+                            tileType: newTile.GetNoID(),
+                            objectType: 0,
+                            rotation: Garden.RotationEnum.R0,
+                            onSuccess: res => Debug.Log("PATCH Success: " + res),
+                            onError: err => Debug.LogError(err)
+                        );
                     }
-
-                    if (grid.GetObject() != null)
+                    else
                     {
-                        if (tileType != TileType.Grass)
+                        // 변경 후 타일이 혹시나 같은 속성일 경우는 Return / 아닐 경우 식물 회수
+                        if (grid.GetPlant() != null)
                         {
-                            PlaceableObject currentObject = grid.GetObject().GetComponent<PlaceableObject>();
-                            if (database.GetCountFromID(currentObject.GetID()) >= 0)
+                            if ((grid.GetPlant().Type() == PlantType.Land && tileType != TileType.Field) || (grid.GetPlant().Type() == PlantType.Water && tileType != TileType.Water))
                             {
-                                //database.AddData(currentObject.GetID());
-                                database.ChangeCountByID(currentObject.GetID(), 1,
-                                onSuccess: () => Debug.Log("서버 동기화 성공"),
-                                onError: e => Debug.LogError(e));
-                            }
+                                PlaceableObject currentPlant = grid.GetPlant().GetComponent<PlaceableObject>();
+                                if (database.GetCountFromID(currentPlant.GetID()) >= 0)
+                                {
+                                    //database.AddData(currentPlant.GetID());
+                                    database.ChangeCountByID(currentPlant.GetID(), 1,
+                                    onSuccess: () => Debug.Log("서버 동기화 성공"),
+                                    onError: e => Debug.LogError(e));
+                                }
 
-                            grid.InitObject();
-                            DestroyImmediate(currentObject.gameObject);
+                                GardenControllerAPI.UpdateGardenTile(
+                                    _gridPos.x, _gridPos.y,
+                                    tileType: grid.GetTile().GetComponent<PlaceableObject>().GetNoID(),
+                                    objectType: 0,
+                                    rotation: Garden.RotationEnum.R0,
+                                    onSuccess: res => Debug.Log("PATCH Success: " + res),
+                                    onError: err => Debug.LogError(err)
+                                );
+
+                                grid.InitPlant();
+                                DestroyImmediate(currentPlant.gameObject);
+                            }
                         }
-                    }
+
+                        if (grid.GetObject() != null)
+                        {
+                            if (tileType != TileType.Grass)
+                            {
+                                PlaceableObject currentObject = grid.GetObject().GetComponent<PlaceableObject>();
+                                if (database.GetCountFromID(currentObject.GetID()) >= 0)
+                                {
+                                    //database.AddData(currentObject.GetID());
+                                    database.ChangeCountByID(currentObject.GetID(), 1,
+                                    onSuccess: () => Debug.Log("서버 동기화 성공"),
+                                    onError: e => Debug.LogError(e));
+                                }
+
+                                GardenControllerAPI.UpdateGardenTile(
+                                    _gridPos.x, _gridPos.y,
+                                    tileType: grid.GetTile().GetComponent<PlaceableObject>().GetNoID(),
+                                    objectType: 0,
+                                    rotation: Garden.RotationEnum.R0,
+                                    onSuccess: res => Debug.Log("PATCH Success: " + res),
+                                    onError: err => Debug.LogError(err)
+                                );
+
+                                grid.InitObject();
+                                DestroyImmediate(currentObject.gameObject);
+                            }
+                        }
+                    }    
                     break;
 
                 case "Object":

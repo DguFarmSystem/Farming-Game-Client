@@ -175,10 +175,10 @@ public class ObjectDatabase : ScriptableObject
             else
             {
                 unknown++;
-                Debug.LogWarning($"[ObjectDB] ???? ?? object_type={r.object_type} (storeGoodsNumber ????)");
+                //Debug.LogWarning($"[ObjectDB] ???? ?? object_type={r.object_type} (storeGoodsNumber ????)");
             }
         }
-        Debug.Log($"[ObjectDB] ???? ?? ??: ?? {applied}?, ??? {unknown}?");
+        //Debug.Log($"[ObjectDB] ???? ?? ??: ?? {applied}?, ??? {unknown}?");
     }
 
     public void ResetAllCountsToZero()
@@ -201,12 +201,12 @@ public class ObjectDatabase : ScriptableObject
             if (!string.IsNullOrEmpty(d.id))
             {
                 if (!_id2idx.ContainsKey(d.id)) _id2idx.Add(d.id, i);
-                else Debug.LogWarning($"[ObjectDB] ?? id ??: {d.id} (idx {i})");
+                //else Debug.LogWarning($"[ObjectDB] ?? id ??: {d.id} (idx {i})");
             }
             if (d.storeGoodsNumber != 0) // 0? ????? ??
             {
                 if (!_storeNo2idx.ContainsKey(d.storeGoodsNumber)) _storeNo2idx.Add(d.storeGoodsNumber, i);
-                else Debug.LogWarning($"[ObjectDB] ?? storeGoodsNumber ??: {d.storeGoodsNumber} (idx {i})");
+                //else Debug.LogWarning($"[ObjectDB] ?? storeGoodsNumber ??: {d.storeGoodsNumber} (idx {i})");
             }
         }
     }
@@ -246,7 +246,7 @@ public class ObjectDatabase : ScriptableObject
         var before = data[index].count;
         var after = Mathf.Max(0, before + amount); // ÇÏÇÑ 0
 
-        Debug.Log("After:" + after);
+        //Debug.Log("After:" + after);
         data[index].count = after;
 
         var req = new InvUpdateReq { object_type = storeNo, object_count = after };

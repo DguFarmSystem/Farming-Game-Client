@@ -30,7 +30,7 @@ public class BuildManager : MonoBehaviour
     {
         APIManager.Instance.Get("/api/inventory",
             ok => { database.ApplyInventoryJson(ok, true); BuildInventory(); },
-            err => { Debug.LogError("인벤토리 로드 실패: " + err); }
+            err => { Debug.LogError("Inventory Load Error: " + err); }
         );
     }
 

@@ -118,15 +118,19 @@ public class GridManager : MonoBehaviour
                 int x = gardens[i].x;
                 int y = gardens[i].y;
 
-                //Debug.Log($"타일 타입: {gardens[i].tileType}");
-                //Debug.Log($"첫 오브젝트 타입: {objects[i].objectKind}");
-
                 // Get Tile
                 PlaceableObject tileObj = FindTile(gardens[i].tileType);
                 TileData tile = tileObj.GetComponent<TileData>();
 
-                PlaceableObject obj = FindObject(objects[i].objectKind);
-                PlaceableObject plant = FindPlant(objects[i].objectKind);
+
+                PlaceableObject obj = null;
+                PlaceableObject plant = null;
+
+                if (objects[i] != null)
+                {
+                    obj = FindObject(objects[i].objectKind);
+                    plant = FindPlant(objects[i].objectKind);
+                }
 
                 // Get Base Grid
                 BaseGrid grid = GetBaseGrid(new Vector2Int(x, y));

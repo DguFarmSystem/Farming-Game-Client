@@ -90,11 +90,12 @@ public class GardenControllerAPI : MonoBehaviour
         var req = new GardenUpdateRequest
         {
             tileType = tileType,
-            objectData = new Garden.ObjectData
+            objectData = (objectType > 0) ?new Garden.ObjectData
             {
                 objectType = objectType,
                 rotation = rotation
             }
+            : null
         };
 
         UpdateGardenTile(x, y, req, onSuccess, onError);

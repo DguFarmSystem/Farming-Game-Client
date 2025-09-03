@@ -119,4 +119,9 @@ public class PlaceableObject : MonoBehaviour
           );
         }
     }
+
+    public Garden.RotationEnum GetRotation()
+    {
+        return currentRotation;
+    }
 }
