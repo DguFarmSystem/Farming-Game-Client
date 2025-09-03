@@ -40,6 +40,7 @@ public class GridManager : MonoBehaviour
 
     private void Build()
     {
+        Debug.Log("정원 빌드 시작");
         // Get Data
         PlayerControllerAPI.GetPlayerDataFromServer(
         data =>
