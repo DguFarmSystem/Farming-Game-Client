@@ -28,7 +28,7 @@ public class FarmGround : MonoBehaviour
 
     public ObjectDatabase database; //데이터 베이스용
 
-    void Awake()
+    void Start()
     {
         if (data == null)
         {

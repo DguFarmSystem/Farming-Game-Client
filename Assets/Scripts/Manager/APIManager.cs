@@ -24,8 +24,12 @@ public class APIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else { Destroy(gameObject); return; }
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else { Destroy(gameObject); }
 
         StartCoroutine(CheckUrlRoutine(baseUrl));
 
