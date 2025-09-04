@@ -133,7 +133,8 @@ public class SunshineGame_Manager : MonoBehaviour
 
     void EndGame()
     {
+        dragBox.gameObject.SetActive(false);
         enabled = false;
-        minigamePopup.RewardPopup("SunshineGame", gold: score/10*10);
+        minigamePopup.RewardPopup("SunshineGame", gold: score*50);
     }
 }

@@ -115,14 +115,14 @@ public class RPS : MonoBehaviour
     {
         GameManager.Sound.SFXPlay((result == 1 ? "SFX_PSR_Clear" : "SFX_PSR_Lose"));
         if (round == 1 && result < 1) currentGold = 0;
-        else if (round == 1 && result == 1) currentGold = 10;
-        else if (round == 2 && result < 1) currentGold = 5;
-        else if (round == 2 && result == 1) currentGold = 20;
-        else if (round == 3 && result < 1) currentGold = 10;
-        else if (round == 3 && result == 1) currentGold = 40;
+        else if (round == 1 && result == 1) currentGold = 2000;
+        else if (round == 2 && result < 1) currentGold = 1000;
+        else if (round == 2 && result == 1) currentGold = 5000;
+        else if (round == 3 && result < 1) currentGold = 4000;
+        else if (round == 3 && result == 1) currentGold = 10000;
 
         if (result == 1 && winCount < 3) {
-            minigamePopup.BettingPopup("RPS", round, round==1 ? -5 : -10, round==1 ? 20 : 40, currentGold);
+            minigamePopup.BettingPopup("RPS", round, -1000, round==1 ? 3000 : 5000, currentGold);
         }
         else { // 지거나 완승
             minigamePopup.RewardPopup("RPS", currentGold);
@@ -141,4 +141,10 @@ public class RPS : MonoBehaviour
 1도전 시 : 0       vs 10
 2도전 시 : 5(-5)   vs 20(+10)
 3도전 시 : 10(-10) vs 40(+20)
+*/
+
+/*
+1도전 시 : 0           vs 2000
+2도전 시 : 1000(-1000) vs 5000(+3000)
+3도전 시 : 4000(-1000) vs 10000(+5000)
 */
