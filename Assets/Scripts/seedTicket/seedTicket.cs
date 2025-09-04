@@ -19,7 +19,7 @@ public class seedTicket : MonoBehaviour
     // 비트 마스크
     private const int BIT_ATTENDANCE = 1 << 0;  // 1
     private const int BIT_CHEER = 1 << 1;     // 2
-    private const int BIT_FARMING = 1 << 2;   // 4
+    private const int BIT_FARMING = 1 << 2;  // 4
 
     // API 응답 데이터 구조체
     [System.Serializable]
@@ -85,6 +85,15 @@ public class seedTicket : MonoBehaviour
             EnsureDailyReset();
 
             int claimedMask = PlayerPrefs.GetInt(PREF_MASK, 0);
+            
+            // --- 디버깅 로그 추가 시작 ---
+            Debug.Log($"[SeedTicket] 서버 응답 - isAttendance: {status.isAttendance}, isCheer: {status.isCheer}, isFarmingLog: {status.isFarmingLog}");
+            Debug.Log($"[SeedTicket] 현재 PlayerPrefs에 저장된 획득 마스크: {claimedMask}");
+            Debug.Log($"[SeedTicket] (claimedMask & BIT_ATTENDANCE) 결과: {(claimedMask & BIT_ATTENDANCE)}");
+            Debug.Log($"[SeedTicket] (claimedMask & BIT_CHEER) 결과: {(claimedMask & BIT_CHEER)}");
+            Debug.Log($"[SeedTicket] (claimedMask & BIT_FARMING) 결과: {(claimedMask & BIT_FARMING)}");
+            // --- 디버깅 로그 추가 끝 ---
+
             int newMask = 0;
             int total = 0;
 
@@ -118,6 +127,10 @@ public class seedTicket : MonoBehaviour
             claimedMask |= newMask;
             PlayerPrefs.SetInt(PREF_MASK, claimedMask);
             PlayerPrefs.Save();
+
+            // --- 최종 획득 마스크 디버깅 로그 추가 ---
+            Debug.Log($"[SeedTicket] 새로운 티켓 획득 완료. 갱신된 PlayerPrefs 마스크: {PlayerPrefs.GetInt(PREF_MASK)}");
+            // --- 최종 획득 마스크 디버깅 로그 추가 끝 ---
         }
     }
 
@@ -128,9 +141,12 @@ public class seedTicket : MonoBehaviour
 
         if (last != today)
         {
+            Debug.Log("[SeedTicket] 일일 초기화: 어제 날짜이므로 PlayerPrefs 초기화.");
             PlayerPrefs.SetString(PREF_DATE, today);
             PlayerPrefs.SetInt(PREF_MASK, 0); // 하루치 수령 기록 초기화
             PlayerPrefs.Save();
+        } else {
+            Debug.Log("[SeedTicket] 일일 초기화: 오늘 날짜이므로 PlayerPrefs 유지.");
         }
     }
 
