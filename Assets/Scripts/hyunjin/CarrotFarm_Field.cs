@@ -71,14 +71,14 @@ public class CarrotFarm_Field : MonoBehaviour
                 break;
             case(ItemState.WATER):
                 waterDropObj.enabled = true;
-                StartCoroutine(AnimCoroutine(waterDropObj, waterDropSprites, isLoop:false, onComplete: () => {
+                StartCoroutine(AnimCoroutine(waterDropObj, waterDropSprites, isRandomGap: false, isLoop:false, onComplete: () => {
                     waterDropObj.enabled = false;
                 }));
                 if (current == FieldState.SEEDED) Grow();
                 break;
             case(ItemState.HAMMER):
                 boomObj.enabled = true;
-                StartCoroutine(AnimCoroutine(boomObj, boomSprites, isLoop:false, onComplete: ()=>{
+                StartCoroutine(AnimCoroutine(boomObj, boomSprites, isRandomGap: false, isLoop:false, onComplete: ()=>{
                     boomObj.enabled = false;
                 }));
                 if (isUnderAttack) HitMole();
@@ -89,7 +89,6 @@ public class CarrotFarm_Field : MonoBehaviour
 
     void Plant()
     {
-        Debug.Log("plant");
         SetFieldState(FieldState.SEEDED);
         moleCoroutine = StartCoroutine(MoleCoroutine());
     }
@@ -101,10 +100,8 @@ public class CarrotFarm_Field : MonoBehaviour
         if (current != FieldState.NONE){
             isUnderAttack = true;
             moleObj.enabled = true;
-            moleAnimCoroutine = StartCoroutine(AnimCoroutine(moleObj, moleSprites, isLoop:true));
-            Debug.Log("mole appears");
+            moleAnimCoroutine = StartCoroutine(AnimCoroutine(moleObj, moleSprites, isRandomGap: false, isLoop:true));
             yield return new WaitForSeconds(moleTimer_eat);
-            Debug.Log("mole eats");
         }
 
         isUnderAttack = false;
@@ -115,15 +112,13 @@ public class CarrotFarm_Field : MonoBehaviour
 
     void Grow()
     {
-        Debug.Log("grow");
-        StartCoroutine(AnimCoroutine(stateObj, growingSprites, isLoop:false, onComplete: () =>{
+        StartCoroutine(AnimCoroutine(stateObj, growingSprites, isRandomGap: true, isLoop:false, onComplete: () =>{
             SetFieldState(FieldState.CARROT);
         }));
     }
 
     void Harvest()
     {
-        Debug.Log("harvest");
         CarrotFarm_Manager.Instance.AddScore();
         SetFieldState(FieldState.NONE);
     }
@@ -131,22 +126,24 @@ public class CarrotFarm_Field : MonoBehaviour
     void HitMole()
     {
         isUnderAttack = false;
-        Debug.Log("hit");
         if (moleCoroutine != null) StopCoroutine(moleCoroutine);
         if (moleAnimCoroutine != null) StopCoroutine(moleAnimCoroutine);
-        StartCoroutine(AnimCoroutine(moleObj, attacktedMoleSprites, isLoop:false, onComplete: ()=>{
+        StartCoroutine(AnimCoroutine(moleObj, attacktedMoleSprites, isRandomGap:false, isLoop:false, onComplete: ()=>{
             moleObj.enabled = false;
         }));
     }
 
-    IEnumerator AnimCoroutine(SpriteRenderer target, Sprite[] sprites, bool isLoop, System.Action onComplete=null)
+    IEnumerator AnimCoroutine(SpriteRenderer target, Sprite[] sprites, bool isRandomGap, bool isLoop, System.Action onComplete=null)
     {
         int index = 0;
         while (true) {
             target.sprite = sprites[index % sprites.Length];
             index++; 
-            yield return new WaitForSeconds(1.0f);
-            if(index == sprites.Length && !isLoop) break;
+            if (isRandomGap)
+                yield return new WaitForSeconds(Random.Range(1f, 5f));
+            else
+                yield return new WaitForSeconds(1f);
+            if (index == sprites.Length && !isLoop) break;
         }
         onComplete?.Invoke();
     }
