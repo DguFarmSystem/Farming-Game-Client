@@ -32,6 +32,8 @@ public class BuildManager : MonoBehaviour
             ok => { database.ApplyInventoryJson(ok, true); BuildInventory(); },
             err => { Debug.LogError("Inventory Load Error: " + err); }
         );
+
+        curreny = FindFirstObjectByType<CurrencyManager>();
     }
 
     private void Update()

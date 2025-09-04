@@ -22,7 +22,6 @@ public class GridManager : MonoBehaviour
     [SerializeField] private PlaceableObject[] tilePrefabs;
     [SerializeField] private PlaceableObject[] objectPrefabs;
     [SerializeField] private PlaceableObject[] plantPrefabs;
-    [SerializeField] private Transform objectParents;
 
     private List<GameObject> gridObjects;
 
@@ -38,9 +37,8 @@ public class GridManager : MonoBehaviour
         Build();
     }
 
-    private void Build()
+    public void Build()
     {
-        Debug.Log("정원 빌드 시작");
         // Get Data
         PlayerControllerAPI.GetPlayerDataFromServer(
         data =>
@@ -57,13 +55,22 @@ public class GridManager : MonoBehaviour
 
     private void BuildBaseMap()
     {
-        // Initialize
+        // Initialize Grid Tile
         foreach (GameObject gridObject in gridObjects)
         {
             DestroyImmediate(gridObject.gameObject);
         }
 
         gridObjects.Clear();
+
+        // Initialize Objects
+        Transform[] objects = objectParent.GetComponentsInChildren<Transform>();
+        foreach (Transform obj in objects)
+        {
+            if (obj == objectParent) continue;
+
+            DestroyImmediate(obj.gameObject);
+        }
 
         // Set Base Grid And Base(Grass) Tile
         for (int x = 0; x < width; x++)
@@ -101,77 +108,146 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
-    private void LoadDataFromServer()
+    public void LoadDataFromServer(bool isFriendData = false, long userId = 0)
     {
-        // Set Player Tile From Server
-        GardenControllerAPI.GetGardenDataFromServer(
-        (gardens, objects) =>
+        if (isFriendData)
         {
-            /*
-            Debug.Log($"타일 개수: {gardens.Count}");
-            if (objects.Count > 0 && objects[0] != null)
-                Debug.Log($"첫 오브젝트 타입: {objects[0].objectKind}, 회전: {objects[0].rotation}");
-            */
-            Debug.Log($"타일 개수: {gardens.Count}");
-            for (int i = 0; i < gardens.Count; i++)
+            BuildBaseMap();
+
+            // Set Player Tile From Server
+            GardenControllerAPI.GetFriendGardenDataFromServer(
+                userId,
+            (gardens, objects) =>
             {
-                int x = gardens[i].x;
-                int y = gardens[i].y;
-
-                // Get Tile
-                PlaceableObject tileObj = FindTile(gardens[i].tileType);
-                TileData tile = tileObj.GetComponent<TileData>();
-
-
-                PlaceableObject obj = null;
-                PlaceableObject plant = null;
-
-                if (objects[i] != null)
+                //Debug.Log($"타일 개수: {gardens.Count}");
+                for (int i = 0; i < gardens.Count; i++)
                 {
-                    obj = FindObject(objects[i].objectKind);
-                    plant = FindPlant(objects[i].objectKind);
+                    int x = gardens[i].x;
+                    int y = gardens[i].y;
+
+                    // Get Tile
+                    PlaceableObject tileObj = FindTile(gardens[i].tileType);
+                    TileData tile = tileObj.GetComponent<TileData>();
+
+
+                    PlaceableObject obj = null;
+                    PlaceableObject plant = null;
+
+                    if (objects[i] != null)
+                    {
+                        obj = FindObject(objects[i].objectKind);
+                        plant = FindPlant(objects[i].objectKind);
+                    }
+
+                    // Get Base Grid
+                    BaseGrid grid = GetBaseGrid(new Vector2Int(x, y));
+
+                    // Place Tile
+                    TileData placedTile = grid.GetTile();
+                    DestroyImmediate(placedTile.gameObject); // Remove
+                    grid.PlaceTile(tile);
+
+                    GameObject tilePrefab = Instantiate(tileObj.gameObject);
+                    tilePrefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                    tilePrefab.transform.SetParent(objectParent);
+
+
+                    // Place Object or Plant
+                    if (obj != null)
+                    {
+                        GameObject prefab = Instantiate(obj.gameObject);
+                        prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                        prefab.GetComponent<PlaceableObject>().SetRotation(objects[i].rotation);
+                        prefab.transform.SetParent(objectParent);
+
+                        prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;
+
+                        grid.PlaceObject(prefab.GetComponent<ObjectData>());
+                    }
+                    else if (plant != null)
+                    {
+                        GameObject prefab = Instantiate(plant.gameObject);
+                        prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                        prefab.GetComponent<PlaceableObject>().SetRotation(objects[i].rotation);
+                        prefab.transform.SetParent(objectParent);
+
+                        prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;
+
+                        grid.PlacePlant(prefab.GetComponent<PlantData>());
+                    }
                 }
-
-                // Get Base Grid
-                BaseGrid grid = GetBaseGrid(new Vector2Int(x, y));
-
-                // Place Tile
-                TileData placedTile = grid.GetTile();
-                DestroyImmediate(placedTile.gameObject); // Remove
-                grid.PlaceTile(tile);
-
-                GameObject tilePrefab = Instantiate(tileObj.gameObject);
-                tilePrefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
-                tilePrefab.transform.SetParent(objectParent);
-                
-
-                // Place Object or Plant
-                if (obj != null)
+            },
+            error => Debug.LogError(error)
+            );
+        }
+        else
+        {
+            // Set Player Tile From Server
+            GardenControllerAPI.GetGardenDataFromServer(
+            (gardens, objects) =>
+            {
+                //Debug.Log($"타일 개수: {gardens.Count}");
+                for (int i = 0; i < gardens.Count; i++)
                 {
-                    GameObject prefab = Instantiate(obj.gameObject);
-                    prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
-                    prefab.GetComponent<PlaceableObject>().SetRotation(objects[i].rotation);
-                    prefab.transform.SetParent(objectParent);
+                    int x = gardens[i].x;
+                    int y = gardens[i].y;
 
-                    prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;
+                    // Get Tile
+                    PlaceableObject tileObj = FindTile(gardens[i].tileType);
+                    TileData tile = tileObj.GetComponent<TileData>();
 
-                    grid.PlaceObject(prefab.GetComponent<ObjectData>());
+
+                    PlaceableObject obj = null;
+                    PlaceableObject plant = null;
+
+                    if (objects[i] != null)
+                    {
+                        obj = FindObject(objects[i].objectKind);
+                        plant = FindPlant(objects[i].objectKind);
+                    }
+
+                    // Get Base Grid
+                    BaseGrid grid = GetBaseGrid(new Vector2Int(x, y));
+
+                    // Place Tile
+                    TileData placedTile = grid.GetTile();
+                    DestroyImmediate(placedTile.gameObject); // Remove
+                    grid.PlaceTile(tile);
+
+                    GameObject tilePrefab = Instantiate(tileObj.gameObject);
+                    tilePrefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                    tilePrefab.transform.SetParent(objectParent);
+
+
+                    // Place Object or Plant
+                    if (obj != null)
+                    {
+                        GameObject prefab = Instantiate(obj.gameObject);
+                        prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                        prefab.GetComponent<PlaceableObject>().SetRotation(objects[i].rotation);
+                        prefab.transform.SetParent(objectParent);
+
+                        prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;
+
+                        grid.PlaceObject(prefab.GetComponent<ObjectData>());
+                    }
+                    else if (plant != null)
+                    {
+                        GameObject prefab = Instantiate(plant.gameObject);
+                        prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
+                        prefab.GetComponent<PlaceableObject>().SetRotation(objects[i].rotation);
+                        prefab.transform.SetParent(objectParent);
+
+                        prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;
+
+                        grid.PlacePlant(prefab.GetComponent<PlantData>());
+                    }
                 }
-                else if (plant != null)
-                {
-                    GameObject prefab = Instantiate(plant.gameObject);
-                    prefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
-                    prefab.GetComponent<PlaceableObject>().SetRotation(objects[i].rotation);
-                    prefab.transform.SetParent(objectParent);
+            },
+            error => Debug.LogError(error)
+            );
+        }
 
-                    prefab.GetComponent<SpriteRenderer>().sortingOrder -= x + y;
-
-                    grid.PlacePlant(prefab.GetComponent<PlantData>());
-                }
-            }
-        },
-        error => Debug.LogError(error)
-        );
     }
 
     private PlaceableObject FindObject(long id)

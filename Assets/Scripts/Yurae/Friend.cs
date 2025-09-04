@@ -3,6 +3,7 @@ using TMPro;
 
 // Unity
 using UnityEngine;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class Friend : MonoBehaviour

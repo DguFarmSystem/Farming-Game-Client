@@ -17,7 +17,7 @@ public class UserSearchResponse
 [System.Serializable]
 public class UserData
 {
-    public int id;
+    public int userId;
     public string name;
     public string profileUrl;
     public string track;
@@ -42,6 +42,24 @@ public class FriendManager : MonoBehaviour
     [SerializeField] private GameObject confirmPopup;
     [SerializeField] private TextMeshProUGUI confirmPopupTMP;
     [SerializeField] private Button cancelButton;
+    [SerializeField] private Button confirmButton;
+
+    [Header("Grid Manager")]
+    [SerializeField] private GridManager gridManager;
+
+    [Header("Off UI")]
+    [SerializeField] private GameObject[] offUI;
+
+    [Header("On UI")]
+    [SerializeField] private GameObject sceneLoader;
+    [SerializeField] private GameObject infoUI;
+    [SerializeField] private Button returnButton;
+
+    [Header("Friend Popup")]
+    [SerializeField] private TextMeshProUGUI nameTMP;
+
+    [Header("Fade Manager")]
+    [SerializeField] private FadeManager fadeManager;
 
     private List<GameObject> friendFrames;
 
@@ -58,6 +76,13 @@ public class FriendManager : MonoBehaviour
 
         friendFrames = new List<GameObject>();
         cancelButton.onClick.AddListener(CloseConfirmPopup);
+
+        // Init Listener
+        confirmButton.onClick.RemoveAllListeners();
+
+        returnButton.onClick.AddListener(ReturnMyGarden);
+
+        sceneLoader = FindFirstObjectByType<SceneLoader>().gameObject;
     }
 
     private void Update()
@@ -92,10 +117,10 @@ public class FriendManager : MonoBehaviour
                     friendFrames.Add(frame);
 
                     Friend friend = frame.GetComponent<Friend>();
-                    friend.Init(user.id, user.name, user.track);
+                    friend.Init(user.userId, user.name, user.track);
 
                     Button button = frame.GetComponent<Button>();
-                    button.onClick.AddListener(() => OpenConfirmPopUp(user.name));
+                    button.onClick.AddListener(() => OpenConfirmPopUp(user.name, user.userId));
                 }
                 
             },
@@ -125,14 +150,56 @@ public class FriendManager : MonoBehaviour
         rect.anchoredPosition = pos;
     }
 
-    public void OpenConfirmPopUp(string _name)
+    public void OpenConfirmPopUp(string _name, long _id)
     {
         confirmPopup.SetActive(true);
         confirmPopupTMP.text = _name + "님의 정원으로 이동하시겠습니까?";
+
+        // Add Listener
+        confirmButton.onClick.AddListener(() => GetFriendData(_id));
+        nameTMP.text = _name + "님의 정원";
     }
 
     public void CloseConfirmPopup()
     {
         confirmPopup.SetActive(false);
+
+        // Init Listener
+        confirmButton.onClick.RemoveAllListeners();
+    }
+
+    public void GetFriendData(long userID)
+    {
+        fadeManager.FadeIn();
+        gridManager.LoadDataFromServer(true, userID);
+
+        CloseConfirmPopup();
+        CloseFriendPopup();
+
+        foreach (GameObject obj in offUI)
+        {
+            obj.SetActive(false);
+        }
+
+        sceneLoader.gameObject.SetActive(false);
+
+        infoUI.SetActive(true);
+        returnButton.gameObject.SetActive(true);
+    }
+
+    public void ReturnMyGarden()
+    {
+        fadeManager.FadeIn();
+        gridManager.Build();
+
+        foreach (GameObject obj in offUI)
+        {
+            obj.SetActive(true);
+        }
+
+        sceneLoader.gameObject.SetActive(true);
+
+        infoUI.SetActive(false);
+        returnButton.gameObject.SetActive(false);
     }
 }

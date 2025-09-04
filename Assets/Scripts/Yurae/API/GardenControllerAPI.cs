@@ -155,4 +155,36 @@ public class GardenControllerAPI : MonoBehaviour
             onError?.Invoke($"Serialize Exception: {e.Message}");
         }
     }
+
+    public static void GetFriendGardenDataFromServer(long userId, Action<List<GardenLoadData>, List<ObjectLoadData>> onSuccess, Action<string> onError = null)
+    {
+        APIManager.Instance.Get(
+            $"/api/garden/{userId}",
+            result =>
+            {
+                try
+                {
+                    var resp = JsonConvert.DeserializeObject<ApiResponse<List<GardenLoadData>>>(result);
+
+                    if (resp != null && resp.status == 200 && resp.data != null)
+                    {
+                        var gardens = resp.data; // 여러 개
+                        // 각 garden의 단일 objectData를 1:1로 모음 (null 가능)
+                        var objects = gardens.Select(g => g.loadData).ToList();
+
+                        onSuccess?.Invoke(gardens, objects);
+                    }
+                    else
+                    {
+                        onError?.Invoke($"Parsing/Status Error: {result}");
+                    }
+                }
+                catch (Exception e)
+                {
+                    onError?.Invoke($"Exception: {e.Message}");
+                }
+            },
+            error => onError?.Invoke(error)
+        );
+    }
 }
