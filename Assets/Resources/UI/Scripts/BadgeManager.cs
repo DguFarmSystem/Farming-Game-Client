@@ -34,6 +34,8 @@ public class BadgeManager : MonoBehaviour
     [Serializable] private class BadgePostBody { public int badgeType; }
     [Serializable] private class BadgePostResp { public long badgeId; public int badgeType; }
 
+    [SerializeField] private GameObject TitleUIPrefab;
+
     private Sequence openSeq, closeSeq;
     private bool isOpening;
 
@@ -437,13 +439,11 @@ public class BadgeManager : MonoBehaviour
     private void TryGrantBadgeReward(int badgeIndex)
     {
         if (badgeDB == null || badgeIndex < 0 || badgeIndex >= badgeDB.items.Count) return;
-
         var bd = badgeDB.items[badgeIndex];
         if (bd == null) return;
 
         long storeNo = bd.rewardStoreGoodsNumber;
         int qty = Mathf.Max(1, bd.rewardCount);
-
         if (storeNo <= 0 || qty <= 0) return;
 
         string guardKey = RewardGrantedKeyPrefix + badgeIndex;
@@ -452,8 +452,6 @@ public class BadgeManager : MonoBehaviour
             Debug.Log($"[Badge] reward already granted (idx={badgeIndex})");
             return;
         }
-        PlayerPrefs.SetInt(guardKey, 1);
-        PlayerPrefs.Save();
 
         var bridge = purchaseBridge != null
             ? purchaseBridge
@@ -462,27 +460,16 @@ public class BadgeManager : MonoBehaviour
         if (bridge != null)
         {
             bridge.OnPurchased(storeNo, bd.title, qty);
-            return;
-        }
-
-        if (objectDatabase != null)
-        {
-            if (objectDatabase.TryGetIndexByStoreNo(storeNo, out var idx))
-            {
-                string id = objectDatabase.GetID(idx);
-                for (int i = 0; i < qty; i++) objectDatabase.AddData(id);
-            }
-            else
-            {
-                for (int i = 0; i < qty; i++) objectDatabase.AddData(storeNo.ToString());
-            }
-
-            var bag = BagManager.Instance;
-            if (bag && bag.gameObject.activeInHierarchy) bag.Rebuild();
+            Debug.Log($"[Badge] reward dispatched via ShopPurchaseBridge: {storeNo} x{qty}");
         }
         else
         {
-            Debug.LogWarning("[Badge] ShopPurchaseBridge/ObjectDatabase 미연결 → 보상 지급을 서버/로컬에 반영하지 못했습니다.");
+            Debug.LogWarning("[Badge] ShopPurchaseBridge not found, reward skipped");
+            return;
         }
+
+        PlayerPrefs.SetInt(guardKey, 1);
+        PlayerPrefs.Save();
     }
+
 }

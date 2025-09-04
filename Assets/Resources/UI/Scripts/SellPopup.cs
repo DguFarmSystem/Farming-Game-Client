@@ -247,10 +247,12 @@ public class SellPopup : MonoBehaviour
         }
     }
 
+    // 기존 메서드 전체 교체
     System.Collections.IEnumerator GetServerCount(long storeNo, System.Action<int> onDone)
     {
         bool doneFlag = false;
-        int val = -1;
+        int val = 0;              // 기본값 0 (항목이 없으면 0개로 간주)
+        bool hardFail = false;    // 네트워크/파싱 진짜 실패만 -1로 반환
 
         APIManager.Instance.Get(
             "/api/inventory",
@@ -258,23 +260,49 @@ public class SellPopup : MonoBehaviour
             {
                 try
                 {
+                // (선택) 원문 프리뷰 로그
+                string preview = ok.Length > 400 ? ok.Substring(0, 400) + "...(truncated)" : ok;
+                    Debug.Log($"[Sell] GET ok raw preview: {preview}");
+
                     var env = JsonUtility.FromJson<InvGetEnv>(ok);
-                    if (env?.data != null)
+                    if (env?.data != null && env.data.Length > 0)
                     {
+                        bool found = false;
                         foreach (var r in env.data)
                         {
-                            if (r.object_type == storeNo) { val = r.object_count; break; }
+                            if (r.object_type == storeNo) { val = r.object_count; found = true; break; }
+                        }
+                        if (!found)
+                        {
+                        // 항목이 없으면 0으로 간주
+                        val = 0;
+                            Debug.Log($"[Sell] inventory missing key={storeNo}, defaulting to 0");
                         }
                     }
+                    else
+                    {
+                    // 전체가 빈 배열이면 전부 0으로 간주
+                    val = 0;
+                        Debug.Log("[Sell] inventory empty list, defaulting to 0 for all");
+                    }
                 }
-                catch { }
-                doneFlag = true;
+                catch (Exception e)
+                {
+                    hardFail = true;
+                    Debug.LogError($"[Sell] GET parse error: {e}");
+                }
+                finally { doneFlag = true; }
             },
-            err => { Debug.LogError("[Sell] GET inventory error: " + err); doneFlag = true; }
+            err =>
+            {
+                hardFail = true;
+                Debug.LogError($"[Sell] GET inventory error: {err}");
+                doneFlag = true;
+            }
         );
 
         yield return new WaitUntil(() => doneFlag);
-        onDone?.Invoke(val);
+        onDone?.Invoke(hardFail ? -1 : val);  // 하드 실패만 -1, 아니면 0 이상
     }
 
     void OnSellFailRestore()

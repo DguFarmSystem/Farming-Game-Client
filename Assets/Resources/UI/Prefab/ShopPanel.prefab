@@ -1586,6 +1586,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  singleQtyResourceKeyId: 400050
+  deferDispatchKeyId: 400050
 --- !u!114 &2450192083427129865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1600,10 +1602,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectDatabase: {fileID: 11400000, guid: cc70b75ca37c75e43aa216e563324c06, type: 2}
   bagManager: {fileID: 0}
-  buildManagerTag: BuildManager
-  buildManagerObjectName: Build UI Manager
+  inventoryGetEndpoint: /api/inventory
+  inventoryUpdateEndpoint: /api/inventory/update
   refreshBagOnPurchase: 1
   refreshGardenOnPurchase: 1
+  gridUpgradeResourceKey: 400050
+  gridUpgradeMaxCalls: 3
 --- !u!1 &4328671587305109248
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,7 +2088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Content: {fileID: 6144418656431304688}
   m_Horizontal: 1
-  m_Vertical: 1
+  m_Vertical: 0
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
@@ -2519,7 +2523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Content: {fileID: 7068218419953267328}
   m_Horizontal: 1
-  m_Vertical: 1
+  m_Vertical: 0
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
