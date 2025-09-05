@@ -319,6 +319,17 @@ public class GridManager : MonoBehaviour
         GameManager.Scene.ReLoad();
     }
 
+    public void LevelUpTo(int serverLevel)
+    {
+        GameManager.Instance.playerLV = serverLevel;
+        int size = GetSize(serverLevel);
+        width = size;
+        height = size;
+
+        BuildBaseMap();       // ??/??? ???
+        LoadDataFromServer(); // ?? ?? ?? ??
+    }
+
     public bool HasFenceAt(Vector2Int gridPos)
     {
         BaseGrid baseGrid = null;
