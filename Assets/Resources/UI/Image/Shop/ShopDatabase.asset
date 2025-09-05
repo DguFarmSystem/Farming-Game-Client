@@ -18,16 +18,16 @@ MonoBehaviour:
     price: 500
     category: 1
     icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
-  - itemName: "\uD770\uC0C9 \uB098\uBB34 \uC6B8\uD0C0\uB9AC"
+  - itemName: "\uD770\uC0C9 \uC6B8\uD0C0\uB9AC"
     resourceKey: 200020
     price: 2000
     category: 1
-    icon: {fileID: -652440190934727125, guid: 8e91092e43b6a43faad0cec0a10647ad, type: 3}
+    icon: {fileID: 8496311859049394846, guid: e0b99e6a1a8af45408525fbdc4ca0f42, type: 3}
   - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC"
     resourceKey: 200030
     price: 2000
     category: 1
-    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+    icon: {fileID: -816719208097878008, guid: c6b8528df5e9edb4cb89526ed2567aaa, type: 3}
   - itemName: "\uC57C\uC790\uC218 \uD654\uBD84"
     resourceKey: 200040
     price: 1000
@@ -120,6 +120,6 @@ MonoBehaviour:
     icon: {fileID: -2592956508147909491, guid: a74d3ce59ffe84383af3d0e799acecb8, type: 3}
   - itemName: "\uB545 \uD655\uC7A5\uAD8C"
     resourceKey: 400050
-    price: 1000
+    price: 30000
     category: 0
     icon: {fileID: -652440190934727125, guid: 8e91092e43b6a43faad0cec0a10647ad, type: 3}

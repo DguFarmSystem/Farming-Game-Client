@@ -11,6 +11,7 @@ public class FlowerData
     public string flowerName;
     public Sprite silhouetteSprite;
     public Sprite originalSprite;
+    public int dexId;
 
     public FlowerRarity rarity = FlowerRarity.Normal;
     [Min(0)] public float weightOverride = -1f; 

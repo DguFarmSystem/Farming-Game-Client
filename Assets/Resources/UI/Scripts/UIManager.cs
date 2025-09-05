@@ -24,8 +24,9 @@ public class UIManager : MonoBehaviour
 
     public GameObject badgeUnlockPrefab; // 뱃지 언락 효과
 
-    private readonly System.Collections.Generic.Queue<(Sprite icon, string title, string desc)> _badgeQueue
-    = new System.Collections.Generic.Queue<(Sprite, string, string)>();
+    private readonly System.Collections.Generic.Queue<(Sprite badgeIcon, string title, string desc, Sprite statueIcon, string statueTitle)> _badgeQueue
+    = new();
+
     private bool _badgePlaying = false;
 
     private void Awake() => Instance = this;
@@ -237,10 +238,11 @@ public class UIManager : MonoBehaviour
     }
 
     // 여기부터 수정
+
     // 뱃지 연출을 큐에 넣기
-    public void EnqueueBadgeUnlock(Sprite icon, string title, string desc)
+    public void EnqueueBadgeUnlock(Sprite badgeIcon, string title, string desc, Sprite statueIcon, string statueTitle)
     {
-        _badgeQueue.Enqueue((icon, title, desc));
+        _badgeQueue.Enqueue((badgeIcon, title, desc, statueIcon, statueTitle));
     }
 
     public void PlayQueuedBadges()
@@ -252,25 +254,22 @@ public class UIManager : MonoBehaviour
     private System.Collections.IEnumerator CoPlayBadgeQueue()
     {
         _badgePlaying = true;
-
-        var parent = P();
-        if (parent == null) { _badgePlaying = false; yield break; }
+        var parent = P(); if (parent == null) { _badgePlaying = false; yield break; }
 
         while (_badgeQueue.Count > 0)
         {
-            var (icon, title, desc) = _badgeQueue.Dequeue();
+            var (bIcon, title, desc, sIcon, sTitle) = _badgeQueue.Dequeue();
 
             var go = Instantiate(badgeUnlockPrefab, parent);
             go.transform.SetAsLastSibling();
 
             var ui = go.GetComponent<BadgeUnlockUI>();
             bool done = false;
-            ui.Init(icon, title, desc, () => done = true);
+            ui.Init(bIcon, title, desc, sIcon, sTitle, () => done = true);
 
             while (!done) yield return null;
             yield return null;
         }
-
         _badgePlaying = false;
     }
 }

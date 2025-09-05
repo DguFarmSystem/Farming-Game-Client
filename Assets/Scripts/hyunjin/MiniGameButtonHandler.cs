@@ -36,8 +36,8 @@ public class MiniGameButtonHandler : MonoBehaviour
 
         gameInfo = new Dictionary<string, (string, string, string, int)> {
             {"RPS", ("가위바위보", "모두가 아는 그 게임 맞아요.", "rock", 3)},
-            {"CarrotFarm", ("당근농장 아르바이트", "Carrot Farm part time job description", "carrot", 3)},
-            {"SunshineGame", ("햇빛게임", "sunshine game description", "sunlight", 3)},
+            {"CarrotFarm", ("당근농장 아르바이트", "두더지가 당근을 먹기 전에 수확하세요!", "carrot", 3)},
+            {"SunshineGame", ("햇빛게임", "날씨가 좋아야 식물이 잘 자라는 법이죠!", "sunlight", 3)},
         };
     }
 

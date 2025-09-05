@@ -83,7 +83,8 @@ public class FarmGround : MonoBehaviour
                 timer_UI.SetActive(false);
                 break;
             case "growing":
-                growTimeSeconds = 3600 * 24 - (2 * 3600 * data.useSunCount);
+                //growTimeSeconds = 3600 * 24 - (2 * 3600 * data.useSunCount);
+                growTimeSeconds = 3;
                 growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
                 
                 // 데이터의 시간을 UTC로 변환하여 현재 UTC 시간과 비교
@@ -115,7 +116,8 @@ public class FarmGround : MonoBehaviour
         data.plant_name = "";
         data.useSunCount = useSun;
 
-        growTimeSeconds = 3600 * 24 - (2 * 3600 * useSun);
+        //growTimeSeconds = 3600 * 24 - (2 * 3600 * data.useSunCount);
+                growTimeSeconds = 3;
         UpdateVisual();
 
         StartCoroutine(FarmGroundAPI.PatchTile(FarmGroundAPI.ToDto(data), (ok, raw) =>
@@ -160,6 +162,8 @@ public class FarmGround : MonoBehaviour
             Debug.Log("ID를 찾을 수 없습니다.");
         }
 
+        Debug.Log("꽃아이디" + flower_server);
+
         UIManager.Instance.OpenHarvestPopup(data.plant_name, database.GetNameFromID(getFlowerId));
         FlowerDataManager.Instance.RegisterFlower(data.plant_name, flower_server);
 
@@ -191,7 +195,8 @@ public class FarmGround : MonoBehaviour
             return;
         }
 
-        growTimeSeconds = 3600 * 24 - (2 * 3600 * data.useSunCount);
+        //growTimeSeconds = 3600 * 24 - (2 * 3600 * data.useSunCount);
+                growTimeSeconds = 3;
         growTimeSeconds = Mathf.Max(1, (float)growTimeSeconds);
         // data.planted_at은 이미 UTC이므로 ToUniversalTime() 호출 필요 없음
         double elapsed = (DateTime.UtcNow - data.planted_at).TotalSeconds;

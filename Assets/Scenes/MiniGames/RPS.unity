@@ -1451,7 +1451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7903715428723582859, guid: 4211dcc03a23be9499919de57a6e4dff, type: 3}
       propertyPath: AccessToken
-      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU2MzU1MDg2LCJleHAiOjE3NTYzNTg2ODZ9.4_atxorIgzsJSgVsOsd1JwcRXhHwQAbCA6vc4S6ntu8
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8235675204870113962, guid: 4211dcc03a23be9499919de57a6e4dff, type: 3}
       propertyPath: m_Name

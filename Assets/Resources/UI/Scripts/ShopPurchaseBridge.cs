@@ -59,6 +59,7 @@ public class ShopPurchaseBridge : MonoBehaviour
 
     }
 
+    // ShopPurchaseBridge.cs (핵심만)
     private void ApplyGridUpgrade(int count)
     {
         int max = (gridUpgradeMaxCalls <= 0) ? 3 : gridUpgradeMaxCalls;
@@ -73,23 +74,47 @@ public class ShopPurchaseBridge : MonoBehaviour
         }
 
         int used = Mathf.Clamp(PlayerPrefs.GetInt(PrefsKey, 0), 0, max);
-        if (used >= max)
+        if (used >= max || GameManager.Instance.playerLV >= 3)
         {
             ShopItemSlot.RaiseUpgradeProgressChanged();
-            Debug.Log("[Shop] GridUpgrade 이미 MAX");
             GameManager.Sound?.SFXPlay("SFX_ButtonCancle");
+            Debug.Log("[Shop] GridUpgrade 이미 MAX");
             return;
         }
 
-        used += 1;
-        PlayerPrefs.SetInt(PrefsKey, used);
-        PlayerPrefs.Save();
-
-        ShopItemSlot.RaiseUpgradeProgressChanged();
-        Debug.Log($"[Shop] GridUpgrade {used}/{max}");
-
-        if (GridManager.Instance) GridManager.Instance.LevelUp();
+        int newLevel = Mathf.Clamp(GameManager.Instance.playerLV + 1, 1, 3);
+        StartCoroutine(CoPersistAndReload(newLevel));
     }
+
+    private IEnumerator CoPersistAndReload(int newLevel)
+    {
+        bool ok = false; string err = null;
+
+        // 1) 서버에 레벨 저장 (PATCH /api/player/level)
+        yield return PlayerControllerAPI.CoUpdatePlayerLevelOnServer(
+            newLevel,
+            () => ok = true,
+            e => err = e
+        );
+
+        if (!ok)
+        {
+            Debug.LogError("[Shop] GridUpgrade 서버 저장 실패: " + err);
+            GameManager.Sound?.SFXPlay("SFX_ButtonCancle");
+            yield break;
+        }
+
+        // 2) 로컬 진행률(표시용) 증가
+        int max = (gridUpgradeMaxCalls <= 0) ? 3 : gridUpgradeMaxCalls;
+        int used = Mathf.Clamp(PlayerPrefs.GetInt(PrefsKey, 0), 0, max);
+        PlayerPrefs.SetInt(PrefsKey, used + 1);
+        PlayerPrefs.Save();
+        ShopItemSlot.RaiseUpgradeProgressChanged();
+
+        // 3) 서버가 확정한 레벨로 씬 재로딩
+        if (GridManager.Instance) GridManager.Instance.LevelUpTo(newLevel);
+    }
+
 
     [Serializable] private class InvUpdateReq { public long object_type; public int object_count; }
     [Serializable] private class InvGetRow { public long object_type; public int object_count; }

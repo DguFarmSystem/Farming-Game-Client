@@ -27,6 +27,10 @@ public class BadgeEntry
     [Header("Reward")]
     public long rewardStoreGoodsNumber;  // 서버 object_type
     public int rewardCount = 1;
+
+    [Header("Statue (optional)")]
+    public Sprite statueSprite;   // 동상 이미지
+    public string statueTitle;
 }
 
 [CreateAssetMenu(fileName = "BadgeDatabase", menuName = "Badge/Badge Database")]

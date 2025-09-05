@@ -99,7 +99,7 @@ public class FriendManager : MonoBehaviour
             endpoint,
             (result) =>
             {
-                foreach(GameObject friendFrame in friendFrames)
+                foreach (GameObject friendFrame in friendFrames)
                 {
                     DestroyImmediate(friendFrame.gameObject);
                 }
@@ -122,7 +122,7 @@ public class FriendManager : MonoBehaviour
                     Button button = frame.GetComponent<Button>();
                     button.onClick.AddListener(() => OpenConfirmPopUp(user.name, user.userId));
                 }
-                
+
             },
             (error) =>
             {
@@ -153,11 +153,7 @@ public class FriendManager : MonoBehaviour
     public void OpenConfirmPopUp(string _name, long _id)
     {
         confirmPopup.SetActive(true);
-        confirmPopupTMP.text = _name + "님의 정원으로 이동하시겠습니까?";
-
-        // Add Listener
-        confirmButton.onClick.AddListener(() => GetFriendData(_id));
-        nameTMP.text = _name + "님의 정원";
+        confirmPopupTMP.text = _name + "?? ???? ?????????";
     }
 
     public void CloseConfirmPopup()
