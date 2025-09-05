@@ -25,7 +25,6 @@ public class BadgeManager : MonoBehaviour
 
     // 뱃지 동상 
     [Header("Reward Dispatch (optional)")]
-    [SerializeField] private ShopPurchaseBridge purchaseBridge;
     [SerializeField] private ObjectDatabase objectDatabase;
 
     // ===== Server DTOs =====
@@ -43,6 +42,9 @@ public class BadgeManager : MonoBehaviour
     private readonly HashSet<int> serverRecordedTypes = new HashSet<int>(); // 중복 POST 방지
 
     private const string RewardGrantedKeyPrefix = "badge_reward_granted_"; // 동상 중복 방지 
+
+    // ★ 서버 동기화 완료 여부
+    private bool _syncedFromServer = false;
 
     private void Awake()
     {
@@ -82,7 +84,7 @@ public class BadgeManager : MonoBehaviour
         }
         if (badgeSlotsParent) badgeSlotsParent.SetActive(false);
 
-        // 시작 시 비활성 (요청 반영)
+        // 시작 시 비활성
         gameObject.SetActive(false);
     }
 
@@ -128,19 +130,22 @@ public class BadgeManager : MonoBehaviour
                 if (unlocked == null || unlocked.Length != badgeSlots.Length)
                     unlocked = new bool[badgeSlots.Length];
 
+                // 서버에 기록된 배지를 로컬 상태에도 반영
                 foreach (var b in arr)
                 {
                     int idx = b.badgeType;
                     if (idx >= 0 && idx < unlocked.Length)
                     {
                         unlocked[idx] = true;
-                        serverRecordedTypes.Add(idx); 
+                        serverRecordedTypes.Add(idx);
                     }
                 }
 
                 RefreshBadges();
+                _syncedFromServer = true; // ★ 동기화 완료 플래그
                 Debug.Log($"[Badge] 서버 로드 완료: {arr.Length}개 획득 표시");
 
+                // ★ 동기화가 끝난 후에만 평가/보상
                 ReevaluateBadges();
             },
             err => { Debug.LogError("[Badge] 서버 로드 실패: " + err); }
@@ -151,7 +156,7 @@ public class BadgeManager : MonoBehaviour
     {
         if (APIManager.Instance == null)
         {
-            Debug.LogError("[Badge] APIManager1.Instance 가 null");
+            Debug.LogError("[Badge] APIManager.Instance 가 null");
             return;
         }
         if (badgeSlots == null || badgeType < 0 || badgeType >= badgeSlots.Length)
@@ -185,9 +190,26 @@ public class BadgeManager : MonoBehaviour
             },
             err =>
             {
+                if (IsConflict409(err))
+                {
+                    // ★ 이미 서버에 등록 → 성공으로 간주하고 중복 방지 세트에 추가
+                    serverRecordedTypes.Add(badgeType);
+                    Debug.Log($"[Badge] 이미 서버 등록됨(409). type={badgeType} -> 성공으로 간주");
+                    return;
+                }
                 Debug.LogError($"[Badge] 서버 기록 실패(type={badgeType}): {err}");
             }
         );
+    }
+
+    // ★ 409(이미 등록) 판정
+    private bool IsConflict409(string err)
+    {
+        if (string.IsNullOrEmpty(err)) return false;
+        return err.Contains("\"status\":409")
+            || err.IndexOf("409", StringComparison.Ordinal) >= 0
+            || err.IndexOf("이미 등록된", StringComparison.Ordinal) >= 0
+            || err.IndexOf("Conflict", StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
     public void UnlockBadge(int index)
@@ -198,9 +220,17 @@ public class BadgeManager : MonoBehaviour
         {
             unlocked[index] = true;
             RefreshBadges();
-            PostBadgeToServer(index);
 
-            TryGrantBadgeReward(index); // 뱃지 해금 보상 동상 지급 
+            // 동기화 이후 + 서버에 없던 경우에만 기록/보상
+            if (_syncedFromServer && !serverRecordedTypes.Contains(index))
+            {
+                PostBadgeToServer(index);
+                TryNotifyAndReward(index);
+            }
+            else
+            {
+                Debug.Log($"[Badge] (UnlockBadge) 서버에 이미 있거나 아직 미동기화 → 기록/보상 생략 idx={index}");
+            }
         }
     }
 
@@ -209,8 +239,8 @@ public class BadgeManager : MonoBehaviour
         if (isOpening) return;
         isOpening = true;
 
-        ReevaluateBadges();
-        SyncBadgesFromServerAndShow();
+        _syncedFromServer = false;          // ★ 열 때마다 새 동기화
+        SyncBadgesFromServerAndShow();      // ★ 먼저 동기화, 콜백에서 ReevaluateBadges 호출
 
         openSeq?.Kill(); closeSeq?.Kill();
         caseRoot?.DOKill(); badgeLid?.DOKill();
@@ -375,8 +405,6 @@ public class BadgeManager : MonoBehaviour
                     ok = need > 0 && have == need;
                     reason = $"whitelist {have}/{need} matched";
                     break;
-
-                    // 정원 추가 
             }
 
             if (ok && !unlocked[i])
@@ -386,18 +414,16 @@ public class BadgeManager : MonoBehaviour
                 unlocked[i] = true;
                 changed = true;
 
-                PostBadgeToServer(i);
-
-                var data = badgeDB.items[i];
-                if (data != null && UIManager.Instance != null)
+                // ★ 동기화 끝난 후 + 서버에 없던 뱃지만 서버 기록/보상
+                if (_syncedFromServer && !serverRecordedTypes.Contains(i))
                 {
-                    UIManager.Instance.EnqueueBadgeUnlock(
-                        data.icon, data.title, data.description,
-                        data.statueSprite, data.statueTitle
-                    );
+                    PostBadgeToServer(i);
+                    TryNotifyAndReward(i);
                 }
-
-                TryGrantBadgeReward(i);  // 동상 지급 
+                else
+                {
+                    Debug.Log($"[Badge] (Reevaluate) 서버에 이미 있거나 아직 미동기화 → 기록/보상 생략 idx={i}");
+                }
             }
             else
             {
@@ -406,6 +432,20 @@ public class BadgeManager : MonoBehaviour
         }
 
         if (changed) RefreshBadges();
+    }
+
+    // 배지 언락 토스트 + 보상 지급 래퍼
+    private void TryNotifyAndReward(int index)
+    {
+        var data = (index >= 0 && index < badgeDB.items.Count) ? badgeDB.items[index] : null;
+        if (data != null && UIManager.Instance != null)
+        {
+            UIManager.Instance.EnqueueBadgeUnlock(
+                data.icon, data.title, data.description,
+                data.statueSprite, data.statueTitle
+            );
+        }
+        TryGrantBadgeReward(index);
     }
 
     static bool IsShiny(string name)
@@ -458,23 +498,32 @@ public class BadgeManager : MonoBehaviour
             return;
         }
 
-        var bridge = purchaseBridge != null
-            ? purchaseBridge
-            : FindFirstObjectByType<ShopPurchaseBridge>(FindObjectsInactive.Include);
+        if (objectDatabase != null)
+        {
+            if (!objectDatabase.TryGetIndexByStoreNo(storeNo, out var idx))
+            {
+                Debug.LogWarning($"[Badge] storeNo not found in ObjectDatabase: {storeNo}");
+                return;
+            }
 
-        if (bridge != null)
-        {
-            bridge.OnPurchased(storeNo, bd.title, qty);
-            Debug.Log($"[Badge] reward dispatched via ShopPurchaseBridge: {storeNo} x{qty}");
-        }
-        else
-        {
-            Debug.LogWarning("[Badge] ShopPurchaseBridge not found, reward skipped");
+            objectDatabase.ChangeCountByStoreNo(
+                storeNo,
+                qty,
+                onSuccess: () =>
+                {
+                    PlayerPrefs.SetInt(guardKey, 1);
+                    PlayerPrefs.Save();
+
+                    BagManager.Instance?.FetchInventoryAndRebuild();
+
+                    Debug.Log($"[Badge] reward granted: storeNo={storeNo} x{qty}");
+                },
+                onError: (err) =>
+                {
+                    Debug.LogError($"[Badge] reward grant failed: {err}");
+                }
+            );
             return;
         }
-
-        PlayerPrefs.SetInt(guardKey, 1);
-        PlayerPrefs.Save();
     }
-
 }

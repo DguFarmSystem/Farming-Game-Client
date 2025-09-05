@@ -19,7 +19,6 @@ public class BagManager : MonoBehaviour
 
     [Header("Sell UI")]
     [SerializeField] private SellPopup sellPopupPrefab;
-    [SerializeField] private GameObject notForSalePrefab;
     [SerializeField] private SellQuickMenu quickMenuPrefab;
     SellQuickMenu quickMenu;
 
@@ -193,7 +192,7 @@ public class BagManager : MonoBehaviour
             // 우클릭 판매 연결
             var rcSell = slotObj.GetComponent<RightClickSell>();
             if (!rcSell) rcSell = slotObj.AddComponent<RightClickSell>();
-            rcSell.Init(i, objectDatabase, sellPopupPrefab, objectDatabase.GetSellPrice(i), quickMenu, notForSalePrefab);
+            rcSell.Init(i, objectDatabase, sellPopupPrefab, objectDatabase.GetSellPrice(i), quickMenu);
         }
     }
 }

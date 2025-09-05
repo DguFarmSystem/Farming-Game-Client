@@ -85,7 +85,7 @@ MonoBehaviour:
     description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uCD1D 10\uC885 \uB4F1\uB85D"
     icon: {fileID: -6800965517148886466, guid: 5399975cee95c4dd9936c21a26790527, type: 3}
     type: 0
-    threshold: 1
+    threshold: 10
     rarity: 0
     nameWhitelist: []
     rewardStoreGoodsNumber: 310010

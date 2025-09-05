@@ -916,9 +916,9 @@ MonoBehaviour:
   badgeIcon: {fileID: 9008640932312838669}
   titleText: {fileID: 3209589834702488510}
   descText: {fileID: 0}
-  statueGroup: {fileID: 0}
-  statueIcon: {fileID: 0}
-  statueName: {fileID: 0}
+  statueGroup: {fileID: 5752385543722334646}
+  statueIcon: {fileID: 3498285895968705427}
+  statueName: {fileID: 1944283838876489624}
   closeButton: {fileID: 4532782930258495046}
 --- !u!1 &5252476220229338762
 GameObject:
