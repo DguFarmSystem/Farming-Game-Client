@@ -1,3 +1,8 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
@@ -39,6 +44,13 @@ public class CollectionManager : MonoBehaviour
         CollectionPanel.blocksRaycasts = true;
         bookRect.DOAnchorPosY(0, slideDuration).SetEase(Ease.OutBack);
 
+        StartCoroutine(OpenRoutine());
+    }
+
+    private IEnumerator OpenRoutine()
+    {
+        yield return StartCoroutine(SyncDexFromServer()); // 실패해도 그냥 진행
+
         SetGrade(0);
         slotManager?.ShowSlots(0);
     }
@@ -63,5 +75,57 @@ public class CollectionManager : MonoBehaviour
             bookImage.sprite = gradeBooks[index];
 
         slotManager?.ShowSlots(index);
+    }
+
+    private IEnumerator SyncDexFromServer()
+    {
+        bool done = false;
+        string body = null;
+        string error = null;
+
+        APIManager.Instance.Get(dexEndpoint,
+            onSuccess: (res) => { body = res; done = true; },
+            onError: (err) => { error = err; done = true; }
+        );
+
+        while (!done) yield return null;
+
+        if (!string.IsNullOrEmpty(error))
+        {
+            Debug.LogWarning("[DEX] 요청 실패: " + error);
+            yield break;
+        }
+
+        try
+        {
+            var jo = JObject.Parse(body);
+            var arr = jo["data"] as JArray;
+            if (arr == null)
+            {
+                Debug.LogWarning("[DEX] data 배열 없음");
+                yield break;
+            }
+
+            var collected = new HashSet<int>(
+                arr.Select(t => (int)(t["dexId"] ?? 0))
+            );
+
+            var db = FlowerDataManager.Instance;
+            if (db?.flowerData?.flowerList == null)
+            {
+                Debug.LogWarning("[DEX] FlowerData 비어 있음");
+                yield break;
+            }
+
+            foreach (var f in db.flowerData.flowerList)
+            {
+                if (f == null) continue;
+                f.isRegistered = collected.Contains(f.dexId);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[DEX] JSON 파싱/반영 오류: " + e);
+        }
     }
 }

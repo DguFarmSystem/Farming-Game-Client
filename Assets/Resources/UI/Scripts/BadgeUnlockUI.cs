@@ -18,7 +18,6 @@ public class BadgeUnlockUI : MonoBehaviour
     [SerializeField] private Button closeButton;
     private Action onClose;
 
-    // ✅ 유일한 Init
     public void Init(Sprite badgeSprite, string badgeTitle, string badgeDesc,
                      Sprite statueSprite, string statueTitle,
                      Action onClose)

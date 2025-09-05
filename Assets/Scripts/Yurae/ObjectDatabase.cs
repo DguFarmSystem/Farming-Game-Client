@@ -17,10 +17,13 @@ public class Database
     [Header("Gameplay")]
     public int count;
     public PlaceType type;
-    public int price;
+    public int sellprice;
 
     [Header("Server Mapping")]
     public long storeGoodsNumber;
+
+    [Header("Flags")]
+    public bool isStatue;
 }
 
 [CreateAssetMenu(fileName = "ObjectDatabase", menuName = "Data/ObjectDatabase")]
@@ -216,7 +219,7 @@ public class ObjectDatabase : ScriptableObject
     [Serializable] private class InvUpdateReq { public long object_type; public int object_count; }
     [Serializable] private class InvUpdateRes { public int status; public string message; public string data; }
 
-    // id로 Count 변경
+    // id?? Count ????
     public void ChangeCountByID(string id, int amount, Action onSuccess = null, Action<string> onError = null)
     {
         if (string.IsNullOrEmpty(id)) { onError?.Invoke("invalid id"); return; }
@@ -224,7 +227,7 @@ public class ObjectDatabase : ScriptableObject
         ChangeCountByIndex(index, amount, onSuccess, onError);
     }
 
-    // storeGoodsNumber로 Count 변경
+    // storeGoodsNumber?? Count ????
     public void ChangeCountByStoreNo(long storeNo, int amount, Action onSuccess = null, Action<string> onError = null)
     {
         //if (amount < 0) { onError?.Invoke("invalid amount"); return; }
@@ -232,19 +235,19 @@ public class ObjectDatabase : ScriptableObject
         ChangeCountByIndex(index, amount, onSuccess, onError);
     }
 
-    // index로 Count 변경
+    // index?? Count ????
     public void ChangeCountByIndex(int index, int amount, Action onSuccess = null, Action<string> onError = null)
     {
         if (data == null || !InRange(index)) { onError?.Invoke("index out of range"); return; }
 
-        // -1이면 무한
+        // -1???? ????
         if (data[index].count == -1) { onSuccess?.Invoke(); return; }
 
         var storeNo = data[index].storeGoodsNumber;
         if (storeNo == 0) { onError?.Invoke("storeGoodsNumber not set"); return; }
 
         var before = data[index].count;
-        var after = Mathf.Max(0, before + amount); // 하한 0
+        var after = Mathf.Max(0, before + amount); // ???? 0
 
         Debug.Log("After:" + after);
         data[index].count = after;
@@ -276,4 +279,22 @@ public class ObjectDatabase : ScriptableObject
         );
     }
 
+    public int GetSellPrice(int index)
+    {
+        if (data != null && InRange(index))
+            return data[index].sellprice;
+        return 0;
+    }
+
+    public bool IsSellable(int index)
+    {
+        if (data == null || !InRange(index)) return false;
+        var d = data[index];
+
+        // ?? ??
+        if (d.type == PlaceType.Tile) return false;
+        if (d.type == PlaceType.Object && d.isStatue) return false;
+
+        return true;
+    }
 }

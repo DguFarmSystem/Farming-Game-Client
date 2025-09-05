@@ -10,15 +10,15 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int width = 0, height = 0;
     [SerializeField] private float cellSize = 1f;
 
-    [Header("프리팹")]
+    [Header("??????")]
     [SerializeField] private GameObject baseTile;
     [SerializeField] private GameObject baseGridPrefab;
 
-    [Header("부모 오브젝트")]
+    [Header("???? ????????")]
     [SerializeField] private Transform gridParent;
     [SerializeField] private Transform objectParent;
 
-    [Header("설치 오브젝트 프리팹")]
+    [Header("???? ???????? ??????")]
     [SerializeField] private PlaceableObject[] tilePrefabs;
     [SerializeField] private PlaceableObject[] objectPrefabs;
     [SerializeField] private PlaceableObject[] plantPrefabs;
@@ -64,6 +64,14 @@ public class GridManager : MonoBehaviour
 
         gridObjects.Clear();
 
+        if (objectParent)
+            for (int i = objectParent.childCount - 1; i >= 0; i--)
+                DestroyImmediate(objectParent.GetChild(i).gameObject);
+
+        if (gridParent)
+            for (int i = gridParent.childCount - 1; i >= 0; i--)
+                DestroyImmediate(gridParent.GetChild(i).gameObject);
+
         // Set Base Grid And Base(Grass) Tile
         for (int x = 0; x < width; x++)
         {
@@ -107,18 +115,18 @@ public class GridManager : MonoBehaviour
         (gardens, objects) =>
         {
             /*
-            Debug.Log($"타일 개수: {gardens.Count}");
+            Debug.Log($"???? ????: {gardens.Count}");
             if (objects.Count > 0 && objects[0] != null)
-                Debug.Log($"첫 오브젝트 타입: {objects[0].objectKind}, 회전: {objects[0].rotation}");
+                Debug.Log($"?? ???????? ????: {objects[0].objectKind}, ????: {objects[0].rotation}");
             */
-            Debug.Log($"타일 개수: {gardens.Count}");
+            Debug.Log($"???? ????: {gardens.Count}");
             for (int i = 0; i < gardens.Count; i++)
             {
                 int x = gardens[i].x;
                 int y = gardens[i].y;
 
-                //Debug.Log($"타일 타입: {gardens[i].tileType}");
-                //Debug.Log($"첫 오브젝트 타입: {objects[i].objectKind}");
+                //Debug.Log($"???? ????: {gardens[i].tileType}");
+                //Debug.Log($"?? ???????? ????: {objects[i].objectKind}");
 
                 // Get Tile
                 PlaceableObject tileObj = FindTile(gardens[i].tileType);
@@ -186,7 +194,7 @@ public class GridManager : MonoBehaviour
             if (tile.GetNoID() == id) return tile;
         }
 
-        Debug.LogError("알 수 없는 타일");
+        Debug.LogError("?? ?? ???? ????");
         return null;
     }
 
@@ -237,6 +245,18 @@ public class GridManager : MonoBehaviour
         GameManager.Instance.playerLV++;
         GameManager.Scene.ReLoad();
     }
+
+    public void LevelUpTo(int serverLevel)
+    {
+        GameManager.Instance.playerLV = serverLevel;
+        int size = GetSize(serverLevel);
+        width = size;
+        height = size;
+
+        BuildBaseMap();       // ??/??? ???
+        LoadDataFromServer(); // ?? ?? ?? ??
+    }
+
 
     public bool HasFenceAt(Vector2Int gridPos)
     {
