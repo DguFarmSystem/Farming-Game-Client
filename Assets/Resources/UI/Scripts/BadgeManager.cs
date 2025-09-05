@@ -390,7 +390,12 @@ public class BadgeManager : MonoBehaviour
 
                 var data = badgeDB.items[i];
                 if (data != null && UIManager.Instance != null)
-                    UIManager.Instance.EnqueueBadgeUnlock(data.icon, data.title, data.description);
+                {
+                    UIManager.Instance.EnqueueBadgeUnlock(
+                        data.icon, data.title, data.description,
+                        data.statueSprite, data.statueTitle
+                    );
+                }
 
                 TryGrantBadgeReward(i);  // 동상 지급 
             }

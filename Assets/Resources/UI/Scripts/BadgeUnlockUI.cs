@@ -5,31 +5,41 @@ using UnityEngine.UI;
 
 public class BadgeUnlockUI : MonoBehaviour
 {
-    [Header("UI")]
-    [SerializeField] private Image darkBG;        // 검은 배경
-    [SerializeField] private GameObject lightFx;  // 회전 라이트
-    [SerializeField] private Image badgeIcon;     // 뱃지 아이콘
-    [SerializeField] private TMP_Text titleText;  // 뱃지 제목
-    [SerializeField] private TMP_Text descText;   // 뱃지 설명
-    [SerializeField] private Button closeButton;  // 확인 버튼
+    [Header("Badge")]
+    [SerializeField] private Image badgeIcon;
+    [SerializeField] private TMP_Text titleText;
+    [SerializeField] private TMP_Text descText;
 
+    [Header("Statue")]
+    [SerializeField] private GameObject statueGroup; // Statue 루트(없으면 null 허용)
+    [SerializeField] private Image statueIcon;
+    [SerializeField] private TMP_Text statueName;
+
+    [SerializeField] private Button closeButton;
     private Action onClose;
 
-    public void Init(Sprite icon, string title, string desc, Action onClose)
+    // ✅ 유일한 Init
+    public void Init(Sprite badgeSprite, string badgeTitle, string badgeDesc,
+                     Sprite statueSprite, string statueTitle,
+                     Action onClose)
     {
-        if (badgeIcon) { badgeIcon.sprite = icon; badgeIcon.preserveAspect = true; }
-        if (titleText) titleText.text = title ?? "";
-        if (descText) descText.text = desc ?? "";
-        this.onClose = onClose;
+        if (badgeIcon) { badgeIcon.sprite = badgeSprite; badgeIcon.preserveAspect = true; }
+        if (titleText) titleText.text = badgeTitle ?? "";
+        if (descText) descText.text = badgeDesc ?? "";
 
+        bool hasStatue = (statueSprite != null) || !string.IsNullOrEmpty(statueTitle);
+        if (statueGroup) statueGroup.SetActive(hasStatue);
+        if (hasStatue)
+        {
+            if (statueIcon) { statueIcon.sprite = statueSprite ?? badgeSprite; statueIcon.preserveAspect = true; }
+            if (statueName) statueName.text = string.IsNullOrEmpty(statueTitle) ? (badgeTitle ?? "") : statueTitle;
+        }
+
+        this.onClose = onClose;
         if (closeButton)
         {
             closeButton.onClick.RemoveAllListeners();
-            closeButton.onClick.AddListener(() =>
-            {
-                this.onClose?.Invoke();
-                Destroy(gameObject);
-            });
+            closeButton.onClick.AddListener(() => { this.onClose?.Invoke(); Destroy(gameObject); });
         }
     }
 }

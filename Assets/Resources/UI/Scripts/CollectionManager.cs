@@ -15,6 +15,9 @@ public class CollectionManager : MonoBehaviour
 
     [SerializeField] private CollectionSlotManager slotManager;
 
+    [Header("API")]
+    [SerializeField] private string dexEndpoint = "/api/dex";
+
     private Vector2 hiddenPos;
 
     private void Awake()
