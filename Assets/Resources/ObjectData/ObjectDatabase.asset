@@ -252,7 +252,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100010
   - name: "\uB85C\uC988\uC548\uC824\uB77C"
     id: Deco_Roseangela_Shiny
     prefab: {fileID: 0}
@@ -260,7 +260,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100111
   - name: "\uC640\uC77C\uB4DC\uB85C\uC988"
     id: Deco_Wildrose
     prefab: {fileID: 0}
@@ -268,7 +268,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100020
   - name: "\uC640\uC77C\uB4DC\uB85C\uC988"
     id: Deco_Wildrose_Shiny
     prefab: {fileID: 0}
@@ -276,7 +276,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100121
   - name: "\uBBFC\uB4E4\uB808"
     id: Deco_Dandelion
     prefab: {fileID: 0}
@@ -284,7 +284,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100030
   - name: "\uBBFC\uB4E4\uB808"
     id: Deco_Dandelion_Shiny
     prefab: {fileID: 0}
@@ -292,7 +292,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100131
   - name: "\uC740\uD589\uB098\uBB34"
     id: Deco_Ginkgo
     prefab: {fileID: 0}
@@ -300,7 +300,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100040
   - name: "\uC740\uD589\uB098\uBB34"
     id: Deco_Ginkgo_Shiny
     prefab: {fileID: 0}
@@ -308,7 +308,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100141
   - name: "\uB2E8\uD48D\uB098\uBB34"
     id: Deco_Maple
     prefab: {fileID: 0}
@@ -316,7 +316,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100050
   - name: "\uB2E8\uD48D\uB098\uBB34"
     id: Deco_Maple_Shiny
     prefab: {fileID: 0}
@@ -324,7 +324,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100151
   - name: "\uD2A4\uB9BD"
     id: Deco_Tulip
     prefab: {fileID: 0}
@@ -332,7 +332,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100060
   - name: "\uD2A4\uB9BD"
     id: Deco_Tulip_Shiny
     prefab: {fileID: 0}
@@ -349,14 +349,14 @@ MonoBehaviour:
     type: 2
     price: -1
     storeGoodsNumber: 0
-  - name: "\uD2A4\uB9BD"
+  - name: "\uD32C\uC9C0"
     id: Deco_Pansy_Shiny
     prefab: {fileID: 0}
     sprite: {fileID: 6830626558999084001, guid: 0678bbf60b7dec945a64a6b680132fd5, type: 3}
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100171
   - name: "\uC7A1\uCD08"
     id: Deco_Weeds
     prefab: {fileID: 0}
@@ -364,7 +364,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100080
   - name: "\uC7A1\uCD08"
     id: Deco_Weeds_Shiny
     prefab: {fileID: 0}
@@ -372,7 +372,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100181
   - name: "\uBC31\uD569"
     id: Deco_Lily
     prefab: {fileID: 0}
@@ -380,7 +380,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100090
   - name: "\uBC31\uD569"
     id: Deco_Lily_Shiny
     prefab: {fileID: 0}
@@ -388,7 +388,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100191
   - name: "\uBB3C\uB9DD\uCD08"
     id: Deco_Forgetmenot
     prefab: {fileID: 0}
@@ -396,7 +396,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100100
   - name: "\uBB3C\uB9DD\uCD08"
     id: Deco_Forgetmenot_Shiny
     prefab: {fileID: 0}
@@ -404,7 +404,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100201
   - name: "\uB378\uD53C\uB284"
     id: Deco_Delphinium
     prefab: {fileID: 0}
@@ -412,7 +412,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110010
   - name: "\uB378\uD53C\uB284"
     id: Deco_Delphinium_Shiny
     prefab: {fileID: 0}
@@ -420,7 +420,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110101
   - name: "\uB9C8\uAC00\uB81B"
     id: Deco_Margaret
     prefab: {fileID: 0}
@@ -428,7 +428,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110020
   - name: "\uB9C8\uAC00\uB81B"
     id: Deco_Margaret_Shiny
     prefab: {fileID: 0}
@@ -436,7 +436,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110111
   - name: "\uAC1C\uB098\uB9AC"
     id: Deco_Forsythia
     prefab: {fileID: 0}
@@ -444,7 +444,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110030
   - name: "\uAC1C\uB098\uB9AC"
     id: Deco_Forsythia_Shiny
     prefab: {fileID: 0}
@@ -452,7 +452,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110121
   - name: "\uD574\uBC14\uB77C\uAE30"
     id: Deco_Sunflower
     prefab: {fileID: 0}
@@ -460,7 +460,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110040
   - name: "\uD574\uBC14\uB77C\uAE30"
     id: Deco_Sunflower_Shiny
     prefab: {fileID: 0}
@@ -468,7 +468,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110131
   - name: "\uC740\uBC29\uC6B8\uAF43"
     id: Deco_Maylily
     prefab: {fileID: 0}
@@ -476,7 +476,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110050
   - name: "\uC740\uBC29\uC6B8\uAF43"
     id: Deco_Maylily_Shiny
     prefab: {fileID: 0}
@@ -484,7 +484,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110141
   - name: "\uBC00"
     id: Deco_Wheat
     prefab: {fileID: 0}
@@ -492,7 +492,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110060
   - name: "\uBC00"
     id: Deco_Wheat_Shiny
     prefab: {fileID: 0}
@@ -500,7 +500,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110151
   - name: "\uC5F0\uAF43"
     id: Deco_Lotus
     prefab: {fileID: 0}
@@ -508,7 +508,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110070
   - name: "\uC5F0\uAF43"
     id: Deco_Lotus_Shiny
     prefab: {fileID: 0}
@@ -516,7 +516,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110161
   - name: "\uC218\uAD6D"
     id: Deco_Hydrangea
     prefab: {fileID: 0}
@@ -524,7 +524,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110080
   - name: "\uC218\uAD6D"
     id: Deco_Hydrangea_Shiny
     prefab: {fileID: 0}
@@ -532,7 +532,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110171
   - name: "\uB2A5\uC18C\uD654"
     id: Deco_Trumpetvine
     prefab: {fileID: 0}
@@ -540,7 +540,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110090
   - name: "\uB2A5\uC18C\uD654"
     id: Deco_Trumpetvine_Shiny
     prefab: {fileID: 0}
@@ -548,7 +548,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 110181
   - name: "\uAD6D\uD654"
     id: Deco_Chrysanthemum
     prefab: {fileID: 0}
@@ -556,7 +556,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 120010
   - name: "\uAD6D\uD654"
     id: Deco_Chrysanthemum_Shiny
     prefab: {fileID: 0}
@@ -564,7 +564,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 120071
   - name: "\uC0C1\uC0AC\uD654"
     id: Deco_Licoris
     prefab: {fileID: 0}
@@ -572,7 +572,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 120020
   - name: "\uC0C1\uC0AC\uD654"
     id: Deco_Licoris_Shiny
     prefab: {fileID: 0}
@@ -580,7 +580,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 120081
   - name: "\uC218\uBC15\uB369\uAD74"
     id: Deco_Watermelon
     prefab: {fileID: 0}
@@ -588,7 +588,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 120030
   - name: "\uC218\uBC15\uB369\uAD74"
     id: Deco_Watermelon_Shiny
     prefab: {fileID: 0}
@@ -596,7 +596,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 120091
   - name: "\uC0AC\uACFC\uB098\uBB34"
     id: Deco_Apple
     prefab: {fileID: 0}
@@ -604,7 +604,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 120040
   - name: "\uC0AC\uACFC\uB098\uBB34"
     id: Deco_Apple_Shiny
     prefab: {fileID: 0}
@@ -612,7 +612,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 120101
   - name: "\uBE14\uB8E8\uBCA0\uB9AC\uB098\uBB34"
     id: Deco_Blueberry
     prefab: {fileID: 0}
@@ -620,7 +620,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 120050
   - name: "\uBE14\uB8E8\uBCA0\uB9AC\uB098\uBB34"
     id: Deco_Blueberry_Shiny
     prefab: {fileID: 0}
@@ -724,7 +724,7 @@ MonoBehaviour:
     count: 0
     type: 2
     price: -1
-    storeGoodsNumber: 0
+    storeGoodsNumber: 130101
   - name: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC"
     id: Wood_Fence
     prefab: {fileID: 0}
