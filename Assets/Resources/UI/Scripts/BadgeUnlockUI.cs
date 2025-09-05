@@ -11,7 +11,7 @@ public class BadgeUnlockUI : MonoBehaviour
     [SerializeField] private TMP_Text descText;
 
     [Header("Statue")]
-    [SerializeField] private GameObject statueGroup; // Statue 루트(없으면 null 허용)
+    [SerializeField] private GameObject statueGroup;
     [SerializeField] private Image statueIcon;
     [SerializeField] private TMP_Text statueName;
 

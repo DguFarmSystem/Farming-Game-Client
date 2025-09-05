@@ -106,9 +106,26 @@ public class CollectionManager : MonoBehaviour
                 yield break;
             }
 
-            var collected = new HashSet<int>(
-                arr.Select(t => (int)(t["dexId"] ?? 0))
-            );
+            var collected = new HashSet<int>();
+            foreach (var t in arr)
+            {
+                if (t.Type == JTokenType.Integer)
+                {
+                    collected.Add(t.Value<int>());
+                    continue;
+                }
+
+                int key = 0;
+                var op1 = t["ownedPlant"];  
+                var op2 = t["ownedPlantNumber"];
+                var dx = t["dexId"];
+
+                if (op1 != null && int.TryParse(op1.ToString(), out var v1)) key = v1;
+                else if (op2 != null && int.TryParse(op2.ToString(), out var v2)) key = v2;
+                else if (dx != null && int.TryParse(dx.ToString(), out var v3)) key = v3;
+
+                if (key > 0) collected.Add(key);
+            }
 
             var db = FlowerDataManager.Instance;
             if (db?.flowerData?.flowerList == null)
@@ -117,15 +134,21 @@ public class CollectionManager : MonoBehaviour
                 yield break;
             }
 
+            int matched = 0;
             foreach (var f in db.flowerData.flowerList)
             {
                 if (f == null) continue;
-                f.isRegistered = collected.Contains(f.dexId);
+
+                bool reg = collected.Contains(f.dexId);
+                f.isRegistered = reg;
+                if (reg) matched++;
             }
+            Debug.Log($"[DEX] serverItems={arr.Count()}, collected={collected.Count}, matchedSO={matched}");
         }
         catch (Exception e)
         {
             Debug.LogError("[DEX] JSON 파싱/반영 오류: " + e);
         }
     }
+
 }
