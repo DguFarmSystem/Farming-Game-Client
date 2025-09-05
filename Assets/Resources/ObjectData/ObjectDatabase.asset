@@ -380,7 +380,7 @@ MonoBehaviour:
     count: 0
     type: 2
     sellprice: 0
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100161
     isStatue: 0
   - name: "\uD32C\uC9C0"
     id: Deco_Pansy
@@ -389,7 +389,7 @@ MonoBehaviour:
     count: 0
     type: 2
     sellprice: 0
-    storeGoodsNumber: 0
+    storeGoodsNumber: 100070
     isStatue: 0
   - name: "\uD32C\uC9C0"
     id: Deco_Pansy_Shiny
@@ -557,7 +557,7 @@ MonoBehaviour:
     id: Deco_Wheat_Shiny
     prefab: {fileID: 0}
     sprite: {fileID: 4529515907506927838, guid: 6f6577ada57d13a4e822293bee33156a, type: 3}
-    count: 0
+    count: 1
     type: 2
     sellprice: 500
     storeGoodsNumber: 110151
