@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPosition: {x: 0, y: 0}
-  id: White_Fence
+  id: WhiteWood_Fence
   numberId: 200020
   rotationSprites: []
 --- !u!114 &7945919854927391897
