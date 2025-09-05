@@ -107,12 +107,12 @@ public class MinigamePopup : MonoBehaviour
 
     // 외부 호출
 
-    public void BettingPopup(string game, int round, int ifWin, int ifLose, int currentGold)
+    public void BettingPopup(string game, int round, int ifLose, int ifWin, int currentGold)
     {
         if (game != "RPS")
             GameManager.Sound.SFXPlay("SFX_GameOver");
         betRewardText.text = $"골드를 획득했습니다!\n획득 골드 : {currentGold}G";
-        bettingText.text = $"{round+1} round\n도전 실패 시 : {ifWin}G\n도전 성공 시 : +{ifLose}G";
+        bettingText.text = $"{round+1} round\n도전 실패 시 : {ifLose}G\n도전 성공 시 : +{ifWin}G";
 
             // 저장 후 종료
         stopButton.onClick.RemoveAllListeners();

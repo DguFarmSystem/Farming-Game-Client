@@ -42,7 +42,7 @@ public class SceneLoader : MonoBehaviour
     private GameObject labelPanel;
     private CanvasGroup fadePanel;
 
-    private float fadeDuration = 0.3f; // public으로 빼기!!!!!!!!!!!!!!!!
+    private float fadeDuration = 0.3f;
     private bool isTransitioning = false;
     private int currentIdx = 0;
     private Coroutine fadeOutLabelCoroutine;
@@ -136,16 +136,17 @@ public class SceneLoader : MonoBehaviour
         Debug.Log("set trigger out");
         yield return new WaitForSeconds(fadeDuration);
 
-        int labelIdx = mainSceneList.FindIndex(data => data.sceneName == sceneName); // 3. 라벨, 화살표 띄우기
+
+        while (asyncLoad.progress < 0.9f) // 3. 씬 교체
+            yield return null;
+        asyncLoad.allowSceneActivation = true;
+        yield return null;
+        
+        int labelIdx = mainSceneList.FindIndex(data => data.sceneName == sceneName); // 4. 라벨, 화살표 띄우기
         if (labelIdx != -1)
             ShowSceneLoaderUI(labelIdx);
         else
             HideSceneLoaderUI();
-
-        while (asyncLoad.progress < 0.9f) // 4. 씬 교체
-            yield return null;
-        asyncLoad.allowSceneActivation = true;
-        yield return null;
 
         transitionAnimator.SetTrigger($"{direction}_In"); // 5. 페이드인
         Debug.Log("set trigger in");
@@ -158,7 +159,7 @@ public class SceneLoader : MonoBehaviour
             fadeOutLabelCoroutine = StartCoroutine(FadeOutLabelCoroutine());
     }
 
-    IEnumerator FadeOutLabelCoroutine() { // 애니메이션으로 빼기..
+    IEnumerator FadeOutLabelCoroutine() {
         yield return new WaitForSeconds(3f);
 
         CanvasGroup cg = labelPanel.GetComponent<CanvasGroup>();

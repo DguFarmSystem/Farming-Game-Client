@@ -3,63 +3,62 @@ using UnityEngine.UI;
 
 public class SellQuickMenu : MonoBehaviour
 {
-    [SerializeField] RectTransform panel;
-    [SerializeField] Button sellButton;
-    [SerializeField] GameObject blocker;
+    [Header("Refs")]
+    [SerializeField] private RectTransform root;
+    [SerializeField] private Button sellButton;       // 판매 버튼
+    [SerializeField] private Button cantSellButton;   // 판매 불가
+    [SerializeField] private CanvasGroup cg;
 
-    ObjectDatabase db;
-    int index, unitPrice;
-    SellPopup popupPrefab;
+    private ObjectDatabase db;
+    private int index, price;
+    private SellPopup popupPrefab;
+    private Canvas _canvas;
 
     void Awake()
     {
-        if (blocker)
+        _canvas = GetComponentInParent<Canvas>();
+
+        if (sellButton)
         {
-            var btn = blocker.GetComponent<Button>();
-            if (btn) btn.onClick.AddListener(HideImmediate);
+            sellButton.onClick.RemoveAllListeners();
+            sellButton.onClick.AddListener(() =>
+            {
+                Instantiate(popupPrefab, _canvas.transform).Open(db, index, price);
+                Hide();
+            });
         }
-
-        if (sellButton) sellButton.onClick.AddListener(OnClickSell);
-
-        HideImmediate();
-        gameObject.SetActive(true);
+        if (cantSellButton)
+        {
+            cantSellButton.onClick.RemoveAllListeners();
+            cantSellButton.onClick.AddListener(Hide);
+        }
     }
 
-    public void Show(ObjectDatabase d, int i, SellPopup p, int u, Vector2 screenPos)
+    public void Show(ObjectDatabase db, int index, SellPopup popup, int price,
+                     Vector2 screenPos, bool canSell)
     {
-        db = d; index = i; popupPrefab = p; unitPrice = u;
+        this.db = db; this.index = index; this.popupPrefab = popup; this.price = price;
 
-        var canvas = GetComponentInParent<Canvas>();
-        var canvasRT = canvas.transform as RectTransform;
+        if (sellButton) sellButton.gameObject.SetActive(canSell);
+        if (cantSellButton) cantSellButton.gameObject.SetActive(!canSell);
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvasRT, screenPos,
-            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
-            out var local
-        );
-
-        if (blocker)
+        if (_canvas && root)
         {
-            blocker.SetActive(true);
-            blocker.transform.SetAsFirstSibling();
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                _canvas.transform as RectTransform,
+                screenPos, _canvas.worldCamera, out var lp);
+            root.anchoredPosition = lp;
         }
 
-        panel.gameObject.SetActive(true);
-        panel.SetAsLastSibling();
-        panel.anchoredPosition = local;
+        gameObject.SetActive(true);
+        if (cg) { cg.alpha = 1f; cg.blocksRaycasts = true; }
     }
 
     public void HideImmediate()
     {
-        if (blocker) blocker.SetActive(false);
-        if (panel) panel.gameObject.SetActive(false);
+        if (cg) { cg.alpha = 0f; cg.blocksRaycasts = false; }
+        gameObject.SetActive(false);
     }
 
-    void OnClickSell()
-    {
-        GameManager.Sound.SFXPlay("SFX_ButtonClick");
-        HideImmediate();
-        var canvasTf = GetComponentInParent<Canvas>()?.transform ?? transform;
-        Instantiate(popupPrefab, canvasTf).Open(db, index, unitPrice);
-    }
+    public void Hide() => HideImmediate();
 }
