@@ -153,7 +153,11 @@ public class FriendManager : MonoBehaviour
     public void OpenConfirmPopUp(string _name, long _id)
     {
         confirmPopup.SetActive(true);
-        confirmPopupTMP.text = _name + "?? ???? ?????????";
+        confirmPopupTMP.text = _name + "님의 정원으로 이동하시겠습니까?";
+
+        // Add Listener
+        confirmButton.onClick.AddListener(() => GetFriendData(_id));
+        nameTMP.text = _name + "님의 정원";
     }
 
     public void CloseConfirmPopup()
