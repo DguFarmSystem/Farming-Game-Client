@@ -1,4 +1,4 @@
-// Unity
+ï»¿// Unity
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -153,11 +153,11 @@ public class FriendManager : MonoBehaviour
     public void OpenConfirmPopUp(string _name, long _id)
     {
         confirmPopup.SetActive(true);
-        confirmPopupTMP.text = _name + "´ÔÀÇ Á¤¿øÀ¸·Î ÀÌµ¿ÇÏ½Ã°Ú½À´Ï±î?";
+        confirmPopupTMP.text = _name + "ë‹˜ì˜ ì •ì›ìœ¼ë¡œ ì´ë™í•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
 
         // Add Listener
         confirmButton.onClick.AddListener(() => GetFriendData(_id));
-        nameTMP.text = _name + "´ÔÀÇ Á¤¿ø";
+        nameTMP.text = _name + "ë‹˜ì˜ ì •ì›";
     }
 
     public void CloseConfirmPopup()

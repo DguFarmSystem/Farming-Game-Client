@@ -19,7 +19,6 @@ public class PlaceableObject : MonoBehaviour
 
     [Header("Rotation Sprite")]
     [SerializeField] private Sprite[] rotationSprites;
-    private int spriteIndex; // => Modify Rotation Enum
 
     private SpriteRenderer spriteRenderer;
     private Garden.RotationEnum currentRotation;
@@ -59,7 +58,41 @@ public class PlaceableObject : MonoBehaviour
     {
         currentRotation = rotation;
 
-        Rotation(false);
+        InitRotation();
+    }
+
+    public void InitRotation()
+    {
+        // 단일 반전 객체
+        if (rotationSprites.Length == 0)
+        {
+            if (currentRotation == Garden.RotationEnum.R180) spriteRenderer.flipX = true;
+            else if(currentRotation == Garden.RotationEnum.R0) spriteRenderer.flipX = false;
+        }
+        // 4방향 회전 객체
+        else
+        {
+            if (currentRotation == Garden.RotationEnum.R0)
+            {
+                spriteRenderer.sprite = rotationSprites[0];
+                spriteRenderer.flipX = false;
+            }
+            else if (currentRotation == Garden.RotationEnum.R90)
+            {
+                spriteRenderer.sprite = rotationSprites[0];
+                spriteRenderer.flipX = true;
+            }
+            else if (currentRotation == Garden.RotationEnum.R180)
+            {
+                spriteRenderer.sprite = rotationSprites[1];
+                spriteRenderer.flipX = false;
+            }
+            else if (currentRotation == Garden.RotationEnum.R270)
+            {
+                spriteRenderer.sprite = rotationSprites[1];
+                spriteRenderer.flipX = true;
+            }
+        }
     }
 
     /// <summary>

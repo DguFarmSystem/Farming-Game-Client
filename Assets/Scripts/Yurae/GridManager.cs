@@ -145,11 +145,12 @@ public class GridManager : MonoBehaviour
                     // Place Tile
                     TileData placedTile = grid.GetTile();
                     DestroyImmediate(placedTile.gameObject); // Remove
-                    grid.PlaceTile(tile);
 
                     GameObject tilePrefab = Instantiate(tileObj.gameObject);
                     tilePrefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
                     tilePrefab.transform.SetParent(objectParent);
+
+                    grid.PlaceTile(tilePrefab.GetComponent<TileData>());
 
 
                     // Place Object or Plant
@@ -212,12 +213,12 @@ public class GridManager : MonoBehaviour
                     // Place Tile
                     TileData placedTile = grid.GetTile();
                     DestroyImmediate(placedTile.gameObject); // Remove
-                    grid.PlaceTile(tile);
 
                     GameObject tilePrefab = Instantiate(tileObj.gameObject);
                     tilePrefab.GetComponent<PlaceableObject>().SetPosition(new Vector2Int(x, y));
                     tilePrefab.transform.SetParent(objectParent);
 
+                    grid.PlaceTile(tilePrefab.GetComponent<TileData>());
 
                     // Place Object or Plant
                     if (obj != null)
