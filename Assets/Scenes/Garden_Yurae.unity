@@ -4325,11 +4325,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4271729146432909322, guid: f6b61373f580e40d68e2e68b1983a7d4, type: 3}
+      propertyPath: popupParent
+      value: 
+      objectReference: {fileID: 2049719735}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6b61373f580e40d68e2e68b1983a7d4, type: 3}
+--- !u!114 &925590259 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4271729146432909322, guid: f6b61373f580e40d68e2e68b1983a7d4, type: 3}
+  m_PrefabInstance: {fileID: 925590258}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edad300b3e5cc488c8c97cf4a56ec6cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &941581724
 GameObject:
   m_ObjectHideFlags: 0
@@ -8623,6 +8638,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1739967687239266761, guid: 8c31258ef62304c068d0fbbb26e27054, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 925590259}
+    - target: {fileID: 1739967687239266761, guid: 8c31258ef62304c068d0fbbb26e27054, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenSeedDrawPopup
+      objectReference: {fileID: 0}
     - target: {fileID: 2425059972784578048, guid: 8c31258ef62304c068d0fbbb26e27054, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -8716,6 +8739,11 @@ PrefabInstance:
 --- !u!1 &2049719734 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8900546052696828064, guid: 8c31258ef62304c068d0fbbb26e27054, type: 3}
+  m_PrefabInstance: {fileID: 2049719733}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2049719735 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2425059972784578048, guid: 8c31258ef62304c068d0fbbb26e27054, type: 3}
   m_PrefabInstance: {fileID: 2049719733}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2071498858
