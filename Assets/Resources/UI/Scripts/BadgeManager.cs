@@ -27,6 +27,10 @@ public class BadgeManager : MonoBehaviour
     [Header("Reward Dispatch (optional)")]
     [SerializeField] private ObjectDatabase objectDatabase;
 
+    // 정원 오브젝트 수
+    private int _lastGardenObjectCount = -1;
+    private bool _gardenCountRequesting = false;
+
     // ===== Server DTOs =====
     [Serializable] private class ServerBadge { public long badgeId; public int badgeType; }
     [Serializable] private class ServerBadgeList { public ServerBadge[] items; }
@@ -202,7 +206,7 @@ public class BadgeManager : MonoBehaviour
         );
     }
 
-    // ★ 409(이미 등록) 판정
+    // 409(이미 등록) 판정
     private bool IsConflict409(string err)
     {
         if (string.IsNullOrEmpty(err)) return false;
@@ -239,8 +243,11 @@ public class BadgeManager : MonoBehaviour
         if (isOpening) return;
         isOpening = true;
 
-        _syncedFromServer = false;          // ★ 열 때마다 새 동기화
-        SyncBadgesFromServerAndShow();      // ★ 먼저 동기화, 콜백에서 ReevaluateBadges 호출
+        _syncedFromServer = false;          // 열 때마다 새 동기화
+        SyncBadgesFromServerAndShow();      // 먼저 동기화, 콜백에서 ReevaluateBadges 호출
+
+        if (badgeDB != null && badgeDB.items.Any(b => b != null && b.type == BadgeType.GardenObjectsAtLeast))
+            EnsureGardenObjectCount();
 
         openSeq?.Kill(); closeSeq?.Kill();
         caseRoot?.DOKill(); badgeLid?.DOKill();
@@ -405,6 +412,20 @@ public class BadgeManager : MonoBehaviour
                     ok = need > 0 && have == need;
                     reason = $"whitelist {have}/{need} matched";
                     break;
+
+                case BadgeType.GardenObjectsAtLeast:
+                    if (_lastGardenObjectCount < 0)
+                    {
+                        EnsureGardenObjectCount();
+                        ok = false;
+                        reason = "waiting garden object count";
+                    }
+                    else
+                    {
+                        ok = (_lastGardenObjectCount >= bd.threshold);
+                        reason = $"gardenObjects({_lastGardenObjectCount}) >= threshold({bd.threshold})";
+                    }
+                    break;
             }
 
             if (ok && !unlocked[i])
@@ -526,4 +547,75 @@ public class BadgeManager : MonoBehaviour
             return;
         }
     }
+
+    private void EnsureGardenObjectCount()
+    {
+        if (_gardenCountRequesting) return;
+        _gardenCountRequesting = true;
+
+        GardenControllerAPI.GetGardenDataFromServer(
+            (gardens, objects) =>
+            {
+                _lastGardenObjectCount = gardens != null ? gardens.Count : 0;
+                _gardenCountRequesting = false;
+                Debug.Log($"[Badge] Garden objects count = {_lastGardenObjectCount}");
+
+            ReevaluateBadges();
+            },
+            err =>
+            {
+                _gardenCountRequesting = false;
+                _lastGardenObjectCount = 0;
+            Debug.LogWarning("[Badge] Garden object count fetch failed: " + err);
+            }
+        );
+    }
+
+    public void NotifyGardenChangedAndCheckBadgesImmediate()
+    {
+        if (_gardenCountRequesting) return;
+        _gardenCountRequesting = true;
+
+        GardenControllerAPI.GetGardenDataFromServer(
+            (gardens, objects) =>
+            {
+                _gardenCountRequesting = false;
+
+                _lastGardenObjectCount = gardens != null ? gardens.Count : 0;
+                Debug.Log($"[Badge] (Immediate) garden count = {_lastGardenObjectCount}");
+
+                if (badgeDB == null || badgeDB.items == null) return;
+
+            int len = Mathf.Min(badgeDB.items.Count, badgeSlots != null ? badgeSlots.Length : badgeDB.items.Count);
+                if (unlocked == null || unlocked.Length != len) unlocked = new bool[len];
+
+                for (int i = 0; i < len; i++)
+                {
+                    var bd = badgeDB.items[i];
+                    if (bd == null || bd.type != BadgeType.GardenObjectsAtLeast) continue;
+
+                    bool meets = (_lastGardenObjectCount >= bd.threshold);
+                    bool alreadyUnlocked = (i < unlocked.Length && unlocked[i]);
+                    bool alreadyPosted = serverRecordedTypes.Contains(i);
+
+                    if (meets && !alreadyUnlocked && !alreadyPosted)
+                    {
+                    if (i < unlocked.Length) { unlocked[i] = true; RefreshBadges(); }
+
+                    PostBadgeToServer(i);
+                        TryNotifyAndReward(i);
+
+                        Debug.Log($"[Badge] (Immediate) unlock idx={i}, title={bd.title}, threshold={bd.threshold}");
+                    }
+                }
+            },
+            err =>
+            {
+                _gardenCountRequesting = false;
+                Debug.LogWarning("[Badge] (Immediate) garden count fetch failed: " + err);
+            }
+        );
+    }
+
+
 }

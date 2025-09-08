@@ -97,7 +97,7 @@ MonoBehaviour:
       30\uC885 \uBC30\uCE58"
     icon: {fileID: -6512582711194300196, guid: da95c8a961a994c02b4e936a3545f760, type: 3}
     type: 4
-    threshold: 39
+    threshold: 30
     rarity: 0
     nameWhitelist: []
     rewardStoreGoodsNumber: 310060

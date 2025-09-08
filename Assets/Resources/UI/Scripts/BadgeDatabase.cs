@@ -7,7 +7,7 @@ public enum BadgeType
     ShinyRegisteredAtLeast,   // 이로치 등록 ≥ threshold (임시: 이름에 "이로치")
     RarityAllCollected,       // 특정 등급 전종
     WhitelistAllCollected,    // 지정 이름 목록 전부 수집(과일나무 6종 등)
-    UniquePlacedAtLeast       // 정원: 서로 다른 종류 배치 ≥ threshold
+    GardenObjectsAtLeast       // 정원: 서로 다른 종류 배치 ≥ threshold
 }
 
 [System.Serializable]
