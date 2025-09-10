@@ -59,60 +59,89 @@ public class ShopPurchaseBridge : MonoBehaviour
 
     }
 
-    // ShopPurchaseBridge.cs (핵심만)
     private void ApplyGridUpgrade(int count)
     {
-        int max = (gridUpgradeMaxCalls <= 0) ? 3 : gridUpgradeMaxCalls;
+        StartCoroutine(CoApplyGridUpgrade(count));
+    }
+
+    private IEnumerator CoApplyGridUpgrade(int count)
+    {
+        int maxLevel = (gridUpgradeMaxCalls <= 0) ? 3 : gridUpgradeMaxCalls;
 
         const string LEGACY = "grid_upgrade_calls";
         if (PlayerPrefs.HasKey(LEGACY) && !PlayerPrefs.HasKey(PrefsKey))
         {
-            int legacy = Mathf.Clamp(PlayerPrefs.GetInt(LEGACY, 0), 0, max);
+            int legacy = Mathf.Clamp(PlayerPrefs.GetInt(LEGACY, 0), 0, maxLevel);
             PlayerPrefs.SetInt(PrefsKey, legacy);
             PlayerPrefs.DeleteKey(LEGACY);
             PlayerPrefs.Save();
         }
 
-        int used = Mathf.Clamp(PlayerPrefs.GetInt(PrefsKey, 0), 0, max);
-        if (used >= max || GameManager.Instance.playerLV >= 3)
-        {
-            ShopItemSlot.RaiseUpgradeProgressChanged();
-            GameManager.Sound?.SFXPlay("SFX_ButtonCancle");
-            Debug.Log("[Shop] GridUpgrade 이미 MAX");
-            return;
-        }
-
-        int newLevel = Mathf.Clamp(GameManager.Instance.playerLV + 1, 1, 3);
-        StartCoroutine(CoPersistAndReload(newLevel));
-    }
-
-    private IEnumerator CoPersistAndReload(int newLevel)
-    {
-        bool ok = false; string err = null;
-
-        // 1) 서버에 레벨 저장 (PATCH /api/player/level)
-        yield return PlayerControllerAPI.CoUpdatePlayerLevelOnServer(
-            newLevel,
-            () => ok = true,
-            e => err = e
+        // 1) 서버에서 현재 플레이어 데이터(레벨) 가져오기 (서버가 진실의 원천)
+        bool got = false; Player.PlayerData pdata = null; string getErr = null;
+        PlayerControllerAPI.GetPlayerDataFromServer(
+            d => { pdata = d; got = true; },
+            e => { getErr = e; got = true; }
         );
+        yield return new WaitUntil(() => got);
 
-        if (!ok)
+        if (pdata == null)
         {
-            Debug.LogError("[Shop] GridUpgrade 서버 저장 실패: " + err);
+            Debug.LogError("[Shop] GridUpgrade GET /api/player 실패: " + getErr);
             GameManager.Sound?.SFXPlay("SFX_ButtonCancle");
             yield break;
         }
 
-        // 2) 로컬 진행률(표시용) 증가
-        int max = (gridUpgradeMaxCalls <= 0) ? 3 : gridUpgradeMaxCalls;
-        int used = Mathf.Clamp(PlayerPrefs.GetInt(PrefsKey, 0), 0, max);
-        PlayerPrefs.SetInt(PrefsKey, used + 1);
+        int curLevel = Mathf.Max(1, pdata.level); // 서버 기준
+        if (curLevel >= maxLevel)
+        {
+            ShopItemSlot.RaiseUpgradeProgressChanged();
+            GameManager.Sound?.SFXPlay("SFX_ButtonCancle");
+            Debug.Log("[Shop] GridUpgrade 이미 MAX (server level >= max)");
+            yield break;
+        }
+
+        // 2) 목표 레벨 계산
+        int nextLevel = Mathf.Clamp(curLevel + count, 1, maxLevel);
+        if (nextLevel == curLevel)
+        {
+            ShopItemSlot.RaiseUpgradeProgressChanged();
+            GameManager.Sound?.SFXPlay("SFX_ButtonCancle");
+            Debug.Log("[Shop] GridUpgrade 더 이상 증가 없음");
+            yield break;
+        }
+
+        // 3) 서버에 레벨 저장 (PATCH /api/player/level, body: {"newLevel": nextLevel})
+        bool patched = false; string patchErr = null;
+        yield return PlayerControllerAPI.CoUpdatePlayerLevelOnServer(
+            nextLevel,
+            () => patched = true,
+            e => patchErr = e
+        );
+
+        if (!patched)
+        {
+            Debug.LogError("[Shop] GridUpgrade 서버 저장 실패: " + patchErr);
+            GameManager.Sound?.SFXPlay("SFX_ButtonCancle");
+            yield break;
+        }
+
+        // 4) 로컬 진행률(표시용) +1
+        int used = Mathf.Clamp(PlayerPrefs.GetInt(PrefsKey, 0), 0, maxLevel);
+        PlayerPrefs.SetInt(PrefsKey, Mathf.Min(used + count, maxLevel));
         PlayerPrefs.Save();
         ShopItemSlot.RaiseUpgradeProgressChanged();
 
-        // 3) 서버가 확정한 레벨로 씬 재로딩
-        if (GridManager.Instance) GridManager.Instance.LevelUpTo(newLevel);
+        // 5) 로컬 상태 갱신 + 정원 반영
+        GameManager.Instance.playerLV = nextLevel;  
+        if (GridManager.Instance) GridManager.Instance.LevelUpTo(nextLevel);
+
+        bool done2 = false; Player.PlayerData snap = null;
+        PlayerControllerAPI.GetPlayerDataFromServer(
+            d => { snap = d; done2 = true; },
+            e => { done2 = true; }
+        );
+        yield return new WaitUntil(() => done2);
     }
 
 
