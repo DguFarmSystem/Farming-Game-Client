@@ -18,12 +18,20 @@ public class seedTicket : MonoBehaviour
     private const string PREF_MASK = "SeedTicket_ClaimedMask";
 
     // 비트 마스크
-    private const int BIT_ATTENDANCE = 1 << 0;  // 1
-    private const int BIT_CHEER = 1 << 1;     // 2
-    private const int BIT_FARMING = 1 << 2;  // 4
+    private const int BIT_ATTENDANCE = 1 << 0;  // 1
+    private const int BIT_CHEER = 1 << 1;     // 2
+    private const int BIT_FARMING = 1 << 2;  // 4
 
-    // API 응답 데이터 구조체
-    // (JsonProperty를 사용해 서버 변수명과 일치시키는 것이 안전합니다)
+    // API 응답 데이터 구조체 (최상위 응답 클래스)
+    [System.Serializable]
+    public class SeedTicketResponse
+    {
+        public int status;
+        public string message;
+        public TodaySeedStatusDto data; // 실제 데이터가 담긴 필드
+    }
+
+    // 실제 데이터가 담긴 DTO
     [System.Serializable]
     public class TodaySeedStatusDto
     {
@@ -46,12 +54,11 @@ public class seedTicket : MonoBehaviour
         APIManager.Instance.Get(endPoint,
             // 성공 콜백
             (jsonResponse) => {
-                TodaySeedStatusDto status = null;
+                SeedTicketResponse responseData = null;
                 try
                 {
-                    // 응답을 DTO로 파싱. JsonUtility 대신 Newtonsoft.Json 사용 권장
-                    status = JsonUtility.FromJson<TodaySeedStatusDto>(jsonResponse);
-                    // 또는 status = JsonConvert.DeserializeObject<TodaySeedStatusDto>(jsonResponse);
+                    // 최상위 응답 클래스로 먼저 파싱
+                    responseData = JsonUtility.FromJson<SeedTicketResponse>(jsonResponse);
                 }
                 catch (Exception ex)
                 {
@@ -59,22 +66,23 @@ public class seedTicket : MonoBehaviour
                     return;
                 }
 
-                // 서버에서 유효한 조건 정보를 받았는지 확인
-                if (status == null)
+                // data 필드가 있는지 확인
+                if (responseData == null || responseData.data == null)
                 {
                     Debug.LogError("[SeedTicket] 서버에서 유효한 조건 정보를 받지 못했습니다.");
                     return;
                 }
 
+                TodaySeedStatusDto status = responseData.data; // data 필드에서 실제 상태를 가져옵니다.
+
                 EnsureDailyReset();
 
                 int claimedMask = PlayerPrefs.GetInt(PREF_MASK, 0);
                 
-                // --- 디버깅 로그 추가 시작 ---
-                Debug.Log($"[SeedTicket] 서버 응답 - isAttendance: {status.isAttendance}, isCheer: {status.isCheer}, isFarmingLog: {status.isFarminglog}");
+                // --- 디버깅 로그 ---
+                Debug.Log($"[SeedTicket] 서버 응답 - isAttendance: {status.isAttendance}, isCheer: {status.isCheer}, isFarminglog: {status.isFarminglog}");
                 Debug.Log($"[SeedTicket] 현재 PlayerPrefs에 저장된 획득 마스크: {claimedMask}");
-                // --- 디버깅 로그 추가 끝 ---
-
+                
                 int newMask = 0;
                 int total = 0;
 
