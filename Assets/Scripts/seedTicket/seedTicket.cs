@@ -27,7 +27,7 @@ public class seedTicket : MonoBehaviour
     {
         public bool isAttendance;
         public bool isCheer;
-        public bool isFarmingLog;
+        public bool isFarminglog;
     }
 
     void Start()
@@ -87,7 +87,7 @@ public class seedTicket : MonoBehaviour
             int claimedMask = PlayerPrefs.GetInt(PREF_MASK, 0);
             
             // --- 디버깅 로그 추가 시작 ---
-            Debug.Log($"[SeedTicket] 서버 응답 - isAttendance: {status.isAttendance}, isCheer: {status.isCheer}, isFarmingLog: {status.isFarmingLog}");
+            Debug.Log($"[SeedTicket] 서버 응답 - isAttendance: {status.isAttendance}, isCheer: {status.isCheer}, isFarmingLog: {status.isFarminglog}");
             Debug.Log($"[SeedTicket] 현재 PlayerPrefs에 저장된 획득 마스크: {claimedMask}");
             Debug.Log($"[SeedTicket] (claimedMask & BIT_ATTENDANCE) 결과: {(claimedMask & BIT_ATTENDANCE)}");
             Debug.Log($"[SeedTicket] (claimedMask & BIT_CHEER) 결과: {(claimedMask & BIT_CHEER)}");
@@ -100,7 +100,7 @@ public class seedTicket : MonoBehaviour
             // 서버 조건 체크: 충족 && 아직 미수령이면 마스크 세팅 + 개수 합산
             if (status.isAttendance && (claimedMask & BIT_ATTENDANCE) == 0) { newMask |= BIT_ATTENDANCE; total += 1; }
             if (status.isCheer && (claimedMask & BIT_CHEER) == 0) { newMask |= BIT_CHEER; total += 3; }
-            if (status.isFarmingLog && (claimedMask & BIT_FARMING) == 0) { newMask |= BIT_FARMING; total += 5; }
+            if (status.isFarminglog && (claimedMask & BIT_FARMING) == 0) { newMask |= BIT_FARMING; total += 5; }
 
             if (total <= 0)
             {

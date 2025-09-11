@@ -53,5 +53,6 @@ MonoBehaviour:
   TitleUIPrefab: {fileID: 8936728329875726924, guid: 6bd90ba1871824298a8b6d207374c5b2, type: 3}
   shopUIPrefab: {fileID: 8009276727374701711, guid: 6b52d527a8cb04cf39a82c2263d0d24e, type: 3}
   bagUIPrefab: {fileID: 5150903008154252909, guid: 177d9bf1f8b7e44e18fb8bd45758ba6f, type: 3}
+  CantPlantPrefab: {fileID: 7091339977260817000, guid: 9e9231e9e127f6b4d9f6b7c0b9b39b26, type: 3}
   popupParent: {fileID: 0}
   badgeUnlockPrefab: {fileID: 5032363625306022309, guid: 7fb415b2ff670460a96d45e3c0955d3d, type: 3}
