@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
+using Newtonsoft.Json;
 
 public class seedTicket : MonoBehaviour
 {
@@ -17,11 +18,12 @@ public class seedTicket : MonoBehaviour
     private const string PREF_MASK = "SeedTicket_ClaimedMask";
 
     // 비트 마스크
-    private const int BIT_ATTENDANCE = 1 << 0;  // 1
-    private const int BIT_CHEER = 1 << 1;     // 2
-    private const int BIT_FARMING = 1 << 2;  // 4
+    private const int BIT_ATTENDANCE = 1 << 0;  // 1
+    private const int BIT_CHEER = 1 << 1;     // 2
+    private const int BIT_FARMING = 1 << 2;  // 4
 
     // API 응답 데이터 구조체
+    // (JsonProperty를 사용해 서버 변수명과 일치시키는 것이 안전합니다)
     [System.Serializable]
     public class TodaySeedStatusDto
     {
@@ -33,106 +35,92 @@ public class seedTicket : MonoBehaviour
     void Start()
     {
         // 게임 시작 시 서버에서 조건 확인 및 보상 수령 로직 실행
-        StartCoroutine(FetchAndClaimTickets());
+        FetchAndClaimTickets();
     }
 
-    private IEnumerator FetchAndClaimTickets()
+    private void FetchAndClaimTickets()
     {
-        // API 엔드포인트 설정
-        string baseUrl = "https://api.dev.farmsystem.kr";
-        string url = baseUrl + "/api/user/today-seed";
-        
-        // APIManager에서 AccessToken을 가져옵니다.
-        string accessToken = APIManager.Instance.getAccessToken();
+        string endPoint = "/api/user/today-seed";
 
-        // UnityWebRequest를 사용하여 GET 요청 생성
-        using (UnityWebRequest www = UnityWebRequest.Get(url))
-        {
-            // 헤더에 토큰 추가
-            if (!string.IsNullOrEmpty(accessToken))
-            {
-                www.SetRequestHeader("Authorization", "Bearer " + accessToken);
+        // APIManager의 Get 함수를 사용하여 API 호출
+        APIManager.Instance.Get(endPoint,
+            // 성공 콜백
+            (jsonResponse) => {
+                TodaySeedStatusDto status = null;
+                try
+                {
+                    // 응답을 DTO로 파싱. JsonUtility 대신 Newtonsoft.Json 사용 권장
+                    status = JsonUtility.FromJson<TodaySeedStatusDto>(jsonResponse);
+                    // 또는 status = JsonConvert.DeserializeObject<TodaySeedStatusDto>(jsonResponse);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError("[SeedTicket] JSON 파싱 오류: " + ex.Message);
+                    return;
+                }
+
+                // 서버에서 유효한 조건 정보를 받았는지 확인
+                if (status == null)
+                {
+                    Debug.LogError("[SeedTicket] 서버에서 유효한 조건 정보를 받지 못했습니다.");
+                    return;
+                }
+
+                EnsureDailyReset();
+
+                int claimedMask = PlayerPrefs.GetInt(PREF_MASK, 0);
+                
+                // --- 디버깅 로그 추가 시작 ---
+                Debug.Log($"[SeedTicket] 서버 응답 - isAttendance: {status.isAttendance}, isCheer: {status.isCheer}, isFarmingLog: {status.isFarminglog}");
+                Debug.Log($"[SeedTicket] 현재 PlayerPrefs에 저장된 획득 마스크: {claimedMask}");
+                // --- 디버깅 로그 추가 끝 ---
+
+                int newMask = 0;
+                int total = 0;
+
+                // 서버 조건 체크: 충족 && 아직 미수령이면 마스크 세팅 + 개수 합산
+                if (status.isAttendance && (claimedMask & BIT_ATTENDANCE) == 0) { newMask |= BIT_ATTENDANCE; total += 1; }
+                if (status.isCheer && (claimedMask & BIT_CHEER) == 0) { newMask |= BIT_CHEER; total += 3; }
+                if (status.isFarminglog && (claimedMask & BIT_FARMING) == 0) { newMask |= BIT_FARMING; total += 5; }
+
+                if (total <= 0)
+                {
+                    Debug.Log("[SeedTicket] 오늘 추가로 받을 수 있는 뽑기권 없음.");
+                    return;
+                }
+
+                // 지급
+                CurrencyManager.Instance.AddSeedTicket(total);
+
+                // UI 팝업 처리
+                GameObject ui = UIManager.Instance.OpenSeedTicketPopup();
+                var view = ui.GetComponent<seedTicketResultUI>();
+                
+                // 코루틴 시작을 위한 StartCoroutine() 호출
+                StartCoroutine(ShowAll(ui, 0.5f, 1f, 0.5f));
+
+                view.ticketCountText.text = "X " + total.ToString();
+                view.Init(total, onClose: () =>
+                {
+                    StartCoroutine(CloseUI(ui));
+                });
+
+                // 수령 기록 저장
+                claimedMask |= newMask;
+                PlayerPrefs.SetInt(PREF_MASK, claimedMask);
+                PlayerPrefs.Save();
+
+                Debug.Log($"[SeedTicket] 새로운 티켓 획득 완료. 갱신된 PlayerPrefs 마스크: {PlayerPrefs.GetInt(PREF_MASK)}");
+            },
+            // 실패 콜백
+            (error) => {
+                Debug.LogError($"[SeedTicket] 서버 통신 실패: {error}");
             }
-
-            yield return www.SendWebRequest();
-
-            // 통신 성공 여부 확인
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError($"[SeedTicket] 서버 통신 실패: {www.error}");
-                yield break;
-            }
-
-            TodaySeedStatusDto status = null;
-            try
-            {
-                // 응답을 DTO로 파싱
-                status = JsonUtility.FromJson<TodaySeedStatusDto>(www.downloadHandler.text);
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError("[SeedTicket] JSON 파싱 오류: " + ex.Message);
-                yield break;
-            }
-
-            // 서버에서 유효한 조건 정보를 받았는지 확인
-            if (status == null)
-            {
-                Debug.LogError("[SeedTicket] 서버에서 유효한 조건 정보를 받지 못했습니다.");
-                yield break;
-            }
-
-            EnsureDailyReset();
-
-            int claimedMask = PlayerPrefs.GetInt(PREF_MASK, 0);
-            
-            // --- 디버깅 로그 추가 시작 ---
-            Debug.Log($"[SeedTicket] 서버 응답 - isAttendance: {status.isAttendance}, isCheer: {status.isCheer}, isFarmingLog: {status.isFarminglog}");
-            Debug.Log($"[SeedTicket] 현재 PlayerPrefs에 저장된 획득 마스크: {claimedMask}");
-            Debug.Log($"[SeedTicket] (claimedMask & BIT_ATTENDANCE) 결과: {(claimedMask & BIT_ATTENDANCE)}");
-            Debug.Log($"[SeedTicket] (claimedMask & BIT_CHEER) 결과: {(claimedMask & BIT_CHEER)}");
-            Debug.Log($"[SeedTicket] (claimedMask & BIT_FARMING) 결과: {(claimedMask & BIT_FARMING)}");
-            // --- 디버깅 로그 추가 끝 ---
-
-            int newMask = 0;
-            int total = 0;
-
-            // 서버 조건 체크: 충족 && 아직 미수령이면 마스크 세팅 + 개수 합산
-            if (status.isAttendance && (claimedMask & BIT_ATTENDANCE) == 0) { newMask |= BIT_ATTENDANCE; total += 1; }
-            if (status.isCheer && (claimedMask & BIT_CHEER) == 0) { newMask |= BIT_CHEER; total += 3; }
-            if (status.isFarminglog && (claimedMask & BIT_FARMING) == 0) { newMask |= BIT_FARMING; total += 5; }
-
-            if (total <= 0)
-            {
-                Debug.Log("[SeedTicket] 오늘 추가로 받을 수 있는 뽑기권 없음.");
-                yield break;
-            }
-
-            // 지급
-            CurrencyManager.Instance.AddSeedTicket(total);
-
-            // UI 팝업 처리
-            GameObject ui = UIManager.Instance.OpenSeedTicketPopup();
-            var view = ui.GetComponent<seedTicketResultUI>();
-            
-            StartCoroutine(ShowAll(ui, 0.5f, 1f, 0.5f));
-
-            view.ticketCountText.text = "X " + total.ToString();
-            view.Init(total, onClose: () =>
-            {
-                StartCoroutine(CloseUI(ui));
-            });
-
-            // 수령 기록 저장
-            claimedMask |= newMask;
-            PlayerPrefs.SetInt(PREF_MASK, claimedMask);
-            PlayerPrefs.Save();
-
-            // --- 최종 획득 마스크 디버깅 로그 추가 ---
-            Debug.Log($"[SeedTicket] 새로운 티켓 획득 완료. 갱신된 PlayerPrefs 마스크: {PlayerPrefs.GetInt(PREF_MASK)}");
-            // --- 최종 획득 마스크 디버깅 로그 추가 끝 ---
-        }
+        );
     }
+    
+    // 이하는 기존 코드와 동일합니다.
+    // -------------------------------------------------------------------------
 
     private void EnsureDailyReset()
     {
