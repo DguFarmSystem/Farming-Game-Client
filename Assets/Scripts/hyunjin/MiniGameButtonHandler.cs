@@ -25,10 +25,15 @@ public class MiniGameButtonHandler : MonoBehaviour
     [SerializeField] private string selected;
     private Dictionary<string, (string title, string description, string gameType, int count)> gameInfo;
 
+    public Button rpsButton;
+    public Button carrotButton;
+    public Button sunshineButton;
+
     public TMP_Text title;
     public TMP_Text description;
     public TMP_Text playCount;
     public Button startButton;
+
 
     void Awake()
     {
@@ -71,6 +76,9 @@ public class MiniGameButtonHandler : MonoBehaviour
 
     public void OpenPopup(string sceneName) {
         selected = sceneName;
+        rpsButton.interactable = false;
+        carrotButton.interactable = false;
+        sunshineButton.interactable = false;
         if (gameInfo.TryGetValue(selected, out var info))
         {
             title.text = info.title;
@@ -131,6 +139,9 @@ public class MiniGameButtonHandler : MonoBehaviour
     public void CancelGame()
     {
         selected = null;
+        rpsButton.interactable = true;
+        carrotButton.interactable = true;
+        sunshineButton.interactable = true;
         popupPanel.SetActive(false);
         GameManager.Sound.SFXPlay("SFX_ButtonCancle");
     }

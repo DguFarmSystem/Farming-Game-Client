@@ -3,44 +3,44 @@ guid: cd32b03c6a7f71b4d8c4050f7e27f907
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7250516478567780832
-    second: Rule_Minigame_RPS_3_0
+      213: 6352007417219212337
+    second: Rule_Minigame_RPS_0
   - first:
-      213: -3398739258282449394
-    second: Rule_Minigame_RPS_3_1
+      213: 450070470302937234
+    second: Rule_Minigame_RPS_1
   - first:
-      213: -1543909024144517993
-    second: Rule_Minigame_RPS_3_2
+      213: -875043335166846220
+    second: Rule_Minigame_RPS_2
   - first:
-      213: 1887940956949958708
-    second: Rule_Minigame_RPS_3_3
+      213: -4789012820208455643
+    second: Rule_Minigame_RPS_3
   - first:
-      213: -9219891043683818904
-    second: Rule_Minigame_RPS_3_4
+      213: -5840660147237414705
+    second: Rule_Minigame_RPS_4
   - first:
-      213: -5947848654898152654
-    second: Rule_Minigame_RPS_3_5
+      213: -8491610375466884753
+    second: Rule_Minigame_RPS_5
   - first:
-      213: -2292964652617169446
-    second: Rule_Minigame_RPS_3_6
+      213: 3247654202626940192
+    second: Rule_Minigame_RPS_6
   - first:
-      213: 2177264720937898627
-    second: Rule_Minigame_RPS_3_7
+      213: -5264602206870382763
+    second: Rule_Minigame_RPS_7
   - first:
-      213: 3138662100926006672
-    second: Rule_Minigame_RPS_3_8
+      213: -5188758370693547001
+    second: Rule_Minigame_RPS_8
   - first:
-      213: 8008456768923047404
-    second: Rule_Minigame_RPS_3_9
+      213: -7337786242458672896
+    second: Rule_Minigame_RPS_9
   - first:
-      213: 4206353165883048275
-    second: Rule_Minigame_RPS_3_10
+      213: 5480243713931101384
+    second: Rule_Minigame_RPS_10
   - first:
-      213: 6459523117032488892
-    second: Rule_Minigame_RPS_3_11
+      213: 429621911881733317
+    second: Rule_Minigame_RPS_11
   - first:
-      213: -6343663008535386329
-    second: Rule_Minigame_RPS_3_12
+      213: 5727829287059863221
+    second: Rule_Minigame_RPS_12
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -149,7 +149,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_0
+      name: Rule_Minigame_RPS_0
       rect:
         serializedVersion: 2
         x: 508
@@ -164,14 +164,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0e1162782520f9460800000000000000
-      internalID: 7250516478567780832
+      spriteID: 1346ff1771dd62850800000000000000
+      internalID: 6352007417219212337
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_1
+      name: Rule_Minigame_RPS_1
       rect:
         serializedVersion: 2
         x: 712
@@ -186,14 +186,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e0666e1e6a045d0d0800000000000000
-      internalID: -3398739258282449394
+      spriteID: 290bc4a45b8fe3600800000000000000
+      internalID: 450070470302937234
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_2
+      name: Rule_Minigame_RPS_2
       rect:
         serializedVersion: 2
         x: 268
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 794985a2ceee29ae0800000000000000
-      internalID: -1543909024144517993
+      spriteID: 4fa9e4c09b83bd3f0800000000000000
+      internalID: -875043335166846220
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_3
+      name: Rule_Minigame_RPS_3
       rect:
         serializedVersion: 2
         x: 746
@@ -230,14 +230,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 430d9ef2c40533a10800000000000000
-      internalID: 1887940956949958708
+      spriteID: 520feaa96320a8db0800000000000000
+      internalID: -4789012820208455643
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_4
+      name: Rule_Minigame_RPS_4
       rect:
         serializedVersion: 2
         x: 221
@@ -252,14 +252,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 862ab61e1fd5c0080800000000000000
-      internalID: -9219891043683818904
+      spriteID: fc8122e8a8ec1fea0800000000000000
+      internalID: -5840660147237414705
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_5
+      name: Rule_Minigame_RPS_5
       rect:
         serializedVersion: 2
         x: 13
@@ -274,14 +274,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 23bb203592ff47da0800000000000000
-      internalID: -5947848654898152654
+      spriteID: f61664f9a5db72a80800000000000000
+      internalID: -8491610375466884753
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_6
+      name: Rule_Minigame_RPS_6
       rect:
         serializedVersion: 2
         x: 725
@@ -296,14 +296,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad50a3e0cc0cd20e0800000000000000
-      internalID: -2292964652617169446
+      spriteID: 02d12ec5a4cf11d20800000000000000
+      internalID: 3247654202626940192
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_7
+      name: Rule_Minigame_RPS_7
       rect:
         serializedVersion: 2
         x: 812
@@ -318,19 +318,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3825e716ab2373e10800000000000000
-      internalID: 2177264720937898627
+      spriteID: 557d0c79f2060f6b0800000000000000
+      internalID: -5264602206870382763
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_8
+      name: Rule_Minigame_RPS_8
       rect:
         serializedVersion: 2
-        x: 99
+        x: 40
         y: 453
-        width: 1225
+        width: 1336
         height: 69
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -340,20 +340,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0950dab2d84ce8b20800000000000000
-      internalID: 3138662100926006672
+      spriteID: 70cf979c0c3ddf7b0800000000000000
+      internalID: -5188758370693547001
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_9
+      name: Rule_Minigame_RPS_9
       rect:
         serializedVersion: 2
-        x: 120
-        y: 367
-        width: 1171
-        height: 64
+        x: 24
+        y: 361
+        width: 1370
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -362,19 +362,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ce51bbe2001c32f60800000000000000
-      internalID: 8008456768923047404
+      spriteID: 001a08c2a42fa2a90800000000000000
+      internalID: -7337786242458672896
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_10
+      name: Rule_Minigame_RPS_10
       rect:
         serializedVersion: 2
-        x: 332
+        x: 316
         y: 270
-        width: 760
+        width: 784
         height: 68
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -384,20 +384,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3518c4c0be7ff5a30800000000000000
-      internalID: 4206353165883048275
+      spriteID: 8c44e6b4f9cbd0c40800000000000000
+      internalID: 5480243713931101384
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_11
+      name: Rule_Minigame_RPS_11
       rect:
         serializedVersion: 2
-        x: 99
-        y: 185
-        width: 1227
-        height: 63
+        x: 37
+        y: 179
+        width: 1344
+        height: 69
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -406,17 +406,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cbf35290d06d4a950800000000000000
-      internalID: 6459523117032488892
+      spriteID: 5c45f654ad256f500800000000000000
+      internalID: 429621911881733317
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rule_Minigame_RPS_3_12
+      name: Rule_Minigame_RPS_12
       rect:
         serializedVersion: 2
-        x: 373
+        x: 369
         y: 93
         width: 678
         height: 64
@@ -428,8 +428,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 72766799a18c6f7a0800000000000000
-      internalID: -6343663008535386329
+      spriteID: 5b63845a3665d7f40800000000000000
+      internalID: 5727829287059863221
       vertices: []
       indices: 
       edges: []
@@ -448,19 +448,19 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Rule_Minigame_RPS_3_0: 7250516478567780832
-      Rule_Minigame_RPS_3_1: -3398739258282449394
-      Rule_Minigame_RPS_3_10: 4206353165883048275
-      Rule_Minigame_RPS_3_11: 6459523117032488892
-      Rule_Minigame_RPS_3_12: -6343663008535386329
-      Rule_Minigame_RPS_3_2: -1543909024144517993
-      Rule_Minigame_RPS_3_3: 1887940956949958708
-      Rule_Minigame_RPS_3_4: -9219891043683818904
-      Rule_Minigame_RPS_3_5: -5947848654898152654
-      Rule_Minigame_RPS_3_6: -2292964652617169446
-      Rule_Minigame_RPS_3_7: 2177264720937898627
-      Rule_Minigame_RPS_3_8: 3138662100926006672
-      Rule_Minigame_RPS_3_9: 8008456768923047404
+      Rule_Minigame_RPS_0: 6352007417219212337
+      Rule_Minigame_RPS_1: 450070470302937234
+      Rule_Minigame_RPS_10: 5480243713931101384
+      Rule_Minigame_RPS_11: 429621911881733317
+      Rule_Minigame_RPS_12: 5727829287059863221
+      Rule_Minigame_RPS_2: -875043335166846220
+      Rule_Minigame_RPS_3: -4789012820208455643
+      Rule_Minigame_RPS_4: -5840660147237414705
+      Rule_Minigame_RPS_5: -8491610375466884753
+      Rule_Minigame_RPS_6: 3247654202626940192
+      Rule_Minigame_RPS_7: -5264602206870382763
+      Rule_Minigame_RPS_8: -5188758370693547001
+      Rule_Minigame_RPS_9: -7337786242458672896
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
