@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class UIManager : MonoBehaviour
     public GameObject TitleUIPrefab;
     public GameObject shopUIPrefab;
     public GameObject bagUIPrefab;
-    
+    public GameObject CantPlantPrefab;
+
     private GameObject currentPopup; //현재 팝업
 
     [SerializeField] private Transform popupParent;
@@ -40,10 +42,12 @@ public class UIManager : MonoBehaviour
         Canvas cv = null;
         int bestOrder = int.MinValue;
 
-        foreach (var c in canvases) {
+        foreach (var c in canvases)
+        {
             if (!c.isActiveAndEnabled) continue;
             if (c.gameObject.name == "FadePanel") continue; // 제외
-            if (c.sortingOrder >= bestOrder) {
+            if (c.sortingOrder >= bestOrder)
+            {
                 bestOrder = c.sortingOrder;
                 cv = c;
             }
@@ -142,8 +146,8 @@ public class UIManager : MonoBehaviour
                 H_UI.Collect_UI.sprite = H_UI.Legend;
                 break;
         }
-        
-       
+
+
 
         H_UI.flower_Text.text = kr_flower; //꽃 이름 넘겨주기
         if (flower_image != null)
@@ -272,4 +276,15 @@ public class UIManager : MonoBehaviour
         }
         _badgePlaying = false;
     }
+
+
+    public void OpenCantPlantUI()
+    {
+        if (currentPopup != null) { DOTween.Kill(currentPopup, complete: false); Destroy(currentPopup); }
+
+        currentPopup = Instantiate(CantPlantPrefab, popupParent);
+        currentPopup.GetComponentInChildren<Button>().onClick.AddListener(HideAll);
+
+    }
+
 }

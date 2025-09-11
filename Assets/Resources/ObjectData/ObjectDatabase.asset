@@ -35,7 +35,7 @@ MonoBehaviour:
     id: Tilemap_Stone
     prefab: {fileID: 0}
     sprite: {fileID: -2592956508147909491, guid: 2587a5d5c1df5ea4f8e10b2da84bb29d, type: 3}
-    count: 0
+    count: 1
     type: 0
     sellprice: -1
     storeGoodsNumber: 400040
@@ -44,7 +44,7 @@ MonoBehaviour:
     id: Tilemap_Water
     prefab: {fileID: 0}
     sprite: {fileID: 7351637415587066830, guid: 8e9bf0f1540d6ac48b93a5a758fec95e, type: 3}
-    count: 1073
+    count: 1074
     type: 0
     sellprice: -1
     storeGoodsNumber: 400030
@@ -89,7 +89,7 @@ MonoBehaviour:
     id: Deco_Chair_Wood
     prefab: {fileID: 0}
     sprite: {fileID: 8288587855404676360, guid: cadffb5b3e5257641ae3ed22daef715e, type: 3}
-    count: 4
+    count: 3
     type: 1
     sellprice: 150
     storeGoodsNumber: 200051
@@ -107,7 +107,7 @@ MonoBehaviour:
     id: Deco_Chair_Metal
     prefab: {fileID: 0}
     sprite: {fileID: 6128776633282750556, guid: 3cbb52bb11ee7d24b8c7f11c6dced690, type: 3}
-    count: 1
+    count: 0
     type: 1
     sellprice: 300
     storeGoodsNumber: 200061
@@ -152,7 +152,7 @@ MonoBehaviour:
     id: Deco_Scarecrow
     prefab: {fileID: 0}
     sprite: {fileID: -166466446883158291, guid: edf455684d5e3c7498c4eacf8a480832, type: 3}
-    count: 1
+    count: 0
     type: 1
     sellprice: 600
     storeGoodsNumber: 200100
@@ -179,7 +179,7 @@ MonoBehaviour:
     id: Deco_Statue_DexBeginner
     prefab: {fileID: 0}
     sprite: {fileID: 4211474018222244093, guid: 68d420d9ec9c644d29e5818cf05b885f, type: 3}
-    count: 0
+    count: 1
     type: 1
     sellprice: -1
     storeGoodsNumber: 310010
@@ -224,7 +224,7 @@ MonoBehaviour:
     id: Deco_Statue_DecoLover
     prefab: {fileID: 0}
     sprite: {fileID: 9072940456001523895, guid: 534ad65e98cf8492d8224f4689f3dfad, type: 3}
-    count: 0
+    count: 1
     type: 1
     sellprice: -1
     storeGoodsNumber: 310060
@@ -296,7 +296,7 @@ MonoBehaviour:
     id: Deco_Wildrose
     prefab: {fileID: 0}
     sprite: {fileID: 604724491792995080, guid: 18f4b694a83c25044bf50bd0325f9e8f, type: 3}
-    count: 0
+    count: 1
     type: 2
     sellprice: 300
     storeGoodsNumber: 100020
@@ -307,7 +307,7 @@ MonoBehaviour:
     sprite: {fileID: 4482604658056890856, guid: 641681a8962cf134da1394a539597151, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100121
     isStatue: 0
   - name: "\uBBFC\uB4E4\uB808"
@@ -316,7 +316,7 @@ MonoBehaviour:
     sprite: {fileID: 1732411650938653338, guid: 941ac49c8914afa43a766f7f6b4be796, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100030
     isStatue: 0
   - name: "\uBBFC\uB4E4\uB808"
@@ -325,7 +325,7 @@ MonoBehaviour:
     sprite: {fileID: -3998495600682123401, guid: 71af51a5d776f3d4f95ee9aa9a4563a3, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100131
     isStatue: 0
   - name: "\uC740\uD589\uB098\uBB34"
@@ -334,16 +334,16 @@ MonoBehaviour:
     sprite: {fileID: -670687829661172402, guid: 790a74a2dc1c9fa44b2d8450d78a90a2, type: 3}
     count: 1
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100040
     isStatue: 0
   - name: "\uC740\uD589\uB098\uBB34"
     id: Deco_Ginkgo_Shiny
     prefab: {fileID: 0}
     sprite: {fileID: 623639791635664506, guid: afa3c51c9c6ee1c4eaae0a3d7d13bc73, type: 3}
-    count: 1
+    count: 3
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100141
     isStatue: 0
   - name: "\uB2E8\uD48D\uB098\uBB34"
@@ -352,7 +352,7 @@ MonoBehaviour:
     sprite: {fileID: 394607963389856294, guid: e76200a72f00eac43baf8518e5315281, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100050
     isStatue: 0
   - name: "\uB2E8\uD48D\uB098\uBB34"
@@ -361,7 +361,7 @@ MonoBehaviour:
     sprite: {fileID: 5468784772149643313, guid: e755839f7a8f2e14a84688302d754ab9, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100151
     isStatue: 0
   - name: "\uD2A4\uB9BD"
@@ -370,7 +370,7 @@ MonoBehaviour:
     sprite: {fileID: 3050443181457906632, guid: d15ce6dd249e86f4c9cef90bfce61ff1, type: 3}
     count: 1
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100060
     isStatue: 0
   - name: "\uD2A4\uB9BD"
@@ -379,16 +379,16 @@ MonoBehaviour:
     sprite: {fileID: -5446640427080244911, guid: 89dadfcd4ce091c4c86ecba155b28535, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100161
     isStatue: 0
   - name: "\uD32C\uC9C0"
     id: Deco_Pansy
     prefab: {fileID: 0}
     sprite: {fileID: -8425838688040873047, guid: 0c872fedf4716bf469b58f77abea3d30, type: 3}
-    count: 0
+    count: 1
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100070
     isStatue: 0
   - name: "\uD32C\uC9C0"
@@ -397,7 +397,7 @@ MonoBehaviour:
     sprite: {fileID: 6830626558999084001, guid: 0678bbf60b7dec945a64a6b680132fd5, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100171
     isStatue: 0
   - name: "\uC7A1\uCD08"
@@ -406,7 +406,7 @@ MonoBehaviour:
     sprite: {fileID: 2285294037587688584, guid: b05d4dcbab2364d489f2dbb799404b3e, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100080
     isStatue: 0
   - name: "\uC7A1\uCD08"
@@ -415,7 +415,7 @@ MonoBehaviour:
     sprite: {fileID: -7871954949725002915, guid: 022f20072a171014da52a9f3123dac1b, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100181
     isStatue: 0
   - name: "\uBC31\uD569"
@@ -424,7 +424,7 @@ MonoBehaviour:
     sprite: {fileID: 6912838880688697814, guid: 014db9eeb6a58b3408d988bda07159ba, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100090
     isStatue: 0
   - name: "\uBC31\uD569"
@@ -433,7 +433,7 @@ MonoBehaviour:
     sprite: {fileID: -3260004774918910614, guid: 5fafb2a765caeaf4b96819592f8e6325, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100191
     isStatue: 0
   - name: "\uBB3C\uB9DD\uCD08"
@@ -442,7 +442,7 @@ MonoBehaviour:
     sprite: {fileID: -5096971419604377544, guid: 8869c8b578828b948a2558b037b4ae7e, type: 3}
     count: 1
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100100
     isStatue: 0
   - name: "\uBB3C\uB9DD\uCD08"
@@ -451,7 +451,7 @@ MonoBehaviour:
     sprite: {fileID: 59504492815178256, guid: 28ae2ed8cf982544e821a820a13c6bab, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 300
     storeGoodsNumber: 100201
     isStatue: 0
   - name: "\uB378\uD53C\uB284"
@@ -676,7 +676,7 @@ MonoBehaviour:
     sprite: {fileID: 3839512161405587034, guid: e85fb771830c71249a8d899103fe29b9, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 700
     storeGoodsNumber: 120040
     isStatue: 0
   - name: "\uC0AC\uACFC\uB098\uBB34"
@@ -685,16 +685,16 @@ MonoBehaviour:
     sprite: {fileID: 2428818233777822031, guid: 7fa1465623ee7f34a9abe42fa031c1ca, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 700
     storeGoodsNumber: 120101
     isStatue: 0
   - name: "\uBE14\uB8E8\uBCA0\uB9AC\uB098\uBB34"
     id: Deco_Blueberry
     prefab: {fileID: 0}
     sprite: {fileID: 3593471636808728357, guid: d57e65a94c0e65f48b88a5cea3bad4cc, type: 3}
-    count: 0
+    count: 1
     type: 2
-    sellprice: 0
+    sellprice: 700
     storeGoodsNumber: 120050
     isStatue: 0
   - name: "\uBE14\uB8E8\uBCA0\uB9AC\uB098\uBB34"
@@ -703,8 +703,8 @@ MonoBehaviour:
     sprite: {fileID: 1583934682297884526, guid: 8ead9b1e1ea073b47bd9a0b3c26571a2, type: 3}
     count: 0
     type: 2
-    sellprice: 0
-    storeGoodsNumber: 0
+    sellprice: 700
+    storeGoodsNumber: 120111
     isStatue: 0
   - name: "\uBC30\uB098\uBB34"
     id: Deco_Pear
@@ -712,8 +712,8 @@ MonoBehaviour:
     sprite: {fileID: -4564426408278678031, guid: dbbecec985abd1049aa951d1e42dba92, type: 3}
     count: 0
     type: 2
-    sellprice: 0
-    storeGoodsNumber: 0
+    sellprice: 700
+    storeGoodsNumber: 120060
     isStatue: 0
   - name: "\uBC30\uB098\uBB34"
     id: Deco_Pear_Shiny
@@ -721,8 +721,8 @@ MonoBehaviour:
     sprite: {fileID: -4703307997125336666, guid: f3160ece87fc08c429596ac3e71e1b88, type: 3}
     count: 0
     type: 2
-    sellprice: 0
-    storeGoodsNumber: 0
+    sellprice: 700
+    storeGoodsNumber: 120121
     isStatue: 0
   - name: "\uB808\uBAAC\uB098\uBB34"
     id: Deco_Lemon
@@ -730,8 +730,8 @@ MonoBehaviour:
     sprite: {fileID: -6370514035332823595, guid: d1dbfdb3b00911048bbaa15caf9aaafc, type: 3}
     count: 0
     type: 2
-    sellprice: 0
-    storeGoodsNumber: 0
+    sellprice: 1000
+    storeGoodsNumber: 130010
     isStatue: 0
   - name: "\uB808\uBAAC\uB098\uBB34"
     id: Deco_Lemon_Shiny
@@ -739,8 +739,8 @@ MonoBehaviour:
     sprite: {fileID: -5033805973248121721, guid: b2f7771c654b4c84c95ed51b47334320, type: 3}
     count: 0
     type: 2
-    sellprice: 0
-    storeGoodsNumber: 0
+    sellprice: 1000
+    storeGoodsNumber: 130061
     isStatue: 0
   - name: "\uC624\uB80C\uC9C0\uB098\uBB34"
     id: Deco_Orange
@@ -748,8 +748,8 @@ MonoBehaviour:
     sprite: {fileID: -7615526000564436770, guid: 405995ab86d03da41a467f23fbc22693, type: 3}
     count: 0
     type: 2
-    sellprice: 0
-    storeGoodsNumber: 0
+    sellprice: 1000
+    storeGoodsNumber: 130020
     isStatue: 0
   - name: "\uC624\uB80C\uC9C0\uB098\uBB34"
     id: Deco_Orange_Shiny
@@ -757,8 +757,8 @@ MonoBehaviour:
     sprite: {fileID: 109082423718547264, guid: c0967f708f8c0be4a856dfa5a0d59601, type: 3}
     count: 0
     type: 2
-    sellprice: 0
-    storeGoodsNumber: 0
+    sellprice: 1000
+    storeGoodsNumber: 130071
     isStatue: 0
   - name: "\uBC9A\uB098\uBB34"
     id: Deco_Cherryblossoms
@@ -766,8 +766,8 @@ MonoBehaviour:
     sprite: {fileID: -5606481552130582422, guid: 82f918c7a71398d468deffc1df194c27, type: 3}
     count: 0
     type: 2
-    sellprice: 0
-    storeGoodsNumber: 0
+    sellprice: 1000
+    storeGoodsNumber: 130040
     isStatue: 0
   - name: "\uBC9A\uB098\uBB34"
     id: Deco_Cherryblossoms_Shiny
@@ -775,8 +775,8 @@ MonoBehaviour:
     sprite: {fileID: 6584268210685255542, guid: 767727c781eed83449a2dbb68e558aa6, type: 3}
     count: 0
     type: 2
-    sellprice: 0
-    storeGoodsNumber: 0
+    sellprice: 1000
+    storeGoodsNumber: 130091
     isStatue: 0
   - name: "\uCCB4\uB9AC\uB098\uBB34"
     id: Deco_Cherry
@@ -784,8 +784,8 @@ MonoBehaviour:
     sprite: {fileID: -443490369099905539, guid: a446efaff3b25814ebac2db27e3c0cd9, type: 3}
     count: 0
     type: 2
-    sellprice: 0
-    storeGoodsNumber: 0
+    sellprice: 1000
+    storeGoodsNumber: 130030
     isStatue: 0
   - name: "\uCCB4\uB9AC\uB098\uBB34"
     id: Deco_Cherry_Shiny
@@ -793,8 +793,8 @@ MonoBehaviour:
     sprite: {fileID: 1236476216904864809, guid: 7fa5046fca4ed0c4e91ecb78e70d9350, type: 3}
     count: 0
     type: 2
-    sellprice: 0
-    storeGoodsNumber: 0
+    sellprice: 1000
+    storeGoodsNumber: 130081
     isStatue: 0
   - name: "\uBB34\uAD81\uD654\uB098\uBB34"
     id: Deco_Roseofsharon
@@ -811,14 +811,14 @@ MonoBehaviour:
     sprite: {fileID: 7429649762109471711, guid: cc244e8414c580b48a65abee3c95715b, type: 3}
     count: 0
     type: 2
-    sellprice: 0
+    sellprice: 1000
     storeGoodsNumber: 130101
     isStatue: 0
   - name: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC"
     id: Wood_Fence
     prefab: {fileID: 0}
     sprite: {fileID: 819436441730897038, guid: 79c1764bfcb85db4e9c465572c3b4dad, type: 3}
-    count: 19
+    count: 0
     type: 1
     sellprice: 150
     storeGoodsNumber: 200010
@@ -827,7 +827,7 @@ MonoBehaviour:
     id: WhiteWood_Fence
     prefab: {fileID: 0}
     sprite: {fileID: 8159150672527780840, guid: cd12fa4c6cf8697439f605a8261bc129, type: 3}
-    count: 4
+    count: 5
     type: 1
     sellprice: 600
     storeGoodsNumber: 200020
@@ -836,7 +836,7 @@ MonoBehaviour:
     id: Metal_Fence
     prefab: {fileID: 0}
     sprite: {fileID: 4815790080164226239, guid: 55c8020227c49e74b9b972763892c483, type: 3}
-    count: 4
+    count: 7
     type: 1
     sellprice: 0
     storeGoodsNumber: 200030

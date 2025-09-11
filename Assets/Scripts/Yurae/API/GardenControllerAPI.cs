@@ -11,8 +11,8 @@ public class GardenControllerAPI : MonoBehaviour
     /// <summary>
     /// GET /api/garden
     /// - data: List<GardenData>
-    /// - GardenData.objectData: 단일 ObjectData (없을 수 있음 → null)
-    /// onSuccess: gardens (원본 리스트), objects (gardens와 인덱스 1:1, null 포함)
+    /// - GardenData.objectData: ???? ObjectData (???? ?? ???? ?? null)
+    /// onSuccess: gardens (???? ??????), objects (gardens?? ?????? 1:1, null ????)
     /// </summary>
     public static void GetGardenDataFromServer(
         Action<List<GardenLoadData>, List<ObjectLoadData>> onSuccess,
@@ -28,8 +28,8 @@ public class GardenControllerAPI : MonoBehaviour
 
                     if (resp != null && resp.status == 200 && resp.data != null)
                     {
-                        var gardens = resp.data; // 여러 개
-                        // 각 garden의 단일 objectData를 1:1로 모음 (null 가능)
+                        var gardens = resp.data; // ???? ??
+                        // ?? garden?? ???? objectData?? 1:1?? ???? (null ????)
                         var objects = gardens.Select(g => g.loadData).ToList();
 
                         onSuccess?.Invoke(gardens, objects);
@@ -49,7 +49,7 @@ public class GardenControllerAPI : MonoBehaviour
     }
 
     /// <summary>
-    /// PATCH /api/garden/update/{x}/{y} (DTO 직접 전달)
+    /// PATCH /api/garden/update/{x}/{y} (DTO ???? ????)
     /// </summary>
     public static void UpdateGardenTile(
         int x, int y,
@@ -62,11 +62,17 @@ public class GardenControllerAPI : MonoBehaviour
             var settings = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,
-                Converters = { new StringEnumConverter() } // "R90" 문자열 enum 대응
+                Converters = { new StringEnumConverter() } // "R90" ?????? enum ????
             };
 
             string json = JsonConvert.SerializeObject(payload, settings);
             string endpoint = $"/api/garden/update/{x}/{y}";
+
+            Action<string> successWrap = res =>
+            {
+                onSuccess?.Invoke(res);
+                BadgeManager.Instance?.NotifyGardenChangedAndCheckBadgesImmediate();
+            };
 
             APIManager.Instance.Patch(endpoint, json, onSuccess, onError);
         }
@@ -77,7 +83,7 @@ public class GardenControllerAPI : MonoBehaviour
     }
 
     /// <summary>
-    /// PATCH /api/garden/update/{x}/{y} (간편 오버로드)
+    /// PATCH /api/garden/update/{x}/{y} (???? ????????)
     /// </summary>
     public static void UpdateGardenTile(
         int x, int y,
@@ -102,7 +108,7 @@ public class GardenControllerAPI : MonoBehaviour
     }
 
     /// <summary>
-    /// PATCH /api/garden/update/{x}/{y} (오브젝트 제거: object를 생략)
+    /// PATCH /api/garden/update/{x}/{y} (???????? ????: object?? ????)
     /// </summary>
     public static void ClearGardenObject(
         int x, int y,
@@ -113,14 +119,14 @@ public class GardenControllerAPI : MonoBehaviour
         var req = new GardenUpdateRequest
         {
             tileType = tileType,
-            objectData = null // NullValueHandling.Ignore로 JSON에서 "object" 빠짐
+            objectData = null // NullValueHandling.Ignore?? JSON???? "object" ????
         };
         UpdateGardenTile(x, y, req, onSuccess, onError);
     }
 
     /// <summary>
     /// PATCH /api/garden/rotate
-    /// - 좌표 (x, y)에 있는 object를 회전시킴
+    /// - ???? (x, y)?? ???? object?? ????????
     /// </summary>
     public static void RotateGardenObject(
         int x, int y,
@@ -168,8 +174,8 @@ public class GardenControllerAPI : MonoBehaviour
 
                     if (resp != null && resp.status == 200 && resp.data != null)
                     {
-                        var gardens = resp.data; // 여러 개
-                        // 각 garden의 단일 objectData를 1:1로 모음 (null 가능)
+                        var gardens = resp.data; // ???? ??
+                        // ?? garden?? ???? objectData?? 1:1?? ???? (null ????)
                         var objects = gardens.Select(g => g.loadData).ToList();
 
                         onSuccess?.Invoke(gardens, objects);

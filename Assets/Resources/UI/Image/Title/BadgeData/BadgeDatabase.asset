@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: BadgeDatabase
   m_EditorClassIdentifier: 
   items:
-  - title: "\uC774\uB85C\uCE58 \uC218\uC9D1 \uB2EC\uC778"
-    description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uC774\uB85C\uCE58
-      \uCD1D 10\uC885 \uB4F1\uB85D"
+  - title: "\uC0C9\uC774 \uB2E4\uB978 \uC2DD\uBB3C \uC218\uC9D1 \uB2EC\uC778"
+    description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uC0C9\uC774 \uB2E4\uB978
+      \uC2DD\uBB3C \uCD1D 10\uC885 \uB4F1\uB85D"
     icon: {fileID: -2249780160586466669, guid: 9358614078e504d8f8ff55587f7f6fc7, type: 3}
     type: 1
     threshold: 10
@@ -47,9 +47,9 @@ MonoBehaviour:
     rewardCount: 1
     statueSprite: {fileID: 8318758899825078127, guid: 96824d6dea2d74dbf98c8f51175079d5, type: 3}
     statueTitle: "\uB808\uC5B4 \uB3C4\uAC10 \uB9C8\uC2A4\uD130 \uB3D9\uC0C1"
-  - title: "\uC774\uB85C\uCE58 \uC218\uC9D1 \uB300\uBD80\uD638"
-    description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uC774\uB85C\uCE58
-      \uCD1D 30\uC885 \uB4F1\uB85D"
+  - title: "\uC0C9\uC774 \uB2E4\uB978 \uC2DD\uBB3C \uC218\uC9D1 \uB300\uBD80\uD638"
+    description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uC0C9\uC774 \uB2E4\uB978
+      \uC2DD\uBB3C\n\uCD1D 30\uC885 \uB4F1\uB85D"
     icon: {fileID: 8365247308834641496, guid: 198157ede871e4db285fb73a3b4ed651, type: 3}
     type: 1
     threshold: 30
@@ -97,7 +97,7 @@ MonoBehaviour:
       30\uC885 \uBC30\uCE58"
     icon: {fileID: -6512582711194300196, guid: da95c8a961a994c02b4e936a3545f760, type: 3}
     type: 4
-    threshold: 39
+    threshold: 30
     rarity: 0
     nameWhitelist: []
     rewardStoreGoodsNumber: 310060

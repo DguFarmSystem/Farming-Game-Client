@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class PurchasePopup : MonoBehaviour
 {
+    [Header("메인 팝업")]
     public RectTransform popupPanel;
     public TMP_Text itemNameText;
     public TMP_Text totalPriceText;
@@ -22,6 +23,7 @@ public class PurchasePopup : MonoBehaviour
     public string itemName;
     private long resourceKeyId;
 
+    [Header("애니메이션")]
     public float slideDuration = 0.5f;
     private Vector2 hiddenPos;
     private Vector2 shownPos;
@@ -63,11 +65,28 @@ public class PurchasePopup : MonoBehaviour
     private string pendingItemName;
     private int pendingCount;
 
+    // 해상도 깨지는 거 해결용 
+    Canvas rootCanvas;
+    RectTransform rootCanvasRT;
+
     private void Awake()
     {
         Instance = this;
 
-        shownPos = popupPanel.anchoredPosition;
+        rootCanvas = GetComponentInParent<Canvas>();
+        rootCanvasRT = rootCanvas ? rootCanvas.transform as RectTransform : null;
+
+        // 좌표 초기화
+        RecomputePositions();
+
+        // 처음엔 비활성화해서 화면 아래에 있어도 보이지 않게
+        if (popupPanel) popupPanel.gameObject.SetActive(false);
+
+        // 완료/실패 패널 비활성화 및 시작 좌표 세팅
+        if (purchaseCompletePanel) purchaseCompletePanel.SetActive(false);
+        if (purchaseFailPanel) purchaseFailPanel.SetActive(false);
+
+        /*shownPos = popupPanel.anchoredPosition;
         hiddenPos = shownPos + new Vector2(0, -Screen.height);
         popupPanel.anchoredPosition = hiddenPos;
 
@@ -82,7 +101,7 @@ public class PurchasePopup : MonoBehaviour
             failPanelStartPos = failPanelShownPos + new Vector2(0, -Screen.height);
             failPanelRect.anchoredPosition = failPanelStartPos;
         }
-        if (purchaseFailPanel != null) purchaseFailPanel.SetActive(false);
+        if (purchaseFailPanel != null) purchaseFailPanel.SetActive(false);*/
 
         plusButton.onClick.AddListener(() => ChangeCount(1));
         minusButton.onClick.AddListener(() => ChangeCount(-1));
@@ -91,6 +110,46 @@ public class PurchasePopup : MonoBehaviour
         inputField.onEndEdit.AddListener(OnInputChanged);
         completeConfirmButton.onClick.AddListener(HideCompletePanel);
         if (failConfirmButton != null) failConfirmButton.onClick.AddListener(HideFailPanel);
+    }
+
+    private void OnRectTransformDimensionsChange()
+    {
+        RecomputePositions();
+    }
+
+    private void RecomputePositions()
+    {
+        if (!popupPanel) return;
+
+        // 표시 위치는 씬에서 배치한 값을 기준
+        shownPos = popupPanel.anchoredPosition;
+
+        // 화면 아래로 충분히 내리도록 여유값 포함
+        float canvasH = rootCanvasRT ? rootCanvasRT.rect.height : Screen.height;
+        float panelH = popupPanel.rect.height;
+        float drop = Mathf.Max(canvasH, panelH) + 100f;
+
+        hiddenPos = shownPos + new Vector2(0, -drop);
+
+        // 메인 팝업이 꺼져 있으면 좌표만 숨김 위치로
+        if (!popupPanel.gameObject.activeSelf)
+            popupPanel.anchoredPosition = hiddenPos;
+
+        // 완료/실패 패널 좌표도 함께 갱신
+        if (completePanelRect)
+        {
+            completePanelShownPos = completePanelRect.anchoredPosition;
+            completePanelStartPos = completePanelShownPos + new Vector2(0, -drop);
+            if (purchaseCompletePanel && !purchaseCompletePanel.activeSelf)
+                completePanelRect.anchoredPosition = completePanelStartPos;
+        }
+        if (failPanelRect)
+        {
+            failPanelShownPos = failPanelRect.anchoredPosition;
+            failPanelStartPos = failPanelShownPos + new Vector2(0, -drop);
+            if (purchaseFailPanel && !purchaseFailPanel.activeSelf)
+                failPanelRect.anchoredPosition = failPanelStartPos;
+        }
     }
 
     public void Open(string itemName, int pricePerItem)
@@ -110,8 +169,13 @@ public class PurchasePopup : MonoBehaviour
         isSingleQtyItem = (resourceKeyId > 0 && resourceKeyId == singleQtyResourceKeyId);
 
         currentCount = 1;
+
+        popupPanel.DOKill();
+        RecomputePositions();
+
         gameObject.SetActive(true);
         popupPanel.gameObject.SetActive(true);
+
         popupPanel.anchoredPosition = hiddenPos;
         popupPanel.DOAnchorPos(shownPos, slideDuration).SetEase(Ease.OutBack);
 

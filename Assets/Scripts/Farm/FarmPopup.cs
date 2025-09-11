@@ -83,6 +83,7 @@ public class FarmPopup : MonoBehaviour
         }
         else
         {
+            UIManager.Instance.OpenCantPlantUI();
             Debug.Log("씨앗이 부족합니다!");
         }
 
