@@ -235,7 +235,7 @@ public class PlacementManager : MonoBehaviour
                     //_hitObject.GetComponent<BaseGrid>().PlacePlant(place.GetComponent<PlantData>());
                     grid.PlacePlant(place.GetComponent<PlantData>());
 
-                    PlantData plantData = grid.GetObject().GetComponent<PlantData>();
+                    PlantData plantData = grid.GetPlant().GetComponent<PlantData>();
                     PlaceableObject placedPlant = plantData.GetComponent<PlaceableObject>();
 
                     GardenControllerAPI.UpdateGardenTile(
