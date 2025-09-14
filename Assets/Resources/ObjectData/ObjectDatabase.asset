@@ -35,7 +35,7 @@ MonoBehaviour:
     id: Tilemap_Stone
     prefab: {fileID: 0}
     sprite: {fileID: -2592956508147909491, guid: 2587a5d5c1df5ea4f8e10b2da84bb29d, type: 3}
-    count: 1
+    count: 0
     type: 0
     sellprice: -1
     storeGoodsNumber: 400040
@@ -44,7 +44,7 @@ MonoBehaviour:
     id: Tilemap_Water
     prefab: {fileID: 0}
     sprite: {fileID: 7351637415587066830, guid: 8e9bf0f1540d6ac48b93a5a758fec95e, type: 3}
-    count: 1074
+    count: 1076
     type: 0
     sellprice: -1
     storeGoodsNumber: 400030
@@ -62,7 +62,7 @@ MonoBehaviour:
     id: Deco_Pot_Bamboo
     prefab: {fileID: 0}
     sprite: {fileID: 6227538660288444684, guid: f720c77f4991d1a44b92af80cec8ca0f, type: 3}
-    count: 10
+    count: 6
     type: 1
     sellprice: 300
     storeGoodsNumber: 200041
@@ -89,7 +89,7 @@ MonoBehaviour:
     id: Deco_Chair_Wood
     prefab: {fileID: 0}
     sprite: {fileID: 8288587855404676360, guid: cadffb5b3e5257641ae3ed22daef715e, type: 3}
-    count: 3
+    count: 1
     type: 1
     sellprice: 150
     storeGoodsNumber: 200051
@@ -179,7 +179,7 @@ MonoBehaviour:
     id: Deco_Statue_DexBeginner
     prefab: {fileID: 0}
     sprite: {fileID: 4211474018222244093, guid: 68d420d9ec9c644d29e5818cf05b885f, type: 3}
-    count: 1
+    count: 0
     type: 1
     sellprice: -1
     storeGoodsNumber: 310010
@@ -224,7 +224,7 @@ MonoBehaviour:
     id: Deco_Statue_DecoLover
     prefab: {fileID: 0}
     sprite: {fileID: 9072940456001523895, guid: 534ad65e98cf8492d8224f4689f3dfad, type: 3}
-    count: 1
+    count: 0
     type: 1
     sellprice: -1
     storeGoodsNumber: 310060
@@ -296,7 +296,7 @@ MonoBehaviour:
     id: Deco_Wildrose
     prefab: {fileID: 0}
     sprite: {fileID: 604724491792995080, guid: 18f4b694a83c25044bf50bd0325f9e8f, type: 3}
-    count: 1
+    count: 0
     type: 2
     sellprice: 300
     storeGoodsNumber: 100020
@@ -827,7 +827,7 @@ MonoBehaviour:
     id: WhiteWood_Fence
     prefab: {fileID: 0}
     sprite: {fileID: 8159150672527780840, guid: cd12fa4c6cf8697439f605a8261bc129, type: 3}
-    count: 5
+    count: 4
     type: 1
     sellprice: 600
     storeGoodsNumber: 200020
@@ -836,7 +836,7 @@ MonoBehaviour:
     id: Metal_Fence
     prefab: {fileID: 0}
     sprite: {fileID: 4815790080164226239, guid: 55c8020227c49e74b9b972763892c483, type: 3}
-    count: 7
+    count: 4
     type: 1
     sellprice: 0
     storeGoodsNumber: 200030
