@@ -2,7 +2,7 @@ name: Unity WebGL → Deploy
 
 on:
   push:
-    branches: [ "Build" ]            # Build 브랜치 푸시 시 자동 실행
+    branches: [ "Build", "main" ]            # Build랑 main 브랜치 푸시 시 자동 실행
   workflow_dispatch:                 # 수동 실행 지원
 
 env:
@@ -15,6 +15,7 @@ jobs:
   build-webgl:
     name: Build (WebGL)
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout (with LFS)
         uses: actions/checkout@v4
@@ -58,9 +59,24 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DEPLOY_REPO: farmsystem-account/HomePage-FE
-      DEPLOY_BRANCH: develop         # ← main으로 쓰면 'main'으로 변경
       TARGET_SUBDIR: apps/farminglog/public/WebGLBuild/BuildTest
     steps:
+      # 0) 배포 브랜치 분기: Build -> develop, main -> main
+      - name: Decide DEPLOY_BRANCH by source branch
+        id: plan
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="${GITHUB_REF_NAME}"
+          if [ "$SRC" = "Build" ]; then
+            DEPLOY_BRANCH="develop"
+          elif [ "$SRC" = "main" ]; then
+            DEPLOY_BRANCH="main"
+          else
+            echo "Unsupported branch: $SRC"; exit 1
+          fi
+          echo "DEPLOY_BRANCH=$DEPLOY_BRANCH" | tee -a "$GITHUB_ENV"
+          echo "branch=$DEPLOY_BRANCH" >> "$GITHUB_OUTPUT"
       # 1) 빌드 산출물 다운로드
       - name: Download artifact
         uses: actions/download-artifact@v4
