@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 
 public class FarmGroundAPI
 {
-    private static string baseUrl = "https://api.farmsystem.kr";
     public static string AccessToken { get; set; } = null;
 
     private static void SetHeaders(UnityWebRequest req)
