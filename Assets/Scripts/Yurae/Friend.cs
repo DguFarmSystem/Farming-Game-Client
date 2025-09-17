@@ -1,4 +1,4 @@
-// TMPro
+ï»¿// TMPro
 using TMPro;
 
 // Unity
@@ -26,22 +26,22 @@ public class Friend : MonoBehaviour
         switch (_track)
         {
             case "UNION":
-                return "À¯´Ï¿Â";
+                return "ìœ ë‹ˆì˜¨";
 
             case "SECURITY_WEB":
-                return "À¥/º¸¾È";
+                return "ì›¹/ë³´ì•ˆ";
 
             case "AI":
-                return "ÀÎ°øÁö´É";
+                return "ì¸ê³µì§€ëŠ¥";
 
             case "IOT_ROBOTICS":
-                return "»ç¹°ÀÎÅÍ³İ";
+                return "ì‚¬ë¬¼ì¸í„°ë„·";
 
             case "BIGDATA":
-                return "ºòµ¥ÀÌÅÍ";
+                return "ë¹…ë°ì´í„°";
 
             case "GAMING_VIDEO":
-                return "°ÔÀÓ/¿µ»ó";
+                return "ê²Œì„/ì˜ìƒ";
 
             default:
                 return "Error";
