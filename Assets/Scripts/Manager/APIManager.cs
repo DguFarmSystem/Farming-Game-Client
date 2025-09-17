@@ -51,8 +51,11 @@ public class APIManager : MonoBehaviour
     #endregion
 
 
-
+#if UNITY_EDITOR
     [SerializeField] private string baseUrl = "https://api.dev.farmsystem.kr";
+#else
+    [SerializeField] private string baseUrl = "https://api.farmsystem.kr";  
+#endif
     public string AccessToken = "";
 
     /// <summary>호스트 페이지에서 토큰을 푸시로 주입</summary>
@@ -72,7 +75,7 @@ public class APIManager : MonoBehaviour
     {
         string token = null;
 
-    #if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL && !UNITY_EDITOR
             try
             {
                 // 1) localStorage: fauth-storage(JSON) -> state.accessToken
@@ -111,7 +114,7 @@ public class APIManager : MonoBehaviour
             {
                 Debug.LogWarning("[API] TryLoadTokenFromBrowser error: " + e.Message);
             }
-    #endif
+#endif
         return token;
     }
     

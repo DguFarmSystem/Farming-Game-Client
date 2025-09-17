@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 using System.Collections.Generic;
+using System.Collections;
 
 [System.Serializable]
 public class UserSearchResponse
@@ -168,9 +169,12 @@ public class FriendManager : MonoBehaviour
         confirmButton.onClick.RemoveAllListeners();
     }
 
-    public void GetFriendData(long userID)
+    private IEnumerator GetFriendDataCoroutine(long userID)
     {
-        fadeManager.FadeIn();
+        fadeManager.FadeInOut();
+
+        yield return new WaitForSeconds(1f);
+
         gridManager.LoadDataFromServer(true, userID);
 
         CloseConfirmPopup();
@@ -187,9 +191,22 @@ public class FriendManager : MonoBehaviour
         returnButton.gameObject.SetActive(true);
     }
 
+    public void GetFriendData(long userID)
+    {
+        StartCoroutine(GetFriendDataCoroutine(userID));
+    }
+
     public void ReturnMyGarden()
     {
-        fadeManager.FadeIn();
+        StartCoroutine(RetrunMyGardenCoroutine());
+    }
+
+    private IEnumerator RetrunMyGardenCoroutine()
+    {
+        fadeManager.FadeInOut();
+
+        yield return new WaitForSeconds(1f);
+
         gridManager.Build();
 
         foreach (GameObject obj in offUI)
