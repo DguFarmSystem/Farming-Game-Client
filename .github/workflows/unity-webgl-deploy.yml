@@ -61,6 +61,10 @@ jobs:
       DEPLOY_REPO: farmsystem-account/HomePage-FE
       TARGET_SUBDIR: apps/farminglog/public/WebGLBuild/BuildTest
     steps:
+      - name: Echo source ref
+        run: 
+          echo "SRC GITHUB_REF=$GITHUB_REF"
+          echo "SRC GITHUB_REF_NAME=$GITHUB_REF_NAME"
       # 0) 배포 브랜치 분기: Build -> develop, main -> main
       - name: Decide DEPLOY_BRANCH by source branch
         id: plan
@@ -152,3 +156,9 @@ jobs:
           git commit -m "Deploy WebGL build: ${GITHUB_SHA}" || echo "No changes to commit"
           git pull --rebase origin "${DEPLOY_BRANCH}" || true
           git push origin "${DEPLOY_BRANCH}"
+      - name: Show target repo HEAD/branch
+        working-directory: deploy
+        run: |
+          git status
+          echo "Current branch: $(git rev-parse --abbrev-ref HEAD)"
+          echo "HEAD: $(git rev-parse HEAD)"
