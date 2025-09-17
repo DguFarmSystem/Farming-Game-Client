@@ -37,6 +37,8 @@ public class FadeManager : MonoBehaviour
     {
         // ¸ÕÀú ¾îµÎ¿öÁü
         yield return Fade(0f, 1f, fadeDuration, null);
+
+        yield return new WaitForSeconds(1f);
         // ´Ù½Ã ¹à¾ÆÁü
         yield return Fade(1f, 0f, fadeDuration, null);
 
