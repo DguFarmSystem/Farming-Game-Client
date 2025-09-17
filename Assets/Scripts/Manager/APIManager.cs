@@ -31,6 +31,30 @@ public class APIManager : MonoBehaviour
         }
         else { Destroy(gameObject); }
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+        try
+        {
+            string host = GetHostFromUrl(Application.absoluteURL);
+            if (!string.IsNullOrEmpty(host))
+            {
+                if (host.Equals("dev.farminglog.farmsystem.kr", StringComparison.OrdinalIgnoreCase))
+                {
+                    baseUrl = "https://api.dev.farmsystem.kr";
+                }
+                else if (host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
+                {
+                    baseUrl = "https://api.dev.farmsystem.kr";
+                }
+                else if (host.Equals("farminglog.farmsystem.kr", StringComparison.OrdinalIgnoreCase))
+                {
+                    baseUrl = "https://api.farmsystem.kr";
+                }
+                Debug.Log($"[API] Host='{host}', baseUrl='{baseUrl}'");
+            }
+        }
+        catch { }
+#endif
+
         StartCoroutine(CheckUrlRoutine(baseUrl));
 
         #if UNITY_WEBGL && !UNITY_EDITOR
@@ -180,6 +204,17 @@ public class APIManager : MonoBehaviour
         }
         catch { }
         return null;
+    }
+
+    private static string GetHostFromUrl(string url)
+    {
+        if (string.IsNullOrEmpty(url)) return null;
+        try
+        {
+            var uri = new Uri(url);
+            return uri.Host;
+        }
+        catch { return null; }
     }
 
     /// <summary>요청 전에 토큰을 자동 확보(빈 값/만료 시 브라우저에서 재로드)</summary>
