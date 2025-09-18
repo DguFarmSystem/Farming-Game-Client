@@ -1,4 +1,4 @@
-﻿// Unity
+// Unity
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;

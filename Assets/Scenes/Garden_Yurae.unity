@@ -4923,8 +4923,8 @@ MonoBehaviour:
   m_text: "\uC815\uC6D0\uC744 \uAD6C\uACBD\uD560 \uCE5C\uAD6C\uC758 \uC774\uB984\uC744
     \uAC80\uC0C9\uD574 \uBCF4\uC138\uC694."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e18d07e7ec5f1f46a058d9925bdf220, type: 2}
-  m_sharedMaterial: {fileID: -8027797213181600456, guid: 7e18d07e7ec5f1f46a058d9925bdf220, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b0833f12f66c04e7f9fe2cb1a90baa80, type: 2}
+  m_sharedMaterial: {fileID: 8009178392746496709, guid: b0833f12f66c04e7f9fe2cb1a90baa80, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5059,8 +5059,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e18d07e7ec5f1f46a058d9925bdf220, type: 2}
-  m_sharedMaterial: {fileID: -8027797213181600456, guid: 7e18d07e7ec5f1f46a058d9925bdf220, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b0833f12f66c04e7f9fe2cb1a90baa80, type: 2}
+  m_sharedMaterial: {fileID: 8009178392746496709, guid: b0833f12f66c04e7f9fe2cb1a90baa80, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8931,6 +8931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flowerData: {fileID: 11400000, guid: 95b60305e7d09804f806e6715506498c, type: 2}
+  objectDB: {fileID: 0}
   weightNormal: 20
   weightRare: 10
   weightEpic: 4
