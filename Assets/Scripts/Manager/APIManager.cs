@@ -76,7 +76,7 @@ public class APIManager : MonoBehaviour
 
 
 
-    [SerializeField] private string baseUrl = "https://api.farmsystem.kr";
+    [SerializeField] private string baseUrl = "https://api.dev.farmsystem.kr";
     public string AccessToken = "";
 
     /// <summary>호스트 페이지에서 토큰을 푸시로 주입</summary>
