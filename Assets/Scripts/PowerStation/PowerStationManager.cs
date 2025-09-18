@@ -196,7 +196,7 @@ public class PowerStationManager : MonoBehaviour
     double totalSeconds = elapsed.TotalSeconds;
 
     float percent = Mathf.Clamp01((float)(totalSeconds / maxTime)) * 100f;
-    int availableSunlight = Mathf.FloorToInt(percent) / 2;
+    int availableSunlight = Mathf.FloorToInt(percent);
 
     StartCoroutine(PlaySunlightEffect());
 

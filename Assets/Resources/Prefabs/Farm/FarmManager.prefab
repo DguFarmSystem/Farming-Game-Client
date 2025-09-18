@@ -252,6 +252,8 @@ MonoBehaviour:
   root: {fileID: 0}
   plantButton: {fileID: 0}
   harvestButton: {fileID: 0}
+  closebutton: {fileID: 0}
+  closebutton_2: {fileID: 0}
 --- !u!1 &2961255556103619138
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,15 +683,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dacbc7d4f60459049be937855ddbf98c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 6499032123209523492, guid: 9e08a3fd68ccfc040b9760a1fe06b475, type: 3}
   tileParent: {fileID: 8738044005628103780}
   uid: 
-  emptySprite: {fileID: 2390152557885603234, guid: 20a37e46ddc76284283b7fcd0aa772b5, type: 3}
-  seedSprite: {fileID: 3333232157640528439, guid: 08d5c16c022d0744980eb823f9b76a03, type: 3}
-  growingSprite: {fileID: 8611649983264467480, guid: 7c3e7237f8de8f44a8ba15f1d38c78da, type: 3}
-  growingSprite_1: {fileID: -3519646556253256247, guid: 775a8092395b98343a26b86b430b76ba, type: 3}
-  growingSprite_2: {fileID: -9116844328216613615, guid: da1dec01fc079b041ae42e95bc707fa8, type: 3}
-  grownSprite: {fileID: 811154751681645380, guid: 677fc3e216812de42a47f2c20917655e, type: 3}
+  plotIdPrefixOverride: 
+  emptySprite: {fileID: 7703187970202833108, guid: 24f53a773a2bc2f4687c9d568e88568f, type: 3}
+  seedSprite: {fileID: 5848904031261515685, guid: 9dd52b8630f19f44f88112e957767169, type: 3}
+  growingSprite: {fileID: 732319165200410968, guid: 56a9f41a51c137e44bd78ba4a08b5796, type: 3}
+  growingSprite_1: {fileID: 4456247526651915794, guid: fa08d57d51b90ce46a082dea89554dea, type: 3}
+  growingSprite_2: {fileID: 1019769988471428466, guid: 30612524a09629b4aaa119dae567e467, type: 3}
+  grownSprite: {fileID: -1834417470006383229, guid: bfdfb930af5b8654383efcba5f7ec4c1, type: 3}
 --- !u!1 &7250823766382734265
 GameObject:
   m_ObjectHideFlags: 0
