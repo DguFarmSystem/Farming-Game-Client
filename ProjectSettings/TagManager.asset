@@ -10,6 +10,7 @@ TagManager:
   - Object
   - Plant
   - BuildManager
+  - Tree
   layers:
   - Default
   - TransparentFX
