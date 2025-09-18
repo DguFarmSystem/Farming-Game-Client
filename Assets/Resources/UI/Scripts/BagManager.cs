@@ -185,7 +185,7 @@ public class BagManager : MonoBehaviour
                 }
             }
 
-            bool sellable = objectDatabase.IsSellable(i);
+            //bool sellable = objectDatabase.IsSellable(i);
 
             int sellPrice = objectDatabase.GetSellPrice(i);
 

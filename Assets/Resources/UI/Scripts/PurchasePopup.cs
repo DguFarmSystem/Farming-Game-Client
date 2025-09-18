@@ -69,12 +69,22 @@ public class PurchasePopup : MonoBehaviour
     Canvas rootCanvas;
     RectTransform rootCanvasRT;
 
+    private bool shownPosCaptured = false;
+    private Vector2 designShownPos;
+
     private void Awake()
     {
         Instance = this;
 
         rootCanvas = GetComponentInParent<Canvas>();
         rootCanvasRT = rootCanvas ? rootCanvas.transform as RectTransform : null;
+
+        if (popupPanel && !shownPosCaptured)
+        {
+            designShownPos = popupPanel.anchoredPosition;
+            shownPos = designShownPos;
+            shownPosCaptured = true;
+        }
 
         // 좌표 초기화
         RecomputePositions();
@@ -103,6 +113,8 @@ public class PurchasePopup : MonoBehaviour
         }
         if (purchaseFailPanel != null) purchaseFailPanel.SetActive(false);*/
 
+
+        // 사운드
         plusButton.onClick.AddListener(() => ChangeCount(1));
         minusButton.onClick.AddListener(() => ChangeCount(-1));
         confirmButton.onClick.AddListener(OnConfirm);
@@ -122,7 +134,7 @@ public class PurchasePopup : MonoBehaviour
         if (!popupPanel) return;
 
         // 표시 위치는 씬에서 배치한 값을 기준
-        shownPos = popupPanel.anchoredPosition;
+        shownPos = designShownPos;
 
         // 화면 아래로 충분히 내리도록 여유값 포함
         float canvasH = rootCanvasRT ? rootCanvasRT.rect.height : Screen.height;

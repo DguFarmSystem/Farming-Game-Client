@@ -13,6 +13,9 @@ public class FlowerDataManager : MonoBehaviour
     public static FlowerDataManager Instance { get; private set; }
 
     public FlowerDataSO flowerData;
+    private Dictionary<int, string> _dexIdToKo;
+
+    [SerializeField] private ObjectDatabase objectDB;
 
     // 등급별 가중치 (노말:레어:에픽:레전드 = 20:10:4:1)
     [Header("등급 가중치")]
@@ -28,8 +31,46 @@ public class FlowerDataManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        BuildNameCache();
     }
-    
+
+    private void BuildNameCache()
+    {
+        _dexIdToKo = new Dictionary<int, string>();
+        if (flowerData == null || objectDB == null) return;
+
+        foreach (var f in flowerData.flowerList)
+        {
+            if (f == null) continue;
+            if (objectDB.TryGetIndexByStoreNo(f.dexId, out var idx))
+            {
+                var ko = objectDB.GetName(idx);
+                if (!string.IsNullOrEmpty(ko))
+                    _dexIdToKo[f.dexId] = ko;
+            }
+        }
+    }
+
+    public string GetDisplayName(string flowerName)
+    {
+        if (string.IsNullOrEmpty(flowerName) || flowerData == null) return flowerName;
+
+        var f = flowerData.flowerList.Find(x => x != null && x.flowerName == flowerName);
+        if (f == null) return flowerName;
+
+        if (_dexIdToKo != null && _dexIdToKo.TryGetValue(f.dexId, out var ko))
+            return ko;
+
+        if (objectDB != null && objectDB.TryGetIndexByStoreNo(f.dexId, out var idx))
+        {
+            var nameKo = objectDB.GetName(idx);
+            return string.IsNullOrEmpty(nameKo) ? flowerName : nameKo;
+        }
+
+        return flowerName;
+    }
+
     //도감 등록
     public void RegisterFlower(string flowerName, long flower_servermapping)
     {

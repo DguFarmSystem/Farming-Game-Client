@@ -28,6 +28,14 @@ public class FlowerSlotUI : MonoBehaviour
         imageIcon.preserveAspect = true;
         imageIcon.gameObject.SetActive(true);
 
-        textName.text = collected ? flowerNameCache : "???";
+        if (collected)
+        {
+            string display = FlowerDataManager.Instance?.GetDisplayName(flowerNameCache) ?? flowerNameCache;
+            textName.text = display; 
+        }
+        else
+        {
+            textName.text = "???";
+        }
     }
 }

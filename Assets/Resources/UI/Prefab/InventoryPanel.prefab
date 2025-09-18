@@ -178,6 +178,8 @@ MonoBehaviour:
   minusBtn: {fileID: 1029892356104908999}
   okBtn: {fileID: 6324147417464742606}
   cancelBtn: {fileID: 8892458691986762651}
+  CountImage: {fileID: 6104997021463181288}
+  GoldImage: {fileID: 3572178951601745901}
   doneOkBtn: {fileID: 3575253764921066111}
   slideOffset: 80
   openDur: 0.2

@@ -1278,6 +1278,7 @@ MonoBehaviour:
   - {fileID: -8202120247899757025, guid: 6ef524ead55824a36af112bc0119252a, type: 3}
   - {fileID: 938523422756582871, guid: 225d3c10025a54e5d95e7a386468ce1d, type: 3}
   slotManager: {fileID: 2850252906554652860}
+  dexEndpoint: /api/dex
 --- !u!225 &8791100567317444443
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1381,10 +1382,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b46a2217c0d4bd9b67d27f6d555601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dex: {fileID: 11400000, guid: 95b60305e7d09804f806e6715506498c, type: 2}
   slotPrefab: {fileID: 1207902481918496432, guid: f93eed5c9b48c4eb8b9c75e488274690, type: 3}
   contentParent: {fileID: 1205806505876779768}
-  flowerTooltip: {fileID: 8715486158917013842, guid: 0456d609030a542e0bc7c46505e378c8, type: 3}
+  objectDatabase: {fileID: 0}
 --- !u!1 &7379807034794586270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,7 +1551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1205806505876779768}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1

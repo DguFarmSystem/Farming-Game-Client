@@ -28,7 +28,7 @@ MonoBehaviour:
     sprite: {fileID: 4966695935349635398, guid: 0fe185a70c4276243b131476f053f6ee, type: 3}
     count: 0
     type: 0
-    sellprice: -1
+    sellprice: 200
     storeGoodsNumber: 400020
     isStatue: 0
   - name: "\uB3CC"
@@ -37,16 +37,16 @@ MonoBehaviour:
     sprite: {fileID: -2592956508147909491, guid: 2587a5d5c1df5ea4f8e10b2da84bb29d, type: 3}
     count: 0
     type: 0
-    sellprice: -1
+    sellprice: 500
     storeGoodsNumber: 400040
     isStatue: 0
   - name: "\uBB3C"
     id: Tilemap_Water
     prefab: {fileID: 0}
     sprite: {fileID: 7351637415587066830, guid: 8e9bf0f1540d6ac48b93a5a758fec95e, type: 3}
-    count: 1076
+    count: 2
     type: 0
-    sellprice: -1
+    sellprice: 500
     storeGoodsNumber: 400030
     isStatue: 0
   - name: "\uC57C\uC790\uC218 \uD654\uBD84"

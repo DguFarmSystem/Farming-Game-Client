@@ -285,16 +285,4 @@ public class ObjectDatabase : ScriptableObject
             return data[index].sellprice;
         return 0;
     }
-
-    public bool IsSellable(int index)
-    {
-        if (data == null || !InRange(index)) return false;
-        var d = data[index];
-
-        // ?? ??
-        if (d.type == PlaceType.Tile) return false;
-        if (d.type == PlaceType.Object && d.isStatue) return false;
-
-        return true;
-    }
 }

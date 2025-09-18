@@ -14,6 +14,9 @@ public class SellPopup : MonoBehaviour
     [SerializeField] TMP_Text countTxt;
     [SerializeField] TMP_Text goldTxt;
     [SerializeField] Button plusBtn, minusBtn, okBtn, cancelBtn;
+    [SerializeField] Image CountImage;
+    [SerializeField] Image GoldImage;
+
     [Header("Done UI")]
     [SerializeField] Button doneOkBtn;
     [Header("Anim")]
@@ -42,7 +45,7 @@ public class SellPopup : MonoBehaviour
         while (t.parent != null) { t = t.parent; p = t.name + "/" + p; }
         return p;
     }
-    
+
     public void Open(ObjectDatabase database, int itemIndex, int defaultUnitPrice)
     {
         if (sellEndpoint != null && sellEndpoint.EndsWith("/object"))
@@ -57,10 +60,38 @@ public class SellPopup : MonoBehaviour
         unitPrice = defaultUnitPrice;
 
         var name = db.GetName(index);
-        itemName.text = $"{name} 판매하시겠습니까?\n(판매한 물품은 되돌릴 수 없습니다.)";
 
-        max = Mathf.Max(0, db.GetCountFromIndex(index));
-        sel = (max > 0) ? Mathf.Clamp(sel, 1, max) : 0;
+        if (unitPrice > 0)
+        {
+            itemName.text = $"{name}을(를) 판매하시겠습니까?\n(판매한 물품은 되돌릴 수 없습니다.)";
+
+            max = Mathf.Max(0, db.GetCountFromIndex(index));
+            sel = (max > 0) ? Mathf.Clamp(sel, 1, max) : 0;
+
+            // UI 켜기
+            countTxt.gameObject.SetActive(true);
+            goldTxt.gameObject.SetActive(true);
+            plusBtn.gameObject.SetActive(true);
+            minusBtn.gameObject.SetActive(true);
+            okBtn.gameObject.SetActive(true);
+            CountImage.gameObject.SetActive(true);
+            GoldImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            itemName.text = $"{name}은(는)\n 판매할 수 없는 아이템입니다.";
+            max = 0;
+            sel = 0;
+
+            // UI 숨기기
+            countTxt.gameObject.SetActive(false);
+            goldTxt.gameObject.SetActive(false);
+            plusBtn.gameObject.SetActive(false);
+            minusBtn.gameObject.SetActive(false);
+            okBtn.gameObject.SetActive(true);
+            CountImage.gameObject.SetActive(false);
+            GoldImage.gameObject.SetActive(false);
+        }
 
         Wire();
         Refresh();

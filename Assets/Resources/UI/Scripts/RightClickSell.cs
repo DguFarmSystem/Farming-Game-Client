@@ -14,17 +14,24 @@ public class RightClickSell : MonoBehaviour, IPointerClickHandler
     {
         if (e.button != PointerEventData.InputButton.Right) return;
 
-        if (price <= 0) return;
+        var canvas = GetComponentInParent<Canvas>()?.transform ?? transform;
+        if (popupPrefab == null) return;
 
+        // 가격이 0 이하라면 "판매 불가" 팝업 띄우기
+        if (price <= 0)
+        {
+            Instantiate(popupPrefab, canvas).Open(db, index, price);
+            return;
+        }
+
+        // 판매 가능한 경우
         if (menu != null)
         {
             menu.Show(db, index, popupPrefab, price, e.position);
         }
         else
         {
-            var canvas = GetComponentInParent<Canvas>()?.transform ?? transform;
-            if (popupPrefab != null)
-                Instantiate(popupPrefab, canvas).Open(db, index, price);
+            Instantiate(popupPrefab, canvas).Open(db, index, price);
         }
     }
 }
