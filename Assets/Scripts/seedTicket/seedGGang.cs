@@ -7,12 +7,17 @@ public class seedGGang : MonoBehaviour
 {
     public GameObject popupUI; //띄울 씨앗깡 유아이
     public GameObject resultUI; //결과 유아이
+    public GameObject chest; // 상자 오브젝트
     public TMP_Text ticketText; //티켓 수
     public Button drawButton; // 뽑기 버튼
     public Button yesButton; // 확인 버튼
     public Button exitButton; //나가기 버튼
-    public Animator chestAnimator; //
     public TMP_Text resultText; //결과 텍스트
+    public GameObject childGroup; //상자뺀 나머지 그룹
+
+
+    public Image darkBackground; // 검은 배경
+    public Image whiteFlash;     // 흰 화면 플래시
 
     private GameObject currentPopup; //현재 팝업창
     private void OnEnable()
@@ -41,28 +46,37 @@ public class seedGGang : MonoBehaviour
     {
         if (!CurrencyManager.Instance.SpendSeedTicket(1)) return;
 
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         Debug.Log("씨앗 뽑기!");
-        int amount = UnityEngine.Random.Range(1, 6);
-        CurrencyManager.Instance.AddSeedCount(amount);
+    
 
-        StartCoroutine(PlayDrawAnimation(amount));
+        StartCoroutine(PlayDrawAnimation());
 
 
     }
 
-    private IEnumerator PlayDrawAnimation(int amount)
+    private IEnumerator PlayDrawAnimation()
     {
         // 기존 팝업 닫고 결과창 열기
-        popupUI.SetActive(false);
+        childGroup.SetActive(false);
+
+        // 1. 검은 배경 페이드 인
+        yield return StartCoroutine(FadeImage(darkBackground, 0f, 0.95f, 1f));
+
+        // 2. 상자 흔들리기
+        // 상자 흔들기 실행 (Transform 넘겨주기)
+        yield return StartCoroutine(ShakeChest(chest.transform));
+
+        // 4. 하얀 플래시 순간 효과
+        yield return StartCoroutine(FlashWhiteScreen());
+
+        // 5. 결과 출력
+        int amount = UnityEngine.Random.Range(1, 6);
+        CurrencyManager.Instance.AddSeedCount(amount);
         resultUI.SetActive(true);
-        resultText.text = "";
-
-
-        //chestAnimator.SetTrigger("Open");
-        yield return new WaitForSeconds(1f);
-        resultText.text = "X" + amount.ToString(); // 초기화
+        resultText.text = "X" + amount.ToString();
+        GameManager.Sound.SFXPlay("SFX_Result");
     }
-
     public void ClosePopup()
     {
         popupUI.SetActive(false);
@@ -70,11 +84,65 @@ public class seedGGang : MonoBehaviour
 
     public void CloseResultUI()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         UIManager.Instance.HideAll(); //전부 꺼주기
     }
 
     public void closeAll()
     {
+        GameManager.Sound.SFXPlay("SFX_ButtonCancle");
         UIManager.Instance.HideAll(); //전부 꺼주기
+    }
+
+    //이미지 페이드 연출
+    private IEnumerator FadeImage(Image img, float fromAlpha, float toAlpha, float duration)
+    {
+        Color c = img.color;
+        float timer = 0f;
+
+        while (timer < duration)
+        {
+            float alpha = Mathf.Lerp(fromAlpha, toAlpha, timer / duration);
+            img.color = new Color(c.r, c.g, c.b, alpha);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        img.color = new Color(c.r, c.g, c.b, toAlpha);
+    }
+
+    //화면 플래시 연출
+    private IEnumerator FlashWhiteScreen()
+    {
+        whiteFlash.gameObject.SetActive(true);
+
+        yield return FadeImage(whiteFlash, 0f, 1f, 1f);
+
+        // 순간 밝게
+        whiteFlash.color = new Color(1, 1, 1, 1f);
+        yield return new WaitForSeconds(0.1f);
+
+        // 점점 사라짐
+        yield return FadeImage(whiteFlash, 1f, 0f, 1f);
+        whiteFlash.gameObject.SetActive(false);
+    }
+
+    //상자 흔들림 연출
+    private IEnumerator ShakeChest(Transform chestTransform, float duration = 2f, float angle = 5f, int vibrato = 2)
+    {
+        Quaternion originalRotation = chestTransform.localRotation;
+        float elapsed = 0f;
+        int direction = 1;
+
+        while (elapsed < duration)
+        {
+            float shakeAngle = Mathf.Sin(elapsed * vibrato * Mathf.PI) * angle * direction;
+            chestTransform.localRotation = Quaternion.Euler(0, 0, shakeAngle);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        chestTransform.localRotation = originalRotation;
+        chest.SetActive(false);
     }
 }

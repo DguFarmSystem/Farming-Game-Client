@@ -5,47 +5,52 @@ using System.Collections;
 
 public class RPS : MonoBehaviour
 {
+    public MinigamePopup minigamePopup;
+
     public Image currentImage;
     public Sprite rockSprite, paperSprite, scissorsSprite;
     public Image winBox, drawBox, loseBox;
     public Button rockButton, paperButton, scissorsButton;
-    public Button desciptionButton, startButton;
-    public Image winCountImg;
-    public Sprite win0, win1, win2, win3;
-
-    public GameResult gameResult;
 
     private Sprite[] choiceSprites;
-    private Sprite[] winCountSprites;
     public int round = 0;
     public int winCount = 0;
     public int current = 0;
+    public int result = 0; // -1패, 0무, 1승
+    public int currentGold = 0;
     public bool isShuffling = false;
 
     private Coroutine autoExitCoroutine;
+    private AudioSource shuffleSFX;
 
     void Start()
     {
         choiceSprites = new Sprite[] { rockSprite, paperSprite, scissorsSprite };
-        winCountSprites = new Sprite[] { win0, win1, win2, win3 };
-        startButton.onClick.AddListener(StartGame);
         rockButton.onClick.AddListener(() => PlayerSelect(0));
         paperButton.onClick.AddListener(() => PlayerSelect(1));
         scissorsButton.onClick.AddListener(() => PlayerSelect(2));
         winBox.gameObject.SetActive(false);
         loseBox.gameObject.SetActive(false);
         drawBox.gameObject.SetActive(false);
-        winCountImg.sprite = winCountSprites[0];
+
+        minigamePopup.onStart = () => { StartGame(); };
+        minigamePopup.onNextRound = () => { NextRound(); };
+        minigamePopup.onExit = () => { StopAllCoroutines(); };
     }
 
     void StartGame()
     {
-        startButton.enabled = false;
-        round = 0;
+        round = 1;
         winCount = 0;
-        winCountImg.sprite = winCountSprites[winCount];
-        
-        // 게임 전체 횟수 ++
+        current = 0;
+        result = 0;
+        currentGold = 0;
+        StartCoroutine(ShuffleImages());
+    }
+
+    void NextRound()
+    {
+        round++;
         StartCoroutine(ShuffleImages());
     }
 
@@ -56,12 +61,16 @@ public class RPS : MonoBehaviour
         loseBox.gameObject.SetActive(false);
         drawBox.gameObject.SetActive(false);
 
+        if (shuffleSFX == null || !shuffleSFX.isPlaying)
+            shuffleSFX = GameManager.Sound.SFXPlay("SFX_PSR", true);
         autoExitCoroutine = StartCoroutine(AutoExitCoroutine());
         while (isShuffling) {
             currentImage.sprite = choiceSprites[current];
             current = (current + 1) % 3;
             yield return new WaitForSeconds(0.1f);
         }
+        GameManager.Sound.SFXStop(shuffleSFX);
+        shuffleSFX = null;
     }
 
     void PlayerSelect(int player)
@@ -72,32 +81,52 @@ public class RPS : MonoBehaviour
             autoExitCoroutine = null;
         }
 
+        GameManager.Sound.SFXPlay("SFX_PSR_Select");
         isShuffling = false;
-        round++;
         int com = (current + 2) % 3;
 
         if (player == com) {
+            result = 0;
             drawBox.gameObject.SetActive(true);
         }
         else if ((player == 0 && com == 2) || (player == 1 && com == 0) || (player == 2 && com == 1)) {
-            winBox.gameObject.SetActive(true);
+            result = 1;
             winCount++;
-            winCountImg.sprite = winCountSprites[winCount];
+            winBox.gameObject.SetActive(true);
         }
         else {
+            result = -1;
             loseBox.gameObject.SetActive(true);
         }
-        StartCoroutine(Hold());
+
+        if (player == com)
+            StartCoroutine(Hold(() => {StartCoroutine(ShuffleImages());}));
+        else
+            StartCoroutine(Hold(() => {Result();}));
     }
 
-    IEnumerator Hold()
+    IEnumerator Hold(System.Action callback)
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
+        callback?.Invoke();
+    }
 
-        if (round == 3)
-            gameResult.SaveResult("RPS", winCount);
-        else
-            StartCoroutine(ShuffleImages());
+    void Result()
+    {
+        GameManager.Sound.SFXPlay((result == 1 ? "SFX_PSR_Clear" : "SFX_PSR_Lose"));
+        if (round == 1 && result < 1) currentGold = 0;
+        else if (round == 1 && result == 1) currentGold = 2000;
+        else if (round == 2 && result < 1) currentGold = 1000;
+        else if (round == 2 && result == 1) currentGold = 5000;
+        else if (round == 3 && result < 1) currentGold = 4000;
+        else if (round == 3 && result == 1) currentGold = 10000;
+
+        if (result == 1 && winCount < 3) {
+            minigamePopup.BettingPopup("RPS", round, -1000, round==1 ? 3000 : 5000, currentGold);
+        }
+        else { // 지거나 완승
+            minigamePopup.RewardPopup("RPS", currentGold);
+        }
     }
 
     IEnumerator AutoExitCoroutine()
@@ -108,3 +137,14 @@ public class RPS : MonoBehaviour
     }
 
 }
+/*
+1도전 시 : 0       vs 10
+2도전 시 : 5(-5)   vs 20(+10)
+3도전 시 : 10(-10) vs 40(+20)
+*/
+
+/*
+1도전 시 : 0           vs 2000
+2도전 시 : 1000(-1000) vs 5000(+3000)
+3도전 시 : 4000(-1000) vs 10000(+5000)
+*/

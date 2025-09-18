@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d3ad1de613b4de9b087eff17e7aa79, type: 3}
+  m_Name: BadgeDatabase
+  m_EditorClassIdentifier: 
+  items:
+  - title: "\uC0C9\uC774 \uB2E4\uB978 \uC2DD\uBB3C \uC218\uC9D1 \uB2EC\uC778"
+    description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uC0C9\uC774 \uB2E4\uB978
+      \uC2DD\uBB3C \uCD1D 10\uC885 \uB4F1\uB85D"
+    icon: {fileID: -2249780160586466669, guid: 9358614078e504d8f8ff55587f7f6fc7, type: 3}
+    type: 1
+    threshold: 10
+    rarity: 0
+    nameWhitelist: []
+    rewardStoreGoodsNumber: 310040
+    rewardCount: 1
+    statueSprite: {fileID: -9216087212226455082, guid: c806560fd52954ae6896a491227b46bb, type: 3}
+    statueTitle: "\uC774\uB85C\uCE58 \uC218\uC9D1 \uB2EC\uC778 \uB3D9\uC0C1"
+  - title: "\uB178\uB9D0 \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
+    description: "\uB178\uB9D0 \uB3C4\uAC10 10\uC885 \uC804\uCCB4 \uB4F1\uB85D"
+    icon: {fileID: -6240320559961112061, guid: 4ad365f4e9f0944fd8d67ef675945c6d, type: 3}
+    type: 2
+    threshold: 0
+    rarity: 0
+    nameWhitelist: []
+    rewardStoreGoodsNumber: 310070
+    rewardCount: 1
+    statueSprite: {fileID: 2452545130034736206, guid: 80a5137aaec4d44c1a0dec6a741ef568, type: 3}
+    statueTitle: "\uB178\uB9D0 \uB3C4\uAC10 \uB9C8\uC2A4\uD130 \uB3D9\uC0C1"
+  - title: "\uB808\uC5B4 \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
+    description: "\uB808\uC5B4 \uB3C4\uAC10 9\uC885 \uC804\uCCB4 \uB4F1\uB85D"
+    icon: {fileID: -2542512816601137504, guid: e184362098f844a978400c4145ae5261, type: 3}
+    type: 2
+    threshold: 0
+    rarity: 1
+    nameWhitelist: []
+    rewardStoreGoodsNumber: 310080
+    rewardCount: 1
+    statueSprite: {fileID: 8318758899825078127, guid: 96824d6dea2d74dbf98c8f51175079d5, type: 3}
+    statueTitle: "\uB808\uC5B4 \uB3C4\uAC10 \uB9C8\uC2A4\uD130 \uB3D9\uC0C1"
+  - title: "\uC0C9\uC774 \uB2E4\uB978 \uC2DD\uBB3C \uC218\uC9D1 \uB300\uBD80\uD638"
+    description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uC0C9\uC774 \uB2E4\uB978
+      \uC2DD\uBB3C\n\uCD1D 30\uC885 \uB4F1\uB85D"
+    icon: {fileID: 8365247308834641496, guid: 198157ede871e4db285fb73a3b4ed651, type: 3}
+    type: 1
+    threshold: 30
+    rarity: 0
+    nameWhitelist: []
+    rewardStoreGoodsNumber: 310050
+    rewardCount: 1
+    statueSprite: {fileID: -753712778238027167, guid: 48f1171be0c0949849e46e3e5302dff9, type: 3}
+    statueTitle: "\uC774\uB85C\uCE58 \uC218\uC9D1 \uB300\uBD80\uD638 \uB3D9\uC0C1"
+  - title: "\uB3C4\uAC10 \uC218\uC9D1 \uB2EC\uC778"
+    description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uCD1D 20\uC885 \uB4F1\uB85D"
+    icon: {fileID: 1591152477525429734, guid: d1d87652a195f47749f876698e76b9b7, type: 3}
+    type: 0
+    threshold: 20
+    rarity: 0
+    nameWhitelist: []
+    rewardStoreGoodsNumber: 310020
+    rewardCount: 1
+    statueSprite: {fileID: 1964225085909598118, guid: 3dcb4f103523746a99f00c7dcf2d0ce0, type: 3}
+    statueTitle: "\uB3C4\uAC10 \uC218\uC9D1 \uB2EC\uC778 \uB3D9\uC0C1"
+  - title: "\uB3C4\uAC10 \uC218\uC9D1 \uB300\uBD80\uD638"
+    description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uCD1D 30\uC885 \uB4F1\uB85D"
+    icon: {fileID: -2596154730737599100, guid: e52749562975b487b9559e7e74a5faa9, type: 3}
+    type: 0
+    threshold: 30
+    rarity: 0
+    nameWhitelist: []
+    rewardStoreGoodsNumber: 310030
+    rewardCount: 1
+    statueSprite: {fileID: -1255267266874662947, guid: cac3a40199443454989556655de78e7f, type: 3}
+    statueTitle: "\uB3C4\uAC10 \uC218\uC9D1 \uB300\uBD80\uD638 \uB3D9\uC0C1"
+  - title: "\uB3C4\uAC10 \uC218\uC9D1 \uAFC8\uB098\uBB34"
+    description: "\uB4F1\uAE09 \uBD88\uBB38 \uB3C4\uAC10\uC5D0 \uCD1D 10\uC885 \uB4F1\uB85D"
+    icon: {fileID: -6800965517148886466, guid: 5399975cee95c4dd9936c21a26790527, type: 3}
+    type: 0
+    threshold: 10
+    rarity: 0
+    nameWhitelist: []
+    rewardStoreGoodsNumber: 310010
+    rewardCount: 1
+    statueSprite: {fileID: 4211474018222244093, guid: 68d420d9ec9c644d29e5818cf05b885f, type: 3}
+    statueTitle: "\uB3C4\uAC10 \uC218\uC9D1 \uAFC8\uB098\uBB34 \uB3D9\uC0C1"
+  - title: "\uC778\uD14C\uB9AC\uC5B4\uC5D0 \uC9C4\uC2EC\uC778"
+    description: "\uC815\uC6D0\uC5D0 \uC885\uB958 \uBD88\uBB38 \uB9AC\uC18C\uC2A4
+      30\uC885 \uBC30\uCE58"
+    icon: {fileID: -6512582711194300196, guid: da95c8a961a994c02b4e936a3545f760, type: 3}
+    type: 4
+    threshold: 30
+    rarity: 0
+    nameWhitelist: []
+    rewardStoreGoodsNumber: 310060
+    rewardCount: 1
+    statueSprite: {fileID: 9072940456001523895, guid: 534ad65e98cf8492d8224f4689f3dfad, type: 3}
+    statueTitle: "\uC778\uD14C\uB9AC\uC5B4\uC5D0 \uC9C4\uC2EC\uC778 \uB3D9\uC0C1"
+  - title: "\uC5D0\uD53D \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
+    description: "\uC5D0\uD53D \uB3C4\uAC10 6\uC885 \uC804\uCCB4 \uB4F1\uB85D"
+    icon: {fileID: -4143261434310361011, guid: fa7c10088a34c416fb818f668ed78957, type: 3}
+    type: 2
+    threshold: 0
+    rarity: 2
+    nameWhitelist: []
+    rewardStoreGoodsNumber: 310090
+    rewardCount: 1
+    statueSprite: {fileID: 7464622766085432020, guid: 85fe20fd84c384bbe871b70c8567387f, type: 3}
+    statueTitle: "\uC5D0\uD53D \uB3C4\uAC10 \uB9C8\uC2A4\uD130 \uB3D9\uC0C1"
+  - title: "\uB808\uC804\uB4DC \uB3C4\uAC10 \uB9C8\uC2A4\uD130"
+    description: "\uB808\uC804\uB4DC \uB3C4\uAC10 6\uC885\uC804\uCCB4 \uB4F1\uB85D"
+    icon: {fileID: -684057443874771528, guid: 477c08e5bdad143d99e8be1c20f5f748, type: 3}
+    type: 2
+    threshold: 0
+    rarity: 3
+    nameWhitelist: []
+    rewardStoreGoodsNumber: 310100
+    rewardCount: 1
+    statueSprite: {fileID: 6487435591551043307, guid: a8d647ce06a494840bc8aedb06fc0742, type: 3}
+    statueTitle: "\uB808\uC804\uB4DC \uB3C4\uAC10 \uB9C8\uC2A4\uD130 \uB3D9\uC0C1"
+  - title: "\uACFC\uC77C\uB098\uBB34 \uB9C8\uC2A4\uD130"
+    description: "\uACFC\uC77C\uB098\uBB34 6\uC885 \uC804\uCCB4 \uB4F1\uB85D"
+    icon: {fileID: 3261707429046591213, guid: 5089c1f6eb4fa428d8bb66f1d2739819, type: 3}
+    type: 3
+    threshold: 0
+    rarity: 0
+    nameWhitelist:
+    - "\uC0AC\uACFC\uB098\uBB34"
+    - "\uBCF5\uC22D\uC544\uB098\uBB34"
+    - "\uB808\uBAAC\uB098\uBB34"
+    - "\uCCB4\uB9AC\uB098\uBB34"
+    - "\uADE4\uB098\uBB34"
+    - "\uBC30\uB098\uBB34"
+    rewardStoreGoodsNumber: 310110
+    rewardCount: 1
+    statueSprite: {fileID: 8353548145464449326, guid: 03d1e4fba15ed4c158be7155da7cac9b, type: 3}
+    statueTitle: "\uACFC\uC77C\uB098\uBB34 \uB9C8\uC2A4\uD130 \uB3D9\uC0C1"

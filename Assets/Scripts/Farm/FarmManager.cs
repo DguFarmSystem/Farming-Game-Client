@@ -1,19 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class FarmManager : MonoBehaviour
 {
-    public GameObject tilePrefab; //밭 프리팹
-    public Transform tileParent; //밭 프리팹 넣을 곳
-    public string uid; //user id
+    [Header("씬에 이미 배치된 타일 부모(없으면 null 가능)")]
+    public Transform tileParent;
 
-    private Dictionary<string, FarmGround> tiles = new Dictionary<string, FarmGround>();
-
-    //주기적으로 확인
-    private float checkInterval = 5f;
-    private float checkTimer = 0f;
+    [Header("유저/식별")]
+    public string uid;
+    
+    [Tooltip("plot_id 자동 채번 시 접두사 (기본: uid_인덱스)")]
+    public string plotIdPrefixOverride = "";
 
     [Header("상태별 밭 스프라이트")]
     public Sprite emptySprite;
@@ -23,9 +23,16 @@ public class FarmManager : MonoBehaviour
     public Sprite growingSprite_2;
     public Sprite grownSprite;
 
+    private readonly Dictionary<string, FarmGround> tilesById = new Dictionary<string, FarmGround>();
+
+    private float checkInterval = 1f;
+    private float checkTimer = 0f;
+
     private void Start()
     {
-        StartCoroutine(InitFarm());
+
+        CollectSceneTiles();
+        StartCoroutine(InitFarmFromServer());
     }
 
     private void Update()
@@ -33,100 +40,124 @@ public class FarmManager : MonoBehaviour
         checkTimer += Time.deltaTime;
         if (checkTimer >= checkInterval)
         {
-            Debug.Log("성장 체크");
-            CheckAllGrowth(); //성장 체크후
-            UpdateAllVisual(); //비주얼 업데이트
+            CheckAllGrowth();
+            UpdateAllVisual();
             checkTimer = 0f;
         }
     }
 
-
-    IEnumerator InitFarm()
+    private void CollectSceneTiles()
     {
-        yield return FarmGroundAPI.LoadFarm(uid, OnFarmLoaded);
-    }
-
-    void OnFarmLoaded(List<FarmPlotData> farmList)
-    {
-        if (farmList == null || farmList.Count == 0)
+        tilesById.Clear();
+        FarmGround[] grounds = (tileParent != null)
+            ? tileParent.GetComponentsInChildren<FarmGround>(true)
+            : FindObjectsOfType<FarmGround>(true);
+        string prefix = string.IsNullOrEmpty(plotIdPrefixOverride) ? (uid + "_") : plotIdPrefixOverride;
+        for (int i = 0; i < grounds.Length; i++)
         {
-            StartCoroutine(CreateInitialFarm());
-            return;
-        }
-
-        foreach (var data in farmList)
-        {
-            SpawnTile(data);
-        }
-    }
-
-    //초기 설정
-    IEnumerator CreateInitialFarm()
-    {
-        for (int y = 0; y < 3; y++)
-        {
-            for (int x = 0; x < 3; x++)
+            var g = grounds[i];
+            
+            if (g.data == null)
             {
-                FarmPlotData data = new FarmPlotData
-                {
-                    x = x,
-                    y = y,
-                    uid = uid,
-                    plot_id = $"{uid}_{y * 3 + x}",
-                    plant_name = "",
-                    planted_at = "",
-                    status = "empty",
-                    is_shiny = false
-                };
+                g.data = new FarmPlotData();
+            }
+            g.data.uid = uid;
+            g.data.x = g.x;
+            g.data.y = g.y;
+            g.data.status = "empty";
+            g.data.useSunCount = 0;
+           
+            
+            g.emptySprite = emptySprite;
+            g.seedSprite = seedSprite;
+            g.growingSprite = growingSprite;
+            g.growingSprite_1 = growingSprite_1;
+            g.growingSprite_2 = growingSprite_2;
+            g.grownSprite = grownSprite;
+            string plotId = $"{g.x}_{g.y}";
+            if (!tilesById.ContainsKey(plotId))
+            {
+                tilesById.Add(plotId, g);
+            }
+            else
+            {
+                Debug.LogWarning($"[FarmManager] 중복 plot_id 발견: {plotId} (씬 배치를 확인하세요)");
+            }
+        }
+        Debug.Log($"[FarmManager] 씬에서 수집한 타일 수: {tilesById.Count}");
+    }
 
-                SpawnTile(data);
-                yield return FarmGroundAPI.CreatePlot(data);
+    private IEnumerator InitFarmFromServer()
+    {
+        bool done = false;
+        string error = null;
+
+        // 모든 밭 데이터를 한 번에 로드하는 API 호출만 실행
+        APIManager.Instance.Get("/api/farm",
+            (response) =>
+            {
+                Debug.Log("[FarmManager] /api/farm 호출 성공. 응답: " + response);
+                done = true;
+            },
+            (err) =>
+            {
+                Debug.LogError("[FarmManager] /api/farm 호출 실패: " + err);
+                error = err;
+                done = true;
+            }
+        );
+
+        foreach (var kv in tilesById)
+        {
+            var tile = kv.Value;
+            done = false;
+            FarmGroundAPI.FarmTileDto serverData = null;
+            error = null;
+            yield return FarmGroundAPI.GetTile(tile.data.x, tile.data.y, (ok, dto, raw) =>
+            {
+                serverData = dto;
+                error = ok ? null : raw;
+                done = true;
+            });
+            if (!done)
+            {
+                Debug.LogError($"[FarmManager] 서버 통신 실패: {error}");
+                continue;
+            }
+            if (serverData != null)
+            {
+                FarmGroundAPI.ApplyDtoToPlot(serverData, tile.data);
+                tile.data.uid = uid;
+                tile.InitGround(tile.data);
+                Debug.Log($"[FarmManager] 밭({tile.x}, {tile.y}) 서버 데이터 로드 성공: {tile.data.status}");
+            }
+            else
+            {
+                var d = tile.data;
+                var dto = FarmGroundAPI.ToDto(d);
+                tile.InitGround(d);
+                Debug.Log($"[FarmManager] 밭({d.x}, {d.y}) 데이터 없음. 새로 생성 요청.");
+
+                yield return FarmGroundAPI.PatchTile(dto, (ok, raw) =>
+                {
+                    if (!ok)
+                        Debug.LogError($"[FarmManager] 신규 밭 생성 실패: {raw}");
+                    else
+                        Debug.Log($"[FarmManager] 신규 밭 생성 성공: {raw}");
+                });
             }
         }
     }
 
-    Vector3 GridToWorldPosition(int x, int y)
-    {
-        float tileWidth = 5f;
-        float tileHeight = 1.9f;
-
-        float worldX = (x - y) * tileWidth / 2f;
-        float worldY = -(x + y) * tileHeight / 2f;
-
-        return new Vector3(worldX, worldY + 1.3f, -1);
-    }
-    void SpawnTile(FarmPlotData data)
-    {
-        Vector3 pos = GridToWorldPosition(data.x, data.y);
-        GameObject go = Instantiate(tilePrefab, pos, Quaternion.identity, tileParent);
-        FarmGround tile = go.GetComponent<FarmGround>();
-
-        //땅 스프라이트 전달
-        tile.emptySprite = emptySprite;
-        tile.growingSprite = growingSprite;
-        tile.seedSprite = seedSprite;
-        tile.growingSprite_1 = growingSprite_1;
-        tile.growingSprite_2 = growingSprite_2;
-        tile.grownSprite = grownSprite;
-
-        tile.InitGround(data);
-        tiles[data.plot_id] = tile;
-    }
-
     public void CheckAllGrowth()
     {
-        foreach (var tile in tiles.Values)
-        {
+        foreach (var tile in tilesById.Values)
             tile.CheckGrowth();
-        }
     }
 
     public void UpdateAllVisual()
     {
-        foreach (var tile in tiles.Values)
-        {
+        foreach (var tile in tilesById.Values)
             tile.UpdateVisual();
-        }
     }
-    
 }

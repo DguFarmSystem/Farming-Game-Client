@@ -6,42 +6,81 @@ using TMPro;
 
 public class SunshineGame_Manager : MonoBehaviour
 {
-    public Transform layout;
-    public Image timerMask;
+    public MinigamePopup minigamePopup;
+
+    public GameObject sunPrefab;
+    public Transform startPoint;
+    public RectTransform timerMask;
+    public float totalTime;
     public RectTransform dragBox;
     public TMP_Text scoreText;
-    public Button tempExitButton;
 
     private int score;
+    private float currentTime;
     private float timerSize;
-    private Vector2 startPos;
-    private Vector2 endPos;
+    private Vector2 startPos, endPos;
     private List<SunshineGame_Sunshine> dragedList = new List<SunshineGame_Sunshine>();
     
     void Start()
     {
-        score = 0;
-        timerSize = timerMask.rectTransform.rect.height;
-        SetValue(0.4f);
+        enabled = false;
+        totalTime = 120f;
+        timerSize = timerMask.rect.height;
         dragBox.gameObject.SetActive(false);
-        tempExitButton.onClick.AddListener(EndGame);
+
+        minigamePopup.onStart = () => { StartGame(); };
+        minigamePopup.onPause = () => { enabled = false; };
+        minigamePopup.onResume = () => { enabled = true; };
+    }
+
+    void StartGame()
+    {
+        currentTime = totalTime;
+        score = 0;
+        scoreText.text = $"{score}";
+        enabled = true;
+        SpawnSuns();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) {
+        // timer
+        if (currentTime <= 0f) {
+            EndGame();
+            return;
+        }
+        currentTime -= Time.deltaTime;
+        timerMask.sizeDelta = new Vector2(timerMask.sizeDelta.x, timerSize * (currentTime / totalTime));
+
+        // input
+        if (Input.GetMouseButtonDown(0)) { // 1. 마우스 누를 때
             dragBox.gameObject.SetActive(true);
             startPos = Input.mousePosition;
         }
-        if (Input.GetMouseButton(0)) {
+        if (Input.GetMouseButton(0)) { // 2. 마우스 누르는 동안
             endPos = Input.mousePosition;
             DrawDragBox();
             SelectObjects();
         }
-        if (Input.GetMouseButtonUp(0)) {
+        if (Input.GetMouseButtonUp(0)) { // 3. 마우스 뗄 때
             Calculate();
             dragBox.gameObject.SetActive(false);
             dragedList.Clear();
+        }
+    }
+
+    void SpawnSuns()
+    {
+        float spacingX = 0.75f;
+        float spacingY = 0.92f;
+        while(startPoint.childCount > 0)
+            Destroy(startPoint.GetChild(0).gameObject);
+        for (int y = 0; y < 10; y++) {
+            for (int x = 0; x < 17; x++) {
+                Vector2 spawnPos = new Vector2(startPoint.position.x + (x*spacingX), startPoint.position.y - (y*spacingY));
+                GameObject sunObj = Instantiate(sunPrefab, spawnPos, Quaternion.identity);
+                sunObj.transform.SetParent(startPoint);
+            }
         }
     }
 
@@ -50,50 +89,34 @@ public class SunshineGame_Manager : MonoBehaviour
         Vector2 size = new Vector2(Mathf.Abs(endPos.x-startPos.x), Mathf.Abs(startPos.y-endPos.y));
         Vector2 pos = new Vector2(Mathf.Min(startPos.x, endPos.x), Mathf.Min(startPos.y, endPos.y)) + size/2;
         dragBox.position = pos;
-        dragBox.sizeDelta = size;   
-        SelectObjects();
-    }
-
-    public void SetValue(float value)
-    {
-        // timerMask.sizeDelta = new Vector2(timerMask.sizeDelta.x, timerSize*value);
-        timerMask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, timerSize * value);
+        dragBox.sizeDelta = size;
     }
 
     void SelectObjects()
     {
-        Rect dragRect = GetWorldRect(dragBox);
+        Camera cam = Camera.main;
+        float depth = 0f;
+
+        Vector3 w0 = cam.ScreenToWorldPoint(new Vector3(startPos.x, startPos.y, depth));
+        Vector3 w1 = cam.ScreenToWorldPoint(new Vector3(endPos.x, endPos.y, depth));
+        Vector2 min = new Vector2(Mathf.Min(w0.x, w1.x), Mathf.Min(w0.y, w1.y));
+        Vector2 max = new Vector2(Mathf.Max(w0.x, w1.x), Mathf.Max(w0.y, w1.y));
+
+        Collider2D[] hits = Physics2D.OverlapAreaAll(min, max);
         dragedList.Clear();
-
-        foreach (Transform child in layout)
-        {
-            if (!child.gameObject.activeSelf) continue;
-
-            SunshineGame_Sunshine sun = child.GetComponent<SunshineGame_Sunshine>();
-            if (sun == null) continue;
-
-            RectTransform sunRect = child.GetComponent<RectTransform>();
-            Vector3[] corners = new Vector3[4];
-            sunRect.GetWorldCorners(corners);
-            Vector2 center = (corners[0] + corners[2]) / 2f;
-
-            if (dragRect.Contains(center))
-            {
+        for (int i = 0; i < hits.Length; i++) {
+            SunshineGame_Sunshine sun = hits[i].GetComponent<SunshineGame_Sunshine>();
+            if (sun != null)
                 dragedList.Add(sun);
-            }
         }
     }
 
     void Calculate()
     {
         int sum = 0;
-        foreach (var sun in dragedList) {
-            Debug.Log($"draged sun : {sun.GetNum()}");
-            sum += sun.GetNum();
-
-        }
-        Debug.Log($"sum : {sum}");
+        foreach (var sun in dragedList) sum += sun.GetNum();
         if (sum != 10) return;
+        GameManager.Sound.SFXPlay("SFX_SunGame_Clear");
         foreach (var sun in dragedList) sun.Pop();
         score += dragedList.Count;
         scoreText.text = $"{score}";
@@ -108,7 +131,10 @@ public class SunshineGame_Manager : MonoBehaviour
         return new Rect(corners[0].x, corners[0].y, width, height);
     }
 
-    void EndGame() {
-        SceneLoader.Instance.ExitMiniGame();
+    void EndGame()
+    {
+        dragBox.gameObject.SetActive(false);
+        enabled = false;
+        minigamePopup.RewardPopup("SunshineGame", gold: score*50);
     }
 }

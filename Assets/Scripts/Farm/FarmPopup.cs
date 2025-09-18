@@ -24,15 +24,13 @@ public class FarmPopup : MonoBehaviour
         plusButton.onClick.AddListener(OnPlusClicked);
         minusButton.onClick.AddListener(OnMinusClicked);
         confirmButton.onClick.AddListener(OnConfirm);
-        cancelButton.onClick.AddListener(() => Destroy(gameObject));
+        cancelButton.onClick.AddListener(() => { GameManager.Sound.SFXPlay("SFX_ButtonCancle"); Destroy(gameObject); });
     }
 
     public void SetTargetTile(FarmGround tile)
     {
         targetTile = tile;
 
-        //꽃 미리 지정
-        selectedPlantName = FlowerDataManager.Instance.GetRandomFlowerName();
 
         // 초기 상태
         useSun = 0;
@@ -76,16 +74,16 @@ public class FarmPopup : MonoBehaviour
         Debug.LogError("[FarmPopup] targetTile이 null입니다. Init이 제대로 안 됐을 가능성 있음");
         return;
     }
-
+        GameManager.Sound.SFXPlay("SFX_ButtonClick");
         // 씨앗 1개 사용 가능할 때만
         if (CurrencyManager.Instance.SpendSeedCount(1))
         {
             CurrencyManager.Instance.SpendSunlight(useSun);
-            targetTile.data.useSunCount = useSun;
-            targetTile.PlantSeed(selectedPlantName);  // 씨앗 랜덤 뽑힌거로 확정
+            targetTile.PlantSeed(useSun);  // 씨앗 랜덤 뽑힌거로 확정
         }
         else
         {
+            UIManager.Instance.OpenCantPlantUI();
             Debug.Log("씨앗이 부족합니다!");
         }
 

@@ -1,0 +1,164 @@
+name: Unity WebGL → Deploy
+
+on:
+  push:
+    branches: [ "Build", "main" ]            # Build랑 main 브랜치 푸시 시 자동 실행
+  workflow_dispatch:                 # 수동 실행 지원
+
+env:
+  UNITY_VERSION: 6000.0.51f1
+  PROJECT_PATH: .
+  BUILD_NAME: WebGL
+  BUILDS_PATH: build
+
+jobs:
+  build-webgl:
+    name: Build (WebGL)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout (with LFS)
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: recursive
+
+      - name: Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.PROJECT_PATH }}/Library
+          key: Library-${{ env.BUILD_NAME }}-WebGL-${{ hashFiles('**/Packages/manifest.json') }}
+          restore-keys: |
+            Library-${{ env.BUILD_NAME }}-WebGL-
+            Library-
+
+      - name: Build WebGL
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: ${{ env.PROJECT_PATH }}
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: WebGL
+          allowDirtyBuild: true
+          buildName: ${{ env.BUILD_NAME }}
+          buildsPath: ${{ env.BUILDS_PATH }}
+
+      - name: Upload artifact (WebGL folder contents)
+        uses: actions/upload-artifact@v4
+        with:
+          name: webgl-build
+          path: ${{ env.BUILDS_PATH }}/${{ env.BUILD_NAME }}/
+          if-no-files-found: error
+
+  deploy:
+    name: Deploy to HomePage-Game
+    needs: build-webgl
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_REPO: farmsystem-account/HomePage-FE
+      TARGET_SUBDIR: apps/farminglog/public/WebGLBuild/BuildTest
+    steps:
+      - name: Echo source ref
+        run: 
+          echo "SRC GITHUB_REF=$GITHUB_REF"
+          echo "SRC GITHUB_REF_NAME=$GITHUB_REF_NAME"
+      # 0) 배포 브랜치 분기: Build -> develop, main -> main
+      - name: Decide DEPLOY_BRANCH by source branch
+        id: plan
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="${GITHUB_REF_NAME}"
+          if [ "$SRC" = "Build" ]; then
+            DEPLOY_BRANCH="develop"
+          elif [ "$SRC" = "main" ]; then
+            DEPLOY_BRANCH="main"
+          else
+            echo "Unsupported branch: $SRC"; exit 1
+          fi
+          echo "DEPLOY_BRANCH=$DEPLOY_BRANCH" | tee -a "$GITHUB_ENV"
+          echo "branch=$DEPLOY_BRANCH" >> "$GITHUB_OUTPUT"
+      # 1) 빌드 산출물 다운로드
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: webgl-build
+          path: build_dist
+
+      # (옵션) 구조 확인
+      - name: Debug artifact tree
+        run: |
+          echo "=== Artifact file tree (build_dist) ==="
+          ls -lah build_dist || true
+          echo "=== Recursive ==="
+          ls -R build_dist || true
+
+      # 2) 배포 대상 레포 체크아웃
+      - name: Checkout deploy repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.DEPLOY_REPO }}
+          ref: ${{ env.DEPLOY_BRANCH }}
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          path: deploy
+          fetch-depth: 0
+
+    # 3) WebGL 루트 자동 탐지 (index.html이 있는 폴더)
+      - name: Resolve WebGL root
+        id: resolve
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=""
+          if [ -f build_dist/index.html ] && [ -d build_dist/TemplateData ]; then
+            ROOT="build_dist"
+          elif [ -f build_dist/WebGL/index.html ]; then
+            ROOT="build_dist/WebGL"
+          elif [ -f build_dist/build/index.html ]; then
+            ROOT="build_dist/build"
+          else
+            CANDIDATE="$(find build_dist -maxdepth 3 -type f -name index.html | head -n 1 || true)"
+            [ -n "${CANDIDATE:-}" ] && ROOT="$(dirname "$CANDIDATE")"
+          fi
+          [ -z "$ROOT" ] && { echo "❌ WebGL root not found"; exit 1; }
+          ABS_ROOT="$(pwd)/$ROOT"
+          echo "WEBGL_ROOT=$ABS_ROOT" | tee -a "$GITHUB_ENV"
+          echo "root=$ABS_ROOT" >> "$GITHUB_OUTPUT"
+          echo "✅ Detected WEBGL_ROOT=$ABS_ROOT"
+          ls -lah "$ABS_ROOT"
+
+      # 4) 대상 경로에 Build/, TemplateData/, index.html만 교체
+      - name: Replace files into target subdir
+        shell: bash
+        run: |
+          set -euo pipefail
+          DEST="deploy/${TARGET_SUBDIR}"
+          mkdir -p "$DEST"
+          # 깨끗하게 교체
+          rm -rf "$DEST/Build" "$DEST/TemplateData" "$DEST/index.html"
+          cp -r "$WEBGL_ROOT/Build" "$DEST/Build"
+          cp -r "$WEBGL_ROOT/TemplateData" "$DEST/TemplateData"
+          cp -f "$WEBGL_ROOT/index.html" "$DEST/index.html"
+          echo "📁 Deployed files:"
+          ls -lah "$DEST"
+
+      # 5) 커밋 & 푸시 (rebase로 충돌 최소화)
+      - name: Commit & Push
+        working-directory: deploy
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "${TARGET_SUBDIR}/Build" "${TARGET_SUBDIR}/TemplateData" "${TARGET_SUBDIR}/index.html"
+          git commit -m "Deploy WebGL build: ${GITHUB_SHA}" || echo "No changes to commit"
+          git pull --rebase origin "${DEPLOY_BRANCH}" || true
+          git push origin "${DEPLOY_BRANCH}"
+      - name: Show target repo HEAD/branch
+        working-directory: deploy
+        run: |
+          git status
+          echo "Current branch: $(git rev-parse --abbrev-ref HEAD)"
+          echo "HEAD: $(git rev-parse HEAD)"

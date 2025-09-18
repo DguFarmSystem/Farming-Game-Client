@@ -78,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 626155505
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
-  m_Color: {r: 0.28007078, g: 0.49056602, b: 0.122641504, a: 1}
+  m_Sprite: {fileID: 2177108965186078295, guid: 40b25d89fdd48ef4eab51b8118b7be1b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,7 +101,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53cd6643812c9524e9edce53db67fb19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridPosition: {x: 0, y: 0}
   id: Tilemap_Grass
+  numberId: 400010
+  rotationSprites: []
 --- !u!114 &-7513710498647453244
 MonoBehaviour:
   m_ObjectHideFlags: 0

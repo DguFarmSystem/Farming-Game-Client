@@ -1,25 +1,41 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class FlowerSlotUI : MonoBehaviour
 {
-    [SerializeField] private Image imageBackground;
-    [SerializeField] private Image imageIcon;
-    [SerializeField] private TextMeshProUGUI textNo;
-    [SerializeField] private TextMeshProUGUI textName;
+    //[SerializeField] private Image imageBackground;
+    [SerializeField] private Image imageIcon;              // 아이콘
+    [SerializeField] private TextMeshProUGUI textName;     // 이름
 
-    public void Init(int index)
+    private bool collected;
+    private string flowerNameCache = "";
+
+    public void Init()
     {
-        textNo.text = (index + 1).ToString();
-        textName.text = "No."; 
-        imageIcon.gameObject.SetActive(false); 
+        textName.text = "???";
+        imageIcon.gameObject.SetActive(false);
+        collected = false;
+        flowerNameCache = "";
     }
 
-    public void SetCollected(Sprite icon, string flowerName)
+    public void SetSprite(Sprite sprite, bool isCollected, string flowerName)
     {
-        imageIcon.sprite = icon;
+        collected = isCollected;
+        flowerNameCache = flowerName;
+
+        imageIcon.sprite = sprite;
+        imageIcon.preserveAspect = true;
         imageIcon.gameObject.SetActive(true);
-        textName.text = flowerName;
+
+        if (collected)
+        {
+            string display = FlowerDataManager.Instance?.GetDisplayName(flowerNameCache) ?? flowerNameCache;
+            textName.text = display; 
+        }
+        else
+        {
+            textName.text = "???";
+        }
     }
 }

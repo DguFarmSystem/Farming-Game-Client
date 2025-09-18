@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: cd32b03c6a7f71b4d8c4050f7e27f907
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6352007417219212337
+    second: Rule_Minigame_RPS_0
+  - first:
+      213: 450070470302937234
+    second: Rule_Minigame_RPS_1
+  - first:
+      213: -875043335166846220
+    second: Rule_Minigame_RPS_2
+  - first:
+      213: -4789012820208455643
+    second: Rule_Minigame_RPS_3
+  - first:
+      213: -5840660147237414705
+    second: Rule_Minigame_RPS_4
+  - first:
+      213: -8491610375466884753
+    second: Rule_Minigame_RPS_5
+  - first:
+      213: 3247654202626940192
+    second: Rule_Minigame_RPS_6
+  - first:
+      213: -5264602206870382763
+    second: Rule_Minigame_RPS_7
+  - first:
+      213: -5188758370693547001
+    second: Rule_Minigame_RPS_8
+  - first:
+      213: -7337786242458672896
+    second: Rule_Minigame_RPS_9
+  - first:
+      213: 5480243713931101384
+    second: Rule_Minigame_RPS_10
+  - first:
+      213: 429621911881733317
+    second: Rule_Minigame_RPS_11
+  - first:
+      213: 5727829287059863221
+    second: Rule_Minigame_RPS_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_0
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 847
+        width: 199
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1346ff1771dd62850800000000000000
+      internalID: 6352007417219212337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_1
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 847
+        width: 202
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 290bc4a45b8fe3600800000000000000
+      internalID: 450070470302937234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_2
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 733
+        width: 483
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fa9e4c09b83bd3f0800000000000000
+      internalID: -875043335166846220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_3
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 733
+        width: 412
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 520feaa96320a8db0800000000000000
+      internalID: -4789012820208455643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_4
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 641
+        width: 983
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc8122e8a8ec1fea0800000000000000
+      internalID: -5840660147237414705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_5
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 529
+        width: 711
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f61664f9a5db72a80800000000000000
+      internalID: -8491610375466884753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_6
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 550
+        width: 87
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02d12ec5a4cf11d20800000000000000
+      internalID: 3247654202626940192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_7
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 532
+        width: 600
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 557d0c79f2060f6b0800000000000000
+      internalID: -5264602206870382763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_8
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 453
+        width: 1336
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70cf979c0c3ddf7b0800000000000000
+      internalID: -5188758370693547001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_9
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 361
+        width: 1370
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 001a08c2a42fa2a90800000000000000
+      internalID: -7337786242458672896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_10
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 270
+        width: 784
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c44e6b4f9cbd0c40800000000000000
+      internalID: 5480243713931101384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_11
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 179
+        width: 1344
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c45f654ad256f500800000000000000
+      internalID: 429621911881733317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_RPS_12
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 93
+        width: 678
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b63845a3665d7f40800000000000000
+      internalID: 5727829287059863221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Rule_Minigame_RPS_0: 6352007417219212337
+      Rule_Minigame_RPS_1: 450070470302937234
+      Rule_Minigame_RPS_10: 5480243713931101384
+      Rule_Minigame_RPS_11: 429621911881733317
+      Rule_Minigame_RPS_12: 5727829287059863221
+      Rule_Minigame_RPS_2: -875043335166846220
+      Rule_Minigame_RPS_3: -4789012820208455643
+      Rule_Minigame_RPS_4: -5840660147237414705
+      Rule_Minigame_RPS_5: -8491610375466884753
+      Rule_Minigame_RPS_6: 3247654202626940192
+      Rule_Minigame_RPS_7: -5264602206870382763
+      Rule_Minigame_RPS_8: -5188758370693547001
+      Rule_Minigame_RPS_9: -7337786242458672896
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -7,7 +7,8 @@ public class PlantUI : MonoBehaviour
 
     public Button plantButton; // 심기 버튼
     public Button harvestButton; // 수확 버튼
-
+    public Button closebutton;
+    public Button closebutton_2;
 
     private FarmGround currentGround;
 
@@ -15,6 +16,7 @@ public class PlantUI : MonoBehaviour
     {
         plantButton.onClick.AddListener(OnPlantClicked);
         harvestButton.onClick.AddListener(OnHarvestClicked);
+        closebutton.onClick.AddListener(Hide);
     }
 
     public void Show(FarmGround ground)
@@ -47,6 +49,7 @@ public class PlantUI : MonoBehaviour
     public void Hide()
     {
         root.SetActive(false);
+
         currentGround = null;
     }
 

@@ -1,0 +1,728 @@
+fileFormatVersion: 2
+guid: c043862448bab9f4d90986df7a6cc163
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3485281359995060081
+    second: Rule_Minigame_SunshineGame_3_0
+  - first:
+      213: -8366774358076956774
+    second: Rule_Minigame_SunshineGame_3_1
+  - first:
+      213: 3614704391490871062
+    second: Rule_Minigame_SunshineGame_3_2
+  - first:
+      213: -4064435050988571456
+    second: Rule_Minigame_SunshineGame_3_3
+  - first:
+      213: 595576717666285311
+    second: Rule_Minigame_SunshineGame_3_4
+  - first:
+      213: 8919862055488208510
+    second: Rule_Minigame_SunshineGame_3_5
+  - first:
+      213: -2041504110602036315
+    second: Rule_Minigame_SunshineGame_3_6
+  - first:
+      213: -5497351404945943230
+    second: Rule_Minigame_SunshineGame_3_7
+  - first:
+      213: -1834203989678254067
+    second: Rule_Minigame_SunshineGame_3_8
+  - first:
+      213: -2806434000643040623
+    second: Rule_Minigame_SunshineGame_3_9
+  - first:
+      213: -7893072787119314584
+    second: Rule_Minigame_SunshineGame_3_10
+  - first:
+      213: -4707953929940355490
+    second: Rule_Minigame_SunshineGame_3_11
+  - first:
+      213: 408816081784382981
+    second: Rule_Minigame_SunshineGame_3_12
+  - first:
+      213: 8858542051193275591
+    second: Rule_Minigame_SunshineGame_3_13
+  - first:
+      213: 8891668558906254840
+    second: Rule_Minigame_SunshineGame_3_14
+  - first:
+      213: -397476147777460821
+    second: Rule_Minigame_SunshineGame_3_15
+  - first:
+      213: 1378930389245224590
+    second: Rule_Minigame_SunshineGame_3_16
+  - first:
+      213: 4692484346854093466
+    second: Rule_Minigame_SunshineGame_3_17
+  - first:
+      213: -2640279847468864906
+    second: Rule_Minigame_SunshineGame_3_18
+  - first:
+      213: 7058672497654167685
+    second: Rule_Minigame_SunshineGame_3_19
+  - first:
+      213: -8414200830991375499
+    second: Rule_Minigame_SunshineGame_3_20
+  - first:
+      213: -1773922931980490594
+    second: Rule_Minigame_SunshineGame_3_21
+  - first:
+      213: 7994004375101466342
+    second: Rule_Minigame_SunshineGame_3_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_0
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 598
+        width: 200
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f804433a11bc1afc0800000000000000
+      internalID: -3485281359995060081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_1
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 598
+        width: 203
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9fd9f6ec0f33eb80800000000000000
+      internalID: -8366774358076956774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_2
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 454
+        width: 386
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61f9bd61e720a2230800000000000000
+      internalID: 3614704391490871062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_3
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 454
+        width: 465
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c4fd2dfad93897c0800000000000000
+      internalID: -4064435050988571456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_4
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 426
+        width: 167
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff6fdf48ed9e34800800000000000000
+      internalID: 595576717666285311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_5
+      rect:
+        serializedVersion: 2
+        x: 1102
+        y: 455
+        width: 268
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7e3cdea747b9cb70800000000000000
+      internalID: 8919862055488208510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_6
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 362
+        width: 356
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5abd018e3de1ba3e0800000000000000
+      internalID: -2041504110602036315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_7
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 363
+        width: 198
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 245d3bef50c75b3b0800000000000000
+      internalID: -5497351404945943230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_8
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 364
+        width: 422
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d089f9d70399b86e0800000000000000
+      internalID: -1834203989678254067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_9
+      rect:
+        serializedVersion: 2
+        x: 986
+        y: 364
+        width: 157
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19ad712452b8d09d0800000000000000
+      internalID: -2806434000643040623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_10
+      rect:
+        serializedVersion: 2
+        x: 1143
+        y: 363
+        width: 266
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86963719e1c267290800000000000000
+      internalID: -7893072787119314584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_11
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 270
+        width: 627
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e56300338dcf9aeb0800000000000000
+      internalID: -4707953929940355490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_12
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 273
+        width: 64
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 506a9357f086ca500800000000000000
+      internalID: 408816081784382981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_13
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 273
+        width: 60
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c44c3d9f0ddfea70800000000000000
+      internalID: 8858542051193275591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_14
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 272
+        width: 535
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f5ed1ab17d856b70800000000000000
+      internalID: 8891668558906254840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_15
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 179
+        width: 663
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba5a80dac81eb7af0800000000000000
+      internalID: -397476147777460821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_16
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 181
+        width: 202
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e86e3f412e1f22310800000000000000
+      internalID: 1378930389245224590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_17
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 181
+        width: 432
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a92b150d6ad0f1140800000000000000
+      internalID: 4692484346854093466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_18
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 88
+        width: 175
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67aeeffa777db5bd0800000000000000
+      internalID: -2640279847468864906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_19
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 89
+        width: 283
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 588fe78fc3175f160800000000000000
+      internalID: 7058672497654167685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_20
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 90
+        width: 112
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57366fface0ca3b80800000000000000
+      internalID: -8414200830991375499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_21
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 89
+        width: 580
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e982264fd72c167e0800000000000000
+      internalID: -1773922931980490594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rule_Minigame_SunshineGame_3_22
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 89
+        width: 172
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e667d600a860fe60800000000000000
+      internalID: 7994004375101466342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Rule_Minigame_SunshineGame_3_0: -3485281359995060081
+      Rule_Minigame_SunshineGame_3_1: -8366774358076956774
+      Rule_Minigame_SunshineGame_3_10: -7893072787119314584
+      Rule_Minigame_SunshineGame_3_11: -4707953929940355490
+      Rule_Minigame_SunshineGame_3_12: 408816081784382981
+      Rule_Minigame_SunshineGame_3_13: 8858542051193275591
+      Rule_Minigame_SunshineGame_3_14: 8891668558906254840
+      Rule_Minigame_SunshineGame_3_15: -397476147777460821
+      Rule_Minigame_SunshineGame_3_16: 1378930389245224590
+      Rule_Minigame_SunshineGame_3_17: 4692484346854093466
+      Rule_Minigame_SunshineGame_3_18: -2640279847468864906
+      Rule_Minigame_SunshineGame_3_19: 7058672497654167685
+      Rule_Minigame_SunshineGame_3_2: 3614704391490871062
+      Rule_Minigame_SunshineGame_3_20: -8414200830991375499
+      Rule_Minigame_SunshineGame_3_21: -1773922931980490594
+      Rule_Minigame_SunshineGame_3_22: 7994004375101466342
+      Rule_Minigame_SunshineGame_3_3: -4064435050988571456
+      Rule_Minigame_SunshineGame_3_4: 595576717666285311
+      Rule_Minigame_SunshineGame_3_5: 8919862055488208510
+      Rule_Minigame_SunshineGame_3_6: -2041504110602036315
+      Rule_Minigame_SunshineGame_3_7: -5497351404945943230
+      Rule_Minigame_SunshineGame_3_8: -1834203989678254067
+      Rule_Minigame_SunshineGame_3_9: -2806434000643040623
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

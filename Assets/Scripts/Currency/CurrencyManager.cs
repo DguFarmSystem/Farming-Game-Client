@@ -2,26 +2,46 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
+using TMPro;
 
 [System.Serializable]
 public class CurrencyData
 {
-    public string uid; //유저 아이디
-    public int gold; //골드
-    public int seedTicket; //씨앗 뽑기권
-    public int sunlight; // 햇살
-    public int seedCount; //씨앗 개수
+    public string uid;
+    public int gold;
+    public int seedTicket;
+    public int sunlight;
+    public int seedCount;
+}
+
+// ❗ PlayerDataResponse DTO 수정: data 필드를 PlayerCurrencyData 타입으로 변경
+[System.Serializable]
+public class PlayerDataResponse
+{
+    public int status;
+    public string message;
+    public PlayerCurrencyData data;
+}
+
+// PlayerCurrencyData DTO 필드명 수정: 서버 응답과 대소문자가 일치하도록 변경
+[System.Serializable]
+public class PlayerCurrencyData
+{
+    public int seedTicket;
+    public int gold;
+    public int sunlight;
+    public int seedCount;
 }
 
 public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager Instance { get; private set; }
 
-    public string uid; //유저 아이디
-    public int seedTicket = 0; //씨앗 뽑기권
-    public int gold = 0; //골드
-    public int sunlight = 0; //햇살 재화
-    public int seedCount = 0; //씨앗 개수
+    [SerializeField] private string uid;
+    public int seedTicket = 0;
+    public int gold = 0;
+    public int sunlight = 0;
+    public int seedCount = 0;
 
     public event Action OnCurrencyChanged;
 
@@ -30,7 +50,7 @@ public class CurrencyManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 넘겨도 유지
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -38,88 +58,146 @@ public class CurrencyManager : MonoBehaviour
         }
     }
 
-    public IEnumerator LoadCurrencyFromServer(string uid)
+    void Start()
     {
-        //재화 불러오기 url 부분 바꿔야함
-        string url = $"https://yourserver.com/api/currency?uid={uid}";
-        UnityWebRequest req = UnityWebRequest.Get(url);
-        yield return req.SendWebRequest();
+        StartCoroutine(LoadCurrencyFromServer());
+    }
 
-        if (req.result == UnityWebRequest.Result.Success)
+    public IEnumerator LoadCurrencyFromServer()
+    {
+        string url = "/api/player";
+        
+        bool done = false;
+        string rawResponse = null;
+        string error = null;
+
+        APIManager.Instance.Get(url,
+            (response) => { rawResponse = response; done = true; },
+            (err) => { error = err; done = true; }
+        );
+
+        while (!done) yield return null;
+
+        Debug.Log($"서버 응답 (원본): {rawResponse}");
+
+        if (!string.IsNullOrEmpty(error))
         {
-            string json = req.downloadHandler.text;
-            CurrencyData data = JsonUtility.FromJson<CurrencyData>(json);
-            this.uid = data.uid;
-            gold = data.gold;
-            seedTicket = data.seedTicket;
-            sunlight = data.sunlight;
-            seedCount = data.seedCount;
-
-            OnCurrencyChanged?.Invoke();
+            Debug.LogError("재화 로딩 실패: " + error);
+            SetDefaultCurrencyValues();
+            yield break;
         }
-        else
+
+        try
         {
-            Debug.LogError("재화 로딩 실패: " + req.error);
+            var responseData = JsonUtility.FromJson<PlayerDataResponse>(rawResponse);
+            
+            if (responseData == null || responseData.data == null)
+            {
+                Debug.LogWarning("서버 응답에 재화 데이터가 없거나 파싱 실패. 초기 재화 생성 로직을 실행합니다.");
+                SetDefaultCurrencyValues();
+                yield break;
+            }
+
+            gold = responseData.data.gold;
+            seedTicket = responseData.data.seedTicket;
+            sunlight = responseData.data.sunlight;
+            seedCount = responseData.data.seedCount;
+            
+            OnCurrencyChanged?.Invoke();
+            Debug.Log("재화 로딩 성공!");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("재화 로딩 실패 (JSON 파싱 오류): " + ex.Message + " | 원본 응답: " + rawResponse);
+            SetDefaultCurrencyValues();
         }
     }
+    
+    private void SetDefaultCurrencyValues()
+    {
+        gold = 1000;
+        seedTicket = 10;
+        sunlight = 0;
+        seedCount = 5;
+        uid = "default_uid";
+        
+        OnCurrencyChanged?.Invoke();
+        
+        StartCoroutine(SaveCurrencyToServer());
+    }
+
     public IEnumerator SaveCurrencyToServer()
     {
-        //재화 저장하기 url 부분 바꿔야함
-        CurrencyData data = new CurrencyData()
+        PlayerCurrencyData data = new PlayerCurrencyData()
         {
-            uid = this.uid,
-            gold = gold,
             seedTicket = seedTicket,
+            gold = gold,
             sunlight = sunlight,
             seedCount = seedCount
         };
 
         string json = JsonUtility.ToJson(data);
-        UnityWebRequest req = UnityWebRequest.Put($"https://yourserver.com/api/currency/{uid}", json);
-        req.method = "PATCH";
-        req.SetRequestHeader("Content-Type", "application/json");
-        yield return req.SendWebRequest();
+        string url = "/api/player/currency";
 
-        if (req.result != UnityWebRequest.Result.Success)
-            Debug.LogError("재화 저장 실패: " + req.error);
+        bool done = false;
+        string error = null;
+        
+        APIManager.Instance.Patch(url, json,
+            (response) =>
+            {
+                Debug.Log("재화 저장 성공: " + response);
+                done = true;
+            },
+            (err) =>
+            {
+                error = err;
+                done = true;
+            }
+        );
+
+        while (!done) yield return null;
+
+        if (!string.IsNullOrEmpty(error))
+        {
+            Debug.LogError("재화 저장 실패: " + error);
+        }
     }
 
-    // 재화 획득 함수들
     public void AddGold(int amount)
     {
         gold += amount;
         OnCurrencyChanged?.Invoke();
-        //StartCoroutine(SaveCurrencyToServer());
+        StartCoroutine(SaveCurrencyToServer());
     }
 
     public void AddSeedTicket(int amount)
     {
         seedTicket += amount;
         OnCurrencyChanged?.Invoke();
-       // StartCoroutine(SaveCurrencyToServer());
+        StartCoroutine(SaveCurrencyToServer());
     }
 
     public void AddSunlight(int amount)
     {
         sunlight += amount;
         OnCurrencyChanged?.Invoke();
-      //  StartCoroutine(SaveCurrencyToServer());
+        StartCoroutine(SaveCurrencyToServer());
     }
+    
     public void AddSeedCount(int amount)
     {
         seedCount += amount;
         OnCurrencyChanged?.Invoke();
-      //  StartCoroutine(SaveCurrencyToServer());
+        StartCoroutine(SaveCurrencyToServer());
     }
 
-    //재화 소비 함수들 (성공 여부 반환)
     public bool SpendGold(int amount)
     {
         if (gold >= amount)
         {
             gold -= amount;
             OnCurrencyChanged?.Invoke();
-          //  StartCoroutine(SaveCurrencyToServer());
+            StartCoroutine(SaveCurrencyToServer());
             return true;
         }
         return false;
@@ -131,7 +209,7 @@ public class CurrencyManager : MonoBehaviour
         {
             seedTicket -= amount;
             OnCurrencyChanged?.Invoke();
-         //   StartCoroutine(SaveCurrencyToServer());
+            StartCoroutine(SaveCurrencyToServer());
             return true;
         }
         return false;
@@ -143,18 +221,19 @@ public class CurrencyManager : MonoBehaviour
         {
             sunlight -= amount;
             OnCurrencyChanged?.Invoke();
-          //  StartCoroutine(SaveCurrencyToServer());
+            StartCoroutine(SaveCurrencyToServer());
             return true;
         }
         return false;
     }
+    
     public bool SpendSeedCount(int amount)
     {
         if (seedCount >= amount)
         {
             seedCount -= amount;
             OnCurrencyChanged?.Invoke();
-         //   StartCoroutine(SaveCurrencyToServer());
+            StartCoroutine(SaveCurrencyToServer());
             return true;
         }
         return false;

@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a13845cc1dd4401d8cbcb1c77f35ac3, type: 3}
+  m_Name: ShopDatabase
+  m_EditorClassIdentifier: 
+  items:
+  - itemName: "\uB098\uBB34 \uC6B8\uD0C0\uB9AC"
+    resourceKey: 200010
+    price: 500
+    category: 1
+    icon: {fileID: -8329851655915534802, guid: 30dca7bd6fa6a41338f7b510059f9882, type: 3}
+  - itemName: "\uD770\uC0C9 \uC6B8\uD0C0\uB9AC"
+    resourceKey: 200020
+    price: 700
+    category: 1
+    icon: {fileID: 8496311859049394846, guid: e0b99e6a1a8af45408525fbdc4ca0f42, type: 3}
+  - itemName: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC"
+    resourceKey: 200030
+    price: 700
+    category: 1
+    icon: {fileID: -816719208097878008, guid: c6b8528df5e9edb4cb89526ed2567aaa, type: 3}
+  - itemName: "\uC57C\uC790\uC218 \uD654\uBD84"
+    resourceKey: 200040
+    price: 1000
+    category: 1
+    icon: {fileID: -1611899011305051494, guid: c9ae12bf2b00841708d59327a18b64bd, type: 3}
+  - itemName: "\uB300\uB098\uBB34 \uD654\uBD84"
+    resourceKey: 200041
+    price: 1000
+    category: 1
+    icon: {fileID: 6227538660288444684, guid: ef88e29003e284eb7b9d8891f002ab4e, type: 3}
+  - itemName: "\uC120\uC778\uC7A5 \uD654\uBD84"
+    resourceKey: 200042
+    price: 1000
+    category: 1
+    icon: {fileID: -6203018213765586610, guid: 398ddb964f2d14a93a4257f0f5eab885, type: 3}
+  - itemName: "\uB098\uBB34 \uD14C\uC774\uBE14"
+    resourceKey: 200050
+    price: 1000
+    category: 1
+    icon: {fileID: 3328275712102828698, guid: 0f42aac1f3cc4480989669dfaa9fc14f, type: 3}
+  - itemName: "\uB098\uBB34 \uC758\uC790"
+    resourceKey: 200051
+    price: 500
+    category: 1
+    icon: {fileID: -5137658984450098947, guid: 859f2c94d7a7c4324a25bc9e4131fae2, type: 3}
+  - itemName: "\uCCA0\uC81C \uD14C\uC774\uBE14"
+    resourceKey: 200060
+    price: 2000
+    category: 1
+    icon: {fileID: 6394145394236549448, guid: 92d1bd42c76424d0bba911cc5ec03239, type: 3}
+  - itemName: "\uCCA0\uC81C \uC758\uC790"
+    resourceKey: 200061
+    price: 1000
+    category: 1
+    icon: {fileID: 6128776633282750556, guid: 08a8f102b6e7f4b56b5754b94eb29ee1, type: 3}
+  - itemName: "\uD654\uC774\uD2B8 \uD14C\uC774\uBE14"
+    resourceKey: 200070
+    price: 2000
+    category: 1
+    icon: {fileID: -8813698512745689355, guid: 045d2bb09951147339f62457b4be1f19, type: 3}
+  - itemName: "\uD654\uC774\uD2B8 \uC758\uC790"
+    resourceKey: 200071
+    price: 1000
+    category: 1
+    icon: {fileID: -4583415149285929099, guid: 0fd1a881283f94226a345f0ede8352c0, type: 3}
+  - itemName: "\uAC00\uB85C\uB4F1"
+    resourceKey: 200080
+    price: 1500
+    category: 1
+    icon: {fileID: 3840743316631763920, guid: 6afa797588f8c4f34bd30d320ce017be, type: 3}
+  - itemName: "\uBBF8\uB2C8 \uB4F1"
+    resourceKey: 200090
+    price: 1000
+    category: 1
+    icon: {fileID: -3921479718895435695, guid: a43be5beb15434c75bee6075c2e9aaac, type: 3}
+  - itemName: "\uD5C8\uC218\uC544\uBE44"
+    resourceKey: 200100
+    price: 2000
+    category: 1
+    icon: {fileID: -166466446883158291, guid: 1fa58198d329e46f5994489be7ebaf66, type: 3}
+  - itemName: "\uC548\uB0B4\uD310"
+    resourceKey: 200110
+    price: 1500
+    category: 1
+    icon: {fileID: 1208785238370206999, guid: bc661fd7f56e14ac48fdedb40ff830be, type: 3}
+  - itemName: "\uC218\uB808"
+    resourceKey: 200120
+    price: 2000
+    category: 1
+    icon: {fileID: 49090607627816924, guid: cfb97a7c2a40a4ecfaad9dcdc76dc92b, type: 3}
+  - itemName: "\uC794\uB514(\uAE30\uBCF8)"
+    resourceKey: 400010
+    price: 0
+    category: 0
+    icon: {fileID: 2177108965186078295, guid: 881c71e1226f34571a35933ac45993de, type: 3}
+  - itemName: "\uBC2D \uD0C0\uC77C 1\uC885"
+    resourceKey: 400020
+    price: 500
+    category: 0
+    icon: {fileID: 4966695935349635398, guid: 140383027e5c54cbab7ccc464aa7b17c, type: 3}
+  - itemName: "\uBB3C \uD0C0\uC77C 1\uC885"
+    resourceKey: 400030
+    price: 1000
+    category: 0
+    icon: {fileID: 7351637415587066830, guid: 032b19c64acb243a38f84f74f0809e46, type: 3}
+  - itemName: "\uB3CC \uD0C0\uC77C 1\uC885"
+    resourceKey: 400040
+    price: 1000
+    category: 0
+    icon: {fileID: -2592956508147909491, guid: a74d3ce59ffe84383af3d0e799acecb8, type: 3}
+  - itemName: "\uB545 \uD655\uC7A5\uAD8C"
+    resourceKey: 400050
+    price: 30000
+    category: 0
+    icon: {fileID: -652440190934727125, guid: 8e91092e43b6a43faad0cec0a10647ad, type: 3}

@@ -1,55 +1,68 @@
+using System.Linq;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class CollectionSlotManager : MonoBehaviour
 {
-    public static CollectionSlotManager Instance;
-
+    [Header("UI")]
     [SerializeField] private GameObject slotPrefab;
     [SerializeField] private Transform contentParent;
-    [SerializeField] private int testSlotCount = 30;
 
-    private List<FlowerSlotUI> flowerSlots = new();
+    [Header("Lookup")]
+    [SerializeField] private ObjectDatabase objectDatabase;
 
-    private void Awake()
+    public void ShowSlots(int gradeIndex)
     {
-        Instance = this;
-        Debug.Log("CollectionSlotManager 초기화됨");
-    }
-
-    public void ShowSlots()
-    {
-        if (flowerSlots.Count == 0)
-            GenerateSlots(testSlotCount);
-    }
-
-    private void GenerateSlots(int count)
-    {
-        for (int i = 0; i < count; i++)
+        var fdm = FlowerDataManager.Instance;
+        if (fdm == null || fdm.flowerData == null || fdm.flowerData.flowerList == null)
         {
-            GameObject go = Instantiate(slotPrefab, contentParent);
-            go.name = $"FlowerSlot_{i}";
+            Debug.LogWarning("[CollectionSlotManager] FlowerData가 비어있습니다.");
+            return;
+        }
 
-            FlowerSlotUI slot = go.GetComponent<FlowerSlotUI>();
-            if (slot != null)
-            {
-                slot.Init(i);
-                flowerSlots.Add(slot);
-            }
-            else
-            {
-                Debug.LogError("FlowerSlotUI 컴포넌트 없음!");
-            }
+        var list = fdm.flowerData.flowerList
+            .Where(f => f != null && RarityToIndex(f.rarity) == gradeIndex)
+            .OrderBy(f => GetDisplayName(f), System.StringComparer.Ordinal) 
+            .ToList();
+
+        // 기존 슬롯 삭제
+        for (int i = contentParent.childCount - 1; i >= 0; i--)
+            Destroy(contentParent.GetChild(i).gameObject);
+
+        // 생성/채우기
+        foreach (var f in list)
+        {
+            var go = Instantiate(slotPrefab, contentParent);
+            var slot = go.GetComponent<FlowerSlotUI>();
+            if (!slot) { Debug.LogError("FlowerSlotUI 컴포넌트 없음"); continue; }
+
+            slot.Init();
+
+            // 원본/실루엣 스프라이트
+            var db = fdm; // 짧게
+            Sprite sprite = db.GetFlowerSprite(f.flowerName);
+            if (sprite == null) sprite = f.originalSprite;
+
+            bool collected = f.isRegistered;
+            string displayName = GetDisplayName(f);
+
+            slot.SetSprite(sprite, collected, displayName);
         }
     }
 
-    // 추후 수집 처리도 여기서 처리
-    public void RegisterCollectedFlower(int index, Sprite flowerSprite, string flowerName)
+    private string GetDisplayName(FlowerData f)
     {
-        if (index >= 0 && index < flowerSlots.Count)
+        if (f == null) return "";
+        if (objectDatabase != null &&
+            objectDatabase.TryGetIndexByStoreNo((long)f.dexId, out var idx))
         {
-            flowerSlots[index].SetCollected(flowerSprite, flowerName);
+            var name = objectDatabase.GetName(idx);
+            if (!string.IsNullOrEmpty(name)) return name; 
         }
+        return f.flowerName ?? "";
     }
 
+    int RarityToIndex(FlowerRarity r) =>
+        r == FlowerRarity.Normal ? 0 :
+        r == FlowerRarity.Rare ? 1 :
+        r == FlowerRarity.Epic ? 2 : 3;
 }

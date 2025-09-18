@@ -13,11 +13,11 @@ public enum ItemState{
 public class CarrotFarm_Manager : MonoBehaviour
 {
     public static CarrotFarm_Manager Instance;
-    public GameResult gameResult;
+    public MinigamePopup minigamePopup;
 
     [Header("UI")]
     public TMP_Text timerText, scoreText;
-    public Button startButton, seedButton, waterButton, hammerButton;
+    public Button seedButton, waterButton, hammerButton;
     public Image cursorImage;
 
     [Header("Sprites")]
@@ -28,23 +28,25 @@ public class CarrotFarm_Manager : MonoBehaviour
     private float gameDuration, timer;
     private int score;
     private ItemState current;
-    private bool isGameOver;
     private Coroutine cursorAnimCoroutine;
 
     public void AddScore() { score++; }
-    public bool IsGameOver() { return isGameOver; }
     public ItemState GetState() { return current; }
     void Awake() { Instance = this; }
 
     void Start()
     {
-        startButton.onClick.AddListener(StartGame);
-        startButton.interactable = true;
-        isGameOver = true;
         enabled = false;
         cursorImage.enabled = false;
-        gameDuration = 20f;
+        gameDuration = 120f;
         score = 0;
+
+        seedButton.onClick.AddListener(() => { SetState(ItemState.SEED); });
+        waterButton.onClick.AddListener(() => { SetState(ItemState.WATER); });
+        hammerButton.onClick.AddListener(() => { SetState(ItemState.HAMMER); });
+        minigamePopup.onStart = () => { StartGame(); };
+        minigamePopup.onPause = () => { cursorImage.enabled = false; enabled = false; };
+        minigamePopup.onResume = () => { cursorImage.enabled = true; enabled = true; };
     }
 
     public void SetState(ItemState newState) {
@@ -56,21 +58,18 @@ public class CarrotFarm_Manager : MonoBehaviour
 
     void StartGame()
     {
-        startButton.interactable = false;
         score = 0;
         timer = gameDuration;
-        isGameOver = false;
+        cursorImage.enabled = false;
         enabled = true;
-        seedButton.onClick.AddListener(() => { SetState(ItemState.SEED); });
-        waterButton.onClick.AddListener(() => { SetState(ItemState.WATER); });
-        hammerButton.onClick.AddListener(() => { SetState(ItemState.HAMMER); });
     }
 
     void Update()
     {
-        if (isGameOver) return;
-        if (timer <= 0f) EndGame();
-
+        if (timer <= 0f) {
+            EndGame();
+            return;
+        }
         timer -= Time.deltaTime;
         timerText.text = $"{Mathf.Max((int)timer, 0)}";
         scoreText.text = $"{score}";
@@ -130,13 +129,8 @@ public class CarrotFarm_Manager : MonoBehaviour
 
     void EndGame()
     {
-        isGameOver = true;
-        enabled = false;
         cursorImage.enabled = false;
-        SetState(ItemState.NONE);
-        seedButton.interactable = false;
-        waterButton.interactable = false;
-        hammerButton.interactable = false;
-        gameResult.SaveResult("CarrotFarm", score);
+        enabled = false;
+        minigamePopup.RewardPopup("CarrotFarm", gold: score*100);
     }
 }

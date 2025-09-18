@@ -1,61 +1,128 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class FarmGroundAPI
 {
-    //서버 url 설정해야함
-    private static string baseUrl = "https://yourserver.com/api/farmplot";
+    public static string AccessToken { get; set; } = null;
 
-    public static IEnumerator LoadFarm(string uid, System.Action<List<FarmPlotData>> onLoaded)
+    private static void SetHeaders(UnityWebRequest req)
     {
-        // 더미 초기화 → 서버 없이 빈 밭 생성
-        onLoaded?.Invoke(new List<FarmPlotData>());
-        yield break;
+        req.SetRequestHeader("Accept", "application/json; charset=UTF-8");
+        req.SetRequestHeader("Content-Type", "application/json");
+        if (!string.IsNullOrEmpty(AccessToken))
+            req.SetRequestHeader("Authorization", "Bearer " + AccessToken);
+    }
 
-        string url = $"{baseUrl}?uid={uid}";
-        UnityWebRequest req = UnityWebRequest.Get(url);
+    [Serializable]
+    public class ApiResponse<T>
+    {
+        public int status;
+        public string message;
+        public T data;
+    }
+
+    [Serializable]
+    public class FarmTileDto
+    {
+        public int x;
+        public int y;
+        public string status;
+        public string plantedAt; // string 타입 유지 (JsonUtility 호환성)
+        public int sunlightCount;
+        public string plantName;
+    }
+
+
+    public static IEnumerator GetTile(int x, int y, Action<bool, FarmTileDto, string> onDone)
+    {
+        string endPoint = $"/api/farm/tile?x={x}&y={y}";
+        bool done = false;
+        FarmTileDto dto = null;
+        string error = null;
+
+        APIManager.Instance.Get(endPoint,
+            (rawResponse) =>
+            {
+                try
+                {
+                    var wrapped = JsonUtility.FromJson<ApiResponse<FarmTileDto>>(rawResponse);
+                    if (wrapped != null && wrapped.data != null) dto = wrapped.data;
+                    else dto = JsonUtility.FromJson<FarmTileDto>(rawResponse);
+                }
+                catch { }
+                done = true;
+            },
+            (err) =>
+            {
+                error = err;
+                done = true;
+            }
+        );
+
+        while (!done) yield return null;
+        onDone?.Invoke(dto != null, dto, error);
+    }
     
-        yield return req.SendWebRequest();
-
-        if (req.result == UnityWebRequest.Result.Success)
+    public static IEnumerator PatchTile(FarmTileDto body, Action<bool, string> onDone)
+    {
+        string endPoint = "/api/farm/tile";
+        string json = JsonUtility.ToJson(body);
+        bool done = false;
+        string error = null;
+        
+        APIManager.Instance.Patch(endPoint, json,
+            (rawResponse) => {
+                done = true;
+                onDone?.Invoke(true, rawResponse);
+            },
+            (err) => {
+                error = err;
+                done = true;
+                onDone?.Invoke(false, error);
+            }
+        );
+        
+        while (!done) yield return null;
+    }
+    
+    public static FarmTileDto ToDto(FarmPlotData p)
+    {
+        return new FarmTileDto
         {
-            string json = req.downloadHandler.text;
-            List<FarmPlotData> data = JsonHelper.FromJsonArray<FarmPlotData>(json);
-            onLoaded?.Invoke(data);
+            x = p.x,
+            y = p.y,
+            status = p.status,
+            // ❗ 서버로 보낼 때는 항상 UTC로 변환하여 ISO 8601 형식으로 보냅니다.
+            plantedAt = (p.planted_at == default(DateTime)) ? null : p.planted_at.ToUniversalTime().ToString("o"),
+            sunlightCount = p.useSunCount,
+            plantName = p.plant_name,
+        };
+    }
+    
+    public static void ApplyDtoToPlot(FarmTileDto dto, FarmPlotData p)
+    {
+        if (dto == null || p == null) return;
+        p.x = dto.x;
+        p.y = dto.y;
+        p.status = string.IsNullOrEmpty(dto.status) ? p.status : dto.status;
+        
+        DateTime parsedTime;
+        // ❗ 서버에서 받은 시간을 UTC로 명시적으로 파싱합니다.
+        // 이것이 9시간 차이를 없애는 핵심 코드입니다.
+        if (!string.IsNullOrEmpty(dto.plantedAt) && DateTime.TryParse(dto.plantedAt, null, System.Globalization.DateTimeStyles.AdjustToUniversal | System.Globalization.DateTimeStyles.AssumeUniversal, out parsedTime))
+        {
+            p.planted_at = parsedTime;
         }
         else
         {
-            Debug.LogError("텃밭 불러오기 실패: " + req.error);
-            onLoaded?.Invoke(null);
+            p.planted_at = default(DateTime);
         }
+        p.useSunCount = dto.sunlightCount;
+        if (!string.IsNullOrEmpty(dto.plantName)) p.plant_name = dto.plantName;
     }
-
-    public static IEnumerator CreatePlot(FarmPlotData data)
-    {
-        Debug.Log("[FarmAPI] 생성됨: " + data.plot_id);
-        yield break;
-        string json = JsonUtility.ToJson(data);
-        UnityWebRequest req = UnityWebRequest.Put($"{baseUrl}/{data.plot_id}", json);
-        req.method = "POST";
-        req.SetRequestHeader("Content-Type", "application/json");
-        yield return req.SendWebRequest();
-    }
-
-    public static void UpdatePlot(FarmPlotData data)
-    {
-        Debug.Log($"[FarmAPI] 업데이트: {data.plot_id}, status={data.status}, plant={data.plant_name}");
-        CoroutineRunner.instance.StartCoroutine(UpdatePlotAsync(data));
-    }
-
-    private static IEnumerator UpdatePlotAsync(FarmPlotData data)
-    {
-        string json = JsonUtility.ToJson(data);
-        UnityWebRequest req = UnityWebRequest.Put($"{baseUrl}/{data.plot_id}", json);
-        req.method = "PATCH";
-        req.SetRequestHeader("Content-Type", "application/json");
-        yield return req.SendWebRequest();
-    }
+    
+    public static string NowIsoUtc() => DateTime.UtcNow.ToString("o");
 }

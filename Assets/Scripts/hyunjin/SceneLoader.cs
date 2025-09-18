@@ -2,6 +2,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+
+[System.Serializable]
+public class SceneData
+{
+    public string sceneName;
+    public Sprite minimapSprite;
+    public Sprite labelSprite;
+}
 
 public class SceneLoader : MonoBehaviour
 {
@@ -22,18 +31,18 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    [Header("UI")]
-    public Button leftButton;
-    public Button rightButton;
-    public GameObject labelPanel;
-    public Sprite[] labelSprites;
+    public List<SceneData> mainSceneList;
 
     [Header("Fade Settings")]
-    public CanvasGroup fadeCanvasGroup;
-    public float fadeDuration = 1.0f;
     public Animator transitionAnimator;
 
-    private string[] mainScenes = {"PowerStation", "TestScene1", "Farm", "MiniGameEntrance"};
+    private Button leftButton;
+    private Button rightButton;
+    private Image minimapImage;
+    private GameObject labelPanel;
+    private CanvasGroup fadePanel;
+
+    private float fadeDuration = 0.3f;
     private bool isTransitioning = false;
     private int currentIdx = 0;
     private Coroutine fadeOutLabelCoroutine;
@@ -49,49 +58,47 @@ public class SceneLoader : MonoBehaviour
             return;
         }
 
+        leftButton = transform.Find("LeftButton")?.GetComponent<Button>();
+        rightButton = transform.Find("RightButton")?.GetComponent<Button>();
+        minimapImage = transform.Find("Minimap")?.GetComponent<Image>();
+        labelPanel = transform.Find("LabelPanel")?.gameObject;
+        fadePanel = transform.Find("FadePanel")?.GetComponent<CanvasGroup>();
+        if (!leftButton || !rightButton || !labelPanel || !fadePanel)
+            Debug.LogWarning("[SceneLoader] cant find ui");
+
         // 현재 씬 이름 기준으로 idx 결정
         string currentSceneName = SceneManager.GetActiveScene().name;
-        currentIdx = System.Array.IndexOf(mainScenes, currentSceneName);
-        if (currentIdx == -1) currentIdx = 3;
-        fadeCanvasGroup.blocksRaycasts = false;
-        fadeCanvasGroup.interactable = false;
+        currentIdx = mainSceneList.FindIndex(data => data.sceneName == currentSceneName);
+        if (currentIdx == -1) currentIdx = 3; // 미니게임일 경우 minigameEntrance로
+        fadePanel.blocksRaycasts = false;
+        fadePanel.interactable = false;
     }
 
     void Start()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        int labelIdx = System.Array.IndexOf(mainScenes, currentSceneName);
+        int labelIdx = mainSceneList.FindIndex(data => data.sceneName == currentSceneName);
         if (labelIdx != -1) {
-            leftButton.gameObject.SetActive(true);
-            rightButton.gameObject.SetActive(true);
-            labelPanel.SetActive(true);
-            labelPanel.GetComponent<Image>().sprite = labelSprites[labelIdx];
-            labelPanel.GetComponent<CanvasGroup>().alpha = 1f;
-
+            ShowSceneLoaderUI(labelIdx);
             fadeOutLabelCoroutine = StartCoroutine(FadeOutLabelCoroutine());
-        } else {
-            leftButton.gameObject.SetActive(false);
-            rightButton.gameObject.SetActive(false);
-            labelPanel.SetActive(false);
-        }
-        if (labelIdx == 0) leftButton.gameObject.SetActive(false);
-        if (labelIdx == mainScenes.Length-1) rightButton.gameObject.SetActive(false);
+        } else
+            HideSceneLoaderUI();
     }
 
     public void GoLeft() {
-        Debug.Log($"go left from {currentIdx}");
         if (isTransitioning || currentIdx <= 0) return;
         
         currentIdx--;
-        StartCoroutine(TransitionScene(mainScenes[currentIdx], "Left"));
+        StartCoroutine(TransitionScene(mainSceneList[currentIdx].sceneName, "Left"));
+        GameManager.Sound.SFXPlay("SFX_SceneChange");
     }
 
     public void GoRight() {
-        Debug.Log($"go right from {currentIdx}");
-        if (isTransitioning || currentIdx >= mainScenes.Length - 1) return;
+        if (isTransitioning || currentIdx >= mainSceneList.Count - 1) return;
         
         currentIdx++;
-        StartCoroutine(TransitionScene(mainScenes[currentIdx], "Right"));
+        StartCoroutine(TransitionScene(mainSceneList[currentIdx].sceneName, "Right"));
+        GameManager.Sound.SFXPlay("SFX_SceneChange");
     }
 
     public void GoToMiniGame(string gameName) {
@@ -116,46 +123,43 @@ public class SceneLoader : MonoBehaviour
             fadeOutLabelCoroutine = null;
         }
 
-        fadeCanvasGroup.blocksRaycasts = true;
-        fadeCanvasGroup.interactable = true;
+        fadePanel.blocksRaycasts = true;
+        fadePanel.interactable = true;
 
         isTransitioning = true;
-        transitionAnimator.SetTrigger($"{direction}_Out"); // 1. 페이드아웃
+        
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName); // 1. 씬 비동기 로딩
+        Debug.Log("load scene async");
+        asyncLoad.allowSceneActivation = false;
+        
+        transitionAnimator.SetTrigger($"{direction}_Out"); // 2. 페이드아웃
+        Debug.Log("set trigger out");
         yield return new WaitForSeconds(fadeDuration);
 
-        int labelIdx = System.Array.IndexOf(mainScenes, sceneName); // 2. 라벨, 화살표 띄우기
-        if (labelIdx != -1) {
-            leftButton.gameObject.SetActive(true);
-            rightButton.gameObject.SetActive(true);
-            labelPanel.SetActive(true);
-            labelPanel.GetComponent<Image>().sprite = labelSprites[labelIdx];
-            labelPanel.GetComponent<CanvasGroup>().alpha = 1f;
-        } else {
-            leftButton.gameObject.SetActive(false);
-            rightButton.gameObject.SetActive(false);
-            labelPanel.SetActive(false);
-        }
-        if (labelIdx == 0) leftButton.gameObject.SetActive(false);
-        if (labelIdx == mainScenes.Length-1) rightButton.gameObject.SetActive(false);
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName); // 3. 씬 비동기 로딩
-        asyncLoad.allowSceneActivation = false;
-        while (asyncLoad.progress < 0.9f)
+        while (asyncLoad.progress < 0.9f) // 3. 씬 교체
             yield return null;
         asyncLoad.allowSceneActivation = true;
         yield return null;
+        
+        int labelIdx = mainSceneList.FindIndex(data => data.sceneName == sceneName); // 4. 라벨, 화살표 띄우기
+        if (labelIdx != -1)
+            ShowSceneLoaderUI(labelIdx);
+        else
+            HideSceneLoaderUI();
 
-        transitionAnimator.SetTrigger($"{direction}_In"); // 4. 페이드인
+        transitionAnimator.SetTrigger($"{direction}_In"); // 5. 페이드인
+        Debug.Log("set trigger in");
         yield return new WaitForSeconds(fadeDuration);
         isTransitioning = false;
-        fadeCanvasGroup.blocksRaycasts = false;
-        fadeCanvasGroup.interactable = false;
+        fadePanel.blocksRaycasts = false;
+        fadePanel.interactable = false;
 
         if (labelIdx != -1)
             fadeOutLabelCoroutine = StartCoroutine(FadeOutLabelCoroutine());
     }
 
-    IEnumerator FadeOutLabelCoroutine() { // 애니메이션으로 빼기..
+    IEnumerator FadeOutLabelCoroutine() {
         yield return new WaitForSeconds(3f);
 
         CanvasGroup cg = labelPanel.GetComponent<CanvasGroup>();
@@ -167,6 +171,25 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
         cg.alpha = 0f;
+        labelPanel.SetActive(false);
+    }
+
+    void ShowSceneLoaderUI(int index)
+    {
+        leftButton.gameObject.SetActive(index > 0);
+        rightButton.gameObject.SetActive(index < mainSceneList.Count - 1);
+        minimapImage.sprite = mainSceneList[index].minimapSprite;
+        minimapImage.gameObject.SetActive(true);
+        labelPanel.GetComponent<Image>().sprite = mainSceneList[index].labelSprite;
+        labelPanel.GetComponent<CanvasGroup>().alpha = 1f;
+        labelPanel.SetActive(true);
+    }
+
+    void HideSceneLoaderUI()
+    {
+        leftButton.gameObject.SetActive(false);
+        rightButton.gameObject.SetActive(false);
+        minimapImage.gameObject.SetActive(false);
         labelPanel.SetActive(false);
     }
 }
