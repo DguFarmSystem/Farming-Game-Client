@@ -1317,10 +1317,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 494121061}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1850307463}
+        m_TargetAssemblyTypeName: FriendManager, Assembly-CSharp
+        m_MethodName: CloseFriendPopup
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3445,6 +3445,7 @@ MonoBehaviour:
   yBoundary: 15
   zoomInSize: 2
   zoomOutSize: 12
+  CanMove: 0
 --- !u!114 &767307245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7966,6 +7967,7 @@ MonoBehaviour:
   returnButton: {fileID: 1498021649}
   nameTMP: {fileID: 282584572}
   fadeManager: {fileID: 75483582}
+  cameraMovement: {fileID: 767307244}
 --- !u!4 &1850307464
 Transform:
   m_ObjectHideFlags: 0

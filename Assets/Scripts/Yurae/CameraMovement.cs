@@ -13,7 +13,12 @@ public class CameraMovement : MonoBehaviour
     [Header("카메라 줌 관련")]
     [SerializeField] private float zoomInSize;
     [SerializeField] private float zoomOutSize;
-    public bool CanMove { get; set; }
+    public bool CanMove;
+
+    private void Start()
+    {
+        CanMove = true;
+    }
 
 
     private void Update()
