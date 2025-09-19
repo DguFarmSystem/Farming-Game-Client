@@ -829,7 +829,7 @@ MonoBehaviour:
     sprite: {fileID: 8159150672527780840, guid: cd12fa4c6cf8697439f605a8261bc129, type: 3}
     count: 4
     type: 1
-    sellprice: 600
+    sellprice: 350
     storeGoodsNumber: 200020
     isStatue: 0
   - name: "\uCCA0\uC81C \uC6B8\uD0C0\uB9AC"
@@ -838,6 +838,6 @@ MonoBehaviour:
     sprite: {fileID: 4815790080164226239, guid: 55c8020227c49e74b9b972763892c483, type: 3}
     count: 4
     type: 1
-    sellprice: 0
+    sellprice: 350
     storeGoodsNumber: 200030
     isStatue: 0
