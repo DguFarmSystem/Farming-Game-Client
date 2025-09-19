@@ -62,6 +62,9 @@ public class FriendManager : MonoBehaviour
     [Header("Fade Manager")]
     [SerializeField] private FadeManager fadeManager;
 
+    [Header("Camera Movement")]
+    [SerializeField] private CameraMovement cameraMovement;
+
     private List<GameObject> friendFrames;
 
 
@@ -136,6 +139,8 @@ public class FriendManager : MonoBehaviour
     {
         inputField.text = "";
         friendPopup.SetActive(true);
+
+        cameraMovement.CanMove = false;
     }
 
     public void CloseFriendPopup()
@@ -149,6 +154,8 @@ public class FriendManager : MonoBehaviour
         Vector2 pos = rect.anchoredPosition;
         pos.y = 0;
         rect.anchoredPosition = pos;
+
+        cameraMovement.CanMove = true;
     }
 
     public void OpenConfirmPopUp(string _name, long _id)

@@ -6,17 +6,20 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
 
-    [Header("Ä«¸Ş¶ó ¹Ù¿î´õ¸® °ü·Ã")]
+    [Header("ì¹´ë©”ë¼ ë°”ìš´ë”ë¦¬ ê´€ë ¨")]
     [SerializeField] private float xBoundary = 5f;
     [SerializeField] private float yBoundary = 10f;
 
-    [Header("Ä«¸Ş¶ó ÁÜ °ü·Ã")]
+    [Header("ì¹´ë©”ë¼ ì¤Œ ê´€ë ¨")]
     [SerializeField] private float zoomInSize;
     [SerializeField] private float zoomOutSize;
+    public bool CanMove { get; set; }
 
 
     private void Update()
     {
+        if (!CanMove) return;
+
         HandleMovement();
         HandleZoomInOut();
     }
