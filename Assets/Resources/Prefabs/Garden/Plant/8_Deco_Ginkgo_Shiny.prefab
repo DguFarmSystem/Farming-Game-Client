@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6367868774206878630}
   m_Layer: 0
   m_Name: 8_Deco_Ginkgo_Shiny
-  m_TagString: Plant
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

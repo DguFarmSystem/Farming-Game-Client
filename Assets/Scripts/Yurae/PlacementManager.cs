@@ -77,12 +77,26 @@ public class PlacementManager : MonoBehaviour
                 case "Plant":
                     PlantData curPlant = currentPrefab.GetComponent<PlantData>();
 
-                    PlantType curType = curPlant.Type();
+                    PlantType plantType = curPlant.Type();
 
                     if (placedObject == null && placedPlant == null)
                     {
-                        if (curType == PlantType.Land && tileType == TileType.Field) CanPlace();
-                        else if (curType == PlantType.Water && tileType == TileType.Water) CanPlace();
+                        if (plantType == PlantType.Land && tileType == TileType.Field) CanPlace();
+                        else if (plantType == PlantType.Water && tileType == TileType.Water) CanPlace();
+                        else CantPlace();
+                    }
+                    else CantPlace();
+
+                    break;
+
+                case "Tree":
+                    PlantData curTree = currentPrefab.GetComponent<PlantData>();
+
+                    PlantType treeType = curTree.Type();
+
+                    if (placedObject == null && placedPlant == null)
+                    {
+                        if (tileType == TileType.Field && tileType == TileType.Grass) CanPlace();
                         else CantPlace();
                     }
                     else CantPlace();

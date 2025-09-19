@@ -5,11 +5,20 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float boundary = 5f;
+
+    [Header("카메라 바운더리 관련")]
+    [SerializeField] private float xBoundary = 5f;
+    [SerializeField] private float yBoundary = 10f;
+
+    [Header("카메라 줌 관련")]
+    [SerializeField] private float zoomInSize;
+    [SerializeField] private float zoomOutSize;
+
 
     private void Update()
     {
         HandleMovement();
+        HandleZoomInOut();
     }
 
     private void HandleMovement()
@@ -28,9 +37,20 @@ public class CameraMovement : MonoBehaviour
         );
 
         transform.position = new Vector3(
-            Mathf.Clamp(transform.position.x, -boundary, boundary),
-            Mathf.Clamp(transform.position.y, -boundary, boundary),
+            Mathf.Clamp(transform.position.x, -xBoundary, xBoundary),
+            Mathf.Clamp(transform.position.y, 0, yBoundary),
             transform.position.z
         );
+    }
+
+    private void HandleZoomInOut()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (scroll != 0f)
+        {
+            Camera.main.orthographicSize -= scroll;
+            Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, zoomInSize, zoomOutSize);
+        }
     }
 }
