@@ -1216,6 +1216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flowerData: {fileID: 11400000, guid: 95b60305e7d09804f806e6715506498c, type: 2}
+  objectDB: {fileID: 0}
   weightNormal: 20
   weightRare: 10
   weightEpic: 4
@@ -1413,6 +1414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flowerData: {fileID: 11400000, guid: 95b60305e7d09804f806e6715506498c, type: 2}
+  objectDB: {fileID: 11400000, guid: cc70b75ca37c75e43aa216e563324c06, type: 2}
   weightNormal: 20
   weightRare: 10
   weightEpic: 4
