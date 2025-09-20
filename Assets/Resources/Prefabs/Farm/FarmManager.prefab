@@ -686,12 +686,12 @@ MonoBehaviour:
   tileParent: {fileID: 8738044005628103780}
   uid: 
   plotIdPrefixOverride: 
-  emptySprite: {fileID: 7703187970202833108, guid: 24f53a773a2bc2f4687c9d568e88568f, type: 3}
-  seedSprite: {fileID: 5848904031261515685, guid: 9dd52b8630f19f44f88112e957767169, type: 3}
-  growingSprite: {fileID: 732319165200410968, guid: 56a9f41a51c137e44bd78ba4a08b5796, type: 3}
-  growingSprite_1: {fileID: 4456247526651915794, guid: fa08d57d51b90ce46a082dea89554dea, type: 3}
-  growingSprite_2: {fileID: 1019769988471428466, guid: 30612524a09629b4aaa119dae567e467, type: 3}
-  grownSprite: {fileID: -1834417470006383229, guid: bfdfb930af5b8654383efcba5f7ec4c1, type: 3}
+  emptySprite: {fileID: 21300000, guid: 24f53a773a2bc2f4687c9d568e88568f, type: 3}
+  seedSprite: {fileID: 21300000, guid: 9dd52b8630f19f44f88112e957767169, type: 3}
+  growingSprite: {fileID: 21300000, guid: 56a9f41a51c137e44bd78ba4a08b5796, type: 3}
+  growingSprite_1: {fileID: 21300000, guid: fa08d57d51b90ce46a082dea89554dea, type: 3}
+  growingSprite_2: {fileID: 21300000, guid: 30612524a09629b4aaa119dae567e467, type: 3}
+  grownSprite: {fileID: 21300000, guid: bfdfb930af5b8654383efcba5f7ec4c1, type: 3}
 --- !u!1 &7250823766382734265
 GameObject:
   m_ObjectHideFlags: 0
