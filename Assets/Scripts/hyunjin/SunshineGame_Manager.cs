@@ -86,10 +86,15 @@ public class SunshineGame_Manager : MonoBehaviour
 
     void DrawDragBox()
     {
-        Vector2 size = new Vector2(Mathf.Abs(endPos.x-startPos.x), Mathf.Abs(startPos.y-endPos.y));
-        Vector2 pos = new Vector2(Mathf.Min(startPos.x, endPos.x), Mathf.Min(startPos.y, endPos.y)) + size/2;
-        dragBox.position = pos;
-        dragBox.sizeDelta = size;
+        var parent = (RectTransform)dragBox.parent;
+        Camera uiCam = null;
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, startPos, uiCam, out var a);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, endPos, uiCam, out var b);
+        var min = Vector2.Min(a, b);
+        var max = Vector2.Max(a, b);
+        dragBox.anchoredPosition = (min + max) * 0.5f;
+        dragBox.sizeDelta = (max - min);
     }
 
     void SelectObjects()
