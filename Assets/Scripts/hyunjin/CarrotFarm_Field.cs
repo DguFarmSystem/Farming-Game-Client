@@ -112,6 +112,7 @@ public class CarrotFarm_Field : MonoBehaviour
 
     void Grow()
     {
+        SetFieldState(FieldState.GROWING);
         StartCoroutine(AnimCoroutine(stateObj, growingSprites, isRandomGap: true, isLoop:false, onComplete: () =>{
             SetFieldState(FieldState.CARROT);
         }));
