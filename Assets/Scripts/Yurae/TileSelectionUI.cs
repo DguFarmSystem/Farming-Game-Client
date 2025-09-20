@@ -21,9 +21,25 @@ public class TileSelectionUI : MonoBehaviour
     [SerializeField] private GameObject placedObject;
     [SerializeField] private Collider2D hit;
 
+    private CameraMovement cameraMovement;
+
+    public bool IsSelected;
+
+    private void Start()
+    {
+        cameraMovement = Camera.main.GetComponent<CameraMovement>();
+    }
+
     private void Update()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+            DeslectObject();
+        }
+
         if (placementManager.IsCarrying()) return;
+
+        if (IsSelected) return;
 
         if (Input.GetMouseButtonDown(0) && gardenObjectPanel.IsPlaceMode())
         {
@@ -41,6 +57,9 @@ public class TileSelectionUI : MonoBehaviour
     private void SelectObject(BaseGrid _grid)
     {
         if (_grid.GetObject() == null && _grid.GetPlant() == null) return;
+
+        cameraMovement.CanMove = false;
+        IsSelected = true;
 
         Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, _grid.transform.position);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -74,6 +93,9 @@ public class TileSelectionUI : MonoBehaviour
         placedObject = null;
         hit = null;
         uiPanel.SetActive(false);
+        IsSelected = false;
+
+        cameraMovement.CanMove = true;
     }
 
     public void DestroyObject(BaseGrid _grid)
