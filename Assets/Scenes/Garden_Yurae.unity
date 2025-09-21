@@ -478,6 +478,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6871293521549657319, guid: 310850668f9e22b47902efa78fc1831c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871293521549657319, guid: 310850668f9e22b47902efa78fc1831c, type: 3}
       propertyPath: m_SortingLayerID
       value: -1655280807
       objectReference: {fileID: 0}
@@ -1317,10 +1321,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 494121061}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1850307463}
+        m_TargetAssemblyTypeName: FriendManager, Assembly-CSharp
+        m_MethodName: CloseFriendPopup
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2485,6 +2489,7 @@ GameObject:
   - component: {fileID: 554650460}
   - component: {fileID: 554650459}
   - component: {fileID: 554650458}
+  - component: {fileID: 554650461}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2553,6 +2558,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &554650461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554650457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
 --- !u!1 &604123795
 GameObject:
   m_ObjectHideFlags: 0
@@ -3445,6 +3470,7 @@ MonoBehaviour:
   yBoundary: 15
   zoomInSize: 2
   zoomOutSize: 12
+  CanMove: 0
 --- !u!114 &767307245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6804,6 +6830,7 @@ GameObject:
   - component: {fileID: 1589655967}
   - component: {fileID: 1589655966}
   - component: {fileID: 1589655965}
+  - component: {fileID: 1589655968}
   m_Layer: 5
   m_Name: '[InuputField] Find Friend'
   m_TagString: Untagged
@@ -6922,7 +6949,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: 7e18d07e7ec5f1f46a058d9925bdf220, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_KeepTextSelectionVisible: 0
@@ -6970,6 +6997,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589655963}
   m_CullTransparentMesh: 1
+--- !u!114 &1589655968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589655963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc33a39070010f94fb1c2dd721c1286d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showHtmlElement: 0
 --- !u!1 &1635373240
 GameObject:
   m_ObjectHideFlags: 0
@@ -7966,6 +8006,7 @@ MonoBehaviour:
   returnButton: {fileID: 1498021649}
   nameTMP: {fileID: 282584572}
   fadeManager: {fileID: 75483582}
+  cameraMovement: {fileID: 767307244}
 --- !u!4 &1850307464
 Transform:
   m_ObjectHideFlags: 0
@@ -8514,6 +8555,7 @@ MonoBehaviour:
   placementManager: {fileID: 1233429144}
   placedObject: {fileID: 0}
   hit: {fileID: 0}
+  IsSelected: 0
 --- !u!114 &2031765330
 MonoBehaviour:
   m_ObjectHideFlags: 0

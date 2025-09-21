@@ -47,6 +47,8 @@ public class SceneLoader : MonoBehaviour
     private int currentIdx = 0;
     private Coroutine fadeOutLabelCoroutine;
 
+    private Canvas canvas;
+
     void Awake()
     {
         if (instance == null) {
@@ -76,6 +78,8 @@ public class SceneLoader : MonoBehaviour
 
     void Start()
     {
+        canvas = GetComponent<Canvas>();
+
         string currentSceneName = SceneManager.GetActiveScene().name;
         int labelIdx = mainSceneList.FindIndex(data => data.sceneName == currentSceneName);
         if (labelIdx != -1) {
@@ -83,6 +87,17 @@ public class SceneLoader : MonoBehaviour
             fadeOutLabelCoroutine = StartCoroutine(FadeOutLabelCoroutine());
         } else
             HideSceneLoaderUI();
+    }
+
+    private void Update()
+    {
+        if(canvas.worldCamera == null)
+        {
+            canvas.worldCamera = Camera.main;
+            canvas.sortingLayerName = "UI";
+            canvas.sortingOrder = 20;
+        }
+            
     }
 
     public void GoLeft() {
