@@ -37,7 +37,7 @@ public class PlacementManager : MonoBehaviour
         Vector2Int gridPos = GridManager.Instance.GetGridPosition(mousePos);
         Collider2D hit = Physics2D.OverlapPoint(mousePos);
 
-        // Grid À§¿¡¼­¸¸ ÆÇº°
+        // Grid ìœ„ì—ì„œë§Œ íŒë³„
         if (hit != null && hit.CompareTag("Base Grid"))
         {
             BaseGrid grid = hit.GetComponent<BaseGrid>();
@@ -104,7 +104,7 @@ public class PlacementManager : MonoBehaviour
                     break;
             }
 
-            // À§Ä¡ º¸Á¤
+            // ìœ„ì¹˜ ë³´ì •
             Vector2Int corGrid = grid.GetGridPos();
             ghostObject.transform.position = GridManager.Instance.GetWorldPosition(corGrid.x, corGrid.y);
 
@@ -130,7 +130,7 @@ public class PlacementManager : MonoBehaviour
             switch (place.tag)
             {
                 case "Tile":
-                    // Á¦°ÅµÈ Å¸ÀÏ °¹¼ö Ãß°¡
+                    // ì œê±°ëœ íƒ€ì¼ ê°¯ìˆ˜ ì¶”ê°€
                     //BaseGrid grid = _hitObject.GetComponent<BaseGrid>();
 
                     //TileData placedtileData = grid.GetTile();
@@ -140,26 +140,26 @@ public class PlacementManager : MonoBehaviour
                     {
                         //database.AddData(lastTile.GetID());
                         database.ChangeCountByID(placedTile.GetID(), 1,
-                        onSuccess: () => Debug.Log("¼­¹ö µ¿±âÈ­ ¼º°ø"),
+                        onSuccess: () => Debug.Log("ì„œë²„ ë™ê¸°í™” ì„±ê³µ"),
                         onError: e => Debug.LogError(e));
                     }
 
-                    // Á¦°Å ÈÄ Å¸ÀÏ ¹èÄ¡
+                    // ì œê±° í›„ íƒ€ì¼ ë°°ì¹˜
                     DestroyImmediate(placedtileData.gameObject);
                     grid.PlaceTile(place.GetComponent<TileData>());
 
-                    // »õ·Î ¼³Ä¡µÈ Å¸ÀÏ Á¤º¸ ·Îµå
+                    // ìƒˆë¡œ ì„¤ì¹˜ëœ íƒ€ì¼ ì •ë³´ ë¡œë“œ
                     TileType tileType = grid.GetTile().Type();
                     PlaceableObject newTile = grid.GetTile().GetComponent<PlaceableObject>();
 
-                    // ¼³Ä¡µÈ ¿ÀºêÁ§Æ® Ã¼Å©
+                    // ì„¤ì¹˜ëœ ì˜¤ë¸Œì íŠ¸ ì²´í¬
                     PlaceableObject placed = null;
                     if (grid.GetPlant() != null) placed = grid.GetPlant().GetComponent<PlaceableObject>();
                     else if (grid.GetObject() != null) placed = grid.GetObject().GetComponent<PlaceableObject>();
 
                     if (placed == null)
                     {
-                        // ¼­¹ö¿¡ ¾÷µ¥ÀÌÆ®
+                        // ì„œë²„ì— ì—…ë°ì´íŠ¸
                         GardenControllerAPI.UpdateGardenTile(
                             _gridPos.x, _gridPos.y,
                             tileType: newTile.GetNoID(),
@@ -171,7 +171,7 @@ public class PlacementManager : MonoBehaviour
                     }
                     else
                     {
-                        // º¯°æ ÈÄ Å¸ÀÏÀÌ È¤½Ã³ª °°Àº ¼Ó¼ºÀÏ °æ¿ì´Â Return / ¾Æ´Ò °æ¿ì ½Ä¹° È¸¼ö
+                        // ë³€ê²½ í›„ íƒ€ì¼ì´ í˜¹ì‹œë‚˜ ê°™ì€ ì†ì„±ì¼ ê²½ìš°ëŠ” Return / ì•„ë‹ ê²½ìš° ì‹ë¬¼ íšŒìˆ˜
                         if (grid.GetPlant() != null)
                         {
                             if ((grid.GetPlant().Type() == PlantType.Land && tileType != TileType.Field) || (grid.GetPlant().Type() == PlantType.Water && tileType != TileType.Water))
@@ -181,7 +181,7 @@ public class PlacementManager : MonoBehaviour
                                 {
                                     //database.AddData(currentPlant.GetID());
                                     database.ChangeCountByID(currentPlant.GetID(), 1,
-                                    onSuccess: () => Debug.Log("¼­¹ö µ¿±âÈ­ ¼º°ø"),
+                                    onSuccess: () => Debug.Log("ì„œë²„ ë™ê¸°í™” ì„±ê³µ"),
                                     onError: e => Debug.LogError(e));
                                 }
 
@@ -208,7 +208,7 @@ public class PlacementManager : MonoBehaviour
                                 {
                                     //database.AddData(currentObject.GetID());
                                     database.ChangeCountByID(currentObject.GetID(), 1,
-                                    onSuccess: () => Debug.Log("¼­¹ö µ¿±âÈ­ ¼º°ø"),
+                                    onSuccess: () => Debug.Log("ì„œë²„ ë™ê¸°í™” ì„±ê³µ"),
                                     onError: e => Debug.LogError(e));
                                 }
 
@@ -256,6 +256,23 @@ public class PlacementManager : MonoBehaviour
                         _gridPos.x, _gridPos.y,
                         tileType: placedTile.GetNoID(),
                         objectType: placedPlant.GetNoID(),
+                        rotation: Garden.RotationEnum.R0,
+                        onSuccess: res => Debug.Log("PATCH Success: " + res),
+                        onError: err => Debug.LogError(err)
+                    );
+                    break;
+
+                case "Tree":
+                    //_hitObject.GetComponent<BaseGrid>().PlacePlant(place.GetComponent<PlantData>());
+                    grid.PlacePlant(place.GetComponent<PlantData>());
+
+                    PlantData treeData = grid.GetPlant().GetComponent<PlantData>();
+                    PlaceableObject placedTree = treeData.GetComponent<PlaceableObject>();
+
+                    GardenControllerAPI.UpdateGardenTile(
+                        _gridPos.x, _gridPos.y,
+                        tileType: placedTile.GetNoID(),
+                        objectType: placedTree.GetNoID(),
                         rotation: Garden.RotationEnum.R0,
                         onSuccess: res => Debug.Log("PATCH Success: " + res),
                         onError: err => Debug.LogError(err)
