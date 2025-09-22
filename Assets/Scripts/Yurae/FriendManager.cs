@@ -134,10 +134,17 @@ public class FriendManager : MonoBehaviour
             }
         );
     }
+    
+    private void ClearField()
+    {
+        inputField.DeactivateInputField();   // 포커스 해제
+        inputField.text = string.Empty;      // 텍스트 제거
+        inputField.caretPosition = 0;        // 캐럿 초기화
+    }
 
     public void OpenFriendPopup()
     {
-        inputField.text = "";
+        ClearField();
         friendPopup.SetActive(true);
 
         cameraMovement.CanMove = false;
@@ -145,7 +152,7 @@ public class FriendManager : MonoBehaviour
 
     public void CloseFriendPopup()
     {
-        inputField.text = "";
+        ClearField();
         friendPopup.SetActive(false);
         CloseConfirmPopup();
 
