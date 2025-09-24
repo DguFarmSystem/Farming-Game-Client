@@ -96,7 +96,7 @@ public class PlacementManager : MonoBehaviour
 
                     if (placedObject == null && placedPlant == null)
                     {
-                        if (tileType == TileType.Field && tileType == TileType.Grass) CanPlace();
+                        if (tileType == TileType.Field || tileType == TileType.Grass) CanPlace();
                         else CantPlace();
                     }
                     else CantPlace();
