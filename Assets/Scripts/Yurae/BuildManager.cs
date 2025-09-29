@@ -99,6 +99,7 @@ public class BuildManager : MonoBehaviour
             }
 
             objSelectButton.transform.localScale = Vector3.one;
+            objSelectButton.transform.localPosition = new Vector3(objSelectButton.transform.localPosition.x, objSelectButton.transform.localPosition.y, 0);
         }
     }
 
