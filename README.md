@@ -1,4 +1,3 @@
-
-![Detail1](Assets/DetailPageImage/DetailPageImage1.png)
-![Detail2](Assets/DetailPageImage/DetailPageImage2.png)
-![Detail3](Assets/DetailPageImage/DetailPageImage3.png)
+<p align="center">
+  <img src="Assets/DetailPageImage/DetailPageImage1.png" width="250"/><img src="Assets/DetailPageImage/DetailPageImage2.png" width="250"/><img src="Assets/DetailPageImage/DetailPageImage3.png" width="250"/>
+</p>
