@@ -1,8 +1,18 @@
-- name: Free disk space
-  run: |
-    sudo rm -rf /usr/share/dotnet
-    sudo rm -rf /opt/ghc
-    sudo rm -rf /usr/local/share/boost
-    sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-    docker system prune -af
-    docker volume prune -f
+name: debug-runner
+
+on:
+  workflow_dispatch: {}   # 수동 실행
+
+jobs:
+  cleanup:                #  job id는 아무 이름이나 가능하군
+    runs-on: ubuntu-latest
+    steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          docker system prune -af
+          docker volume prune -f
+
