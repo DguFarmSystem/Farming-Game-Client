@@ -78,6 +78,7 @@ public class APIManager : MonoBehaviour
 
     [SerializeField] private string baseUrl = "https://api.dev.farmsystem.kr";
     public string AccessToken = "";
+    private string RefreshToken = "";
 
     /// <summary>호스트 페이지에서 토큰을 푸시로 주입</summary>
     public void SetAccessTokenFromJS(string token)
