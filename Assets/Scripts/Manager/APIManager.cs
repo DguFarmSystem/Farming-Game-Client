@@ -57,15 +57,16 @@ public class APIManager : MonoBehaviour
 
         StartCoroutine(CheckUrlRoutine(baseUrl));
 
-        #if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL && !UNITY_EDITOR
                 // 호스트에서 직접 푸시할 경우: SendMessage("APIManager","SetAccessTokenFromJS", token)
                 AccessToken = TryLoadTokenFromBrowser();
+                RefreshToken = TryLoadRefreshTokenFromBrowser();
                 if (string.IsNullOrEmpty(AccessToken))
                     Debug.LogWarning("[API] 브라우저 저장소에서 토큰을 찾지 못했습니다.");
                 StartCoroutine(LoadPlayerRoutine());
-        #else
-                // 임시 토큰 발급 로직
-                StartCoroutine(InitRoutine());
+#else
+        // 임시 토큰 발급 로직
+        StartCoroutine(InitRoutine());
                 // ❗ 플레이어 데이터 로딩 및 초기화 루틴 시작
                 StartCoroutine(LoadPlayerRoutine());
         #endif
@@ -120,8 +121,7 @@ public class APIManager : MonoBehaviour
                 if (string.IsNullOrEmpty(token)) token = GetCookieJS("accessToken");
                 if (string.IsNullOrEmpty(token)) token = GetCookieJS("access_token");
                 if (string.IsNullOrEmpty(token)) token = GetCookieJS("Authorization");
-
-                // 형태 정리
+                
                 if (!string.IsNullOrEmpty(token) && token.StartsWith("Bearer "))
                     token = token.Substring(7);
 
@@ -139,7 +139,52 @@ public class APIManager : MonoBehaviour
     #endif
         return token;
     }
-    
+
+    private string TryLoadRefreshTokenFromBrowser()
+    {
+        string token = null;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+            try
+            {
+                // 1) localStorage: fauth-storage(JSON) -> state.refreshToken
+                string raw = GetLocalStorageJS("auth-storage");
+                if (!string.IsNullOrEmpty(raw) && raw.TrimStart().StartsWith("{"))
+                {
+                    try
+                    {
+                        var jo = JObject.Parse(raw);
+                        token = (string)jo.SelectToken("state.refreshToken");
+                    }
+                    catch { /* JSON 파싱 실패 -> 폴백 진행 */ }
+                }
+
+                // 2) 다른 localStorage 키
+                if (string.IsNullOrEmpty(token)) token = GetLocalStorageJS("refreshToken");
+                if (string.IsNullOrEmpty(token)) token = GetLocalStorageJS("refresh_token");
+
+                // 3) 쿠키
+                if (string.IsNullOrEmpty(token)) token = GetCookieJS("refreshToken");
+                if (string.IsNullOrEmpty(token)) token = GetCookieJS("refresh_token");
+                
+                if (!string.IsNullOrEmpty(token) && token.StartsWith("Bearer "))
+                    token = token.Substring(7);
+
+                // 4) URL 쿼리 ?token=... 폴백
+                if (string.IsNullOrEmpty(token) && !string.IsNullOrEmpty(Application.absoluteURL))
+                    token = GetUrlParam(Application.absoluteURL, "token");
+
+                Debug.Log("[Token] Refresh token :" + token);
+            }
+            
+            catch (Exception e)
+            {
+                Debug.LogWarning("[API] TryLoadRefreshTokenFromBrowser error: " + e.Message);
+            }
+#endif
+        return token;
+    }
+
     // 플레이어 데이터 로드 및 초기화 루틴
     private IEnumerator LoadPlayerRoutine()
     {
@@ -218,22 +263,56 @@ public class APIManager : MonoBehaviour
         catch { return null; }
     }
 
+    private bool refreshing = false;
+
     /// <summary>요청 전에 토큰을 자동 확보(빈 값/만료 시 브라우저에서 재로드)</summary>
     private bool EnsureToken()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        if (string.IsNullOrEmpty(AccessToken) || IsJwtExpired(AccessToken))
+    // AccessToken이 없거나 만료된 경우
+    if (string.IsNullOrEmpty(AccessToken) || IsJwtExpired(AccessToken))
+    {
+        // 1) 브라우저에서 AccessToken 재로드 시도
+        var t = TryLoadTokenFromBrowser();
+        if (!string.IsNullOrEmpty(t))
         {
-            var t = TryLoadTokenFromBrowser();
-            if (!string.IsNullOrEmpty(t))
+            AccessToken = t;
+            return true;
+        }
+
+        // 2) RefreshToken으로 재발급 시도
+        if (!refreshing)
+        {
+            refreshing = true;
+
+            // 시작할 때 불러온 RefreshToken이 없으면 지금 다시 시도
+            if (string.IsNullOrEmpty(RefreshToken))
+                RefreshToken = TryLoadRefreshTokenFromBrowser();
+
+            if (!string.IsNullOrEmpty(RefreshToken))
             {
-                AccessToken = t;
+                // RefreshAccessToken 코루틴 실행
+                StartCoroutine(RefreshAccessToken(success =>
+                {
+                    refreshing = false;
+                    if (!success)
+                    {
+                        Debug.LogWarning("[API] Refresh 실패 → 재로그인 필요");
+                        AccessToken = null;
+                        RefreshToken = null;
+                    }
+                }));
             }
             else
             {
+                Debug.LogWarning("[API] RefreshToken 없음 → 재로그인 필요");
+                refreshing = false;
                 return false;
             }
         }
+
+        return false;
+    }
 #endif
         return true;
     }
@@ -455,4 +534,57 @@ public class APIManager : MonoBehaviour
     // ────────────────────────── 기타 ──────────────────────────
 
     public string getAccessToken() => AccessToken;
+
+    // RefreshToken을 이용해서 AccessToken을 새로 발급받는 코루틴
+    private IEnumerator RefreshAccessToken(Action<bool> onDone)
+    {
+        if (string.IsNullOrEmpty(RefreshToken))
+        {
+            Debug.LogWarning("[API] RefreshToken 없음 → 재로그인 필요");
+            onDone?.Invoke(false);
+            yield break;
+        }
+
+        string url = $"{baseUrl}/api/auth/reissue"; // 서버 Refresh 엔드포인트
+
+        // RefreshToken을 JSON으로 전달
+        string json = "{\"refreshToken\":\"" + RefreshToken + "\"}";
+
+        UnityWebRequest www = new UnityWebRequest(url, "POST");
+        www.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(json));
+        www.downloadHandler = new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/json");
+        www.SetRequestHeader("Accept", "application/json");
+
+        yield return www.SendWebRequest();
+
+        string body = www.downloadHandler != null ? www.downloadHandler.text : string.Empty;
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            try
+            {
+                // 서버 응답 파싱 (기존 TokenResponse 활용)
+                var parsed = JsonUtility.FromJson<TokenResponse>(body);
+                if (parsed != null && parsed.data != null)
+                {
+                    AccessToken = parsed.data.accessToken;
+                    RefreshToken = parsed.data.refreshToken; // 새 RefreshToken도 갱신해줘야 함
+                    Debug.Log("[API] AccessToken 자동 갱신 성공");
+                    onDone?.Invoke(true);
+                    yield break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("[API] Refresh 파싱 오류: " + ex.Message);
+            }
+        }
+        else
+        {
+            Debug.LogError("[API] Refresh 실패: " + www.error + " / Body: " + body);
+        }
+
+        onDone?.Invoke(false);
+    }
 }
