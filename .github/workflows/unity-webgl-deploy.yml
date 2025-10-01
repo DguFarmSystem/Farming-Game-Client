@@ -22,7 +22,17 @@ jobs:
         with:
           lfs: true
           submodules: recursive
-
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          docker system prune -af
+          docker volume prune -f
+          sudo apt-get clean
+          df -h
+          
       - name: Cache Unity Library
         uses: actions/cache@v4
         with:
