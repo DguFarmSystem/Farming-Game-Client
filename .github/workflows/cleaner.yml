@@ -1,19 +1,8 @@
-name: debug-runner
-
-on:
-  workflow_dispatch: {}   # 수동 실행
-
-jobs:
-  ssh-debug:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Show disk usage
-        run: |
-          df -h
-          docker system df || true
-      - name: Start tmate SSH session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: true  # 현재 트리거한 사용자만 접속
+- name: Free disk space
+  run: |
+    sudo rm -rf /usr/share/dotnet
+    sudo rm -rf /opt/ghc
+    sudo rm -rf /usr/local/share/boost
+    sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+    docker system prune -af
+    docker volume prune -f
