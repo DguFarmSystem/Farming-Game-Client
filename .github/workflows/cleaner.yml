@@ -1,4 +1,4 @@
-name: debug-runner
+name: docker-cleaner 
 
 on:
   workflow_dispatch: {}   # 수동 실행
